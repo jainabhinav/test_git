@@ -1,11 +1,35 @@
 name: test_git
 description: ''
 version: '0.1'
-author: null
+author: ''
 language: python
 buildSystem: wheel
-pipelines: {}
-datasets: {}
+pipelines:
+  pipelines/first_pipeline:
+    name: first_pipeline
+    description: ''
+    author: abhinav+1@simpledatalabs.com
+    mode: batch
+    language: python
+    createdAt: '2022-06-18 21:30:00'
+    datasets:
+      inputs:
+      - 7329/datasets/test
+      outputs: []
+    dependencies: {}
+datasets:
+  datasets/test:
+    name: test
+    description: ''
+    author: abhinav+1@simpledatalabs.com
+    createdAt: '2022-06-18 21:42:06'
+    physicalDatasets:
+      test_dev:
+        fabricId: 1146
+        datasetType: File
+        description: ''
+        author: abhinav+1@simpledatalabs.com
+        createdAt: '2022-06-18 21:42:06'
 templates: {}
 jobs: {}
 libraries: []
