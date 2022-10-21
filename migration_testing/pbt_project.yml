@@ -1,0 +1,35 @@
+name: git_testing1
+description: ''
+version: 0.0.1
+author: abhinav@simpledatalabs.com
+language: python
+buildSystem: wheel
+pipelines:
+  pipelines/test:
+    name: test
+    description: ''
+    author: abhinav@simpledatalabs.com
+    mode: batch
+    language: python
+    createdAt: '2022-10-21 08:01:43'
+    datasets:
+      inputs:
+      - http://gitserver:3000/FjHWz1gn_team_766/FjHWz1gn_project_1002.git/@HelloWorld/0.1/1002/datasets/orders
+      outputs: []
+    dependencies:
+      project/1002:
+        name: project/1002
+        projectUID: 1002
+        projectName: HelloWorld
+        version: HelloWorld/0.1
+        author: null
+        repositoryPath: http://gitserver:3000/FjHWz1gn_team_766/FjHWz1gn_project_1002.git//
+        createdAt: '2022-10-21 08:02:01'
+datasets: {}
+templates: {}
+jobs: {}
+libraries: []
+subgraphs: {}
+sqlModels: {}
+sqlPipeline: null
+dependencies: '[]'
