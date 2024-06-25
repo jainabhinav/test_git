@@ -1,0 +1,98 @@
+name: scala_code_regen_test
+description: ''
+version: 0.0.1
+author: abhinav@prophecy.io
+language: scala
+buildSystem: ''
+buildSystemDetails:
+  artefactID: scalacoderegentest
+  parentArtefactID: abhinavprophecyioteam
+  buildSystem: maven
+  author: null
+  createdAt: '2024-06-25 12:23:28'
+pipelines:
+  pipelines/first:
+    name: first
+    description: ''
+    author: abhinav@prophecy.io
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-06-25 12:24:22'
+    datasets:
+      inputs:
+      - datasets/dummy
+      outputs: []
+    subgraphs: []
+    dependencies: {}
+datasets:
+  datasets/dummy:
+    name: dummy
+    description: ''
+    author: abhinav@prophecy.io
+    createdAt: '2024-06-25 12:25:01'
+    mode: batch
+    physicalDatasets:
+      dev:
+        fabricId: 2453
+        datasetType: File
+        description: ''
+        author: abhinav@prophecy.io
+        createdAt: '2024-06-25 12:25:01'
+templates: {}
+jobs: {}
+gemContainer:
+  languageVersion: 2.12.15
+  gemLibsVersion: 1.1.26
+  gems: {}
+  dependencies: null
+functions:
+  author: null
+  createdAt: '2024-06-25 12:23:28'
+  udfs: {}
+  udafs: {}
+  expressions: {}
+  airflowFunctions: {}
+  businessRules: {}
+subgraphs: {}
+sqlModels: {}
+sqlSnapshots: {}
+sqlTests: {}
+sqlMacros: {}
+sqlSeeds: {}
+sqlSources: {}
+sqlUnreferencedSources: {}
+sqlPipeline: null
+dependencies:
+- modifiedAt: '2024-06-25T12:23:46.758Z'
+  name: ProphecyLibsScala
+  version: 7.1.96
+  id: '107951457'
+  createdAt: '2024-06-25T12:23:28.549981Z'
+  type: plibMaven
+  enabled: true
+  entity: Project
+  description: Default dependency for Prophecy Libs
+  scope: Project
+  exclusions: []
+  editable: true
+projectDependencies:
+  '40':
+    projectUID: 40
+    projectName: ProphecyWarehouseScala
+    repositoryPath: gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_40.git&subPath=
+    version: 0.0.5
+    isDefault: true
+    author: null
+    createdAt: '2024-06-25 12:23:00'
+  '39':
+    projectUID: 39
+    projectName: ProphecySparkBasicsScala
+    repositoryPath: gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_39.git&subPath=
+    version: 0.1.9
+    isDefault: false
+    author: null
+    createdAt: '2024-06-25 12:24:08'
+flags:
+  shouldAddDefaultDependenciesIfAbsent: false
+pipelineConfigurations: {}
