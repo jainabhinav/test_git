@@ -3,11 +3,16 @@
     "migrationVersions" : {
       "gemBuilderVersion" : "v1"
     },
-    "functions" : { },
+    "functions" : {
+      "columnExpressions" : {
+        "expressions" : [ ],
+        "sharedExpressions" : [ ]
+      }
+    },
     "codeGenConfiguration" : {
       "editableConfig" : true,
       "plibVersion" : {
-        "mavenVersion" : "7.1.96"
+        "mavenVersion" : "8.0.11"
       }
     },
     "id" : "1",
@@ -100,8 +105,8 @@
       "metadata" : {
         "label" : "dummy",
         "slug" : "dummy",
-        "x" : -300,
-        "y" : -140,
+        "x" : -600,
+        "y" : -180,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
@@ -127,8 +132,8 @@
       "metadata" : {
         "label" : "reformat_columns",
         "slug" : "reformat_columns",
-        "x" : -140,
-        "y" : -140,
+        "x" : -440,
+        "y" : -180,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
@@ -224,8 +229,8 @@
       "metadata" : {
         "label" : "Subgraph_1",
         "slug" : "Subgraph_1",
-        "x" : 40,
-        "y" : -140,
+        "x" : -280,
+        "y" : -180,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
@@ -469,5 +474,38 @@
     "selectedInputFields" : [ ],
     "isCustomOutputSchema" : false,
     "autoUpdateOnRun" : false
-  }
+  },
+  "diagnostics" : [ {
+    "property" : "$.workflow.metainfo.udfs.udfs[11].code",
+    "range" : {
+      "start" : {
+        "line" : 0,
+        "character" : 0
+      },
+      "end" : {
+        "line" : 0,
+        "character" : 0
+      }
+    },
+    "severity" : 1,
+    "message" : "UDF code parsing failed, not able to infer udf output datatype: [UNTYPED_SCALA_UDF] You're using untyped Scala UDF, which does not have the input type information. Spark may blindly pass null to the Scala closure with primitive-type argument, and the closure will see the default value of the Java type for the null argument, e.g. `udf((x: Int) => x, IntegerType)`, the result is 0 for null input. To get rid of this error, you could:",
+    "tags" : [ ],
+    "relatedInformation" : [ ]
+  }, {
+    "property" : "$.workflow.metainfo.functions.columnExpressions.expressions[45]",
+    "range" : {
+      "start" : {
+        "line" : 0,
+        "character" : 0
+      },
+      "end" : {
+        "line" : 0,
+        "character" : 0
+      }
+    },
+    "severity" : 1,
+    "message" : "Validation failed for the code. Error: error in interpreter eval: not found: value temp10430067_UDF\n           when(is_not_null(data_costs), when(coalesce(imp_type, lit(1)).cast(IntegerType) === lit(5) or coalesce(imp_type, lit(1)).cast(IntegerType) === lit(7), array_union(data_costs, temp10430067_UDF(array(), coalesce(payment_type, lit(0)).cast(IntegerType), coalesce(member_sales_tax_rate_pct, lit(0)).cast(DoubleType), lit(0), coalesce(media_cost_cpm, lit(0)).cast(DoubleType), coalesce(agg_type, lit(0)).cast(IntegerType), lit(null).cast(StructType(List(StructField(\"data_member_id\", IntegerType, true), StructField(\"cost\", DoubleType, true), StructField(\"used_segments\", ArrayType(IntegerType, true), true), StructField(\"cost_pct\", DoubleType, true)))), data_costs).getField(\"l_data_costs\"))))\n                                                                                                                                                                                          ^",
+    "tags" : [ ],
+    "relatedInformation" : [ ]
+  } ]
 }

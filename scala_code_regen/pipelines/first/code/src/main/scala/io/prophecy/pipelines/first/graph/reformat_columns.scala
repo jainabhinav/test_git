@@ -3,6 +3,7 @@ package io.prophecy.pipelines.first.graph
 import io.prophecy.libs._
 import io.prophecy.pipelines.first.functions.PipelineInitCode._
 import io.prophecy.pipelines.first.functions.UDFs._
+import io.prophecy.pipelines.first.functions.ColumnFunctions._
 import io.prophecy.pipelines.first.config.Context
 import org.apache.spark._
 import org.apache.spark.sql._

@@ -1,0 +1,1 @@
+{"parameters":[{"name":"pricing_terms","type":"column","metadata":{"description":"","tags":[],"mappings":[]}}],"isCustomSchemaEnabled":false,"code":"when(is_not_null(pricing_terms), temp3471027_UDF(lit(0), pricing_terms, lit(0), lit(0)).getField(\"l_is_curator_margin_media_cost_dependent\")).otherwise(lit(0)).cast(IntegerType)","language":"scala","description":""}
