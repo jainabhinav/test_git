@@ -25,6 +25,60 @@ pipelines:
       outputs: []
     subgraphs: []
     dependencies: {}
+  pipelines/new_pipeline:
+    name: new_pipeline
+    description: ''
+    author: abhinav@prophecy.io
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-06-25 12:34:36'
+    datasets:
+      inputs:
+      - Create_sup_lookup_files__Read_Proto_Range_sup_bidder_campaign_pb_sup_bidder_campaign_dataset
+      - Create_sup_lookup_files__Read_Proto_Range_sup_bidder_insertion_order_pb_sup_bidder_insertion_order_dataset
+      - Create_sup_lookup_files__Read_Proto_Range_sup_bidder_member_sales_tax_rate_pb_sup_bidder_member_sales_tax_rate_dataset
+      - Create_sup_lookup_files__Read_Proto_Range_sup_buy_side_object_hierarchy_pb_sup_buy_side_object_hierarchy_dataset
+      - Create_sup_lookup_files__Read_Proto_Range_sup_common_deal_pb_sup_common_deal_dataset
+      - Create_sup_lookup_files__Read_Proto_Range_sup_ip_range_pb_sup_ip_range_dataset
+      - Create_sup_lookup_files__Read_Proto_Range_sup_placement_video_attributes_pb_sup_placement_video_attributes_dataset
+      - Create_sup_lookup_files__Read_Proto_Range_sup_sell_side_object_hierarchy_pb_sup_sell_side_object_hierarchy_dataset
+      - Create_sup_lookup_files__Read_Proto_Range_sup_tl_api_inventory_url_pb_sup_tl_api_inventory_url_dataset
+      - Read_Proto_Range_log_dw_bid_pb_log_dw_bid_dataset
+      - Read_Proto_Range_log_dw_imptracker_pb_log_dw_imptracker_dataset
+      - Read_Proto_Range_log_dw_view_pb_log_dw_view_dataset
+      - Read_Proto_Range_log_impbus_auction_event_pb_log_impbus_auction_event_dataset
+      - Read_Proto_Range_log_impbus_impressions_deferred_pb_log_impbus_impressions_5_dataset
+      - Read_Proto_Range_log_impbus_impressions_deferred_pricing_pb_log_impbus_impressions_pricing_5_dataset
+      - Read_Proto_Range_log_impbus_impressions_pb_log_impbus_impressions_dataset
+      - Read_Proto_Range_log_impbus_impressions_pricing_pb_log_impbus_impressions_pricing_dataset
+      - Read_Proto_Range_log_impbus_imptracker_pb_log_impbus_imptracker_dataset
+      - Read_Proto_Range_log_impbus_preempt_deferred_pb_log_impbus_preempt_deferred_5_dataset
+      - Read_Proto_Range_log_impbus_preempt_pb_log_impbus_preempt_dataset
+      - Read_Proto_Range_log_impbus_view_pb_log_impbus_view_dataset
+      - Read_Proto_Range_video_slot_pb_video_slot_5_dataset
+      outputs:
+      - Create_sup_lookup_files__advertiser_id_by_campaign_group_id_dataset
+      - Create_sup_lookup_files__advertiser_id_by_campaign_id_dataset
+      - Create_sup_lookup_files__advertiser_id_by_insertion_order_id_dataset
+      - Create_sup_lookup_files__inventory_url_by_id_dataset
+      - Create_sup_lookup_files__member_id_by_advertiser_id_dataset
+      - Create_sup_lookup_files__member_id_by_publisher_id_dataset
+      - Create_sup_lookup_files__publisher_id_by_site_id_dataset
+      - Create_sup_lookup_files__publisher_id_by_tag_id_dataset
+      - Create_sup_lookup_files__sup_bidder_campaign_dataset
+      - Create_sup_lookup_files__sup_bidder_member_sales_tax_rate_dataset
+      - Create_sup_lookup_files__sup_common_deal_dataset
+      - Create_sup_lookup_files__sup_ip_range_dataset
+      - Create_sup_lookup_files__sup_placement_video_attributes_pb_dataset
+      - Write_Proto_HDFS_ADI_agg_dw_impressions_pb_agg_dw_impressions_dataset
+      - Write_Proto_HDFS_IIPQ_stage_invalid_impressions_quarantine_pb_stage_invalid_impressions_quarantine_dataset
+      - Write_Proto_HDFS_SSPQ_stage_tl_trx_trans_denormalized_pb_stage_seen_denormalized_dataset
+      - Write_Proto_HDFS_agg_dw_curator_impressions_pb_agg_dw_curator_impressions_dataset
+      - Write_Proto_HDFS_stage_impbus_impression_sample_stage_impbus_impression_sample_trans_path_pb_dataset
+      - Write_Proto_HDFS_stage_seen_transacted_pb_stage_seen_denormalized_dataset
+    subgraphs: []
+    dependencies: {}
 datasets:
   datasets/dummy:
     name: dummy
@@ -49,9 +103,553 @@ gemContainer:
 functions:
   author: null
   createdAt: '2024-06-25 12:23:28'
-  udfs: {}
+  udfs:
+    udfs/temp1151664_UDF:
+      name: temp1151664_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2545540_UDF:
+      name: temp2545540_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3256870_UDF:
+      name: temp3256870_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp634656_UDF:
+      name: temp634656_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1344271_UDF:
+      name: temp1344271_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2053714_UDF:
+      name: temp2053714_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2762257_UDF:
+      name: temp2762257_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3471027_UDF:
+      name: temp3471027_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp4180587_UDF:
+      name: temp4180587_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp6282792_UDF:
+      name: temp6282792_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp6995147_UDF:
+      name: temp6995147_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp10430067_UDF:
+      name: temp10430067_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup1615_UDF:
+      name: rollup1615_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup1621_UDF:
+      name: rollup1621_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup1627_UDF:
+      name: rollup1627_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/f_create_agg_dw_impressions_virtual_log_dw_bid_10949800:
+      name: f_create_agg_dw_impressions_virtual_log_dw_bid_10949800
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
   udafs: {}
-  expressions: {}
+  expressions:
+    expressions/xcdf_member_owner_object_check:
+      name: xcdf_member_owner_object_check
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/xcdf_member_owner_object_no_imp_type_check:
+      name: xcdf_member_owner_object_no_imp_type_check
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_buyer_bid_bucket:
+      name: f_get_buyer_bid_bucket
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_preempt_over_impression_non_zero_waterfall:
+      name: f_preempt_over_impression_non_zero_waterfall
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_pricing_term:
+      name: f_get_pricing_term
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_viewdef_definition_id:
+      name: f_viewdef_definition_id
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_pricing_term_amount:
+      name: f_convert_pricing_term_amount
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_drop_is_deduction_pricing_terms:
+      name: f_drop_is_deduction_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_transaction_event_pricing:
+      name: f_get_transaction_event_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_non_measurable_reason:
+      name: f_view_non_measurable_reason
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_viewdef_viewable:
+      name: f_viewdef_viewable
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_result:
+      name: f_view_result
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_transaction_event:
+      name: f_transaction_event
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_preempt_over_impression:
+      name: f_preempt_over_impression
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_should_process_views:
+      name: f_should_process_views
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_impression_transaction_event_pricing:
+      name: f_get_impression_transaction_event_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_preempt_over_impression_non_zero_explicit:
+      name: f_preempt_over_impression_non_zero_explicit
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_measurable:
+      name: f_view_measurable
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_should_zero_seller_revenue:
+      name: f_should_zero_seller_revenue
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_viewable:
+      name: f_viewable
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_detection_enabled:
+      name: f_view_detection_enabled
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_has_transacted:
+      name: f_has_transacted
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/seller_deduction_term_id_1:
+      name: seller_deduction_term_id_1
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/seller_deduction_term_id_74:
+      name: seller_deduction_term_id_74
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/buyer_charges_pricing_terms:
+      name: buyer_charges_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/seller_charges_pricing_terms:
+      name: seller_charges_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_curator_margin:
+      name: f_get_curator_margin
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_total_tech_fees:
+      name: f_get_total_tech_fees
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_seller_fees:
+      name: f_get_seller_fees
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_update_data_costs_deal:
+      name: f_update_data_costs_deal
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_is_curator_margin_media_cost_dependent:
+      name: f_get_is_curator_margin_media_cost_dependent
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_curator_margin_type:
+      name: f_get_curator_margin_type
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/is_not_null_right_n143:
+      name: is_not_null_right_n143
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_log_impbus_imptracker_to_log_impbus_impressions_pricing:
+      name: f_convert_log_impbus_imptracker_to_log_impbus_impressions_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_log_dw_imptracker_to_log_dw_bid:
+      name: f_convert_log_dw_imptracker_to_log_dw_bid
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_log_impbus_imptracker_to_log_impbus_impressions:
+      name: f_convert_log_impbus_imptracker_to_log_impbus_impressions
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_buy_side:
+      name: f_is_buy_side
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_error_imp:
+      name: f_is_error_imp
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_non_cpm_payment_or_payment:
+      name: f_is_non_cpm_payment_or_payment
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_transaction_event_type_id:
+      name: f_transaction_event_type_id
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_media_cost_dollars_cpm:
+      name: f_get_media_cost_dollars_cpm
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_zero_pricing_term_amount_if_non_cpm:
+      name: f_zero_pricing_term_amount_if_non_cpm
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_find_personal_identifier:
+      name: f_find_personal_identifier
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_string_to_anon_user_info:
+      name: f_string_to_anon_user_info
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_default_or_error_imp:
+      name: f_is_default_or_error_imp
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_update_data_costs:
+      name: f_update_data_costs
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_create_agg_dw_impressions_return_11108229:
+      name: f_create_agg_dw_impressions_return_11108229
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_create_agg_dw_impressions:
+      name: f_create_agg_dw_impressions
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_curated:
+      name: f_router_is_curated
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_dw:
+      name: f_router_is_dw
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_quarantined:
+      name: f_router_is_quarantined
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_transacted:
+      name: f_router_is_transacted
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
   airflowFunctions: {}
   businessRules: {}
 subgraphs: {}
@@ -64,9 +662,9 @@ sqlSources: {}
 sqlUnreferencedSources: {}
 sqlPipeline: null
 dependencies:
-- modifiedAt: '2024-06-25T12:23:46.758Z'
+- modifiedAt: '2024-06-25T12:28:58.627Z'
   name: ProphecyLibsScala
-  version: 7.1.96
+  version: 8.0.11
   id: '107951457'
   createdAt: '2024-06-25T12:23:28.549981Z'
   type: plibMaven
@@ -74,8 +672,8 @@ dependencies:
   entity: Project
   description: Default dependency for Prophecy Libs
   scope: Project
-  exclusions: []
   editable: true
+  exclusions: []
 projectDependencies:
   '40':
     projectUID: 40

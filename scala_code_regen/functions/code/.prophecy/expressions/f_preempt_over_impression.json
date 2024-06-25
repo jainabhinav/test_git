@@ -1,0 +1,1 @@
+{"parameters":[{"name":"impression_value","type":"column","metadata":{"description":"","tags":[],"mappings":[]}},{"name":"preempt_value","type":"column","metadata":{"description":"","tags":[],"mappings":[]}}],"isCustomSchemaEnabled":false,"code":"when(is_not_null(preempt_value), preempt_value).otherwise(impression_value)","language":"scala","description":""}
