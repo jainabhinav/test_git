@@ -25,7 +25,7 @@
       "language" : "scala",
       "udfs" : [ ],
       "functionPackageName" : "abhinavsimpledatalabscomteam.msbingpipetest.functions",
-      "sharedFunctionPackageNames" : [ "io.prophecy.scalagems.functions", "io.prophecy.warehousegems.functions" ]
+      "sharedFunctionPackageNames" : [ "io.prophecy.scalagems.functions", "io.prophecy.warehousegems.functions", "prophecydemos.paralleljobstestscala.functions" ]
     },
     "udafs" : {
       "language" : "scala",
@@ -59,6 +59,17 @@
       "projectUID" : "12652",
       "projectName" : "ProphecyWarehouseScala",
       "externalDependencies" : [ ]
+    }, {
+      "projectUID" : "2213",
+      "projectName" : "parallel_jobs_test_scala",
+      "externalDependencies" : [ {
+        "type" : "plibMaven",
+        "modifiedAt" : "2024-08-30T07:32:53.162144Z",
+        "name" : "plibMaven",
+        "version" : "8.0.31",
+        "id" : "1551633138",
+        "createdAt" : "2024-08-30T07:32:53.161973Z"
+      } ]
     } ],
     "isImported" : false,
     "interimMode" : "Full",
@@ -72,12 +83,57 @@
     "configurationVersion" : "v2"
   },
   "connections" : [ ],
-  "processes" : { },
+  "processes" : {
+    "UdQSb9QzJ7TsRlV1MB4O4$$Ewi17gMYx7sWlF2EdDYn3" : {
+      "id" : "UdQSb9QzJ7TsRlV1MB4O4$$Ewi17gMYx7sWlF2EdDYn3",
+      "component" : "Source",
+      "metadata" : {
+        "label" : "asdf",
+        "slug" : "asdf",
+        "x" : -660,
+        "y" : -280,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : false
+      },
+      "ports" : {
+        "inputs" : [ ],
+        "outputs" : [ {
+          "id" : "TpatGIn9mjvkggKD_tNzZ$$rDYoijUkcQzooGRdTkCgX",
+          "slug" : "out"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "datasetId" : "datasets/asdf"
+      }
+    }
+  },
   "ports" : {
     "inputs" : [ ],
     "outputs" : [ ],
     "selectedInputFields" : [ ],
     "isCustomOutputSchema" : false,
     "autoUpdateOnRun" : false
-  }
+  },
+  "diagnostics" : [ {
+    "property" : "$.workflow.processes.UdQSb9QzJ7TsRlV1MB4O4$$Ewi17gMYx7sWlF2EdDYn3.properties.dataset.schema",
+    "range" : {
+      "start" : {
+        "line" : 0,
+        "character" : 0
+      },
+      "end" : {
+        "line" : 0,
+        "character" : 0
+      }
+    },
+    "severity" : 2,
+    "message" : "Missing Schema. Please infer schema or provide it manually.",
+    "tags" : [ ],
+    "relatedInformation" : [ ]
+  } ]
 }

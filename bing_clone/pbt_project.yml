@@ -20,11 +20,25 @@ pipelines:
     language: scala
     createdAt: '2024-08-30 09:20:39'
     datasets:
-      inputs: []
+      inputs:
+      - datasets/asdf
       outputs: []
     subgraphs: []
     dependencies: {}
-datasets: {}
+datasets:
+  datasets/asdf:
+    name: asdf
+    description: ''
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-08-30 09:29:40'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-08-30 09:29:40'
 templates: {}
 jobs: {}
 gemContainer:
@@ -65,14 +79,14 @@ projectDependencies:
     isDefault: true
     author: null
     createdAt: '2024-08-30 09:20:23'
-  '12651':
-    projectUID: 12651
-    projectName: ProphecySparkBasicsScala
-    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12651.git&subPath=
-    version: 0.2.5.5
-    isDefault: true
+  '2213':
+    projectUID: 2213
+    projectName: parallel_jobs_test_scala
+    repositoryPath: gitUri=http://gitserver:3000/HfCyPbnw_team_694/2jFegydk_project_2213.git&subPath=
+    version: parallel_jobs_test_scala/0.9.23
+    isDefault: false
     author: null
-    createdAt: '2024-08-30 09:20:23'
+    createdAt: '2024-08-30 09:26:25'
 flags:
-  shouldAddDefaultDependenciesIfAbsent: true
+  shouldAddDefaultDependenciesIfAbsent: false
 pipelineConfigurations: {}
