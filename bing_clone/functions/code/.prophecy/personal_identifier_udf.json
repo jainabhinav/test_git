@@ -1,0 +1,1 @@
+{"initCode":"","code":"udf((personal_identifiers_in: Seq[Row]) => {\npersonal_identifiers_in.map{x => (x.getInt(0), null)}.toArray\n}, ArrayType(StructType(List(StructField(\"identity_type\",IntegerType,false),StructField(\"identity_value\",StringType,false))),false)\n)"}

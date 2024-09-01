@@ -3,7 +3,12 @@
     "migrationVersions" : {
       "gemBuilderVersion" : "v1"
     },
-    "functions" : { },
+    "functions" : {
+      "columnExpressions" : {
+        "expressions" : [ ],
+        "sharedExpressions" : [ ]
+      }
+    },
     "codeGenConfiguration" : {
       "editableConfig" : true,
       "plibVersion" : {

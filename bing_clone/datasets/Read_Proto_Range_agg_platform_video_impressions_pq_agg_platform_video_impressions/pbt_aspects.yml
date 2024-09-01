@@ -1,0 +1,771 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: date_time
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: auction_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: buyer_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_delivered
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: cleared_direct
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: transaction_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: insertion_order_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: campaign_group_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: campaign_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: publisher_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: bidder_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: creative_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: brand_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_dw_buyer
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_dw_seller
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: has_dw_buy
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: has_dw_sell
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: booked_revenue_dollars
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: buyer_media_cost_cpm
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: auction_service_fees
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: auction_service_deduction
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: clear_fees
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: creative_overage_fees
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_media_cost_cpm
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_revenue
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_deduction
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: discrepancy_allowance
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: commission_cpm
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: commission_revshare
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: serving_fees_cpm
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: serving_fees_revshare
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_currency
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: publisher_currency
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: publisher_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: deal_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: geo_country
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: imp_blacklist_or_fraud
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: pricing_media_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: imp_ignored
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_prebid
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_unit_of_buyer_trx
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_unit_of_seller_trx
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: custom_model_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: media_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: device_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: two_phase_reduction_applied
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: buyer_charges
+    type:
+      type: struct
+      fields:
+      - name: rate_card_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: member_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_dw
+        type: boolean
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: pricing_terms
+        type:
+          type: array
+          elementType:
+            type: struct
+            fields:
+            - name: term_id
+              type: integer
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+            - name: amount
+              type: double
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+            - name: rate
+              type: double
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+            - name: is_deduction
+              type: boolean
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+            - name: is_media_cost_dependent
+              type: boolean
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+            - name: data_member_id
+              type: integer
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+          containsNull: true
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: fx_margin_rate_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: marketplace_owner_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: virtual_marketplace_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: amino_enabled
+        type: boolean
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_charges
+    type:
+      type: struct
+      fields:
+      - name: rate_card_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: member_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_dw
+        type: boolean
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: pricing_terms
+        type:
+          type: array
+          elementType:
+            type: struct
+            fields:
+            - name: term_id
+              type: integer
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+            - name: amount
+              type: double
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+            - name: rate
+              type: double
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+            - name: is_deduction
+              type: boolean
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+            - name: is_media_cost_dependent
+              type: boolean
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+            - name: data_member_id
+              type: integer
+              nullable: true
+              metadata:
+                description: ''
+                mappings: []
+                tags: []
+          containsNull: true
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: fx_margin_rate_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: marketplace_owner_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: virtual_marketplace_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: amino_enabled
+        type: boolean
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_transaction_def
+    type:
+      type: struct
+      fields:
+      - name: transaction_event
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: transaction_event_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: buyer_transaction_def
+    type:
+      type: struct
+      fields:
+      - name: transaction_event
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: transaction_event_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: view_measurable
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: viewable
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: imp_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: viewdef_definition_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: viewdef_viewed_imps
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: imp_rejecter_do_auction
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: buyer_trx_event_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_trx_event_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: inventory_url_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: mobile_app_instance_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: user_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: split_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: campaign_group_type_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_default_currency
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_default_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: member_currency
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: member_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: billing_currency
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: billing_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: fx_rate_snapshot_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: bidder_seat_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: region_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

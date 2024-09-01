@@ -3,6 +3,7 @@ package io.prophecy.pipelines.test_pipeline
 import io.prophecy.libs._
 import io.prophecy.pipelines.test_pipeline.config._
 import io.prophecy.pipelines.test_pipeline.functions.UDFs._
+import io.prophecy.pipelines.test_pipeline.functions.ColumnFunctions._
 import io.prophecy.pipelines.test_pipeline.functions.PipelineInitCode._
 import io.prophecy.pipelines.test_pipeline.graph._
 import org.apache.spark._
