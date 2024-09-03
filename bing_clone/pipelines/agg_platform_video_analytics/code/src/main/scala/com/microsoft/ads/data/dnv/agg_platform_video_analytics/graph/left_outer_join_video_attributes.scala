@@ -18,7 +18,7 @@ object left_outer_join_video_attributes {
     in0
       .as("in0")
       .join(in1.as("in1"),
-            col("in0.agg_platform_video_requests.tag_id")
+            col("in0.agg_platform_video_requests_tag_id")
               .cast(IntegerType) === col("in1.id"),
             "left_outer"
       )

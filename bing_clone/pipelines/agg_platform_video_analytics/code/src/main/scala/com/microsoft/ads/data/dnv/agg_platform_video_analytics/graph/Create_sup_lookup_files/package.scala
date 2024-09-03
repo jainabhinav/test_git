@@ -25,17 +25,6 @@ package object Create_sup_lookup_files {
     val df_Dedup_Sorted = Dedup_Sorted(context, df_Reformat_sup_code_fx_rate)
     sup_sup_code_fx_rate_lookup(context, df_Dedup_Sorted)
     sup_api_member_pb_lookup(context,    df_Reformat_sup_api_member_pb)
-    val df_Read_Proto_Range_sup_bidder_advertiser_pb =
-      Read_Proto_Range_sup_bidder_advertiser_pb(context)
-    val df_Reformat_sup_bidder_advertiser_pb =
-      Reformat_sup_bidder_advertiser_pb(
-        context,
-        df_Read_Proto_Range_sup_bidder_advertiser_pb
-      )
-    val df_Sort_sup_bidder_advertiser_pb = Sort_sup_bidder_advertiser_pb(
-      context,
-      df_Reformat_sup_bidder_advertiser_pb
-    )
     val df_Read_Proto_Range_sup_creative_media_subtype_pb =
       Read_Proto_Range_sup_creative_media_subtype_pb(context)
     val df_Reformat_sup_placement_video_attributes_pb =
@@ -49,6 +38,13 @@ package object Create_sup_lookup_files {
       context,
       df_Read_Proto_Range_sup_bidder_fx_rates
     )
+    val df_Read_Proto_Range_sup_bidder_advertiser_pb =
+      Read_Proto_Range_sup_bidder_advertiser_pb(context)
+    val df_Reformat_sup_bidder_advertiser_pb =
+      Reformat_sup_bidder_advertiser_pb(
+        context,
+        df_Read_Proto_Range_sup_bidder_advertiser_pb
+      )
     sup_bidder_fx_rates_lookup(context, df_Reformat_sup_bidder_fx_rates)
     val df_Reformat_sup_creative_media_subtype_pb =
       Reformat_sup_creative_media_subtype_pb(
@@ -66,8 +62,9 @@ package object Create_sup_lookup_files {
         df_Reformat_sup_placement_video_attributes_pb
       )
     val df_sup_bidder_advertiser_pb_lookup_dedup1 =
-      sup_bidder_advertiser_pb_lookup_dedup1(context,
-                                             df_Sort_sup_bidder_advertiser_pb
+      sup_bidder_advertiser_pb_lookup_dedup1(
+        context,
+        df_Reformat_sup_bidder_advertiser_pb
       )
     (df_sup_placement_video_attributes_pb_lookup_dedup15,
      df_sup_creative_media_subtype_pb_lookup_dedup4,

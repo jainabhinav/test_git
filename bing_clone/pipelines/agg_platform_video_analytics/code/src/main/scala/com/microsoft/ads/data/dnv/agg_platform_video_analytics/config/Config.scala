@@ -3,11 +3,11 @@ package com.microsoft.ads.data.dnv.agg_platform_video_analytics.config
 import pureconfig._
 import pureconfig.generic.ProductHint
 import io.prophecy.libs._
-import com.microsoft.ads.data.dnv.agg_platform_video_analytics.graph.Create_sup_lookup_files.config.{
-  Config => Create_sup_lookup_files_Config
-}
 import com.microsoft.ads.data.dnv.agg_platform_video_analytics.graph.Main_Graph.config.{
   Config => Main_Graph_Config
+}
+import com.microsoft.ads.data.dnv.agg_platform_video_analytics.graph.Create_sup_lookup_files.config.{
+  Config => Create_sup_lookup_files_Config
 }
 
 case class Config(

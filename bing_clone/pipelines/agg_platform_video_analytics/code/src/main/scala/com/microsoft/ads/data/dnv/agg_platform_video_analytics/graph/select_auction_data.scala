@@ -51,7 +51,7 @@ object select_auction_data {
         ).cast(IntegerType),
         lit(Config.XR_BUSINESS_DATE),
         lit(Config.XR_BUSINESS_HOUR)
-      ).getField("creative_id").as("f_calc_derived_fields")
+      ).getField("creative_id").cast(IntegerType).as("f_calc_derived_fields")
     )
   }
 

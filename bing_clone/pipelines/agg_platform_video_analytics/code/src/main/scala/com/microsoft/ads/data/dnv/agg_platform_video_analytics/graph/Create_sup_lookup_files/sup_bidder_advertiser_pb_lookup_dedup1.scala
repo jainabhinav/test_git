@@ -16,12 +16,7 @@ object sup_bidder_advertiser_pb_lookup_dedup1 {
 
   def apply(context: Context, in: DataFrame): DataFrame = {
     import org.apache.spark.sql.expressions.Window
-    in.withColumn(
-        "row_number",
-        row_number().over(Window.partitionBy("id", "member_id").orderBy(lit(1)))
-      )
-      .filter(col("row_number") === lit(1))
-      .drop("row_number")
+    in.dropDuplicates(List("id", "member_id"))
   }
 
 }

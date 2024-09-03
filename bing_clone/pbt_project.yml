@@ -48,10 +48,8 @@ pipelines:
       - datasets/Read_Proto_Range_sup_code_fx_rate
       - datasets/Read_Proto_Range_sup_creative_media_subtype_pb
       - datasets/Read_Proto_Range_sup_placement_video_attributes_pb
-      - datasets/source_stage_platform_video_analytics_pq
       outputs:
       - datasets/Write_Proto_HDFS_agg_platform_video_analytics_pb_agg_platform_video_analytics
-      - datasets/target_stage_platform_video_analytics
     subgraphs: []
     dependencies: {}
 datasets:
