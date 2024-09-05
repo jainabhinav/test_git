@@ -1,0 +1,183 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: date_time
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: auction_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: user_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: referrer_url
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_currency
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: booked_revenue_dollars
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: booked_revenue_adv_curr
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: publisher_currency
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: publisher_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: payment_value
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_multi_click
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: ip_address
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: anonymized_user_info
+    type:
+      type: struct
+      fields:
+      - name: user_id
+        type: binary
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: revenue_info
+    type:
+      type: struct
+      fields:
+      - name: total_partner_fees_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: booked_revenue_dollars
+        type: double
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: booked_revenue_adv_curr
+        type: double
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: total_data_costs_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: total_profit_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: total_segment_data_costs_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: total_feature_costs_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: use_revenue_info
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_deferred
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

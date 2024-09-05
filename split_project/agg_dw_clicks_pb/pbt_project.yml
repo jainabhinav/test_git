@@ -1,0 +1,377 @@
+name: Vamsi_test
+description: ''
+version: 0.0.2
+author: admin@prophecy.io
+language: scala
+buildSystem: ''
+buildSystemDetails:
+  artefactID: vamsitest
+  parentArtefactID: adminprophecyioteam
+  buildSystem: maven
+  author: null
+  createdAt: '2024-02-27 15:48:12'
+pipelines:
+  pipelines/agg_dw_clicks_pb:
+    name: agg_dw_clicks_pb
+    description: agg_dw_clicks_pb abinitio graph replacement
+    author: leeben@microsoft.com
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-05-23 15:52:38'
+    datasets:
+      inputs:
+      - datasets/agg_dw_curator_impressions_pb_hour_0_to_2
+      - datasets/agg_dw_impressions_pb_hour_0_to_2
+      - datasets/agg_msan_map_pb
+      - datasets/log_dw_click_pb
+      - datasets/log_dw_click_pb_hour_0_to_2
+      - datasets/log_dw_clicktracker_pb
+      - datasets/log_impbus_auction_event_pb_hour_0_to_2
+      - datasets/log_impbus_click_hour_0_to_2
+      - datasets/log_impbus_click_pb
+      - datasets/log_impbus_clicktracker_pb
+      - datasets/sup_bidder_member_sales_tax_rate_pb
+      outputs:
+      - datasets/target_agg_dw_clicks_pb
+      - datasets/target_agg_dw_clicktracker_pb
+      - datasets/target_agg_dw_curator_clicks_pb
+      - datasets/target_agg_impbus_clicks_pb
+      - datasets/target_agg_impbus_curator_clicks_pb
+    subgraphs: []
+    dependencies: {}
+datasets:
+  datasets/log_dw_click_pb:
+    name: log_dw_click_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-08 19:29:30'
+    mode: batch
+    physicalDatasets:
+      dev_poc:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-08 19:29:30'
+  datasets/log_dw_clicktracker_pb:
+    name: log_dw_clicktracker_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-08 19:31:02'
+    mode: batch
+    physicalDatasets:
+      dev_poc:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-08 19:31:02'
+  datasets/log_impbus_click_pb:
+    name: log_impbus_click_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-08 19:45:13'
+    mode: batch
+    physicalDatasets:
+      dev_poc:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-08 19:45:13'
+  datasets/log_impbus_clicktracker_pb:
+    name: log_impbus_clicktracker_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-08 19:46:46'
+    mode: batch
+    physicalDatasets:
+      dev_poc:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-08 19:46:47'
+  datasets/sup_bidder_member_sales_tax_rate_pb:
+    name: sup_bidder_member_sales_tax_rate_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-08 21:29:18'
+    mode: batch
+    physicalDatasets:
+      dev_poc:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-08 21:29:18'
+  datasets/agg_msan_map_pb:
+    name: agg_msan_map_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-23 17:47:22'
+    mode: batch
+    physicalDatasets:
+      HadoopA:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-23 17:47:22'
+  datasets/target_agg_dw_clicks_pb:
+    name: target_agg_dw_clicks_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-23 17:51:01'
+    mode: batch
+    physicalDatasets:
+      HadoopA:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-23 17:51:01'
+  datasets/target_agg_dw_curator_clicks_pb:
+    name: target_agg_dw_curator_clicks_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-23 17:55:33'
+    mode: batch
+    physicalDatasets:
+      HadoopA:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-23 17:55:33'
+  datasets/target_agg_dw_clicktracker_pb:
+    name: target_agg_dw_clicktracker_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-23 17:58:25'
+    mode: batch
+    physicalDatasets:
+      HadoopA:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-23 17:58:25'
+  datasets/target_agg_impbus_clicks_pb:
+    name: target_agg_impbus_clicks_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-23 23:34:43'
+    mode: batch
+    physicalDatasets:
+      HadoopA:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-23 23:34:43'
+  datasets/target_agg_impbus_curator_clicks_pb:
+    name: target_agg_impbus_curator_clicks_pb
+    description: ''
+    author: leeben@microsoft.com
+    createdAt: '2024-05-23 23:45:06'
+    mode: batch
+    physicalDatasets:
+      HadoopA:
+        fabricId: 2
+        datasetType: File
+        description: ''
+        author: leeben@microsoft.com
+        createdAt: '2024-05-23 23:45:06'
+  datasets/log_dw_click_pb_hour_0_to_2:
+    name: log_dw_click_pb_hour_0_to_2
+    description: ''
+    author: blee@appnexus.com
+    createdAt: '2024-06-27 15:12:20'
+    mode: batch
+    physicalDatasets:
+      HadoopA_dev_edp:
+        fabricId: 7
+        datasetType: File
+        description: ''
+        author: blee@appnexus.com
+        createdAt: '2024-06-27 15:12:20'
+  datasets/agg_dw_impressions_pb_hour_0_to_2:
+    name: agg_dw_impressions_pb_hour_0_to_2
+    description: ''
+    author: blee@appnexus.com
+    createdAt: '2024-06-27 15:16:28'
+    mode: batch
+    physicalDatasets:
+      HadoopA_dev_edp:
+        fabricId: 7
+        datasetType: File
+        description: ''
+        author: blee@appnexus.com
+        createdAt: '2024-06-27 15:16:28'
+  datasets/log_impbus_auction_event_pb_hour_0_to_2:
+    name: log_impbus_auction_event_pb_hour_0_to_2
+    description: ''
+    author: blee@appnexus.com
+    createdAt: '2024-06-27 15:20:01'
+    mode: batch
+    physicalDatasets:
+      HadoopA_dev_edp:
+        fabricId: 7
+        datasetType: File
+        description: ''
+        author: blee@appnexus.com
+        createdAt: '2024-06-27 15:20:01'
+  datasets/agg_dw_curator_impressions_pb_hour_0_to_2:
+    name: agg_dw_curator_impressions_pb_hour_0_to_2
+    description: ''
+    author: blee@appnexus.com
+    createdAt: '2024-06-27 15:22:56'
+    mode: batch
+    physicalDatasets:
+      HadoopA_dev_edp:
+        fabricId: 7
+        datasetType: File
+        description: ''
+        author: blee@appnexus.com
+        createdAt: '2024-06-27 15:22:56'
+  datasets/log_impbus_click_hour_0_to_2:
+    name: log_impbus_click_hour_0_to_2
+    description: ''
+    author: vm796h@appnexus.com
+    createdAt: '2024-08-05 04:21:07'
+    mode: batch
+    physicalDatasets:
+      HadoopA_dev_edp:
+        fabricId: 7
+        datasetType: File
+        description: ''
+        author: ns9937@appnexus.com
+        createdAt: '2024-08-06 21:58:13'
+templates: {}
+jobs: {}
+gemContainer:
+  languageVersion: 2.12.15
+  gemLibsVersion: 1.0.4
+  gems: {}
+  dependencies: null
+functions:
+  author: null
+  createdAt: '2024-02-27 15:48:12'
+  udfs: {}
+  udafs: {}
+  expressions:
+    expressions/f_viewable:
+      name: f_viewable
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: vm796h@appnexus.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_media_cost_dollars_cpm:
+      name: f_get_media_cost_dollars_cpm
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: vm796h@appnexus.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_update_data_costs:
+      name: f_update_data_costs
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: vm796h@appnexus.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_forward_for_next_stage:
+      name: f_forward_for_next_stage
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: vm796h@appnexus.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_matching_payment_and_agg_type:
+      name: f_is_matching_payment_and_agg_type
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: vm796h@appnexus.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_payment_type_matches:
+      name: f_payment_type_matches
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: vm796h@appnexus.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_keep_data_charge:
+      name: f_keep_data_charge
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: vm796h@appnexus.com
+      createdAt: '2022-12-15 18:04:50'
+  airflowFunctions: {}
+  businessRules: {}
+subgraphs: {}
+sqlModels: {}
+sqlSnapshots: {}
+sqlTests: {}
+sqlMacros: {}
+sqlSeeds: {}
+sqlSources: {}
+sqlUnreferencedSources: {}
+sqlPipeline: null
+dependencies:
+- type: plibMaven
+  modifiedAt: '2024-08-19T20:00:22.088137Z'
+  name: plibMaven
+  version: 8.0.31
+  id: '2055681215'
+  createdAt: '2024-08-19T20:00:22.088108Z'
+- type: coordinates
+  modifiedAt: '2024-06-10T16:53:53.928Z'
+  coordinates: org.apache.spark:spark-protobuf_2.12:3.5.1
+  name: spark-protobuf
+  description: ''
+  enabled: true
+  id: LxcV6QQ2RYZ2mhnQj2_hK
+  createdAt: '2024-06-10T16:53:53.928Z'
+  entity: Project
+  exclusions: []
+  editable: true
+projectDependencies:
+  '54':
+    projectUID: 54
+    projectName: ProphecySparkBasicsScala
+    repositoryPath: gitUri=http://gitserver:3000/X4oDmlxQ_team_4/MRFuOfI3_project_54.git&subPath=
+    version: 0.1.9
+    isDefault: true
+    author: null
+    createdAt: '2024-05-17 12:48:59'
+  '61':
+    projectUID: 61
+    projectName: ProphecySparkAbinitioScala
+    repositoryPath: gitUri=http://gitserver:3000/X4oDmlxQ_team_4/MRFuOfI3_project_61.git&subPath=
+    version: 0.0.21
+    isDefault: false
+    author: null
+    createdAt: '2024-06-25 15:41:25'
+  '223':
+    projectUID: 223
+    projectName: new_commons_project
+    repositoryPath: gitUri=https://stash.corp.appnexus.com/scm/dpd/app_commons.git&subPath=/
+    version: 0.9.23
+    isDefault: false
+    author: null
+    createdAt: '2024-07-15 16:48:51'
+flags:
+  shouldAddDefaultDependenciesIfAbsent: true
+pipelineConfigurations: {}
