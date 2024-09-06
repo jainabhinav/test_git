@@ -24,7 +24,185 @@ pipelines:
       outputs: []
     subgraphs: []
     dependencies: {}
-datasets: {}
+  pipelines/agg_platform_video_analytics_hourly:
+    name: agg_platform_video_analytics_hourly
+    description: null
+    author: abhinav@simpledatalabs.com
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-09-06 13:57:35'
+    datasets:
+      inputs:
+      - datasets/Read_DML_Range_sup_api_inventory_url_content_category_tsv_sup_api_inventory_url_content_category
+      - datasets/Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics
+      - datasets/Read_Proto_Range_sup_api_member_pb
+      - datasets/Read_Proto_Range_sup_bidder_advertiser_pb
+      - datasets/Read_Proto_Range_sup_bidder_fx_rates
+      - datasets/Read_Proto_Range_sup_code_fx_rate
+      - datasets/Read_Proto_Range_sup_inventory_url_pb
+      - datasets/Read_Proto_Range_sup_member_attributes_pb
+      outputs:
+      - datasets/Write_Proto_HDFS_agg_platform_video_analytics_hourly_pb_agg_platform_video_analytics_hourly
+      - datasets/Write_Proto_HDFS_agg_platform_video_pod_analytics_pb
+      - datasets/Write_Proto_HDFS_agg_platform_video_slot_analytics_pb
+    subgraphs: []
+    dependencies: {}
+datasets:
+  datasets/Write_Proto_HDFS_agg_platform_video_pod_analytics_pb:
+    name: Write_Proto_HDFS_agg_platform_video_pod_analytics_pb
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Write_Proto_HDFS_agg_platform_video_pod_analytics_pb'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
+  datasets/Write_Proto_HDFS_agg_platform_video_analytics_hourly_pb_agg_platform_video_analytics_hourly:
+    name: Write_Proto_HDFS_agg_platform_video_analytics_hourly_pb_agg_platform_video_analytics_hourly
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Write_Proto_HDFS_agg_platform_video_analytics_hourly_pb_agg_platform_video_analytics_hourly'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
+  datasets/Write_Proto_HDFS_agg_platform_video_slot_analytics_pb:
+    name: Write_Proto_HDFS_agg_platform_video_slot_analytics_pb
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Write_Proto_HDFS_agg_platform_video_slot_analytics_pb'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
+  datasets/Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics:
+    name: Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
+  datasets/Read_Proto_Range_sup_inventory_url_pb:
+    name: Read_Proto_Range_sup_inventory_url_pb
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Read_Proto_Range_sup_inventory_url_pb'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
+  datasets/Read_Proto_Range_sup_api_member_pb:
+    name: Read_Proto_Range_sup_api_member_pb
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Read_Proto_Range_sup_api_member_pb'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
+  datasets/Read_Proto_Range_sup_bidder_fx_rates:
+    name: Read_Proto_Range_sup_bidder_fx_rates
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Read_Proto_Range_sup_bidder_fx_rates'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
+  datasets/Read_Proto_Range_sup_member_attributes_pb:
+    name: Read_Proto_Range_sup_member_attributes_pb
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Read_Proto_Range_sup_member_attributes_pb'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
+  datasets/Read_Proto_Range_sup_bidder_advertiser_pb:
+    name: Read_Proto_Range_sup_bidder_advertiser_pb
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Read_Proto_Range_sup_bidder_advertiser_pb'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
+  datasets/Read_DML_Range_sup_api_inventory_url_content_category_tsv_sup_api_inventory_url_content_category:
+    name: Read_DML_Range_sup_api_inventory_url_content_category_tsv_sup_api_inventory_url_content_category
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Read_DML_Range_sup_api_inventory_url_content_category_tsv_sup_api_inventory_url_content_category'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
+  datasets/Read_Proto_Range_sup_code_fx_rate:
+    name: Read_Proto_Range_sup_code_fx_rate
+    description: 'Dataset for Imported Pipeline:agg_platform_video_analytics_hourly
+      componentName: Read_Proto_Range_sup_code_fx_rate'
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-06 13:57:34'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-06 13:57:34'
 templates: {}
 jobs: {}
 gemContainer:
@@ -35,9 +213,913 @@ gemContainer:
 functions:
   author: null
   createdAt: '2024-08-30 09:20:39'
-  udfs: {}
+  udfs:
+    udfs/temp18771_UDF:
+      name: temp18771_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3018_UDF:
+      name: temp3018_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/personal_identifier_udf:
+      name: personal_identifier_udf
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup1627_UDF:
+      name: rollup1627_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup1615_UDF:
+      name: rollup1615_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup1621_UDF:
+      name: rollup1621_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1151664_UDF:
+      name: temp1151664_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2545540_UDF:
+      name: temp2545540_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3256870_UDF:
+      name: temp3256870_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp634656_UDF:
+      name: temp634656_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1344271_UDF:
+      name: temp1344271_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2053714_UDF:
+      name: temp2053714_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2762257_UDF:
+      name: temp2762257_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3471027_UDF:
+      name: temp3471027_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp4180587_UDF:
+      name: temp4180587_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp6282792_UDF:
+      name: temp6282792_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp6995147_UDF:
+      name: temp6995147_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp10430067_UDF:
+      name: temp10430067_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/f_create_agg_dw_impressions_virtual_log_dw_bid_10949800:
+      name: f_create_agg_dw_impressions_virtual_log_dw_bid_10949800
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1248466_UDF:
+      name: temp1248466_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2704269_UDF:
+      name: temp2704269_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3446552_UDF:
+      name: temp3446552_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp692552_UDF:
+      name: temp692552_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1433148_UDF:
+      name: temp1433148_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2173548_UDF:
+      name: temp2173548_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2912975_UDF:
+      name: temp2912975_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3652655_UDF:
+      name: temp3652655_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp4393171_UDF:
+      name: temp4393171_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup_146_UDF_inner:
+      name: rollup_146_UDF_inner
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup_150_UDF_inner:
+      name: rollup_150_UDF_inner
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp6618434_UDF:
+      name: temp6618434_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp7361735_UDF:
+      name: temp7361735_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp10950958_UDF:
+      name: temp10950958_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1248596_UDF:
+      name: temp1248596_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2704511_UDF:
+      name: temp2704511_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3446850_UDF:
+      name: temp3446850_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp10951013_UDF:
+      name: temp10951013_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp7091_UDF:
+      name: temp7091_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/processUDF_8439:
+      name: processUDF_8439
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp776620_UDF:
+      name: temp776620_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1058853_UDF:
+      name: temp1058853_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1059455_UDF:
+      name: temp1059455_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1125405_UDF:
+      name: temp1125405_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp599639_UDF:
+      name: temp599639_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp843412_UDF:
+      name: temp843412_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp844044_UDF:
+      name: temp844044_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp676085_UDF:
+      name: temp676085_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
   udafs: {}
-  expressions: {}
+  expressions:
+    expressions/xcdf_member_owner_object_check:
+      name: xcdf_member_owner_object_check
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/xcdf_member_owner_object_no_imp_type_check:
+      name: xcdf_member_owner_object_no_imp_type_check
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_buyer_bid_bucket:
+      name: f_get_buyer_bid_bucket
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_preempt_over_impression_non_zero_waterfall:
+      name: f_preempt_over_impression_non_zero_waterfall
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_pricing_term:
+      name: f_get_pricing_term
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_viewdef_definition_id:
+      name: f_viewdef_definition_id
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_pricing_term_amount:
+      name: f_convert_pricing_term_amount
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_drop_is_deduction_pricing_terms:
+      name: f_drop_is_deduction_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_transaction_event_pricing:
+      name: f_get_transaction_event_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_non_measurable_reason:
+      name: f_view_non_measurable_reason
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_viewdef_viewable:
+      name: f_viewdef_viewable
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_result:
+      name: f_view_result
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_transaction_event:
+      name: f_transaction_event
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_preempt_over_impression:
+      name: f_preempt_over_impression
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_should_process_views:
+      name: f_should_process_views
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_impression_transaction_event_pricing:
+      name: f_get_impression_transaction_event_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_preempt_over_impression_non_zero_explicit:
+      name: f_preempt_over_impression_non_zero_explicit
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_measurable:
+      name: f_view_measurable
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_should_zero_seller_revenue:
+      name: f_should_zero_seller_revenue
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_viewable:
+      name: f_viewable
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_detection_enabled:
+      name: f_view_detection_enabled
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_has_transacted:
+      name: f_has_transacted
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/seller_deduction_term_id_1:
+      name: seller_deduction_term_id_1
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/seller_deduction_term_id_74:
+      name: seller_deduction_term_id_74
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/buyer_charges_pricing_terms:
+      name: buyer_charges_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/seller_charges_pricing_terms:
+      name: seller_charges_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_curator_margin:
+      name: f_get_curator_margin
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_total_tech_fees:
+      name: f_get_total_tech_fees
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_seller_fees:
+      name: f_get_seller_fees
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_update_data_costs_deal:
+      name: f_update_data_costs_deal
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_is_curator_margin_media_cost_dependent:
+      name: f_get_is_curator_margin_media_cost_dependent
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_curator_margin_type:
+      name: f_get_curator_margin_type
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/is_not_null_right_n143:
+      name: is_not_null_right_n143
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_log_impbus_imptracker_to_log_impbus_impressions_pricing:
+      name: f_convert_log_impbus_imptracker_to_log_impbus_impressions_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_log_dw_imptracker_to_log_dw_bid:
+      name: f_convert_log_dw_imptracker_to_log_dw_bid
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_log_impbus_imptracker_to_log_impbus_impressions:
+      name: f_convert_log_impbus_imptracker_to_log_impbus_impressions
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_buy_side:
+      name: f_is_buy_side
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_error_imp:
+      name: f_is_error_imp
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_non_cpm_payment_or_payment:
+      name: f_is_non_cpm_payment_or_payment
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_transaction_event_type_id:
+      name: f_transaction_event_type_id
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_media_cost_dollars_cpm:
+      name: f_get_media_cost_dollars_cpm
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_zero_pricing_term_amount_if_non_cpm:
+      name: f_zero_pricing_term_amount_if_non_cpm
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_find_personal_identifier:
+      name: f_find_personal_identifier
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_string_to_anon_user_info:
+      name: f_string_to_anon_user_info
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_default_or_error_imp:
+      name: f_is_default_or_error_imp
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_update_data_costs:
+      name: f_update_data_costs
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_create_agg_dw_impressions_return_11108229:
+      name: f_create_agg_dw_impressions_return_11108229
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_create_agg_dw_impressions:
+      name: f_create_agg_dw_impressions
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_curated:
+      name: f_router_is_curated
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_dw:
+      name: f_router_is_dw
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_quarantined:
+      name: f_router_is_quarantined
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_transacted:
+      name: f_router_is_transacted
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/v_impression_transaction_event_pricing:
+      name: v_impression_transaction_event_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/impression_buyer_charges_pricing_terms:
+      name: impression_buyer_charges_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/v_transaction_event_pricing:
+      name: v_transaction_event_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_forward_for_next_stage:
+      name: f_forward_for_next_stage
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_matching_payment_and_agg_type:
+      name: f_is_matching_payment_and_agg_type
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_payment_type_matches:
+      name: f_payment_type_matches
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_keep_data_charge:
+      name: f_keep_data_charge
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_create_agg_dw_impressions_return_11668529:
+      name: f_create_agg_dw_impressions_return_11668529
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_create_agg_dw_impressions_return_11668614:
+      name: f_create_agg_dw_impressions_return_11668614
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/resolve_exchange_rate:
+      name: resolve_exchange_rate
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_agg_tl_network_analytics_pb_costs:
+      name: f_get_agg_tl_network_analytics_pb_costs
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_agg_tl_network_analytics_pb_currency:
+      name: f_get_agg_tl_network_analytics_pb_currency
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/is_currency_2_enabled_member:
+      name: is_currency_2_enabled_member
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_agg_platform_video_analytics_hourly_pb_currency:
+      name: f_get_agg_platform_video_analytics_hourly_pb_currency
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: abhinav@simpledatalabs.com
+      createdAt: '2022-12-15 18:04:50'
   airflowFunctions: {}
   businessRules: {}
 subgraphs: {}
@@ -73,6 +1155,14 @@ projectDependencies:
     isDefault: true
     author: null
     createdAt: '2024-08-30 09:20:23'
+  '2213':
+    projectUID: 2213
+    projectName: parallel_jobs_test_scala
+    repositoryPath: gitUri=http://gitserver:3000/HfCyPbnw_team_694/2jFegydk_project_2213.git&subPath=
+    version: parallel_jobs_test_scala/0.9.23
+    isDefault: false
+    author: null
+    createdAt: '2024-09-06 13:59:47'
 flags:
   shouldAddDefaultDependenciesIfAbsent: true
 pipelineConfigurations: {}

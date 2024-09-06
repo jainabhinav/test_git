@@ -3,7 +3,12 @@
     "migrationVersions" : {
       "gemBuilderVersion" : "v1"
     },
-    "functions" : { },
+    "functions" : {
+      "columnExpressions" : {
+        "expressions" : [ ],
+        "sharedExpressions" : [ ]
+      }
+    },
     "codeGenConfiguration" : {
       "editableConfig" : true,
       "plibVersion" : {
@@ -25,7 +30,7 @@
       "language" : "scala",
       "udfs" : [ ],
       "functionPackageName" : "abhinavsimpledatalabscomteam.msbingpipetest.functions",
-      "sharedFunctionPackageNames" : [ "io.prophecy.scalagems.functions", "io.prophecy.warehousegems.functions" ]
+      "sharedFunctionPackageNames" : [ "io.prophecy.scalagems.functions", "io.prophecy.warehousegems.functions", "prophecydemos.paralleljobstestscala.functions" ]
     },
     "udafs" : {
       "language" : "scala",
@@ -59,6 +64,17 @@
       "projectUID" : "12652",
       "projectName" : "ProphecyWarehouseScala",
       "externalDependencies" : [ ]
+    }, {
+      "projectUID" : "2213",
+      "projectName" : "parallel_jobs_test_scala",
+      "externalDependencies" : [ {
+        "type" : "plibMaven",
+        "modifiedAt" : "2024-08-30T07:32:53.162144Z",
+        "name" : "plibMaven",
+        "version" : "8.0.31",
+        "id" : "1551633138",
+        "createdAt" : "2024-08-30T07:32:53.161973Z"
+      } ]
     } ],
     "isImported" : false,
     "interimMode" : "Full",
