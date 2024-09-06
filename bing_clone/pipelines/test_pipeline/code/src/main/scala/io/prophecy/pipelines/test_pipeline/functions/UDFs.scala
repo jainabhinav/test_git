@@ -52,6 +52,14 @@ object UDFs extends Serializable {
     spark.udf.register("temp7091_UDF",         temp7091_UDF)
     spark.udf.register("processUDF_8439",      processUDF_8439)
     spark.udf.register("temp2408380_UDF",      temp2408380_UDF)
+    spark.udf.register("temp776620_UDF",       temp776620_UDF)
+    spark.udf.register("temp1058853_UDF",      temp1058853_UDF)
+    spark.udf.register("temp1059455_UDF",      temp1059455_UDF)
+    spark.udf.register("temp1125405_UDF",      temp1125405_UDF)
+    spark.udf.register("temp599639_UDF",       temp599639_UDF)
+    spark.udf.register("temp843412_UDF",       temp843412_UDF)
+    spark.udf.register("temp844044_UDF",       temp844044_UDF)
+    spark.udf.register("temp676085_UDF",       temp676085_UDF)
     try registerAllUDFs(spark)
     catch {
       case _ => ()
@@ -5869,6 +5877,245 @@ object UDFs extends Serializable {
           StructField("in_video_protocol_enum", ArrayType(IntegerType), false),
           StructField("end_result",             IntegerType,            false),
           StructField("i",                      IntegerType,            false)
+        )
+      )
+    )
+  }
+
+  def temp776620_UDF = {
+    udf(
+      (
+        _currency_2_enabled_members: Seq[Integer],
+        _i:                          Integer,
+        _max_i:                      Integer,
+        _member_id:                  Integer
+      ) => {
+        var currency_2_enabled_members = _currency_2_enabled_members.toArray
+        var i                          = _i
+        var found                      = 0
+        var max_i                      = _max_i
+        var member_id                  = _member_id
+        while (compareTo(i, max_i) < 0) {
+          if (currency_2_enabled_members(convertToInt(i)) == member_id) {
+            found = 1
+            i = max_i
+          }
+          i = i + convertToInt(1)
+        }
+        Row(convertToInt(found), convertToInt(i))
+      },
+      StructType(
+        List(StructField("found", IntegerType, false),
+             StructField("i",     IntegerType, false)
+        )
+      )
+    )
+  }
+
+  def temp1058853_UDF = {
+    udf(
+      (_i: Integer, _frameworks: Seq[Integer]) => {
+        var i                = _i
+        var supports_vpaid_1 = 0
+        var supports_vpaid_2 = 0
+        var frameworks       = _frameworks.toArray
+        while (compareTo(i, frameworks.length) < 0) {
+          if (frameworks(convertToInt(i)) == 1)
+            supports_vpaid_1 = 1
+          if (frameworks(convertToInt(i)) == 2)
+            supports_vpaid_2 = 2
+          i = i + convertToInt(1)
+        }
+        Row(convertToInt(i),
+            convertToInt(supports_vpaid_1),
+            convertToInt(supports_vpaid_2)
+        )
+      },
+      StructType(
+        List(StructField("i",                IntegerType, false),
+             StructField("supports_vpaid_1", IntegerType, false),
+             StructField("supports_vpaid_2", IntegerType, false)
+        )
+      )
+    )
+  }
+
+  def temp1059455_UDF = {
+    udf(
+      (_max_vast_version: Integer, _protocols: Seq[Integer], _i: Integer) => {
+        var i                      = _i
+        var valid_max_vast_version = 0
+        var max_vast_version       = _max_vast_version
+        var protocols              = _protocols.toArray
+        while (compareTo(i, protocols.length) < 0) {
+          if (
+            compareTo(i, 3) <= 0 && compareTo(i, 0) >= 0 && compareTo(
+              i,
+              max_vast_version
+            ) > 0
+          ) {
+            max_vast_version = i
+            valid_max_vast_version = 1
+          }
+          i = i + convertToInt(1)
+        }
+        Row(convertToInt(i),
+            convertToInt(valid_max_vast_version),
+            convertToInt(max_vast_version)
+        )
+      },
+      StructType(
+        List(StructField("i",                      IntegerType, false),
+             StructField("valid_max_vast_version", IntegerType, false),
+             StructField("max_vast_version",       IntegerType, false)
+        )
+      )
+    )
+  }
+
+  def temp1125405_UDF = {
+    udf(
+      (_allowed_media_types: Seq[Integer], _i: Integer) => {
+        var media_type_audio    = 0
+        var i                   = _i
+        var media_type_video    = 0
+        var allowed_media_types = _allowed_media_types.toArray
+        while (compareTo(i, allowed_media_types.length) < 0) {
+          if (allowed_media_types(convertToInt(i)) == 4)
+            media_type_video = 1
+          if (allowed_media_types(convertToInt(i)) == 13)
+            media_type_audio = 1
+          i = i + convertToInt(1)
+        }
+        Row(convertToInt(media_type_audio),
+            convertToInt(i),
+            convertToInt(media_type_video)
+        )
+      },
+      StructType(
+        List(StructField("media_type_audio", IntegerType, false),
+             StructField("i",                IntegerType, false),
+             StructField("media_type_video", IntegerType, false)
+        )
+      )
+    )
+  }
+
+  def temp599639_UDF = {
+    import java.text.SimpleDateFormat
+    udf(
+      (
+        _currency_2_enabled_members: Seq[Integer],
+        _i:                          Integer,
+        _max_i:                      Integer,
+        _member_id:                  Integer
+      ) => {
+        var currency_2_enabled_members = _currency_2_enabled_members.toArray
+        var i                          = _i
+        var found                      = 0
+        var max_i                      = _max_i
+        var member_id                  = _member_id
+        while (compareTo(i, max_i) < 0) {
+          if (currency_2_enabled_members(convertToInt(i)) == member_id) {
+            found = 1
+            i = max_i
+          }
+          i = i + convertToInt(1)
+        }
+        Row(convertToInt(found), convertToInt(i))
+      },
+      StructType(
+        List(StructField("found", IntegerType, false),
+             StructField("i",     IntegerType, false)
+        )
+      )
+    )
+  }
+
+  def temp843412_UDF = {
+    udf(
+      (_i: Integer, _frameworks: Seq[Integer]) => {
+        var i                = _i
+        var supports_vpaid_1 = 0
+        var supports_vpaid_2 = 0
+        var frameworks       = _frameworks.toArray
+        while (compareTo(i, frameworks.length) < 0) {
+          if (frameworks(convertToInt(i)) == 1)
+            supports_vpaid_1 = 1
+          if (frameworks(convertToInt(i)) == 2)
+            supports_vpaid_2 = 2
+          i = i + convertToInt(1)
+        }
+        Row(convertToInt(i),
+            convertToInt(supports_vpaid_1),
+            convertToInt(supports_vpaid_2)
+        )
+      },
+      StructType(
+        List(StructField("i",                IntegerType, false),
+             StructField("supports_vpaid_1", IntegerType, false),
+             StructField("supports_vpaid_2", IntegerType, false)
+        )
+      )
+    )
+  }
+
+  def temp844044_UDF = {
+    udf(
+      (_max_vast_version: Integer, _protocols: Seq[Integer], _i: Integer) => {
+        var i                      = _i
+        var valid_max_vast_version = 0
+        var max_vast_version       = _max_vast_version
+        var protocols              = _protocols.toArray
+        while (compareTo(i, protocols.length) < 0) {
+          if (
+            compareTo(i, 3) <= 0 && compareTo(i, 0) >= 0 && compareTo(
+              i,
+              max_vast_version
+            ) > 0
+          ) {
+            max_vast_version = i
+            valid_max_vast_version = 1
+          }
+          i = i + convertToInt(1)
+        }
+        Row(convertToInt(i),
+            convertToInt(valid_max_vast_version),
+            convertToInt(max_vast_version)
+        )
+      },
+      StructType(
+        List(StructField("i",                      IntegerType, false),
+             StructField("valid_max_vast_version", IntegerType, false),
+             StructField("max_vast_version",       IntegerType, false)
+        )
+      )
+    )
+  }
+
+  def temp676085_UDF = {
+    udf(
+      (_allowed_media_types: Seq[Integer], _i: Integer) => {
+        var media_type_audio    = 0
+        var i                   = _i
+        var media_type_video    = 0
+        var allowed_media_types = _allowed_media_types.toArray
+        while (compareTo(i, allowed_media_types.length) < 0) {
+          if (allowed_media_types(convertToInt(i)) == 4)
+            media_type_video = 1
+          if (allowed_media_types(convertToInt(i)) == 13)
+            media_type_audio = 1
+          i = i + convertToInt(1)
+        }
+        Row(convertToInt(media_type_audio),
+            convertToInt(i),
+            convertToInt(media_type_video)
+        )
+      },
+      StructType(
+        List(StructField("media_type_audio", IntegerType, false),
+             StructField("i",                IntegerType, false),
+             StructField("media_type_video", IntegerType, false)
         )
       )
     )

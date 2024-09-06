@@ -10797,4 +10797,1114 @@ object ColumnFunctions extends Serializable {
       ).as("fx_rate_snapshot_id")
     )
 
+  def is_currency_2_enabled_member(member_id: Column): Column = {
+    var i: org.apache.spark.sql.Column = lit(0)
+    var currency_2_enabled_members: org.apache.spark.sql.Column = array(
+      lit(958),
+      lit(1540),
+      lit(1558),
+      lit(1705),
+      lit(1783),
+      lit(2025),
+      lit(2331),
+      lit(2902),
+      lit(2914),
+      lit(2982),
+      lit(2991),
+      lit(3232),
+      lit(3273),
+      lit(3296),
+      lit(3397),
+      lit(3525),
+      lit(3542),
+      lit(3646),
+      lit(3660),
+      lit(3665),
+      lit(3700),
+      lit(3741),
+      lit(3754),
+      lit(3927),
+      lit(4013),
+      lit(6834),
+      lit(6839),
+      lit(6925),
+      lit(6931),
+      lit(6949),
+      lit(6989),
+      lit(7037),
+      lit(7068),
+      lit(7164),
+      lit(7254),
+      lit(7404),
+      lit(7458),
+      lit(7463),
+      lit(7544),
+      lit(7632),
+      lit(7648),
+      lit(7729),
+      lit(7800),
+      lit(7823),
+      lit(7876),
+      lit(8099),
+      lit(8125),
+      lit(8147),
+      lit(8186),
+      lit(8253),
+      lit(8266),
+      lit(8272),
+      lit(8427),
+      lit(8484),
+      lit(8492),
+      lit(8740),
+      lit(8878),
+      lit(8907),
+      lit(9027),
+      lit(9178),
+      lit(9238),
+      lit(9284),
+      lit(9290),
+      lit(9343),
+      lit(9394),
+      lit(9419),
+      lit(9446),
+      lit(9470),
+      lit(9518),
+      lit(9568),
+      lit(9573),
+      lit(9677),
+      lit(9700),
+      lit(9722),
+      lit(9724),
+      lit(9742),
+      lit(9795),
+      lit(9820),
+      lit(9826),
+      lit(9844),
+      lit(9923),
+      lit(9953),
+      lit(9957),
+      lit(10040),
+      lit(10043),
+      lit(10157),
+      lit(10199),
+      lit(10251),
+      lit(10272),
+      lit(10316),
+      lit(10360),
+      lit(10653)
+    )
+    var max_i: org.apache.spark.sql.Column =
+      size(currency_2_enabled_members).cast(IntegerType)
+    lit(1)
+  }
+
+  def f_get_agg_platform_video_analytics_hourly_pb_currency(
+    fx_rate_snapshot_id:               Column,
+    advertiser_currency:               Column,
+    advertiser_currency_rate:          Column,
+    publisher_currency:                Column,
+    publisher_currency_rate:           Column,
+    advertiser_id:                     Column,
+    imp_type:                          Column,
+    buyer_member_id:                   Column,
+    seller_member_id:                  Column,
+    sup_code_fx_rate_lookup_5:         Column,
+    sup_code_fx_rate_lookup_4:         Column,
+    sup_code_fx_rate_lookup_3:         Column,
+    sup_bidder_advertiser_pb_lookup_2: Column,
+    sup_code_fx_rate_lookup_2:         Column,
+    sup_code_fx_rate_lookup:           Column,
+    sup_bidder_advertiser_pb_lookup:   Column
+  ): Column = {
+    var l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+      : org.apache.spark.sql.Column = lit(null).cast(IntegerType)
+    var l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency
+      : org.apache.spark.sql.Column = lit(null).cast(StringType)
+    var l_agg_platform_video_analytics_hourly_pb_currency_advertiser_exchange_rate
+      : org.apache.spark.sql.Column = lit(null).cast(DoubleType)
+    var l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency
+      : org.apache.spark.sql.Column = lit(null).cast(StringType)
+    var l_agg_platform_video_analytics_hourly_pb_currency_publisher_exchange_rate
+      : org.apache.spark.sql.Column = lit(null).cast(DoubleType)
+    var l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_currency
+      : org.apache.spark.sql.Column = lit(null).cast(StringType)
+    var l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate
+      : org.apache.spark.sql.Column = lit(null).cast(DoubleType)
+    var l_agg_platform_video_analytics_hourly_pb_currency_member_currency
+      : org.apache.spark.sql.Column = lit(null).cast(StringType)
+    var l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
+      : org.apache.spark.sql.Column = lit(null).cast(DoubleType)
+    var l_agg_platform_video_analytics_hourly_pb_currency_billing_currency
+      : org.apache.spark.sql.Column = lit(null).cast(StringType)
+    var l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate
+      : org.apache.spark.sql.Column = lit(null).cast(DoubleType)
+    var l_api_member_dde: org.apache.spark.sql.Column = lit(null).cast(
+      StructType(
+        List(
+          StructField("id",                    IntegerType, true),
+          StructField("billing_name",          StringType,  true),
+          StructField("bidder_id",             IntegerType, true),
+          StructField("is_billable",           IntegerType, true),
+          StructField("enable_ip_truncation",  IntegerType, true),
+          StructField("vendor_id",             IntegerType, true),
+          StructField("final_auction_type_id", IntegerType, true),
+          StructField("default_referrer_url",  StringType,  true),
+          StructField("member_currency",       StringType,  true),
+          StructField("billing_currency",      StringType,  true)
+        )
+      )
+    )
+    var l_api_member_dde_1: org.apache.spark.sql.Column = lit(null).cast(
+      StructType(
+        List(
+          StructField("id",                    IntegerType, true),
+          StructField("billing_name",          StringType,  true),
+          StructField("bidder_id",             IntegerType, true),
+          StructField("is_billable",           IntegerType, true),
+          StructField("enable_ip_truncation",  IntegerType, true),
+          StructField("vendor_id",             IntegerType, true),
+          StructField("final_auction_type_id", IntegerType, true),
+          StructField("default_referrer_url",  StringType,  true),
+          StructField("member_currency",       StringType,  true),
+          StructField("billing_currency",      StringType,  true)
+        )
+      )
+    )
+    var l_api_member_dde_3: org.apache.spark.sql.Column = lit(null).cast(
+      StructType(
+        List(
+          StructField("id",                    IntegerType, true),
+          StructField("billing_name",          StringType,  true),
+          StructField("bidder_id",             IntegerType, true),
+          StructField("is_billable",           IntegerType, true),
+          StructField("enable_ip_truncation",  IntegerType, true),
+          StructField("vendor_id",             IntegerType, true),
+          StructField("final_auction_type_id", IntegerType, true),
+          StructField("default_referrer_url",  StringType,  true),
+          StructField("member_currency",       StringType,  true),
+          StructField("billing_currency",      StringType,  true)
+        )
+      )
+    )
+    var l_currency:    org.apache.spark.sql.Column = rpad(lit(null), 3, " ")
+    var l_currency_1:  org.apache.spark.sql.Column = rpad(lit(null), 3, " ")
+    var l_currency_3:  org.apache.spark.sql.Column = rpad(lit(null), 3, " ")
+    var l_member_id:   org.apache.spark.sql.Column = lit(null).cast(IntegerType)
+    var l_member_id_0: org.apache.spark.sql.Column = lit(null).cast(IntegerType)
+    var l_agg_platform_video_analytics_hourly_pb_currency
+      : org.apache.spark.sql.Column = lit(null).cast(
+      StructType(
+        List(
+          StructField("fx_rate_snapshot_id",              IntegerType, true),
+          StructField("advertiser_currency",              StringType,  true),
+          StructField("advertiser_exchange_rate",         DoubleType,  true),
+          StructField("publisher_currency",               StringType,  true),
+          StructField("publisher_exchange_rate",          DoubleType,  true),
+          StructField("advertiser_default_currency",      StringType,  true),
+          StructField("advertiser_default_exchange_rate", DoubleType,  true),
+          StructField("member_currency",                  StringType,  true),
+          StructField("member_exchange_rate",             DoubleType,  true),
+          StructField("billing_currency",                 StringType,  true),
+          StructField("billing_exchange_rate",            DoubleType,  true)
+        )
+      )
+    )
+    var l_sup_bidder_fx_rate: org.apache.spark.sql.Column = lit(null).cast(
+      StructType(
+        List(
+          StructField("fx_rate_snapshot_id", IntegerType, true),
+          StructField("currency_id",         IntegerType, true),
+          StructField("code",                StringType,  true),
+          StructField("rate",                DoubleType,  true),
+          StructField("as_of_timestamp",     LongType,    true)
+        )
+      )
+    )
+    var l_sup_bidder_fx_rate_5: org.apache.spark.sql.Column = lit(null).cast(
+      StructType(
+        List(
+          StructField("fx_rate_snapshot_id", IntegerType, true),
+          StructField("currency_id",         IntegerType, true),
+          StructField("code",                StringType,  true),
+          StructField("rate",                DoubleType,  true),
+          StructField("as_of_timestamp",     LongType,    true)
+        )
+      )
+    )
+    var l_sup_bidder_fx_rate_4: org.apache.spark.sql.Column = lit(null).cast(
+      StructType(
+        List(
+          StructField("fx_rate_snapshot_id", IntegerType, true),
+          StructField("currency_id",         IntegerType, true),
+          StructField("code",                StringType,  true),
+          StructField("rate",                DoubleType,  true),
+          StructField("as_of_timestamp",     LongType,    true)
+        )
+      )
+    )
+    var l_sup_bidder_fx_rate_1: org.apache.spark.sql.Column = lit(null).cast(
+      StructType(
+        List(
+          StructField("fx_rate_snapshot_id", IntegerType, true),
+          StructField("currency_id",         IntegerType, true),
+          StructField("code",                StringType,  true),
+          StructField("rate",                DoubleType,  true),
+          StructField("as_of_timestamp",     LongType,    true)
+        )
+      )
+    )
+    var l_sup_bidder_fx_rate_0: org.apache.spark.sql.Column = lit(null).cast(
+      StructType(
+        List(
+          StructField("fx_rate_snapshot_id", IntegerType, true),
+          StructField("currency_id",         IntegerType, true),
+          StructField("code",                StringType,  true),
+          StructField("rate",                DoubleType,  true),
+          StructField("as_of_timestamp",     LongType,    true)
+        )
+      )
+    )
+    l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id =
+      fx_rate_snapshot_id.cast(IntegerType)
+    l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency =
+      coalesce(advertiser_currency, lit("USD"))
+    l_agg_platform_video_analytics_hourly_pb_currency_advertiser_exchange_rate =
+      coalesce(advertiser_currency_rate, lit(1.0d)).cast(DoubleType)
+    l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency =
+      when(isnull(fx_rate_snapshot_id).and(
+             isnull(advertiser_currency).or(isnull(advertiser_currency_rate))
+           ),
+           lit("USD")
+      ).otherwise(
+        l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency
+      )
+    l_agg_platform_video_analytics_hourly_pb_currency_advertiser_exchange_rate =
+      when(isnull(fx_rate_snapshot_id).and(
+             isnull(advertiser_currency).or(isnull(advertiser_currency_rate))
+           ),
+           lit(1.0d)
+      ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_advertiser_exchange_rate
+        )
+        .cast(DoubleType)
+    l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency =
+      coalesce(publisher_currency, lit("USD"))
+    l_agg_platform_video_analytics_hourly_pb_currency_publisher_exchange_rate =
+      coalesce(publisher_currency_rate, lit(1.0d)).cast(DoubleType)
+    l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency =
+      when(isnull(fx_rate_snapshot_id).and(
+             isnull(publisher_currency).or(isnull(publisher_currency_rate))
+           ),
+           lit("USD")
+      ).otherwise(
+        l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency
+      )
+    l_agg_platform_video_analytics_hourly_pb_currency_publisher_exchange_rate =
+      when(isnull(fx_rate_snapshot_id).and(
+             isnull(publisher_currency).or(isnull(publisher_currency_rate))
+           ),
+           lit(1.0d)
+      ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_publisher_exchange_rate
+        )
+        .cast(DoubleType)
+    l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_currency =
+      lit("USD")
+    l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate =
+      lit(1.0d).cast(DoubleType)
+    l_agg_platform_video_analytics_hourly_pb_currency_billing_currency = lit(
+      "USD"
+    )
+    l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate =
+      lit(1.0d).cast(DoubleType)
+    l_agg_platform_video_analytics_hourly_pb_currency_member_currency = lit(
+      "USD"
+    )
+    l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate =
+      lit(1.0d).cast(DoubleType)
+    l_member_id_0 = when(
+      is_not_null(imp_type).cast(BooleanType),
+      when(imp_type
+             .isin(lit(9), lit(10), lit(11), lit(7), lit(5))
+             .and(is_not_null(buyer_member_id)),
+           buyer_member_id.cast(IntegerType)
+      ).when(is_not_null(seller_member_id).cast(BooleanType),
+              seller_member_id.cast(IntegerType)
+        )
+        .otherwise(l_member_id)
+    ).otherwise(l_member_id).cast(IntegerType)
+    l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id =
+      when(
+        isnull(fx_rate_snapshot_id).and(
+          string_compare(
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency,
+            lit("USD")
+          ) =!= lit(0)
+        ),
+        when(is_not_null(sup_code_fx_rate_lookup),
+             sup_code_fx_rate_lookup.getField("fx_rate_snapshot_id")
+        ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+        )
+      ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+        )
+        .cast(IntegerType)
+    l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id =
+      when(
+        isnull(fx_rate_snapshot_id).and(
+          string_compare(
+            l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency,
+            lit("USD")
+          ) =!= lit(0)
+        ),
+        when(is_not_null(sup_code_fx_rate_lookup_2),
+             sup_code_fx_rate_lookup_2.getField("fx_rate_snapshot_id")
+        ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+        )
+      ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+        )
+        .cast(IntegerType)
+    l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id =
+      when(
+        isnull(fx_rate_snapshot_id).and(is_not_null(l_member_id_0)), {
+          l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id =
+            when(
+              is_not_null(advertiser_id)
+                .cast(BooleanType)
+                .and(
+                  is_not_null(
+                    rpad(sup_bidder_advertiser_pb_lookup
+                           .getField("advertiser_default_currency"),
+                         3,
+                         " "
+                    )
+                  ).and(
+                    string_compare(
+                      rpad(sup_bidder_advertiser_pb_lookup
+                             .getField("advertiser_default_currency"),
+                           3,
+                           " "
+                      ),
+                      lit("USD")
+                    ) =!= lit(0)
+                  )
+                )
+                .and(is_not_null(sup_code_fx_rate_lookup_3).cast(BooleanType)),
+              sup_code_fx_rate_lookup_3.getField("fx_rate_snapshot_id")
+            ).otherwise(
+                l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+              )
+              .cast(IntegerType)
+          l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id =
+            when(
+              is_not_null(lookup("sup_api_member_pb", l_member_id_0)).cast(
+                BooleanType
+              ), {
+                l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id =
+                  when(
+                    is_not_null(
+                      lookup("sup_api_member_pb", l_member_id_0).getField(
+                        "member_currency"
+                      )
+                    ).and(
+                        is_currency_2_enabled_member(l_member_id_0) === lit(1)
+                      )
+                      .and(
+                        string_compare(lookup("sup_api_member_pb",
+                                              l_member_id_0
+                                       ).getField("member_currency"),
+                                       lit("USD")
+                        ) =!= lit(0)
+                      ),
+                    when(
+                      is_not_null(
+                        l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
+                      ),
+                      sup_code_fx_rate_lookup_4.getField("fx_rate_snapshot_id")
+                    ).otherwise(
+                      l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+                    )
+                  ).otherwise(
+                      l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+                    )
+                    .cast(IntegerType)
+                l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id =
+                  when(
+                    is_not_null(
+                      lookup("sup_api_member_pb", l_member_id_0).getField(
+                        "billing_currency"
+                      )
+                    ).and(
+                      string_compare(lookup("sup_api_member_pb", l_member_id_0)
+                                       .getField("billing_currency"),
+                                     lit("USD")
+                      ) =!= lit(0)
+                    ),
+                    when(
+                      is_not_null(sup_code_fx_rate_lookup_5),
+                      sup_code_fx_rate_lookup_5.getField("fx_rate_snapshot_id")
+                    ).otherwise(
+                      l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+                    )
+                  ).otherwise(
+                      l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+                    )
+                    .cast(IntegerType)
+                l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+              }
+            ).otherwise(
+                l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+              )
+              .cast(IntegerType)
+          l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+        }
+      ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
+        )
+        .cast(IntegerType)
+    l_agg_platform_video_analytics_hourly_pb_currency_advertiser_exchange_rate =
+      when(
+        is_not_null(fx_rate_snapshot_id).cast(BooleanType),
+        when(
+          string_compare(
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency,
+            lit("USD")
+          ) =!= lit(0), {
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_exchange_rate =
+              lookup("sup_bidder_fx_rates",
+                     fx_rate_snapshot_id,
+                     advertiser_currency
+              ).getField("rate").cast(DoubleType)
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_exchange_rate =
+              when(isnull(
+                     lookup("sup_bidder_fx_rates",
+                            fx_rate_snapshot_id,
+                            advertiser_currency
+                     ).getField("rate")
+                   ).cast(BooleanType),
+                   lit(1.0d)
+              ).otherwise(
+                  l_agg_platform_video_analytics_hourly_pb_currency_advertiser_exchange_rate
+                )
+                .cast(DoubleType)
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_exchange_rate
+          }
+        ).otherwise(lit(1.0d))
+      ).when(
+          string_compare(
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency,
+            lit("USD")
+          ) =!= lit(0),
+          when(isnull(sup_code_fx_rate_lookup).cast(BooleanType), lit(1.0d))
+            .otherwise(sup_code_fx_rate_lookup.getField("rate"))
+        )
+        .otherwise(lit(1.0d))
+        .cast(DoubleType)
+    l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency =
+      when(
+        is_not_null(fx_rate_snapshot_id).cast(BooleanType),
+        when(
+          string_compare(
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency,
+            lit("USD")
+          ) =!= lit(0),
+          when(isnull(
+                 lookup("sup_bidder_fx_rates",
+                        fx_rate_snapshot_id,
+                        advertiser_currency
+                 ).getField("rate")
+               ).cast(BooleanType),
+               lit("USD")
+          ).otherwise(
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency
+          )
+        ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency
+        )
+      ).when(
+          string_compare(
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency,
+            lit("USD")
+          ) =!= lit(0),
+          when(isnull(sup_code_fx_rate_lookup).cast(BooleanType), lit("USD"))
+            .otherwise(
+              l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency
+            )
+        )
+        .otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency
+        )
+    l_sup_bidder_fx_rate_1 = when(
+      isnull(fx_rate_snapshot_id).and(
+        string_compare(
+          l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency,
+          lit("USD")
+        ) =!= lit(0)
+      ),
+      sup_code_fx_rate_lookup
+    ).when(
+        isnull(fx_rate_snapshot_id).and(
+          not(
+            string_compare(
+              l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency,
+              lit("USD")
+            ) =!= lit(0)
+          )
+        ),
+        l_sup_bidder_fx_rate
+      )
+      .otherwise(l_sup_bidder_fx_rate_1)
+    l_agg_platform_video_analytics_hourly_pb_currency_publisher_exchange_rate =
+      when(
+        is_not_null(fx_rate_snapshot_id).cast(BooleanType),
+        when(
+          string_compare(
+            l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency,
+            lit("USD")
+          ) =!= lit(0), {
+            l_agg_platform_video_analytics_hourly_pb_currency_publisher_exchange_rate =
+              lookup("sup_bidder_fx_rates",
+                     fx_rate_snapshot_id,
+                     publisher_currency
+              ).getField("rate").cast(DoubleType)
+            l_agg_platform_video_analytics_hourly_pb_currency_publisher_exchange_rate =
+              when(isnull(
+                     lookup("sup_bidder_fx_rates",
+                            fx_rate_snapshot_id,
+                            publisher_currency
+                     ).getField("rate")
+                   ).cast(BooleanType),
+                   lit(1.0d)
+              ).otherwise(
+                  l_agg_platform_video_analytics_hourly_pb_currency_publisher_exchange_rate
+                )
+                .cast(DoubleType)
+            l_agg_platform_video_analytics_hourly_pb_currency_publisher_exchange_rate
+          }
+        ).otherwise(lit(1.0d))
+      ).when(
+          string_compare(
+            l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency,
+            lit("USD")
+          ) =!= lit(0),
+          when(isnull(sup_code_fx_rate_lookup_2).cast(BooleanType), lit(1.0d))
+            .otherwise(sup_code_fx_rate_lookup_2.getField("rate"))
+        )
+        .otherwise(lit(1.0d))
+        .cast(DoubleType)
+    l_sup_bidder_fx_rate_5 = when(
+      isnull(fx_rate_snapshot_id).and(is_not_null(l_member_id_0)),
+      when(
+        is_not_null(advertiser_id).cast(BooleanType),
+        when(
+          is_not_null(
+            rpad(sup_bidder_advertiser_pb_lookup.getField(
+                   "advertiser_default_currency"
+                 ),
+                 3,
+                 " "
+            )
+          ).and(
+            string_compare(rpad(sup_bidder_advertiser_pb_lookup
+                                  .getField("advertiser_default_currency"),
+                                3,
+                                " "
+                           ),
+                           lit("USD")
+            ) =!= lit(0)
+          ),
+          sup_code_fx_rate_lookup_3
+        ).otherwise(l_sup_bidder_fx_rate_0)
+      ).otherwise(l_sup_bidder_fx_rate_0)
+    ).otherwise(l_sup_bidder_fx_rate_5)
+    l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency = when(
+      is_not_null(fx_rate_snapshot_id).cast(BooleanType),
+      when(
+        string_compare(
+          l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency,
+          lit("USD")
+        ) =!= lit(0),
+        when(isnull(
+               lookup("sup_bidder_fx_rates",
+                      fx_rate_snapshot_id,
+                      publisher_currency
+               ).getField("rate")
+             ).cast(BooleanType),
+             lit("USD")
+        ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency
+        )
+      ).otherwise(
+        l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency
+      )
+    ).when(
+        string_compare(
+          l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency,
+          lit("USD")
+        ) =!= lit(0),
+        when(isnull(sup_code_fx_rate_lookup_2).cast(BooleanType), lit("USD"))
+          .otherwise(
+            l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency
+          )
+      )
+      .otherwise(
+        l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency
+      )
+    l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate =
+      when(
+        is_not_null(fx_rate_snapshot_id).cast(BooleanType),
+        when(
+          is_not_null(l_member_id_0)
+            .cast(BooleanType)
+            .and(is_not_null(advertiser_id).cast(BooleanType))
+            .and(
+              is_not_null(
+                rpad(sup_bidder_advertiser_pb_lookup
+                       .getField("advertiser_default_currency"),
+                     3,
+                     " "
+                )
+              ).and(
+                string_compare(rpad(sup_bidder_advertiser_pb_lookup
+                                      .getField("advertiser_default_currency"),
+                                    3,
+                                    " "
+                               ),
+                               lit("USD")
+                ) =!= lit(0)
+              )
+            ), {
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate =
+              lookup("sup_bidder_fx_rates",
+                     fx_rate_snapshot_id,
+                     rpad(sup_bidder_advertiser_pb_lookup.getField(
+                            "advertiser_default_currency"
+                          ),
+                          3,
+                          " "
+                     )
+              ).getField("rate").cast(DoubleType)
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate =
+              when(isnull(
+                     l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate
+                   ),
+                   lit(1.0d)
+              ).otherwise(
+                  l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate
+                )
+                .cast(DoubleType)
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate
+          }
+        ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate
+        )
+      ).when(
+          is_not_null(l_member_id_0)
+            .cast(BooleanType)
+            .and(is_not_null(advertiser_id).cast(BooleanType))
+            .and(
+              is_not_null(
+                rpad(sup_bidder_advertiser_pb_lookup
+                       .getField("advertiser_default_currency"),
+                     3,
+                     " "
+                )
+              ).and(
+                string_compare(rpad(sup_bidder_advertiser_pb_lookup
+                                      .getField("advertiser_default_currency"),
+                                    3,
+                                    " "
+                               ),
+                               lit("USD")
+                ) =!= lit(0)
+              )
+            ),
+          when(is_not_null(sup_code_fx_rate_lookup_3).cast(BooleanType),
+               sup_code_fx_rate_lookup_3.getField("rate")
+          ).otherwise(lit(1.0d))
+        )
+        .otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate
+        )
+        .cast(DoubleType)
+    l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_currency =
+      when(
+        is_not_null(fx_rate_snapshot_id).cast(BooleanType),
+        when(
+          is_not_null(l_member_id_0)
+            .cast(BooleanType)
+            .and(is_not_null(advertiser_id).cast(BooleanType))
+            .and(
+              is_not_null(
+                rpad(sup_bidder_advertiser_pb_lookup
+                       .getField("advertiser_default_currency"),
+                     3,
+                     " "
+                )
+              ).and(
+                string_compare(rpad(sup_bidder_advertiser_pb_lookup
+                                      .getField("advertiser_default_currency"),
+                                    3,
+                                    " "
+                               ),
+                               lit("USD")
+                ) =!= lit(0)
+              )
+            ),
+          when(
+            is_not_null(
+              l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate
+            ).cast(BooleanType),
+            rpad(sup_bidder_advertiser_pb_lookup.getField(
+                   "advertiser_default_currency"
+                 ),
+                 3,
+                 " "
+            )
+          ).otherwise(lit("USD"))
+        ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_currency
+        )
+      ).when(
+          is_not_null(l_member_id_0)
+            .cast(BooleanType)
+            .and(is_not_null(advertiser_id).cast(BooleanType))
+            .and(
+              is_not_null(
+                rpad(sup_bidder_advertiser_pb_lookup
+                       .getField("advertiser_default_currency"),
+                     3,
+                     " "
+                )
+              ).and(
+                string_compare(rpad(sup_bidder_advertiser_pb_lookup
+                                      .getField("advertiser_default_currency"),
+                                    3,
+                                    " "
+                               ),
+                               lit("USD")
+                ) =!= lit(0)
+              )
+            ),
+          when(is_not_null(sup_code_fx_rate_lookup_3).cast(BooleanType),
+               rpad(sup_bidder_advertiser_pb_lookup.getField(
+                      "advertiser_default_currency"
+                    ),
+                    3,
+                    " "
+               )
+          ).otherwise(lit("USD"))
+        )
+        .otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_currency
+        )
+    l_agg_platform_video_analytics_hourly_pb_currency_billing_currency = when(
+      is_not_null(fx_rate_snapshot_id).cast(BooleanType),
+      when(
+        is_not_null(l_member_id_0)
+          .cast(BooleanType)
+          .and(
+            is_not_null(lookup("sup_api_member_pb", l_member_id_0))
+              .cast(BooleanType)
+          )
+          .and(
+            is_not_null(
+              lookup("sup_api_member_pb", l_member_id_0)
+                .getField("billing_currency")
+            ).cast(BooleanType)
+          ), {
+          l_agg_platform_video_analytics_hourly_pb_currency_billing_currency =
+            lookup("sup_api_member_pb", l_member_id_0).getField(
+              "billing_currency"
+            )
+          l_agg_platform_video_analytics_hourly_pb_currency_billing_currency =
+            when(
+              isnull(
+                lookup("sup_bidder_fx_rates",
+                       fx_rate_snapshot_id,
+                       lookup("sup_api_member_pb", l_member_id_0).getField(
+                         "billing_currency"
+                       )
+                ).getField("rate")
+              ).cast(BooleanType),
+              lit("USD")
+            ).otherwise(
+              l_agg_platform_video_analytics_hourly_pb_currency_billing_currency
+            )
+          l_agg_platform_video_analytics_hourly_pb_currency_billing_currency
+        }
+      ).otherwise(
+        l_agg_platform_video_analytics_hourly_pb_currency_billing_currency
+      )
+    ).when(
+        is_not_null(l_member_id_0)
+          .cast(BooleanType)
+          .and(
+            is_not_null(lookup("sup_api_member_pb", l_member_id_0))
+              .cast(BooleanType)
+          )
+          .and(
+            is_not_null(
+              lookup("sup_api_member_pb", l_member_id_0)
+                .getField("billing_currency")
+            ).and(
+              string_compare(lookup("sup_api_member_pb", l_member_id_0)
+                               .getField("billing_currency"),
+                             lit("USD")
+              ) =!= lit(0)
+            )
+          ),
+        when(isnull(sup_code_fx_rate_lookup_5).cast(BooleanType), lit("USD"))
+          .otherwise(
+            lookup("sup_api_member_pb", l_member_id_0)
+              .getField("billing_currency")
+          )
+      )
+      .otherwise(
+        l_agg_platform_video_analytics_hourly_pb_currency_billing_currency
+      )
+    l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate =
+      when(
+        is_not_null(fx_rate_snapshot_id).cast(BooleanType),
+        when(
+          is_not_null(l_member_id_0)
+            .cast(BooleanType)
+            .and(
+              is_not_null(lookup("sup_api_member_pb", l_member_id_0))
+                .cast(BooleanType)
+            )
+            .and(
+              is_not_null(
+                lookup("sup_api_member_pb", l_member_id_0)
+                  .getField("member_currency")
+              ).and(is_currency_2_enabled_member(l_member_id_0) === lit(1))
+            ), {
+            l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate =
+              lookup("sup_bidder_fx_rates",
+                     fx_rate_snapshot_id,
+                     lookup("sup_api_member_pb", l_member_id_0).getField(
+                       "member_currency"
+                     )
+              ).getField("rate").cast(DoubleType)
+            l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate =
+              when(
+                isnull(
+                  lookup("sup_bidder_fx_rates",
+                         fx_rate_snapshot_id,
+                         lookup("sup_api_member_pb", l_member_id_0).getField(
+                           "member_currency"
+                         )
+                  ).getField("rate")
+                ).cast(BooleanType),
+                lit(1.0d)
+              ).otherwise(
+                  l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
+                )
+                .cast(DoubleType)
+            l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
+          }
+        ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
+        )
+      ).when(
+          is_not_null(l_member_id_0)
+            .cast(BooleanType)
+            .and(
+              is_not_null(lookup("sup_api_member_pb", l_member_id_0))
+                .cast(BooleanType)
+            )
+            .and(
+              is_not_null(
+                lookup("sup_api_member_pb", l_member_id_0)
+                  .getField("member_currency")
+              ).and(is_currency_2_enabled_member(l_member_id_0) === lit(1))
+                .and(
+                  string_compare(lookup("sup_api_member_pb", l_member_id_0)
+                                   .getField("member_currency"),
+                                 lit("USD")
+                  ) =!= lit(0)
+                )
+            ),
+          when(isnull(
+                 l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
+               ).cast(BooleanType),
+               lit(1.0d)
+          ).otherwise(sup_code_fx_rate_lookup_4.getField("rate"))
+        )
+        .otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
+        )
+        .cast(DoubleType)
+    l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate =
+      when(
+        is_not_null(fx_rate_snapshot_id).cast(BooleanType),
+        when(
+          is_not_null(l_member_id_0)
+            .cast(BooleanType)
+            .and(
+              is_not_null(lookup("sup_api_member_pb", l_member_id_0))
+                .cast(BooleanType)
+            )
+            .and(
+              is_not_null(
+                lookup("sup_api_member_pb", l_member_id_0)
+                  .getField("billing_currency")
+              ).cast(BooleanType)
+            ), {
+            l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate =
+              lookup("sup_bidder_fx_rates",
+                     fx_rate_snapshot_id,
+                     lookup("sup_api_member_pb", l_member_id_0).getField(
+                       "billing_currency"
+                     )
+              ).getField("rate").cast(DoubleType)
+            l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate =
+              when(
+                isnull(
+                  lookup("sup_bidder_fx_rates",
+                         fx_rate_snapshot_id,
+                         lookup("sup_api_member_pb", l_member_id_0).getField(
+                           "billing_currency"
+                         )
+                  ).getField("rate")
+                ).cast(BooleanType),
+                lit(1.0d)
+              ).otherwise(
+                  l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate
+                )
+                .cast(DoubleType)
+            l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate
+          }
+        ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate
+        )
+      ).when(
+          is_not_null(l_member_id_0)
+            .cast(BooleanType)
+            .and(
+              is_not_null(lookup("sup_api_member_pb", l_member_id_0))
+                .cast(BooleanType)
+            )
+            .and(
+              is_not_null(
+                lookup("sup_api_member_pb", l_member_id_0)
+                  .getField("billing_currency")
+              ).and(
+                string_compare(lookup("sup_api_member_pb", l_member_id_0)
+                                 .getField("billing_currency"),
+                               lit("USD")
+                ) =!= lit(0)
+              )
+            ),
+          when(isnull(sup_code_fx_rate_lookup_5).cast(BooleanType), lit(1.0d))
+            .otherwise(sup_code_fx_rate_lookup_5.getField("rate"))
+        )
+        .otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate
+        )
+        .cast(DoubleType)
+    l_agg_platform_video_analytics_hourly_pb_currency_member_currency = when(
+      is_not_null(fx_rate_snapshot_id).cast(BooleanType),
+      when(
+        is_not_null(l_member_id_0)
+          .cast(BooleanType)
+          .and(
+            is_not_null(lookup("sup_api_member_pb", l_member_id_0))
+              .cast(BooleanType)
+          )
+          .and(
+            is_not_null(
+              lookup("sup_api_member_pb", l_member_id_0)
+                .getField("member_currency")
+            ).and(is_currency_2_enabled_member(l_member_id_0) === lit(1))
+          ), {
+          l_agg_platform_video_analytics_hourly_pb_currency_member_currency =
+            lookup("sup_api_member_pb", l_member_id_0).getField(
+              "member_currency"
+            )
+          l_agg_platform_video_analytics_hourly_pb_currency_member_currency =
+            when(
+              isnull(
+                lookup("sup_bidder_fx_rates",
+                       fx_rate_snapshot_id,
+                       lookup("sup_api_member_pb", l_member_id_0).getField(
+                         "member_currency"
+                       )
+                ).getField("rate")
+              ).cast(BooleanType),
+              lit("USD")
+            ).otherwise(
+              l_agg_platform_video_analytics_hourly_pb_currency_member_currency
+            )
+          l_agg_platform_video_analytics_hourly_pb_currency_member_currency
+        }
+      ).otherwise(
+        l_agg_platform_video_analytics_hourly_pb_currency_member_currency
+      )
+    ).when(
+        is_not_null(l_member_id_0)
+          .cast(BooleanType)
+          .and(
+            is_not_null(lookup("sup_api_member_pb", l_member_id_0))
+              .cast(BooleanType)
+          )
+          .and(
+            is_not_null(
+              lookup("sup_api_member_pb", l_member_id_0)
+                .getField("member_currency")
+            ).and(is_currency_2_enabled_member(l_member_id_0) === lit(1))
+              .and(
+                string_compare(lookup("sup_api_member_pb", l_member_id_0)
+                                 .getField("member_currency"),
+                               lit("USD")
+                ) =!= lit(0)
+              )
+          ),
+        when(isnull(
+               l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
+             ).cast(BooleanType),
+             lit("USD")
+        ).otherwise(
+          lookup("sup_api_member_pb", l_member_id_0).getField("member_currency")
+        )
+      )
+      .otherwise(
+        l_agg_platform_video_analytics_hourly_pb_currency_member_currency
+      )
+    l_agg_platform_video_analytics_hourly_pb_currency = struct(
+      l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id.as(
+        "fx_rate_snapshot_id"
+      ),
+      l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency.as(
+        "advertiser_currency"
+      ),
+      l_agg_platform_video_analytics_hourly_pb_currency_advertiser_exchange_rate
+        .as("advertiser_exchange_rate"),
+      l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency.as(
+        "publisher_currency"
+      ),
+      l_agg_platform_video_analytics_hourly_pb_currency_publisher_exchange_rate
+        .as("publisher_exchange_rate"),
+      l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_currency
+        .as("advertiser_default_currency"),
+      l_agg_platform_video_analytics_hourly_pb_currency_advertiser_default_exchange_rate
+        .as("advertiser_default_exchange_rate"),
+      l_agg_platform_video_analytics_hourly_pb_currency_member_currency.as(
+        "member_currency"
+      ),
+      l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate.as(
+        "member_exchange_rate"
+      ),
+      l_agg_platform_video_analytics_hourly_pb_currency_billing_currency.as(
+        "billing_currency"
+      ),
+      l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate
+        .as("billing_exchange_rate")
+    )
+    l_agg_platform_video_analytics_hourly_pb_currency
+  }
+
 }
