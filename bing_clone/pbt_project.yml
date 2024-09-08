@@ -38,6 +38,80 @@ pipelines:
       - datasets/Write_Proto_HDFS_agg_platform_video_analytics_pq_agg_platform_video_analytics
     subgraphs: []
     dependencies: {}
+  pipelines/first_agg_platform_video_analytics:
+    name: first_agg_platform_video_analytics
+    description: null
+    author: abhinav@simpledatalabs.com
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-09-08 10:38:05'
+    datasets:
+      inputs:
+      - datasets/Read_Proto_Range_agg_dw_clicks_pb_agg_dw_clicks
+      - datasets/Read_Proto_Range_agg_dw_pixels_pq_agg_dw_pixels
+      - datasets/Read_Proto_Range_agg_dw_video_events_pq_agg_dw_video_events
+      - datasets/Read_Proto_Range_agg_impbus_clicks_pb_agg_impbus_clicks
+      - datasets/Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions
+      - datasets/Read_Proto_Range_agg_platform_video_requests_pq_agg_platform_video_requests
+      - datasets/Read_Proto_Range_agg_platform_video_requests_transactable_pq_agg_platform_video_requests_transactable_0_to_5
+      outputs: []
+    subgraphs: []
+    dependencies: {}
+  pipelines/second_agg_platform_video_analytics:
+    name: second_agg_platform_video_analytics
+    description: null
+    author: abhinav@simpledatalabs.com
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-09-08 10:40:56'
+    datasets:
+      inputs:
+      - datasets/Read_Proto_Range_agg_dw_clicks_pb_agg_dw_clicks
+      - datasets/Read_Proto_Range_agg_dw_pixels_pq_agg_dw_pixels
+      - datasets/Read_Proto_Range_agg_dw_video_events_pq_agg_dw_video_events
+      - datasets/Read_Proto_Range_agg_impbus_clicks_pb_agg_impbus_clicks
+      - datasets/Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions
+      - datasets/Read_Proto_Range_agg_platform_video_requests_pq_agg_platform_video_requests
+      - datasets/Read_Proto_Range_agg_platform_video_requests_transactable_pq_agg_platform_video_requests_transactable_0_to_5
+      - datasets/Read_Proto_Range_sup_api_member_pb
+      - datasets/Read_Proto_Range_sup_bidder_advertiser_pb
+      - datasets/Read_Proto_Range_sup_bidder_fx_rates
+      - datasets/Read_Proto_Range_sup_code_fx_rate
+      - datasets/Read_Proto_Range_sup_creative_media_subtype_pb
+      - datasets/Read_Proto_Range_sup_placement_video_attributes_pb
+      outputs:
+      - datasets/Write_Proto_HDFS_agg_platform_video_analytics_pq_agg_platform_video_analytics
+    subgraphs: []
+    dependencies: {}
+  pipelines/third_agg_platform_video_analytics:
+    name: third_agg_platform_video_analytics
+    description: null
+    author: abhinav@simpledatalabs.com
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-09-08 10:44:41'
+    datasets:
+      inputs:
+      - datasets/Read_Proto_Range_agg_dw_clicks_pb_agg_dw_clicks
+      - datasets/Read_Proto_Range_agg_dw_pixels_pq_agg_dw_pixels
+      - datasets/Read_Proto_Range_agg_dw_video_events_pq_agg_dw_video_events
+      - datasets/Read_Proto_Range_agg_impbus_clicks_pb_agg_impbus_clicks
+      - datasets/Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions
+      - datasets/Read_Proto_Range_agg_platform_video_requests_pq_agg_platform_video_requests
+      - datasets/Read_Proto_Range_agg_platform_video_requests_transactable_pq_agg_platform_video_requests_transactable_0_to_5
+      - datasets/Read_Proto_Range_sup_api_member_pb
+      - datasets/Read_Proto_Range_sup_bidder_advertiser_pb
+      - datasets/Read_Proto_Range_sup_bidder_fx_rates
+      - datasets/Read_Proto_Range_sup_code_fx_rate
+      - datasets/Read_Proto_Range_sup_creative_media_subtype_pb
+      - datasets/Read_Proto_Range_sup_placement_video_attributes_pb
+      outputs:
+      - datasets/Write_Proto_HDFS_agg_platform_video_analytics_pq_agg_platform_video_analytics
+    subgraphs: []
+    dependencies: {}
 datasets:
   datasets/Read_Proto_Range_agg_dw_video_events_pq_agg_dw_video_events:
     name: Read_Proto_Range_agg_dw_video_events_pq_agg_dw_video_events
