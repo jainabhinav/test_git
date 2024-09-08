@@ -4,26 +4,26 @@ import io.prophecy.libs._
 import pureconfig._
 import pureconfig.generic.ProductHint
 import org.apache.spark.sql.SparkSession
-import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.xr_partition_key_filter_checkpointed_sort_agg_dw_pixels.config.{
-  Config => xr_partition_key_filter_checkpointed_sort_agg_dw_pixels_Config
+import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.Validate_Pick_Video_Events.config.{
+  Config => Validate_Pick_Video_Events_Config
 }
 import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.xr_partition_key_filter_checkpointed_sort_agg_dw_clicks.config.{
   Config => xr_partition_key_filter_checkpointed_sort_agg_dw_clicks_Config
+}
+import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.Validate_Pick_Clicks.config.{
+  Config => Validate_Pick_Clicks_Config
+}
+import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.xr_partition_key_filter_checkpointed_sort_agg_dw_pixels.config.{
+  Config => xr_partition_key_filter_checkpointed_sort_agg_dw_pixels_Config
+}
+import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.Validate_Pick_Pixels.config.{
+  Config => Validate_Pick_Pixels_Config
 }
 import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.xr_partition_key_filter_checkpointed_sort_agg_impbus_clicks.config.{
   Config => xr_partition_key_filter_checkpointed_sort_agg_impbus_clicks_Config
 }
 import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.Validate_Pick_impbus_Clicks_imp_type_6.config.{
   Config => Validate_Pick_impbus_Clicks_imp_type_6_Config
-}
-import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.Validate_Pick_Video_Events.config.{
-  Config => Validate_Pick_Video_Events_Config
-}
-import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.Validate_Pick_Clicks.config.{
-  Config => Validate_Pick_Clicks_Config
-}
-import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.Validate_Pick_Pixels.config.{
-  Config => Validate_Pick_Pixels_Config
 }
 
 object Config {

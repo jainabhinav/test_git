@@ -1195,7 +1195,7 @@ object Reformat_agg_platform_video_analytics_pb {
     )
   }
 
-  def member_currency(context: Context) = {
+  def advertiser_default_exchange_rate(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     when(
@@ -1219,7 +1219,7 @@ object Reformat_agg_platform_video_analytics_pb {
         col("agg_dw_pixels.imp_type").cast(IntegerType),
         col("_sup_bidder_advertiser_pb_LOOKUP"),
         col("_sup_bidder_advertiser_pb_LOOKUP1")
-      ).getField("member_currency")
+      ).getField("advertiser_default_exchange_rate")
     ).when(
         is_not_null(col("agg_dw_clicks")).cast(BooleanType),
         f_currency_mapper(
@@ -1241,7 +1241,7 @@ object Reformat_agg_platform_video_analytics_pb {
           col("agg_dw_clicks.imp_type").cast(IntegerType),
           col("_sup_bidder_advertiser_pb_LOOKUP2"),
           col("_sup_bidder_advertiser_pb_LOOKUP3")
-        ).getField("member_currency")
+        ).getField("advertiser_default_exchange_rate")
       )
       .when(
         is_not_null(col("agg_dw_video_events")).cast(BooleanType),
@@ -1266,7 +1266,7 @@ object Reformat_agg_platform_video_analytics_pb {
           ),
           col("_sup_bidder_advertiser_pb_LOOKUP4"),
           col("_sup_bidder_advertiser_pb_LOOKUP5")
-        ).getField("member_currency")
+        ).getField("advertiser_default_exchange_rate")
       )
       .otherwise(
         when(
@@ -1293,110 +1293,7 @@ object Reformat_agg_platform_video_analytics_pb {
             col("agg_platform_video_impressions.imp_type").cast(IntegerType),
             col("_sup_bidder_advertiser_pb_LOOKUP6"),
             col("_sup_bidder_advertiser_pb_LOOKUP7")
-          ).getField("member_currency")
-        )
-      )
-  }
-
-  def member_exchange_rate(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    when(
-      is_not_null(col("agg_dw_pixels")).cast(BooleanType),
-      f_currency_mapper(
-        f_calc_derived_fields(
-          col("agg_dw_video_events"),
-          col("agg_platform_video_impressions"),
-          col("agg_platform_video_requests"),
-          col("agg_dw_clicks"),
-          col("agg_dw_pixels"),
-          f_get_winning_creative_id(col("agg_dw_video_events"),
-                                    col("agg_platform_video_impressions")
-          ).cast(IntegerType),
-          lit(Config.XR_BUSINESS_DATE),
-          lit(Config.XR_BUSINESS_HOUR)
-        ).getField("fx_rate_snapshot_id"),
-        col("agg_dw_pixels.buyer_member_id").cast(IntegerType),
-        col("agg_dw_pixels.seller_member_id").cast(IntegerType),
-        col("agg_dw_pixels.advertiser_id").cast(IntegerType),
-        col("agg_dw_pixels.imp_type").cast(IntegerType),
-        col("_sup_bidder_advertiser_pb_LOOKUP"),
-        col("_sup_bidder_advertiser_pb_LOOKUP1")
-      ).getField("member_exchange_rate")
-    ).when(
-        is_not_null(col("agg_dw_clicks")).cast(BooleanType),
-        f_currency_mapper(
-          f_calc_derived_fields(
-            col("agg_dw_video_events"),
-            col("agg_platform_video_impressions"),
-            col("agg_platform_video_requests"),
-            col("agg_dw_clicks"),
-            col("agg_dw_pixels"),
-            f_get_winning_creative_id(col("agg_dw_video_events"),
-                                      col("agg_platform_video_impressions")
-            ).cast(IntegerType),
-            lit(Config.XR_BUSINESS_DATE),
-            lit(Config.XR_BUSINESS_HOUR)
-          ).getField("fx_rate_snapshot_id"),
-          col("agg_dw_clicks.buyer_member_id").cast(IntegerType),
-          col("agg_dw_clicks.seller_member_id").cast(IntegerType),
-          col("agg_dw_clicks.advertiser_id").cast(IntegerType),
-          col("agg_dw_clicks.imp_type").cast(IntegerType),
-          col("_sup_bidder_advertiser_pb_LOOKUP2"),
-          col("_sup_bidder_advertiser_pb_LOOKUP3")
-        ).getField("member_exchange_rate")
-      )
-      .when(
-        is_not_null(col("agg_dw_video_events")).cast(BooleanType),
-        f_currency_mapper(
-          f_calc_derived_fields(
-            col("agg_dw_video_events"),
-            col("agg_platform_video_impressions"),
-            col("agg_platform_video_requests"),
-            col("agg_dw_clicks"),
-            col("agg_dw_pixels"),
-            f_get_winning_creative_id(col("agg_dw_video_events"),
-                                      col("agg_platform_video_impressions")
-            ).cast(IntegerType),
-            lit(Config.XR_BUSINESS_DATE),
-            lit(Config.XR_BUSINESS_HOUR)
-          ).getField("fx_rate_snapshot_id"),
-          col("agg_dw_video_events.buyer_member_id").cast(IntegerType),
-          col("agg_dw_video_events.seller_member_id").cast(IntegerType),
-          col("agg_dw_video_events.advertiser_id").cast(IntegerType),
-          coalesce(col("agg_dw_video_events.imp_type").cast(IntegerType),
-                   col("agg_dw_video_events.request_imp_type").cast(IntegerType)
-          ),
-          col("_sup_bidder_advertiser_pb_LOOKUP4"),
-          col("_sup_bidder_advertiser_pb_LOOKUP5")
-        ).getField("member_exchange_rate")
-      )
-      .otherwise(
-        when(
-          is_not_null(col("agg_platform_video_impressions")).cast(BooleanType),
-          f_currency_mapper(
-            f_calc_derived_fields(
-              col("agg_dw_video_events"),
-              col("agg_platform_video_impressions"),
-              col("agg_platform_video_requests"),
-              col("agg_dw_clicks"),
-              col("agg_dw_pixels"),
-              f_get_winning_creative_id(col("agg_dw_video_events"),
-                                        col("agg_platform_video_impressions")
-              ).cast(IntegerType),
-              lit(Config.XR_BUSINESS_DATE),
-              lit(Config.XR_BUSINESS_HOUR)
-            ).getField("fx_rate_snapshot_id"),
-            col("agg_platform_video_impressions.buyer_member_id")
-              .cast(IntegerType),
-            col("agg_platform_video_impressions.seller_member_id")
-              .cast(IntegerType),
-            col("agg_platform_video_impressions.advertiser_id")
-              .cast(IntegerType),
-            col("agg_platform_video_impressions.imp_type").cast(IntegerType),
-            col("_sup_bidder_advertiser_pb_LOOKUP6"),
-            col("_sup_bidder_advertiser_pb_LOOKUP7")
-          ).getField("member_exchange_rate")
+          ).getField("advertiser_default_exchange_rate")
         )
       )
       .cast(DoubleType)
@@ -1453,88 +1350,66 @@ object Reformat_agg_platform_video_analytics_pb {
     )
   }
 
-  def bidder_id(context: Context) = {
+  def seller_revenue_event_units(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     coalesce(
       when(
-        coalesce(
-          col("agg_platform_video_impressions.bidder_id").cast(IntegerType),
-          lit(0)
-        ) =!= lit(0),
-        col("agg_platform_video_impressions.bidder_id").cast(IntegerType)
-      ).otherwise(
-          when(
-            coalesce(col("agg_platform_video_impressions.buyer_member_id")
-                       .cast(IntegerType),
-                     lit(0)
-            ) =!= lit(0),
-            lookup("sup_api_member_pb",
-                   col("agg_platform_video_impressions.buyer_member_id")
-                     .cast(IntegerType)
-            ).getField("bidder_id")
+        f_is_curr_hour(
+          col("agg_platform_video_impressions.date_time").cast(LongType),
+          lit(Config.XR_BUSINESS_DATE),
+          lit(Config.XR_BUSINESS_HOUR)
+        ).cast(BooleanType)
+          .and(
+            col("agg_platform_video_impressions.is_unit_of_seller_trx")
+              .cast(BooleanType)
           )
-        )
-        .cast(IntegerType),
-      when(coalesce(col("agg_dw_clicks.bidder_id").cast(IntegerType),
-                    lit(0)
-           ) =!= lit(0),
-           col("agg_dw_clicks.bidder_id").cast(IntegerType)
-      ).otherwise(
-          when(
-            coalesce(col("agg_dw_clicks.buyer_member_id").cast(IntegerType),
-                     lit(0)
-            ) =!= lit(0),
-            lookup("sup_api_member_pb",
-                   col("agg_dw_clicks.buyer_member_id").cast(IntegerType)
-            ).getField("bidder_id")
+          .and(
+            (col("agg_platform_video_impressions.imp_type")
+              .cast(IntegerType) === lit(6)).or(
+              col("agg_platform_video_impressions.imp_type")
+                .cast(IntegerType) === lit(5)
+            )
           )
-        )
-        .cast(IntegerType),
-      when(coalesce(col("agg_dw_pixels.bidder_id").cast(IntegerType),
-                    lit(0)
-           ) =!= lit(0),
-           col("agg_dw_pixels.bidder_id").cast(IntegerType)
-      ).otherwise(
-          when(
-            coalesce(col("agg_dw_pixels.buyer_member_id").cast(IntegerType),
-                     lit(0)
-            ) =!= lit(0),
-            lookup("sup_api_member_pb",
-                   col("agg_dw_pixels.buyer_member_id").cast(IntegerType)
-            ).getField("bidder_id")
-          )
-        )
-        .cast(IntegerType),
-      when(coalesce(col("agg_dw_video_events.bidder_id").cast(IntegerType),
-                    lit(0)
-           ) =!= lit(0),
-           col("agg_dw_video_events.bidder_id").cast(IntegerType)
-      ).when(
-          coalesce(col("agg_dw_video_events.buyer_member_id").cast(IntegerType),
-                   lit(0)
-          ) =!= lit(0),
-          lookup("sup_api_member_pb",
-                 col("agg_dw_video_events.buyer_member_id").cast(IntegerType)
-          ).getField("bidder_id")
-        )
-        .otherwise(lit(0))
-        .cast(IntegerType),
-      when(coalesce(col("agg_impbus_clicks.bidder_id").cast(IntegerType),
-                    lit(0)
-           ) =!= lit(0),
-           col("agg_impbus_clicks.bidder_id").cast(IntegerType)
-      ).otherwise(
-          when(
-            coalesce(col("agg_impbus_clicks.buyer_member_id").cast(IntegerType),
-                     lit(0)
-            ) =!= lit(0),
-            lookup("sup_api_member_pb",
-                   col("agg_impbus_clicks.buyer_member_id").cast(IntegerType)
-            ).getField("bidder_id")
-          )
-        )
-        .cast(IntegerType)
+          .and(
+            not(
+              col("agg_platform_video_impressions.is_unit_of_buyer_trx")
+                .cast(BooleanType)
+                .and(
+                  (col("agg_platform_video_impressions.imp_type")
+                    .cast(IntegerType) === lit(7)).or(
+                    col("agg_platform_video_impressions.imp_type")
+                      .cast(IntegerType) === lit(5)
+                  )
+                )
+            ).cast(BooleanType)
+          ),
+        lit(1)
+      ).cast(LongType),
+      when(
+        col("agg_dw_clicks.is_unit_of_trx")
+          .cast(BooleanType)
+          .and(
+            (col("agg_dw_clicks.imp_type").cast(IntegerType) === lit(5))
+              .or(col("agg_dw_clicks.imp_type").cast(IntegerType) === lit(6))
+          ),
+        lit(1)
+      ).cast(LongType),
+      when(
+        col("agg_dw_pixels.is_unit_of_trx")
+          .cast(BooleanType)
+          .and(
+            (col("agg_dw_pixels.imp_type").cast(IntegerType) === lit(5))
+              .or(col("agg_dw_pixels.imp_type").cast(IntegerType) === lit(6))
+          ),
+        lit(1)
+      ).cast(LongType),
+      when(
+        col("agg_impbus_clicks.is_unit_of_trx")
+          .cast(BooleanType)
+          .and(col("agg_impbus_clicks.imp_type").cast(IntegerType) === lit(6)),
+        lit(1)
+      ).cast(LongType)
     )
   }
 
@@ -1745,52 +1620,6 @@ object Reformat_agg_platform_video_analytics_pb {
       )
   }
 
-  def region_id(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    coalesce(
-      when(
-        is_not_null(
-          col("agg_platform_video_requests.region_id").cast(IntegerType)
-        ).and(
-          col("agg_platform_video_requests.region_id")
-            .cast(IntegerType) =!= lit(0)
-        ),
-        col("agg_platform_video_requests.region_id").cast(IntegerType)
-      ).cast(IntegerType),
-      when(
-        is_not_null(col("agg_dw_video_events.region_id").cast(IntegerType)).and(
-          col("agg_dw_video_events.region_id").cast(IntegerType) =!= lit(0)
-        ),
-        col("agg_dw_video_events.region_id").cast(IntegerType)
-      ).cast(IntegerType),
-      when(
-        is_not_null(
-          col("agg_platform_video_impressions.region_id").cast(IntegerType)
-        ).and(
-          col("agg_platform_video_impressions.region_id")
-            .cast(IntegerType) =!= lit(0)
-        ),
-        col("agg_platform_video_impressions.region_id").cast(IntegerType)
-      ).cast(IntegerType),
-      when(
-        is_not_null(col("agg_dw_clicks.region_id").cast(IntegerType))
-          .and(col("agg_dw_clicks.region_id").cast(IntegerType) =!= lit(0)),
-        col("agg_dw_clicks.region_id").cast(IntegerType)
-      ).cast(IntegerType),
-      when(
-        is_not_null(col("agg_dw_pixels.region_id").cast(IntegerType))
-          .and(col("agg_dw_pixels.region_id").cast(IntegerType) =!= lit(0)),
-        col("agg_dw_pixels.region_id").cast(IntegerType)
-      ).cast(IntegerType),
-      when(
-        is_not_null(col("agg_impbus_clicks.region_id").cast(IntegerType))
-          .and(col("agg_impbus_clicks.region_id").cast(IntegerType) =!= lit(0)),
-        col("agg_impbus_clicks.region_id").cast(IntegerType)
-      ).cast(IntegerType)
-    )
-  }
-
   def advertiser_default_currency(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -1894,70 +1723,7 @@ object Reformat_agg_platform_video_analytics_pb {
       )
   }
 
-  def seller_revenue_event_units(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    coalesce(
-      when(
-        f_is_curr_hour(
-          col("agg_platform_video_impressions.date_time").cast(LongType),
-          lit(Config.XR_BUSINESS_DATE),
-          lit(Config.XR_BUSINESS_HOUR)
-        ).cast(BooleanType)
-          .and(
-            col("agg_platform_video_impressions.is_unit_of_seller_trx")
-              .cast(BooleanType)
-          )
-          .and(
-            (col("agg_platform_video_impressions.imp_type")
-              .cast(IntegerType) === lit(6)).or(
-              col("agg_platform_video_impressions.imp_type")
-                .cast(IntegerType) === lit(5)
-            )
-          )
-          .and(
-            not(
-              col("agg_platform_video_impressions.is_unit_of_buyer_trx")
-                .cast(BooleanType)
-                .and(
-                  (col("agg_platform_video_impressions.imp_type")
-                    .cast(IntegerType) === lit(7)).or(
-                    col("agg_platform_video_impressions.imp_type")
-                      .cast(IntegerType) === lit(5)
-                  )
-                )
-            ).cast(BooleanType)
-          ),
-        lit(1)
-      ).cast(LongType),
-      when(
-        col("agg_dw_clicks.is_unit_of_trx")
-          .cast(BooleanType)
-          .and(
-            (col("agg_dw_clicks.imp_type").cast(IntegerType) === lit(5))
-              .or(col("agg_dw_clicks.imp_type").cast(IntegerType) === lit(6))
-          ),
-        lit(1)
-      ).cast(LongType),
-      when(
-        col("agg_dw_pixels.is_unit_of_trx")
-          .cast(BooleanType)
-          .and(
-            (col("agg_dw_pixels.imp_type").cast(IntegerType) === lit(5))
-              .or(col("agg_dw_pixels.imp_type").cast(IntegerType) === lit(6))
-          ),
-        lit(1)
-      ).cast(LongType),
-      when(
-        col("agg_impbus_clicks.is_unit_of_trx")
-          .cast(BooleanType)
-          .and(col("agg_impbus_clicks.imp_type").cast(IntegerType) === lit(6)),
-        lit(1)
-      ).cast(LongType)
-    )
-  }
-
-  def advertiser_default_exchange_rate(context: Context) = {
+  def member_currency(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     when(
@@ -1981,7 +1747,7 @@ object Reformat_agg_platform_video_analytics_pb {
         col("agg_dw_pixels.imp_type").cast(IntegerType),
         col("_sup_bidder_advertiser_pb_LOOKUP"),
         col("_sup_bidder_advertiser_pb_LOOKUP1")
-      ).getField("advertiser_default_exchange_rate")
+      ).getField("member_currency")
     ).when(
         is_not_null(col("agg_dw_clicks")).cast(BooleanType),
         f_currency_mapper(
@@ -2003,7 +1769,7 @@ object Reformat_agg_platform_video_analytics_pb {
           col("agg_dw_clicks.imp_type").cast(IntegerType),
           col("_sup_bidder_advertiser_pb_LOOKUP2"),
           col("_sup_bidder_advertiser_pb_LOOKUP3")
-        ).getField("advertiser_default_exchange_rate")
+        ).getField("member_currency")
       )
       .when(
         is_not_null(col("agg_dw_video_events")).cast(BooleanType),
@@ -2028,7 +1794,7 @@ object Reformat_agg_platform_video_analytics_pb {
           ),
           col("_sup_bidder_advertiser_pb_LOOKUP4"),
           col("_sup_bidder_advertiser_pb_LOOKUP5")
-        ).getField("advertiser_default_exchange_rate")
+        ).getField("member_currency")
       )
       .otherwise(
         when(
@@ -2055,10 +1821,140 @@ object Reformat_agg_platform_video_analytics_pb {
             col("agg_platform_video_impressions.imp_type").cast(IntegerType),
             col("_sup_bidder_advertiser_pb_LOOKUP6"),
             col("_sup_bidder_advertiser_pb_LOOKUP7")
-          ).getField("advertiser_default_exchange_rate")
+          ).getField("member_currency")
         )
       )
-      .cast(DoubleType)
+  }
+
+  def region_id(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    coalesce(
+      when(
+        is_not_null(
+          col("agg_platform_video_requests.region_id").cast(IntegerType)
+        ).and(
+          col("agg_platform_video_requests.region_id")
+            .cast(IntegerType) =!= lit(0)
+        ),
+        col("agg_platform_video_requests.region_id").cast(IntegerType)
+      ).cast(IntegerType),
+      when(
+        is_not_null(col("agg_dw_video_events.region_id").cast(IntegerType)).and(
+          col("agg_dw_video_events.region_id").cast(IntegerType) =!= lit(0)
+        ),
+        col("agg_dw_video_events.region_id").cast(IntegerType)
+      ).cast(IntegerType),
+      when(
+        is_not_null(
+          col("agg_platform_video_impressions.region_id").cast(IntegerType)
+        ).and(
+          col("agg_platform_video_impressions.region_id")
+            .cast(IntegerType) =!= lit(0)
+        ),
+        col("agg_platform_video_impressions.region_id").cast(IntegerType)
+      ).cast(IntegerType),
+      when(
+        is_not_null(col("agg_dw_clicks.region_id").cast(IntegerType))
+          .and(col("agg_dw_clicks.region_id").cast(IntegerType) =!= lit(0)),
+        col("agg_dw_clicks.region_id").cast(IntegerType)
+      ).cast(IntegerType),
+      when(
+        is_not_null(col("agg_dw_pixels.region_id").cast(IntegerType))
+          .and(col("agg_dw_pixels.region_id").cast(IntegerType) =!= lit(0)),
+        col("agg_dw_pixels.region_id").cast(IntegerType)
+      ).cast(IntegerType),
+      when(
+        is_not_null(col("agg_impbus_clicks.region_id").cast(IntegerType))
+          .and(col("agg_impbus_clicks.region_id").cast(IntegerType) =!= lit(0)),
+        col("agg_impbus_clicks.region_id").cast(IntegerType)
+      ).cast(IntegerType)
+    )
+  }
+
+  def bidder_id(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    coalesce(
+      when(
+        coalesce(
+          col("agg_platform_video_impressions.bidder_id").cast(IntegerType),
+          lit(0)
+        ) =!= lit(0),
+        col("agg_platform_video_impressions.bidder_id").cast(IntegerType)
+      ).otherwise(
+          when(
+            coalesce(col("agg_platform_video_impressions.buyer_member_id")
+                       .cast(IntegerType),
+                     lit(0)
+            ) =!= lit(0),
+            lookup("sup_api_member_pb",
+                   col("agg_platform_video_impressions.buyer_member_id")
+                     .cast(IntegerType)
+            ).getField("bidder_id")
+          )
+        )
+        .cast(IntegerType),
+      when(coalesce(col("agg_dw_clicks.bidder_id").cast(IntegerType),
+                    lit(0)
+           ) =!= lit(0),
+           col("agg_dw_clicks.bidder_id").cast(IntegerType)
+      ).otherwise(
+          when(
+            coalesce(col("agg_dw_clicks.buyer_member_id").cast(IntegerType),
+                     lit(0)
+            ) =!= lit(0),
+            lookup("sup_api_member_pb",
+                   col("agg_dw_clicks.buyer_member_id").cast(IntegerType)
+            ).getField("bidder_id")
+          )
+        )
+        .cast(IntegerType),
+      when(coalesce(col("agg_dw_pixels.bidder_id").cast(IntegerType),
+                    lit(0)
+           ) =!= lit(0),
+           col("agg_dw_pixels.bidder_id").cast(IntegerType)
+      ).otherwise(
+          when(
+            coalesce(col("agg_dw_pixels.buyer_member_id").cast(IntegerType),
+                     lit(0)
+            ) =!= lit(0),
+            lookup("sup_api_member_pb",
+                   col("agg_dw_pixels.buyer_member_id").cast(IntegerType)
+            ).getField("bidder_id")
+          )
+        )
+        .cast(IntegerType),
+      when(coalesce(col("agg_dw_video_events.bidder_id").cast(IntegerType),
+                    lit(0)
+           ) =!= lit(0),
+           col("agg_dw_video_events.bidder_id").cast(IntegerType)
+      ).when(
+          coalesce(col("agg_dw_video_events.buyer_member_id").cast(IntegerType),
+                   lit(0)
+          ) =!= lit(0),
+          lookup("sup_api_member_pb",
+                 col("agg_dw_video_events.buyer_member_id").cast(IntegerType)
+          ).getField("bidder_id")
+        )
+        .otherwise(lit(0))
+        .cast(IntegerType),
+      when(coalesce(col("agg_impbus_clicks.bidder_id").cast(IntegerType),
+                    lit(0)
+           ) =!= lit(0),
+           col("agg_impbus_clicks.bidder_id").cast(IntegerType)
+      ).otherwise(
+          when(
+            coalesce(col("agg_impbus_clicks.buyer_member_id").cast(IntegerType),
+                     lit(0)
+            ) =!= lit(0),
+            lookup("sup_api_member_pb",
+                   col("agg_impbus_clicks.buyer_member_id").cast(IntegerType)
+            ).getField("bidder_id")
+          )
+        )
+        .cast(IntegerType)
+    )
   }
 
   def is_dw_buyer(context: Context) = {
@@ -2118,6 +2014,110 @@ object Reformat_agg_platform_video_analytics_pb {
         .otherwise(lit(0))
         .cast(IntegerType)
     )
+  }
+
+  def member_exchange_rate(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    when(
+      is_not_null(col("agg_dw_pixels")).cast(BooleanType),
+      f_currency_mapper(
+        f_calc_derived_fields(
+          col("agg_dw_video_events"),
+          col("agg_platform_video_impressions"),
+          col("agg_platform_video_requests"),
+          col("agg_dw_clicks"),
+          col("agg_dw_pixels"),
+          f_get_winning_creative_id(col("agg_dw_video_events"),
+                                    col("agg_platform_video_impressions")
+          ).cast(IntegerType),
+          lit(Config.XR_BUSINESS_DATE),
+          lit(Config.XR_BUSINESS_HOUR)
+        ).getField("fx_rate_snapshot_id"),
+        col("agg_dw_pixels.buyer_member_id").cast(IntegerType),
+        col("agg_dw_pixels.seller_member_id").cast(IntegerType),
+        col("agg_dw_pixels.advertiser_id").cast(IntegerType),
+        col("agg_dw_pixels.imp_type").cast(IntegerType),
+        col("_sup_bidder_advertiser_pb_LOOKUP"),
+        col("_sup_bidder_advertiser_pb_LOOKUP1")
+      ).getField("member_exchange_rate")
+    ).when(
+        is_not_null(col("agg_dw_clicks")).cast(BooleanType),
+        f_currency_mapper(
+          f_calc_derived_fields(
+            col("agg_dw_video_events"),
+            col("agg_platform_video_impressions"),
+            col("agg_platform_video_requests"),
+            col("agg_dw_clicks"),
+            col("agg_dw_pixels"),
+            f_get_winning_creative_id(col("agg_dw_video_events"),
+                                      col("agg_platform_video_impressions")
+            ).cast(IntegerType),
+            lit(Config.XR_BUSINESS_DATE),
+            lit(Config.XR_BUSINESS_HOUR)
+          ).getField("fx_rate_snapshot_id"),
+          col("agg_dw_clicks.buyer_member_id").cast(IntegerType),
+          col("agg_dw_clicks.seller_member_id").cast(IntegerType),
+          col("agg_dw_clicks.advertiser_id").cast(IntegerType),
+          col("agg_dw_clicks.imp_type").cast(IntegerType),
+          col("_sup_bidder_advertiser_pb_LOOKUP2"),
+          col("_sup_bidder_advertiser_pb_LOOKUP3")
+        ).getField("member_exchange_rate")
+      )
+      .when(
+        is_not_null(col("agg_dw_video_events")).cast(BooleanType),
+        f_currency_mapper(
+          f_calc_derived_fields(
+            col("agg_dw_video_events"),
+            col("agg_platform_video_impressions"),
+            col("agg_platform_video_requests"),
+            col("agg_dw_clicks"),
+            col("agg_dw_pixels"),
+            f_get_winning_creative_id(col("agg_dw_video_events"),
+                                      col("agg_platform_video_impressions")
+            ).cast(IntegerType),
+            lit(Config.XR_BUSINESS_DATE),
+            lit(Config.XR_BUSINESS_HOUR)
+          ).getField("fx_rate_snapshot_id"),
+          col("agg_dw_video_events.buyer_member_id").cast(IntegerType),
+          col("agg_dw_video_events.seller_member_id").cast(IntegerType),
+          col("agg_dw_video_events.advertiser_id").cast(IntegerType),
+          coalesce(col("agg_dw_video_events.imp_type").cast(IntegerType),
+                   col("agg_dw_video_events.request_imp_type").cast(IntegerType)
+          ),
+          col("_sup_bidder_advertiser_pb_LOOKUP4"),
+          col("_sup_bidder_advertiser_pb_LOOKUP5")
+        ).getField("member_exchange_rate")
+      )
+      .otherwise(
+        when(
+          is_not_null(col("agg_platform_video_impressions")).cast(BooleanType),
+          f_currency_mapper(
+            f_calc_derived_fields(
+              col("agg_dw_video_events"),
+              col("agg_platform_video_impressions"),
+              col("agg_platform_video_requests"),
+              col("agg_dw_clicks"),
+              col("agg_dw_pixels"),
+              f_get_winning_creative_id(col("agg_dw_video_events"),
+                                        col("agg_platform_video_impressions")
+              ).cast(IntegerType),
+              lit(Config.XR_BUSINESS_DATE),
+              lit(Config.XR_BUSINESS_HOUR)
+            ).getField("fx_rate_snapshot_id"),
+            col("agg_platform_video_impressions.buyer_member_id")
+              .cast(IntegerType),
+            col("agg_platform_video_impressions.seller_member_id")
+              .cast(IntegerType),
+            col("agg_platform_video_impressions.advertiser_id")
+              .cast(IntegerType),
+            col("agg_platform_video_impressions.imp_type").cast(IntegerType),
+            col("_sup_bidder_advertiser_pb_LOOKUP6"),
+            col("_sup_bidder_advertiser_pb_LOOKUP7")
+          ).getField("member_exchange_rate")
+        )
+      )
+      .cast(DoubleType)
   }
 
 }

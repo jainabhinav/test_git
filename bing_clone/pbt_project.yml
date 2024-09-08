@@ -55,7 +55,8 @@ pipelines:
       - datasets/Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions
       - datasets/Read_Proto_Range_agg_platform_video_requests_pq_agg_platform_video_requests
       - datasets/Read_Proto_Range_agg_platform_video_requests_transactable_pq_agg_platform_video_requests_transactable_0_to_5
-      outputs: []
+      outputs:
+      - datasets/temp_output1
     subgraphs: []
     dependencies: {}
   pipelines/second_agg_platform_video_analytics:
@@ -309,6 +310,19 @@ datasets:
         description: ''
         author: abhinav@simpledatalabs.com
         createdAt: '2024-09-08 10:05:18'
+  datasets/temp_output1:
+    name: temp_output1
+    description: ''
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-08 18:44:22'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-08 18:44:22'
 templates: {}
 jobs: {}
 gemContainer:

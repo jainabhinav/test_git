@@ -23,6 +23,7 @@ object Main {
       )
       .cache()
     val df_Filter_1 = Filter_1(context, df_Main_Graph)
+    temp_output1(context, df_Filter_1)
   }
 
   def main(args: Array[String]): Unit = {
