@@ -13,15 +13,6 @@ import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph
 import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.xr_partition_key_filter_checkpointed_sort_agg_impbus_clicks.config.{
   Config => xr_partition_key_filter_checkpointed_sort_agg_impbus_clicks_Config
 }
-import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.xr_partition_key_filter_checkpointed_sort_agg_platform_video_impressions_pb.config.{
-  Config => xr_partition_key_filter_checkpointed_sort_agg_platform_video_impressions_pb_Config
-}
-import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.xr_partition_key_filter_checkpointed_sort_agg_dw_video_events_pb.config.{
-  Config => xr_partition_key_filter_checkpointed_sort_agg_dw_video_events_pb_Config
-}
-import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.xr_partition_key_filter_checkpointed_sort_agg_platform_video_requests.config.{
-  Config => xr_partition_key_filter_checkpointed_sort_agg_platform_video_requests_Config
-}
 import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.Validate_Pick_impbus_Clicks_imp_type_6.config.{
   Config => Validate_Pick_impbus_Clicks_imp_type_6_Config
 }
@@ -63,16 +54,10 @@ case class Config(
     xr_partition_key_filter_checkpointed_sort_agg_dw_clicks_Config(),
   var xr_partition_key_filter_checkpointed_sort_agg_impbus_clicks: xr_partition_key_filter_checkpointed_sort_agg_impbus_clicks_Config =
     xr_partition_key_filter_checkpointed_sort_agg_impbus_clicks_Config(),
-  var xr_partition_key_filter_checkpointed_sort_agg_platform_video_impressions_pb: xr_partition_key_filter_checkpointed_sort_agg_platform_video_impressions_pb_Config =
-    xr_partition_key_filter_checkpointed_sort_agg_platform_video_impressions_pb_Config(),
   var Validate_Pick_Video_Events: Validate_Pick_Video_Events_Config =
     Validate_Pick_Video_Events_Config(),
   var Validate_Pick_Pixels: Validate_Pick_Pixels_Config =
     Validate_Pick_Pixels_Config(),
-  var xr_partition_key_filter_checkpointed_sort_agg_dw_video_events_pb: xr_partition_key_filter_checkpointed_sort_agg_dw_video_events_pb_Config =
-    xr_partition_key_filter_checkpointed_sort_agg_dw_video_events_pb_Config(),
-  var xr_partition_key_filter_checkpointed_sort_agg_platform_video_requests: xr_partition_key_filter_checkpointed_sort_agg_platform_video_requests_Config =
-    xr_partition_key_filter_checkpointed_sort_agg_platform_video_requests_Config(),
   var Validate_Pick_impbus_Clicks_imp_type_6: Validate_Pick_impbus_Clicks_imp_type_6_Config =
     Validate_Pick_impbus_Clicks_imp_type_6_Config(),
   var Validate_Pick_Clicks: Validate_Pick_Clicks_Config =
