@@ -1,0 +1,1 @@
+{"parameters":[{"name":"impression_value","type":"column","metadata":{"description":"","tags":[],"mappings":[]}},{"name":"preempt_value","type":"column","metadata":{"description":"","tags":[],"mappings":[]}}],"isCustomSchemaEnabled":false,"code":"coalesce(preempt_value, impression_value)","language":"scala","description":""}

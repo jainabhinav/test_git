@@ -1,0 +1,1 @@
+{"parameters":[{"name":"in_protocols","type":"column","metadata":{"description":"","tags":[],"mappings":[]}}],"output":"integer","isCustomSchemaEnabled":true,"code":"aggregate(\n      filter(coalesce(in_protocols, array()), xx ⇒ xx <= lit(31)),\n      lit(0),\n      (xx, ji) ⇒ xx.bitwiseOR(pow(lit(2), ji).cast(IntegerType))\n    )","language":"scala","description":""}
