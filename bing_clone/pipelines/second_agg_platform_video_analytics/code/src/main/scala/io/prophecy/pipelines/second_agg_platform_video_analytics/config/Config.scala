@@ -3,9 +3,6 @@ package io.prophecy.pipelines.second_agg_platform_video_analytics.config
 import pureconfig._
 import pureconfig.generic.ProductHint
 import io.prophecy.libs._
-import io.prophecy.pipelines.second_agg_platform_video_analytics.graph.Main_Graph.config.{
-  Config => Main_Graph_Config
-}
 import io.prophecy.pipelines.second_agg_platform_video_analytics.graph.Create_sup_lookup_files.config.{
   Config => Create_sup_lookup_files_Config
 }
@@ -15,7 +12,6 @@ case class Config(
   var XR_BUSINESS_DATE: String = "willBeOverwrittenByScript",
   var Write_Proto_HDFS_agg_platform_video_analytics_pb_agg_platform_video_analytics: String =
     "",
-  var Main_Graph: Main_Graph_Config = Main_Graph_Config(),
   var Create_sup_lookup_files: Create_sup_lookup_files_Config =
     Create_sup_lookup_files_Config(),
   var datasets: Datasets = Datasets(),

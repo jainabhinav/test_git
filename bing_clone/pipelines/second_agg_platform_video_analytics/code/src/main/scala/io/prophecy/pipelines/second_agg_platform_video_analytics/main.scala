@@ -16,12 +16,11 @@ import java.time._
 object Main {
 
   def apply(context: Context): Unit = {
-    val df_Main_Graph = Main_Graph
-      .apply(
-        Main_Graph.config.Context(context.spark, context.config.Main_Graph)
-      )
-      .cache()
-    val df_select_auction_data = select_auction_data(context, df_Main_Graph)
+    val df_temp_output1 = temp_output1(context)
+    val df_repartition_by_auction_id =
+      repartition_by_auction_id(context, df_temp_output1)
+    val df_select_auction_data =
+      select_auction_data(context, df_repartition_by_auction_id)
     val df_reformat_auction_data =
       reformat_auction_data(context, df_select_auction_data).cache()
     val (df_Create_sup_lookup_files_out2,
@@ -31,10 +30,12 @@ object Main {
       Create_sup_lookup_files.config
         .Context(context.spark, context.config.Create_sup_lookup_files)
     )
+    val df_repartition_by_id =
+      repartition_by_id(context, df_Create_sup_lookup_files_out2)
     val df_left_outer_join_video_attributes =
       left_outer_join_video_attributes(context,
                                        df_reformat_auction_data,
-                                       df_Create_sup_lookup_files_out2
+                                       df_repartition_by_id
       ).cache()
     val df_join_and_lookup_creatives = join_and_lookup_creatives(
       context,
@@ -47,8 +48,10 @@ object Main {
       df_Create_sup_lookup_files_out
     )
     Script_1(context)
-    val df_join_auction_data =
-      join_auction_data(context, df_Main_Graph, df_complex_join_with_lookups)
+    val df_join_auction_data = join_auction_data(context,
+                                                 df_repartition_by_auction_id,
+                                                 df_complex_join_with_lookups
+    )
     val df_Reformat_agg_platform_video_analytics_pb =
       Reformat_agg_platform_video_analytics_pb(context, df_join_auction_data)
     Write_Proto_HDFS_agg_platform_video_analytics_pq_agg_platform_video_analytics(

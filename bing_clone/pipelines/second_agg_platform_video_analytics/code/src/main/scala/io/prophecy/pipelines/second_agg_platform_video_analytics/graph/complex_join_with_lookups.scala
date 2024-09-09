@@ -44,19 +44,27 @@ object complex_join_with_lookups {
         )
       }
     
-    val new_in1 = in1.cache()
-    new_in1.count()
+    import org.apache.spark.storage.StorageLevel
+    
+    // Persist the DataFrame to disk only
+    in0.persist(StorageLevel.DISK_ONLY)
+    
+    // Trigger an action to materialize the persistence
+    in0.count() // or any other action like show(), collect(), etc.
+    
+    val new_in2 = in1.persist(StorageLevel.DISK_ONLY)
+    new_in2.count()
     
       // Perform joins with the same DataFrame using different join conditions (handling both lit(1) and lit(0) cases)
       val joinedDF = in0.as("in0")
-        .join(new_in1.as("in1"), joinCondition("agg_dw_pixels", "f_is_buy_side_imp_agg_dw_pixels_imp_type", "in1", isBuySide = true), "left_outer")
-        .join(new_in1.as("in2"), joinCondition("agg_dw_video_events", "f_is_buy_side_imp_imp_type_request_imp_type", "in2", isBuySide = true), "left_outer")
-        .join(new_in1.as("in3"), joinCondition("agg_platform_video_impressions", "f_is_buy_side_imp_agg_platform_video_impressions_imp_type", "in3", isBuySide = true), "left_outer")
-        .join(new_in1.as("in4"), joinCondition("agg_dw_clicks", "f_is_buy_side_imp_agg_dw_clicks_imp_type", "in4", isBuySide = false), "left_outer")
-        .join(new_in1.as("in5"), joinCondition("agg_platform_video_impressions", "f_is_buy_side_imp_agg_platform_video_impressions_imp_type", "in5", isBuySide = false), "left_outer")
-        .join(new_in1.as("in6"), joinCondition("agg_dw_video_events", "f_is_buy_side_imp_imp_type_request_imp_type", "in6", isBuySide = false), "left_outer")
-        .join(new_in1.as("in7"), joinCondition("agg_dw_clicks", "f_is_buy_side_imp_agg_dw_clicks_imp_type", "in7", isBuySide = true), "left_outer")
-        .join(new_in1.as("in8"), joinCondition("agg_dw_pixels", "f_is_buy_side_imp_agg_dw_pixels_imp_type", "in8", isBuySide = false), "left_outer")
+        .join(new_in2.as("in1"), joinCondition("agg_dw_pixels", "f_is_buy_side_imp_agg_dw_pixels_imp_type", "in1", isBuySide = true), "left_outer")
+        .join(new_in2.as("in2"), joinCondition("agg_dw_video_events", "f_is_buy_side_imp_imp_type_request_imp_type", "in2", isBuySide = true), "left_outer")
+        .join(new_in2.as("in3"), joinCondition("agg_platform_video_impressions", "f_is_buy_side_imp_agg_platform_video_impressions_imp_type", "in3", isBuySide = true), "left_outer")
+        .join(new_in2.as("in4"), joinCondition("agg_dw_clicks", "f_is_buy_side_imp_agg_dw_clicks_imp_type", "in4", isBuySide = false), "left_outer")
+        .join(new_in2.as("in5"), joinCondition("agg_platform_video_impressions", "f_is_buy_side_imp_agg_platform_video_impressions_imp_type", "in5", isBuySide = false), "left_outer")
+        .join(new_in2.as("in6"), joinCondition("agg_dw_video_events", "f_is_buy_side_imp_imp_type_request_imp_type", "in6", isBuySide = false), "left_outer")
+        .join(new_in2.as("in7"), joinCondition("agg_dw_clicks", "f_is_buy_side_imp_agg_dw_clicks_imp_type", "in7", isBuySide = true), "left_outer")
+        .join(new_in2.as("in8"), joinCondition("agg_dw_pixels", "f_is_buy_side_imp_agg_dw_pixels_imp_type", "in8", isBuySide = false), "left_outer")
     
       // Add the lookup columns based on the joined DataFrames
       val out0 = joinedDF
