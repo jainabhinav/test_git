@@ -31,107 +31,6 @@ object Reformat_agg_platform_video_analytics {
     )
   }
 
-  def value(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    struct(
-      coalesce(col("booked_revenue_dollars"), lit(0))
-        .cast(DoubleType)
-        .as("booked_revenue_dollars"),
-      coalesce(col("reseller_revenue_dollars"), lit(0))
-        .cast(DoubleType)
-        .as("reseller_revenue_dollars"),
-      coalesce(col("buyer_media_cost_dollars"), lit(0))
-        .cast(DoubleType)
-        .as("media_cost_dollars"),
-      coalesce(col("booked_revenue_dollars") * col("advertiser_exchange_rate"),
-               lit(0)
-      ).cast(DoubleType).as("booked_revenue_adv_currency"),
-      coalesce(col("buyer_media_cost_dollars") * col("publisher_exchange_rate"),
-               lit(0)
-      ).cast(DoubleType).as("media_cost_pub_currency"),
-      coalesce(col("ad_requests").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("ad_requests"),
-      coalesce(col("blacklisted_imps").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("blacklisted_imps"),
-      coalesce(col("ad_responses").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("ad_responses"),
-      coalesce(col("imps").cast(LongType),   lit(0)).cast(LongType).as("imps"),
-      coalesce(col("starts").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("starts"),
-      coalesce(col("skips").cast(LongType),  lit(0)).cast(LongType).as("skips"),
-      coalesce(col("errors").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("errors"),
-      coalesce(col("first_quartiles").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("first_quartiles"),
-      coalesce(col("second_quartiles").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("second_quartiles"),
-      coalesce(col("third_quartiles").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("third_quartiles"),
-      coalesce(col("completions").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("completions"),
-      coalesce(col("clicks").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("clicks"),
-      coalesce(col("post_click_conversions").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("post_click_conversions"),
-      coalesce(col("post_view_conversions").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("post_view_conversions"),
-      coalesce(col("companion_imps").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("companion_imps"),
-      coalesce(col("companion_clicks").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("companion_clicks"),
-      coalesce(col("viewed_imps").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("viewed_imps"),
-      coalesce(col("view_measurable_imps").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("view_measurable_imps"),
-      coalesce(col("viewdef_viewed_imps").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("viewdef_viewed_imps"),
-      coalesce(col("imp_bid_on").cast(IntegerType), lit(0))
-        .cast(LongType)
-        .as("imps_bid_on"),
-      coalesce(col("num_of_bids").cast(IntegerType), lit(0))
-        .cast(LongType)
-        .as("num_of_bids"),
-      coalesce(col("buyer_bid"),                           lit(0)).cast(DoubleType).as("buyer_bid"),
-      coalesce(col("filled_number_ads").cast(IntegerType), lit(0))
-        .cast(IntegerType)
-        .as("filled_number_ads"),
-      coalesce(col("max_slot_duration").cast(IntegerType), lit(0))
-        .cast(IntegerType)
-        .as("max_slot_duration"),
-      coalesce(col("filled_slot_duration").cast(IntegerType), lit(0))
-        .cast(IntegerType)
-        .as("filled_slot_duration"),
-      coalesce(col("biddable_imps").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("biddable_imps"),
-      coalesce(col("buyer_payment_event_units").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("buyer_payment_event_units"),
-      coalesce(col("seller_revenue_event_units").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("seller_revenue_event_units"),
-      lit(null).cast(LongType).as("imp_requests")
-    )
-  }
-
   def key(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -458,6 +357,107 @@ object Reformat_agg_platform_video_analytics {
       coalesce(col("fallback_ad_index").cast(IntegerType), lit(-1))
         .cast(IntegerType)
         .as("fallback_ad_index")
+    )
+  }
+
+  def value(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    struct(
+      coalesce(col("booked_revenue_dollars"), lit(0))
+        .cast(DoubleType)
+        .as("booked_revenue_dollars"),
+      coalesce(col("reseller_revenue_dollars"), lit(0))
+        .cast(DoubleType)
+        .as("reseller_revenue_dollars"),
+      coalesce(col("buyer_media_cost_dollars"), lit(0))
+        .cast(DoubleType)
+        .as("media_cost_dollars"),
+      coalesce(col("booked_revenue_dollars") * col("advertiser_exchange_rate"),
+               lit(0)
+      ).cast(DoubleType).as("booked_revenue_adv_currency"),
+      coalesce(col("buyer_media_cost_dollars") * col("publisher_exchange_rate"),
+               lit(0)
+      ).cast(DoubleType).as("media_cost_pub_currency"),
+      coalesce(col("ad_requests").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("ad_requests"),
+      coalesce(col("blacklisted_imps").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("blacklisted_imps"),
+      coalesce(col("ad_responses").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("ad_responses"),
+      coalesce(col("imps").cast(LongType),   lit(0)).cast(LongType).as("imps"),
+      coalesce(col("starts").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("starts"),
+      coalesce(col("skips").cast(LongType),  lit(0)).cast(LongType).as("skips"),
+      coalesce(col("errors").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("errors"),
+      coalesce(col("first_quartiles").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("first_quartiles"),
+      coalesce(col("second_quartiles").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("second_quartiles"),
+      coalesce(col("third_quartiles").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("third_quartiles"),
+      coalesce(col("completions").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("completions"),
+      coalesce(col("clicks").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("clicks"),
+      coalesce(col("post_click_conversions").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("post_click_conversions"),
+      coalesce(col("post_view_conversions").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("post_view_conversions"),
+      coalesce(col("companion_imps").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("companion_imps"),
+      coalesce(col("companion_clicks").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("companion_clicks"),
+      coalesce(col("viewed_imps").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("viewed_imps"),
+      coalesce(col("view_measurable_imps").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("view_measurable_imps"),
+      coalesce(col("viewdef_viewed_imps").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("viewdef_viewed_imps"),
+      coalesce(col("imp_bid_on").cast(IntegerType), lit(0))
+        .cast(LongType)
+        .as("imps_bid_on"),
+      coalesce(col("num_of_bids").cast(IntegerType), lit(0))
+        .cast(LongType)
+        .as("num_of_bids"),
+      coalesce(col("buyer_bid"),                           lit(0)).cast(DoubleType).as("buyer_bid"),
+      coalesce(col("filled_number_ads").cast(IntegerType), lit(0))
+        .cast(IntegerType)
+        .as("filled_number_ads"),
+      coalesce(col("max_slot_duration").cast(IntegerType), lit(0))
+        .cast(IntegerType)
+        .as("max_slot_duration"),
+      coalesce(col("filled_slot_duration").cast(IntegerType), lit(0))
+        .cast(IntegerType)
+        .as("filled_slot_duration"),
+      coalesce(col("biddable_imps").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("biddable_imps"),
+      coalesce(col("buyer_payment_event_units").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("buyer_payment_event_units"),
+      coalesce(col("seller_revenue_event_units").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("seller_revenue_event_units"),
+      lit(null).cast(LongType).as("imp_requests")
     )
   }
 

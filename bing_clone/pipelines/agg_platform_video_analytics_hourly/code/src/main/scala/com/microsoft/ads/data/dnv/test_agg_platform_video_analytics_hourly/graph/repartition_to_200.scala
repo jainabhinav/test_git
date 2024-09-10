@@ -15,6 +15,6 @@ import java.time._
 object repartition_to_200 {
 
   def apply(context: Context, in: DataFrame): DataFrame =
-    in.repartition(200.toInt, col("inventory_url_id"))
+    in.repartition(400.toInt, col("inventory_url_id"))
 
 }

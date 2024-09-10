@@ -27,12 +27,6 @@ object Reformat_agg_platform_video_analytics_pb_PrevExpression {
         col("imp_type").cast(IntegerType),
         col("buyer_member_id").cast(IntegerType),
         col("seller_member_id").cast(IntegerType),
-        col("_sup_code_fx_rate_LOOKUP"),
-        col("_sup_code_fx_rate_LOOKUP1"),
-        col("_sup_code_fx_rate_LOOKUP2"),
-        col("_sup_bidder_advertiser_pb_LOOKUP"),
-        col("_sup_code_fx_rate_LOOKUP3"),
-        col("_sup_code_fx_rate_LOOKUP4"),
         col("_sup_bidder_advertiser_pb_LOOKUP")
       )
     )

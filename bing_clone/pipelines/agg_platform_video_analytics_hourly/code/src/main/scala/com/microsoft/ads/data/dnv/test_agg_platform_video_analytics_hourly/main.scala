@@ -29,28 +29,32 @@ object Main {
       Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics(
         context
       )
-    val df_repartition_by_advertiser_id = repartition_by_advertiser_id(
+    val df_Filter_valid_pods = Filter_valid_pods(
       context,
       df_Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics
-    ).cache()
+    )
+    val df_repartition_by_auction_id_1 =
+      repartition_by_auction_id_1(context, df_Filter_valid_pods).cache()
     SetCheckpointDir(context)
     val df_repartition_to_200 =
       repartition_to_200(context, df_Create_sup_lookup_files_out3)
     val df_repartition_by_inventory_url_id =
       repartition_by_inventory_url_id(context, df_Create_sup_lookup_files_out2)
         .cache()
+    val df_repartition_by_auction_id = repartition_by_auction_id(
+      context,
+      df_Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics
+    )
     val df_Reformat_agg_platform_video_analytics_PrevExpressionj0 =
       Reformat_agg_platform_video_analytics_PrevExpressionj0(
         context,
-        df_repartition_by_advertiser_id,
+        df_repartition_by_auction_id,
         df_repartition_dataframe
       )
-    val df_Filter_valid_pods =
-      Filter_valid_pods(context, df_repartition_by_advertiser_id)
     val df_Reformat_agg_platform_video_analytics_pb_PrevExpressionj0 =
       Reformat_agg_platform_video_analytics_pb_PrevExpressionj0(
         context,
-        df_Filter_valid_pods,
+        df_repartition_by_auction_id_1,
         df_repartition_dataframe
       )
     val df_Reformat_agg_platform_video_analytics_pb_PrevExpression =
@@ -72,7 +76,7 @@ object Main {
     val df_Reformat_agg_platform_video_analytics_1_PrevExpressionj0 =
       Reformat_agg_platform_video_analytics_1_PrevExpressionj0(
         context,
-        df_Filter_valid_pods,
+        df_repartition_by_auction_id_1,
         df_repartition_dataframe
       )
     val df_Reformat_agg_platform_video_analytics_1_PrevExpression =

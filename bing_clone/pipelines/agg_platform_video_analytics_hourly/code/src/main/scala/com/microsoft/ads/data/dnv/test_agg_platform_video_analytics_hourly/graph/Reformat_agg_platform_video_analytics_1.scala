@@ -19,48 +19,6 @@ object Reformat_agg_platform_video_analytics_1 {
     in.select(key(context).as("key"), value(context).as("value"))
   }
 
-  def value(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    struct(
-      coalesce(col("reseller_revenue_dollars"), lit(0))
-        .cast(DoubleType)
-        .as("reseller_revenue_dollars"),
-      coalesce(col("booked_revenue_dollars"), lit(0))
-        .cast(DoubleType)
-        .as("booked_revenue_dollars"),
-      coalesce(col("imps").cast(LongType),   lit(0)).cast(LongType).as("imps"),
-      coalesce(col("starts").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("starts"),
-      coalesce(col("skips").cast(LongType),  lit(0)).cast(LongType).as("skips"),
-      coalesce(col("errors").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("errors"),
-      coalesce(col("first_quartiles").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("first_quartiles"),
-      coalesce(col("second_quartiles").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("second_quartiles"),
-      coalesce(col("third_quartiles").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("third_quartiles"),
-      coalesce(col("completions").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("completions"),
-      coalesce(col("clicks").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("clicks"),
-      coalesce(col("ad_requests").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("ad_requests"),
-      coalesce(col("ad_responses").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("ad_responses")
-    )
-  }
-
   def key(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -292,6 +250,48 @@ object Reformat_agg_platform_video_analytics_1 {
       coalesce(col("region_id").cast(IntegerType), lit(0))
         .cast(IntegerType)
         .as("region_id")
+    )
+  }
+
+  def value(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    struct(
+      coalesce(col("reseller_revenue_dollars"), lit(0))
+        .cast(DoubleType)
+        .as("reseller_revenue_dollars"),
+      coalesce(col("booked_revenue_dollars"), lit(0))
+        .cast(DoubleType)
+        .as("booked_revenue_dollars"),
+      coalesce(col("imps").cast(LongType),   lit(0)).cast(LongType).as("imps"),
+      coalesce(col("starts").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("starts"),
+      coalesce(col("skips").cast(LongType),  lit(0)).cast(LongType).as("skips"),
+      coalesce(col("errors").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("errors"),
+      coalesce(col("first_quartiles").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("first_quartiles"),
+      coalesce(col("second_quartiles").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("second_quartiles"),
+      coalesce(col("third_quartiles").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("third_quartiles"),
+      coalesce(col("completions").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("completions"),
+      coalesce(col("clicks").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("clicks"),
+      coalesce(col("ad_requests").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("ad_requests"),
+      coalesce(col("ad_responses").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("ad_responses")
     )
   }
 

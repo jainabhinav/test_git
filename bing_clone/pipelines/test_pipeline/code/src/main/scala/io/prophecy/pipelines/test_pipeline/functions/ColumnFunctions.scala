@@ -10383,22 +10383,16 @@ object ColumnFunctions extends Serializable {
   }
 
   def f_get_agg_platform_video_analytics_hourly_pb_currency(
-    fx_rate_snapshot_id:               Column,
-    advertiser_currency:               Column,
-    advertiser_currency_rate:          Column,
-    publisher_currency:                Column,
-    publisher_currency_rate:           Column,
-    advertiser_id:                     Column,
-    imp_type:                          Column,
-    buyer_member_id:                   Column,
-    seller_member_id:                  Column,
-    sup_code_fx_rate_lookup_5:         Column,
-    sup_code_fx_rate_lookup_4:         Column,
-    sup_code_fx_rate_lookup_3:         Column,
-    sup_bidder_advertiser_pb_lookup_2: Column,
-    sup_code_fx_rate_lookup_2:         Column,
-    sup_code_fx_rate_lookup:           Column,
-    sup_bidder_advertiser_pb_lookup:   Column
+    fx_rate_snapshot_id:             Column,
+    advertiser_currency:             Column,
+    advertiser_currency_rate:        Column,
+    publisher_currency:              Column,
+    publisher_currency_rate:         Column,
+    advertiser_id:                   Column,
+    imp_type:                        Column,
+    buyer_member_id:                 Column,
+    seller_member_id:                Column,
+    sup_bidder_advertiser_pb_lookup: Column
   ): Column = {
     var l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
       : org.apache.spark.sql.Column = lit(null).cast(IntegerType)
@@ -10625,8 +10619,10 @@ object ColumnFunctions extends Serializable {
             lit("USD")
           ) =!= lit(0)
         ),
-        when(is_not_null(sup_code_fx_rate_lookup),
-             sup_code_fx_rate_lookup.getField("fx_rate_snapshot_id")
+        when(is_not_null(lookup("sup_code_fx_rate", advertiser_currency)),
+             lookup("sup_code_fx_rate",             advertiser_currency).getField(
+               "fx_rate_snapshot_id"
+             )
         ).otherwise(
           l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
         )
@@ -10642,8 +10638,10 @@ object ColumnFunctions extends Serializable {
             lit("USD")
           ) =!= lit(0)
         ),
-        when(is_not_null(sup_code_fx_rate_lookup_2),
-             sup_code_fx_rate_lookup_2.getField("fx_rate_snapshot_id")
+        when(is_not_null(lookup("sup_code_fx_rate", publisher_currency)),
+             lookup("sup_code_fx_rate",             publisher_currency).getField(
+               "fx_rate_snapshot_id"
+             )
         ).otherwise(
           l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
         )
@@ -10676,8 +10674,25 @@ object ColumnFunctions extends Serializable {
                     ) =!= lit(0)
                   )
                 )
-                .and(is_not_null(sup_code_fx_rate_lookup_3).cast(BooleanType)),
-              sup_code_fx_rate_lookup_3.getField("fx_rate_snapshot_id")
+                .and(
+                  is_not_null(
+                    lookup("sup_code_fx_rate",
+                           rpad(sup_bidder_advertiser_pb_lookup
+                                  .getField("advertiser_default_currency"),
+                                3,
+                                " "
+                           )
+                    )
+                  ).cast(BooleanType)
+                ),
+              lookup("sup_code_fx_rate",
+                     rpad(sup_bidder_advertiser_pb_lookup.getField(
+                            "advertiser_default_currency"
+                          ),
+                          3,
+                          " "
+                     )
+              ).getField("fx_rate_snapshot_id")
             ).otherwise(
                 l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
               )
@@ -10707,7 +10722,10 @@ object ColumnFunctions extends Serializable {
                       is_not_null(
                         l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
                       ),
-                      sup_code_fx_rate_lookup_4.getField("fx_rate_snapshot_id")
+                      lookup("sup_code_fx_rate",
+                             lookup("sup_api_member_pb", l_member_id_0)
+                               .getField("member_currency")
+                      ).getField("fx_rate_snapshot_id")
                     ).otherwise(
                       l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
                     )
@@ -10728,8 +10746,16 @@ object ColumnFunctions extends Serializable {
                       ) =!= lit(0)
                     ),
                     when(
-                      is_not_null(sup_code_fx_rate_lookup_5),
-                      sup_code_fx_rate_lookup_5.getField("fx_rate_snapshot_id")
+                      is_not_null(
+                        lookup("sup_code_fx_rate",
+                               lookup("sup_api_member_pb", l_member_id_0)
+                                 .getField("billing_currency")
+                        )
+                      ),
+                      lookup("sup_code_fx_rate",
+                             lookup("sup_api_member_pb", l_member_id_0)
+                               .getField("billing_currency")
+                      ).getField("fx_rate_snapshot_id")
                     ).otherwise(
                       l_agg_platform_video_analytics_hourly_pb_currency_fx_rate_snapshot_id
                     )
@@ -10782,8 +10808,12 @@ object ColumnFunctions extends Serializable {
             l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency,
             lit("USD")
           ) =!= lit(0),
-          when(isnull(sup_code_fx_rate_lookup).cast(BooleanType), lit(1.0d))
-            .otherwise(sup_code_fx_rate_lookup.getField("rate"))
+          when(isnull(lookup("sup_code_fx_rate", advertiser_currency))
+                 .cast(BooleanType),
+               lit(1.0d)
+          ).otherwise(
+            lookup("sup_code_fx_rate", advertiser_currency).getField("rate")
+          )
         )
         .otherwise(lit(1.0d))
         .cast(DoubleType)
@@ -10813,10 +10843,12 @@ object ColumnFunctions extends Serializable {
             l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency,
             lit("USD")
           ) =!= lit(0),
-          when(isnull(sup_code_fx_rate_lookup).cast(BooleanType), lit("USD"))
-            .otherwise(
-              l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency
-            )
+          when(isnull(lookup("sup_code_fx_rate", advertiser_currency))
+                 .cast(BooleanType),
+               lit("USD")
+          ).otherwise(
+            l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency
+          )
         )
         .otherwise(
           l_agg_platform_video_analytics_hourly_pb_currency_advertiser_currency
@@ -10828,7 +10860,7 @@ object ColumnFunctions extends Serializable {
           lit("USD")
         ) =!= lit(0)
       ),
-      sup_code_fx_rate_lookup
+      lookup("sup_code_fx_rate", advertiser_currency)
     ).when(
         isnull(fx_rate_snapshot_id).and(
           not(
@@ -10874,8 +10906,12 @@ object ColumnFunctions extends Serializable {
             l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency,
             lit("USD")
           ) =!= lit(0),
-          when(isnull(sup_code_fx_rate_lookup_2).cast(BooleanType), lit(1.0d))
-            .otherwise(sup_code_fx_rate_lookup_2.getField("rate"))
+          when(isnull(lookup("sup_code_fx_rate", publisher_currency))
+                 .cast(BooleanType),
+               lit(1.0d)
+          ).otherwise(
+            lookup("sup_code_fx_rate", publisher_currency).getField("rate")
+          )
         )
         .otherwise(lit(1.0d))
         .cast(DoubleType)
@@ -10900,7 +10936,14 @@ object ColumnFunctions extends Serializable {
                            lit("USD")
             ) =!= lit(0)
           ),
-          sup_code_fx_rate_lookup_3
+          lookup("sup_code_fx_rate",
+                 rpad(sup_bidder_advertiser_pb_lookup.getField(
+                        "advertiser_default_currency"
+                      ),
+                      3,
+                      " "
+                 )
+          )
         ).otherwise(l_sup_bidder_fx_rate_0)
       ).otherwise(l_sup_bidder_fx_rate_0)
     ).otherwise(l_sup_bidder_fx_rate_5)
@@ -10929,10 +10972,12 @@ object ColumnFunctions extends Serializable {
           l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency,
           lit("USD")
         ) =!= lit(0),
-        when(isnull(sup_code_fx_rate_lookup_2).cast(BooleanType), lit("USD"))
-          .otherwise(
-            l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency
-          )
+        when(isnull(lookup("sup_code_fx_rate", publisher_currency))
+               .cast(BooleanType),
+             lit("USD")
+        ).otherwise(
+          l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency
+        )
       )
       .otherwise(
         l_agg_platform_video_analytics_hourly_pb_currency_publisher_currency
@@ -11006,8 +11051,24 @@ object ColumnFunctions extends Serializable {
                 ) =!= lit(0)
               )
             ),
-          when(is_not_null(sup_code_fx_rate_lookup_3).cast(BooleanType),
-               sup_code_fx_rate_lookup_3.getField("rate")
+          when(
+            is_not_null(
+              lookup("sup_code_fx_rate",
+                     rpad(sup_bidder_advertiser_pb_lookup
+                            .getField("advertiser_default_currency"),
+                          3,
+                          " "
+                     )
+              )
+            ).cast(BooleanType),
+            lookup("sup_code_fx_rate",
+                   rpad(sup_bidder_advertiser_pb_lookup.getField(
+                          "advertiser_default_currency"
+                        ),
+                        3,
+                        " "
+                   )
+            ).getField("rate")
           ).otherwise(lit(1.0d))
         )
         .otherwise(
@@ -11073,13 +11134,22 @@ object ColumnFunctions extends Serializable {
                 ) =!= lit(0)
               )
             ),
-          when(is_not_null(sup_code_fx_rate_lookup_3).cast(BooleanType),
-               rpad(sup_bidder_advertiser_pb_lookup.getField(
-                      "advertiser_default_currency"
-                    ),
-                    3,
-                    " "
-               )
+          when(
+            is_not_null(
+              lookup("sup_code_fx_rate",
+                     rpad(sup_bidder_advertiser_pb_lookup
+                            .getField("advertiser_default_currency"),
+                          3,
+                          " "
+                     )
+              )
+            ).cast(BooleanType),
+            rpad(sup_bidder_advertiser_pb_lookup.getField(
+                   "advertiser_default_currency"
+                 ),
+                 3,
+                 " "
+            )
           ).otherwise(lit("USD"))
         )
         .otherwise(
@@ -11141,11 +11211,17 @@ object ColumnFunctions extends Serializable {
               ) =!= lit(0)
             )
           ),
-        when(isnull(sup_code_fx_rate_lookup_5).cast(BooleanType), lit("USD"))
-          .otherwise(
-            lookup("sup_api_member_pb", l_member_id_0)
-              .getField("billing_currency")
-          )
+        when(isnull(
+               lookup("sup_code_fx_rate",
+                      lookup("sup_api_member_pb", l_member_id_0)
+                        .getField("billing_currency")
+               )
+             ).cast(BooleanType),
+             lit("USD")
+        ).otherwise(
+          lookup("sup_api_member_pb", l_member_id_0)
+            .getField("billing_currency")
+        )
       )
       .otherwise(
         l_agg_platform_video_analytics_hourly_pb_currency_billing_currency
@@ -11216,7 +11292,12 @@ object ColumnFunctions extends Serializable {
                  l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
                ).cast(BooleanType),
                lit(1.0d)
-          ).otherwise(sup_code_fx_rate_lookup_4.getField("rate"))
+          ).otherwise(
+            lookup("sup_code_fx_rate",
+                   lookup("sup_api_member_pb", l_member_id_0)
+                     .getField("member_currency")
+            ).getField("rate")
+          )
         )
         .otherwise(
           l_agg_platform_video_analytics_hourly_pb_currency_member_exchange_rate
@@ -11283,8 +11364,19 @@ object ColumnFunctions extends Serializable {
                 ) =!= lit(0)
               )
             ),
-          when(isnull(sup_code_fx_rate_lookup_5).cast(BooleanType), lit(1.0d))
-            .otherwise(sup_code_fx_rate_lookup_5.getField("rate"))
+          when(isnull(
+                 lookup("sup_code_fx_rate",
+                        lookup("sup_api_member_pb", l_member_id_0)
+                          .getField("billing_currency")
+                 )
+               ).cast(BooleanType),
+               lit(1.0d)
+          ).otherwise(
+            lookup("sup_code_fx_rate",
+                   lookup("sup_api_member_pb", l_member_id_0)
+                     .getField("billing_currency")
+            ).getField("rate")
+          )
         )
         .otherwise(
           l_agg_platform_video_analytics_hourly_pb_currency_billing_exchange_rate
