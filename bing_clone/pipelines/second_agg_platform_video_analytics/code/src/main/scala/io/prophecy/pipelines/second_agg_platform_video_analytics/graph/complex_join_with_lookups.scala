@@ -52,7 +52,8 @@ object complex_join_with_lookups {
     // Trigger an action to materialize the persistence
     in0.count() // or any other action like show(), collect(), etc.
     
-    val new_in2 = in1.persist(StorageLevel.DISK_ONLY)
+    val rep_count = 2000
+    val new_in2 = in1.repartition(rep_count, col("id"), col("member_id")).persist(StorageLevel.DISK_ONLY)
     new_in2.count()
     
       // Perform joins with the same DataFrame using different join conditions (handling both lit(1) and lit(0) cases)

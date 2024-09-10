@@ -17,10 +17,10 @@ object Main {
 
   def apply(context: Context): Unit = {
     val df_temp_output1 = temp_output1(context)
-    val df_repartition_by_auction_id =
-      repartition_by_auction_id(context, df_temp_output1)
+    val df_repartition_by_auction_id_1 =
+      repartition_by_auction_id_1(context, df_temp_output1)
     val df_select_auction_data =
-      select_auction_data(context, df_repartition_by_auction_id)
+      select_auction_data(context, df_repartition_by_auction_id_1)
     val df_reformat_auction_data =
       reformat_auction_data(context, df_select_auction_data).cache()
     val (df_Create_sup_lookup_files_out2,
@@ -48,8 +48,10 @@ object Main {
       df_Create_sup_lookup_files_out
     )
     Script_1(context)
+    val df_repartition_by_id_member =
+      repartition_by_id_member(context, df_Create_sup_lookup_files_out)
     val df_join_auction_data = join_auction_data(context,
-                                                 df_repartition_by_auction_id,
+                                                 df_repartition_by_auction_id_1,
                                                  df_complex_join_with_lookups
     )
     val df_Reformat_agg_platform_video_analytics_pb =

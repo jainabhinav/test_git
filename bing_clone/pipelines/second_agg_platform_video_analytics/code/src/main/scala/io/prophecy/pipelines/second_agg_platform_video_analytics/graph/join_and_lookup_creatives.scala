@@ -40,8 +40,10 @@ object join_and_lookup_creatives {
     // Trigger an action to materialize the persistence
     in0.count() // or any other action like show(), collect(), etc.
     
-    val new_in1 = in1.persist(StorageLevel.DISK_ONLY)
+    val rep_count = 2000
+    val new_in1 = in1.repartition(rep_count, col("id")).persist(StorageLevel.DISK_ONLY)
     new_in1.count()
+    
     // Perform the join once for in1 and create multiple lookup columns
     val joinedDF = in0
       .join(new_in1.as("in1"), col("in1.id") === col("in0.agg_dw_clicks_creative_id"), "left_outer")
