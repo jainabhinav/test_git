@@ -16,6 +16,9 @@ object join_and_lookup_creatives {
   def apply(context: Context, in0: DataFrame, in1: DataFrame): DataFrame = {
     val spark = context.spark
     val Config = context.config
+    println("#####Step name: join by id#####")
+    println("step start time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
+    
     def addLookupStruct(alias: String): Column = {
         when(
           is_not_null(col(s"$alias.id")),
@@ -35,17 +38,16 @@ object join_and_lookup_creatives {
     import org.apache.spark.storage.StorageLevel
     
     // Persist the DataFrame to disk only
-    in0.persist(StorageLevel.DISK_ONLY)
+    val new_in0 = in0.persist(StorageLevel.DISK_ONLY)
     
-    // Trigger an action to materialize the persistence
-    in0.count() // or any other action like show(), collect(), etc.
+    val rep_count = 400
+    val new_in1 = org.apache.spark.sql.functions.broadcast(in1).persist(StorageLevel.MEMORY_AND_DISK)
     
-    val rep_count = 2000
-    val new_in1 = in1.repartition(rep_count, col("id")).persist(StorageLevel.DISK_ONLY)
-    new_in1.count()
+    println("#####Step name: join by id#####")
+    println("step persist time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
     
     // Perform the join once for in1 and create multiple lookup columns
-    val joinedDF = in0
+    val joinedDF = new_in0.as("in0")
       .join(new_in1.as("in1"), col("in1.id") === col("in0.agg_dw_clicks_creative_id"), "left_outer")
       .join(new_in1.as("in2"), col("in2.id") === col("in0.agg_platform_video_requests_creative_id"), "left_outer")
       .join(new_in1.as("in3"), col("in3.id") === col("in0.agg_impbus_clicks_creative_id"), "left_outer")
@@ -74,6 +76,9 @@ object join_and_lookup_creatives {
         col("_sup_creative_media_subtype_pb_LOOKUP"),
         col("_sup_placement_video_attributes_pb_LOOKUP")
       )
+    
+    println("#####Step name: join by id#####")
+    println("step end time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
     out0
   }
 

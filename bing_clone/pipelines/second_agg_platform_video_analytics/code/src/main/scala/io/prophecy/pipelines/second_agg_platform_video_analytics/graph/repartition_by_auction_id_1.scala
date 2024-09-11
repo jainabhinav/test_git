@@ -16,17 +16,15 @@ object repartition_by_auction_id_1 {
   def apply(context: Context, in0: DataFrame): DataFrame = {
     val spark = context.spark
     val Config = context.config
-    val rep_count = 12000
-    
-    val out0 = in0.repartition(rep_count, col("auction_id_64"))
+    println("#####Step name: repartition by auction id#####")
+    println("step start time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
     
     import org.apache.spark.storage.StorageLevel
+    val rep_count = 12000
+    val out0 = in0.repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
     
-    // Persist the DataFrame to disk only
-    out0.persist(StorageLevel.DISK_ONLY)
-    
-    // Trigger an action to materialize the persistence
-    out0.count() // or any other action like show(), collect(), etc.
+    println("#####Step name: repartition by auction id#####")
+    println("step end time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
     out0
   }
 

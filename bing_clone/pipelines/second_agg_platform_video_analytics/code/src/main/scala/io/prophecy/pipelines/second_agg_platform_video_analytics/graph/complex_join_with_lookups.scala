@@ -16,6 +16,9 @@ object complex_join_with_lookups {
   def apply(context: Context, in0: DataFrame, in1: DataFrame): DataFrame = {
     val spark = context.spark
     val Config = context.config
+    println("#####Step name: join by id and member_id#####")
+    println("step start time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
+    
     // Helper function to define the join condition based on advertiser and member IDs, with proper handling for lit(1) and lit(0)
       def joinCondition(prefix: String, flag: String, alias: String, isBuySide: Boolean): Column = {
         val sideCondition = if (isBuySide) {
@@ -47,17 +50,16 @@ object complex_join_with_lookups {
     import org.apache.spark.storage.StorageLevel
     
     // Persist the DataFrame to disk only
-    in0.persist(StorageLevel.DISK_ONLY)
+    val new_in0 = in0.persist(StorageLevel.DISK_ONLY)
     
-    // Trigger an action to materialize the persistence
-    in0.count() // or any other action like show(), collect(), etc.
+    val rep_count = 400
+    val new_in2 = org.apache.spark.sql.functions.broadcast(in1).persist(StorageLevel.MEMORY_AND_DISK)
     
-    val rep_count = 2000
-    val new_in2 = in1.repartition(rep_count, col("id"), col("member_id")).persist(StorageLevel.DISK_ONLY)
-    new_in2.count()
+    println("#####Step name: join by id and member_id#####")
+    println("step persist time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
     
       // Perform joins with the same DataFrame using different join conditions (handling both lit(1) and lit(0) cases)
-      val joinedDF = in0.as("in0")
+      val joinedDF = new_in0.as("in0")
         .join(new_in2.as("in1"), joinCondition("agg_dw_pixels", "f_is_buy_side_imp_agg_dw_pixels_imp_type", "in1", isBuySide = true), "left_outer")
         .join(new_in2.as("in2"), joinCondition("agg_dw_video_events", "f_is_buy_side_imp_imp_type_request_imp_type", "in2", isBuySide = true), "left_outer")
         .join(new_in2.as("in3"), joinCondition("agg_platform_video_impressions", "f_is_buy_side_imp_agg_platform_video_impressions_imp_type", "in3", isBuySide = true), "left_outer")
@@ -89,7 +91,9 @@ object complex_join_with_lookups {
         col("_sup_bidder_advertiser_pb_LOOKUP2"),
         col("_sup_placement_video_attributes_pb_LOOKUP")
       )
-     
+    
+    println("#####Step name: join by id and member_id#####")
+    println("step end start time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
     out0
   }
 
