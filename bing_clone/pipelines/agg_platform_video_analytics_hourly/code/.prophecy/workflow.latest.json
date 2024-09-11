@@ -27545,7 +27545,7 @@
             "cache" : false,
             "detailedStats" : false,
             "isImported" : false,
-            "comment" : "Establishes a reference table for foreign exchange rates to streamline currency conversion processes.",
+            "comment" : "Establishes a lookup table for foreign exchange rates to facilitate accurate currency conversions in financial transactions.",
             "autoUpdateComment" : true
           },
           "ports" : {
@@ -27610,8 +27610,8 @@
           },
           "properties" : {
             "isRange" : false,
-            "processName" : "sup_bidder_fx_rates",
-            "keyColumns" : [ "fx_rate_snapshot_id", "code" ],
+            "processName" : "sup_code_fx_rate",
+            "keyColumns" : [ "code" ],
             "valueColumns" : [ "fx_rate_snapshot_id", "currency_id", "code", "rate", "as_of_timestamp" ]
           }
         },

@@ -15,10 +15,10 @@ import java.time._
 object create_fx_rate_lookup {
 
   def apply(context: Context, in0: DataFrame): Unit =
-    createLookup("sup_bidder_fx_rates",
+    createLookup("sup_code_fx_rate",
                  in0,
                  context.spark,
-                 List("fx_rate_snapshot_id", "code"),
+                 List("code"),
                  "fx_rate_snapshot_id",
                  "currency_id",
                  "code",

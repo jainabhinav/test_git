@@ -24,123 +24,6 @@ object Reformat_agg_platform_video_analytics_pb {
     )
   }
 
-  def value(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    struct(
-      coalesce(col("reseller_revenue_dollars"), lit(0))
-        .cast(DoubleType)
-        .as("reseller_revenue_dollars"),
-      coalesce(col("booked_revenue_dollars"), lit(0))
-        .cast(DoubleType)
-        .as("booked_revenue_dollars"),
-      coalesce(col("starts").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("starts"),
-      coalesce(col("skips").cast(LongType),  lit(0)).cast(LongType).as("skips"),
-      coalesce(col("errors").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("errors"),
-      coalesce(col("first_quartiles").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("first_quartiles"),
-      coalesce(col("second_quartiles").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("second_quartiles"),
-      coalesce(col("third_quartiles").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("third_quartiles"),
-      coalesce(col("completions").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("completions"),
-      coalesce(col("clicks").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("clicks"),
-      coalesce(col("ad_requests").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("ad_requests"),
-      coalesce(col("ad_responses").cast(LongType), lit(0))
-        .cast(LongType)
-        .as("ad_responses"),
-      lit(null).cast(LongType).as("pod_count"),
-      lit(null).cast(LongType).as("unmatched_min_slot_opportunities"),
-      lit(null).cast(LongType).as("pod_no_responses"),
-      lit(null).cast(LongType).as("pod_no_imps"),
-      when(coalesce(col("ad_requests").cast(LongType), lit(0)) > lit(0),
-           coalesce(col("max_ad_duration").cast(IntegerType), lit(0))
-      ).otherwise(lit(0)).cast(LongType).as("request_seconds"),
-      when(coalesce(col("ad_responses").cast(LongType), lit(0)) > lit(0),
-           coalesce(col("creative_duration").cast(IntegerType), lit(0))
-      ).otherwise(lit(0)).cast(LongType).as("responses_seconds"),
-      when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6))
-          .and(coalesce(col("imps").cast(LongType), lit(0)) > lit(0))
-          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
-        coalesce(col("creative_duration").cast(IntegerType), lit(0))
-      ).otherwise(lit(0)).cast(LongType).as("impression_seconds_resold"),
-      when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(5))
-          .and(coalesce(col("imps").cast(LongType), lit(0)) > lit(0))
-          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
-        coalesce(col("creative_duration").cast(IntegerType), lit(0))
-      ).otherwise(lit(0)).cast(LongType).as("impression_seconds_kept"),
-      when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(0)) >= lit(1))
-          .and(coalesce(col("imp_type").cast(IntegerType), lit(0)) <= lit(4))
-          .or(coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(8))
-          .and(coalesce(col("imps").cast(LongType), lit(0)) > lit(0))
-          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
-        coalesce(col("creative_duration").cast(IntegerType), lit(0))
-      ).otherwise(lit(0)).cast(LongType).as("impression_seconds_unsold"),
-      when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6))
-          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
-        coalesce(col("imps").cast(LongType), lit(0))
-      ).otherwise(lit(0)).cast(LongType).as("imps_resold"),
-      when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(5))
-          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
-        coalesce(col("imps").cast(LongType), lit(0))
-      ).otherwise(lit(0)).cast(LongType).as("imps_kept"),
-      when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(0)) >= lit(1))
-          .and(coalesce(col("imp_type").cast(IntegerType), lit(0)) <= lit(4))
-          .or(coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(8))
-          .and(coalesce(col("imps").cast(LongType), lit(0)) > lit(0))
-          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
-        coalesce(col("imps").cast(LongType), lit(0))
-      ).otherwise(lit(0)).cast(LongType).as("imps_unsold"),
-      lit(null).cast(LongType).as("min_possible_opps"),
-      lit(null).cast(LongType).as("max_possible_opps"),
-      lit(null).cast(LongType).as("fillable_duration"),
-      lit(null).cast(LongType).as("unfilled_duration"),
-      lit(null).cast(LongType).as("unfilled_duration_below_min_ad_duration"),
-      when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(5))
-          .or(coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6))
-          .and(
-            (coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(1))
-              .or(
-                coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(2)
-              )
-          ),
-        coalesce(col("imps").cast(LongType), lit(0))
-      ).otherwise(lit(0)).cast(LongType).as("imps_sold_bumper"),
-      when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(5))
-          .or(coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6))
-          .and(coalesce(col("imps").cast(LongType), lit(0)) > lit(0))
-          .and(
-            (coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(1))
-              .or(
-                coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(2)
-              )
-          ),
-        coalesce(col("creative_duration").cast(IntegerType), lit(0))
-      ).otherwise(lit(0)).cast(LongType).as("impression_seconds_sold_bumper")
-    )
-  }
-
   def key(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -333,6 +216,123 @@ object Reformat_agg_platform_video_analytics_pb {
       lit(null).cast(BooleanType).as("pod_has_sold_imps"),
       lit(null).cast(IntegerType).as("pod_outcome"),
       lit(null).cast(StringType).as("pod_dh")
+    )
+  }
+
+  def value(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    struct(
+      coalesce(col("reseller_revenue_dollars"), lit(0))
+        .cast(DoubleType)
+        .as("reseller_revenue_dollars"),
+      coalesce(col("booked_revenue_dollars"), lit(0))
+        .cast(DoubleType)
+        .as("booked_revenue_dollars"),
+      coalesce(col("starts").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("starts"),
+      coalesce(col("skips").cast(LongType),  lit(0)).cast(LongType).as("skips"),
+      coalesce(col("errors").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("errors"),
+      coalesce(col("first_quartiles").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("first_quartiles"),
+      coalesce(col("second_quartiles").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("second_quartiles"),
+      coalesce(col("third_quartiles").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("third_quartiles"),
+      coalesce(col("completions").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("completions"),
+      coalesce(col("clicks").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("clicks"),
+      coalesce(col("ad_requests").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("ad_requests"),
+      coalesce(col("ad_responses").cast(LongType), lit(0))
+        .cast(LongType)
+        .as("ad_responses"),
+      lit(null).cast(LongType).as("pod_count"),
+      lit(null).cast(LongType).as("unmatched_min_slot_opportunities"),
+      lit(null).cast(LongType).as("pod_no_responses"),
+      lit(null).cast(LongType).as("pod_no_imps"),
+      when(coalesce(col("ad_requests").cast(LongType), lit(0)) > lit(0),
+           coalesce(col("max_ad_duration").cast(IntegerType), lit(0))
+      ).otherwise(lit(0)).cast(LongType).as("request_seconds"),
+      when(coalesce(col("ad_responses").cast(LongType), lit(0)) > lit(0),
+           coalesce(col("creative_duration").cast(IntegerType), lit(0))
+      ).otherwise(lit(0)).cast(LongType).as("responses_seconds"),
+      when(
+        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6))
+          .and(coalesce(col("imps").cast(LongType), lit(0)) > lit(0))
+          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
+        coalesce(col("creative_duration").cast(IntegerType), lit(0))
+      ).otherwise(lit(0)).cast(LongType).as("impression_seconds_resold"),
+      when(
+        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(5))
+          .and(coalesce(col("imps").cast(LongType), lit(0)) > lit(0))
+          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
+        coalesce(col("creative_duration").cast(IntegerType), lit(0))
+      ).otherwise(lit(0)).cast(LongType).as("impression_seconds_kept"),
+      when(
+        (coalesce(col("imp_type").cast(IntegerType), lit(0)) >= lit(1))
+          .and(coalesce(col("imp_type").cast(IntegerType), lit(0)) <= lit(4))
+          .or(coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(8))
+          .and(coalesce(col("imps").cast(LongType), lit(0)) > lit(0))
+          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
+        coalesce(col("creative_duration").cast(IntegerType), lit(0))
+      ).otherwise(lit(0)).cast(LongType).as("impression_seconds_unsold"),
+      when(
+        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6))
+          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
+        coalesce(col("imps").cast(LongType), lit(0))
+      ).otherwise(lit(0)).cast(LongType).as("imps_resold"),
+      when(
+        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(5))
+          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
+        coalesce(col("imps").cast(LongType), lit(0))
+      ).otherwise(lit(0)).cast(LongType).as("imps_kept"),
+      when(
+        (coalesce(col("imp_type").cast(IntegerType), lit(0)) >= lit(1))
+          .and(coalesce(col("imp_type").cast(IntegerType), lit(0)) <= lit(4))
+          .or(coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(8))
+          .and(coalesce(col("imps").cast(LongType), lit(0)) > lit(0))
+          .and(coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(0)),
+        coalesce(col("imps").cast(LongType), lit(0))
+      ).otherwise(lit(0)).cast(LongType).as("imps_unsold"),
+      lit(null).cast(LongType).as("min_possible_opps"),
+      lit(null).cast(LongType).as("max_possible_opps"),
+      lit(null).cast(LongType).as("fillable_duration"),
+      lit(null).cast(LongType).as("unfilled_duration"),
+      lit(null).cast(LongType).as("unfilled_duration_below_min_ad_duration"),
+      when(
+        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(5))
+          .or(coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6))
+          .and(
+            (coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(1))
+              .or(
+                coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(2)
+              )
+          ),
+        coalesce(col("imps").cast(LongType), lit(0))
+      ).otherwise(lit(0)).cast(LongType).as("imps_sold_bumper"),
+      when(
+        (coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(5))
+          .or(coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6))
+          .and(coalesce(col("imps").cast(LongType), lit(0)) > lit(0))
+          .and(
+            (coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(1))
+              .or(
+                coalesce(col("slot_type").cast(IntegerType), lit(0)) === lit(2)
+              )
+          ),
+        coalesce(col("creative_duration").cast(IntegerType), lit(0))
+      ).otherwise(lit(0)).cast(LongType).as("impression_seconds_sold_bumper")
     )
   }
 
