@@ -21,142 +21,6 @@ object Reformat_monetizable_seconds {
               col("pod_id_64_vector")
     )
 
-  def key(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    struct(
-      col("key.ymdh").as("ymdh"),
-      col("key.seller_member_id").cast(IntegerType).as("seller_member_id"),
-      col("key.call_type").as("call_type"),
-      col("key.publisher_id").cast(IntegerType).as("publisher_id"),
-      col("key.site_id").cast(IntegerType).as("site_id"),
-      col("key.tag_id").cast(IntegerType).as("tag_id"),
-      col("key.browser_id").cast(IntegerType).as("browser_id"),
-      col("key.application_id").as("application_id"),
-      col("key.inventory_url_id").cast(IntegerType).as("inventory_url_id"),
-      col("key.video_context").cast(IntegerType).as("video_context"),
-      col("key.playback_method").cast(IntegerType).as("playback_method"),
-      col("key.content_network_id").cast(IntegerType).as("content_network_id"),
-      col("key.content_language_id")
-        .cast(IntegerType)
-        .as("content_language_id"),
-      col("key.content_genre_id").cast(IntegerType).as("content_genre_id"),
-      col("key.content_program_type_id")
-        .cast(IntegerType)
-        .as("content_program_type_id"),
-      col("key.content_rating_id").cast(IntegerType).as("content_rating_id"),
-      col("key.content_delivery_type_id")
-        .cast(IntegerType)
-        .as("content_delivery_type_id"),
-      col("key.geo_country").as("geo_country"),
-      col("key.billing_currency").as("billing_currency"),
-      col("key.billing_exchange_rate").as("billing_exchange_rate"),
-      col("key.member_currency").as("member_currency"),
-      col("key.member_exchange_rate").as("member_exchange_rate"),
-      col("key.publisher_currency").as("publisher_currency"),
-      col("key.publisher_exchange_rate").as("publisher_exchange_rate"),
-      col("key.device_type").cast(IntegerType).as("device_type"),
-      col("key.supply_type").cast(IntegerType).as("supply_type"),
-      col("key.language_id").cast(IntegerType).as("language_id"),
-      col("key.player_width").cast(IntegerType).as("player_width"),
-      col("key.player_height").cast(IntegerType).as("player_height"),
-      col("key.supports_vpaid").cast(IntegerType).as("supports_vpaid"),
-      col("key.max_vast_version").cast(IntegerType).as("max_vast_version"),
-      col("key.city").cast(IntegerType).as("city"),
-      col("key.content_category_id")
-        .cast(IntegerType)
-        .as("content_category_id"),
-      col("key.operating_system_id")
-        .cast(IntegerType)
-        .as("operating_system_id"),
-      col("key.operating_system_family_id")
-        .cast(IntegerType)
-        .as("operating_system_family_id"),
-      col("key.max_ad_duration").cast(IntegerType).as("max_ad_duration"),
-      col("key.min_ad_duration").cast(IntegerType).as("min_ad_duration"),
-      col("key.max_number_ads").cast(IntegerType).as("max_number_ads"),
-      col("key.max_duration").cast(IntegerType).as("max_duration"),
-      col("key.placement_set_id").cast(IntegerType).as("placement_set_id"),
-      col("key.pod_has_bumpers").as("pod_has_bumpers"),
-      col("key.video_content_duration")
-        .cast(IntegerType)
-        .as("video_content_duration"),
-      col("key.fallback_ad_index").cast(IntegerType).as("fallback_ad_index"),
-      col("key.pod_has_imps").as("pod_has_imps"),
-      col("key.pod_has_responses").as("pod_has_responses"),
-      col("key.region_id").cast(IntegerType).as("region_id"),
-      col("key.pod_has_sold_imps").as("pod_has_sold_imps"),
-      coalesce(
-        when((col("key.pod_has_imps").cast(ByteType) === lit(0))
-               .and(col("value.completions").cast(LongType) > lit(0)),
-             lit(0)
-        ),
-        when((col("key.pod_has_imps").cast(ByteType) === lit(0))
-               .and(col("value.completions").cast(LongType) === lit(0)),
-             lit(1)
-        ),
-        when((col("key.pod_has_sold_imps").cast(ByteType) === lit(0))
-               .and(col("value.completions").cast(LongType) === lit(0)),
-             lit(2)
-        ),
-        when(
-          ((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
-            .cast(LongType)).cast(IntegerType) === col("value.completions")
-            .cast(LongType)).and(
-            (col("value.impression_seconds_kept").cast(LongType) + col(
-              "value.impression_seconds_resold"
-            ).cast(LongType)).cast(IntegerType) === col("key.max_duration")
-              .cast(IntegerType)
-          ),
-          lit(3)
-        ),
-        when(
-          ((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
-            .cast(LongType)).cast(IntegerType) === col("key.max_number_ads")
-            .cast(IntegerType)).and(
-            (col("value.impression_seconds_kept").cast(LongType) + col(
-              "value.impression_seconds_resold"
-            ).cast(LongType)).cast(IntegerType) < col("key.max_duration")
-              .cast(IntegerType)
-          ),
-          lit(4)
-        ),
-        when(
-          ((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
-            .cast(LongType)).cast(IntegerType) === col("value.completions")
-            .cast(LongType)).and(
-            (col("value.impression_seconds_kept").cast(LongType) + col(
-              "value.impression_seconds_resold"
-            ).cast(LongType)).cast(IntegerType) < col("key.max_duration")
-              .cast(IntegerType)
-          ),
-          lit(5)
-        ),
-        when((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
-               .cast(LongType)).cast(IntegerType) < col("value.completions")
-               .cast(LongType),
-             lit(6)
-        ),
-        when(
-          ((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
-            .cast(LongType)).cast(IntegerType) > col("value.completions").cast(
-            LongType
-          )).and(col("value.imps_unsold").cast(LongType) > lit(0)),
-          lit(7)
-        ),
-        when(
-          ((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
-            .cast(LongType)).cast(IntegerType) > col("value.completions").cast(
-            LongType
-          )).and(col("value.imps_unsold").cast(LongType) === lit(0)),
-          lit(8)
-        ),
-        lit(9).cast(IntegerType)
-      ).as("pod_outcome"),
-      col("key.pod_dh").as("pod_dh")
-    )
-  }
-
   def value(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -376,6 +240,142 @@ object Reformat_monetizable_seconds {
       col("value.impression_seconds_sold_bumper")
         .cast(LongType)
         .as("impression_seconds_sold_bumper")
+    )
+  }
+
+  def key(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    struct(
+      col("key.ymdh").as("ymdh"),
+      col("key.seller_member_id").cast(IntegerType).as("seller_member_id"),
+      col("key.call_type").as("call_type"),
+      col("key.publisher_id").cast(IntegerType).as("publisher_id"),
+      col("key.site_id").cast(IntegerType).as("site_id"),
+      col("key.tag_id").cast(IntegerType).as("tag_id"),
+      col("key.browser_id").cast(IntegerType).as("browser_id"),
+      col("key.application_id").as("application_id"),
+      col("key.inventory_url_id").cast(IntegerType).as("inventory_url_id"),
+      col("key.video_context").cast(IntegerType).as("video_context"),
+      col("key.playback_method").cast(IntegerType).as("playback_method"),
+      col("key.content_network_id").cast(IntegerType).as("content_network_id"),
+      col("key.content_language_id")
+        .cast(IntegerType)
+        .as("content_language_id"),
+      col("key.content_genre_id").cast(IntegerType).as("content_genre_id"),
+      col("key.content_program_type_id")
+        .cast(IntegerType)
+        .as("content_program_type_id"),
+      col("key.content_rating_id").cast(IntegerType).as("content_rating_id"),
+      col("key.content_delivery_type_id")
+        .cast(IntegerType)
+        .as("content_delivery_type_id"),
+      col("key.geo_country").as("geo_country"),
+      col("key.billing_currency").as("billing_currency"),
+      col("key.billing_exchange_rate").as("billing_exchange_rate"),
+      col("key.member_currency").as("member_currency"),
+      col("key.member_exchange_rate").as("member_exchange_rate"),
+      col("key.publisher_currency").as("publisher_currency"),
+      col("key.publisher_exchange_rate").as("publisher_exchange_rate"),
+      col("key.device_type").cast(IntegerType).as("device_type"),
+      col("key.supply_type").cast(IntegerType).as("supply_type"),
+      col("key.language_id").cast(IntegerType).as("language_id"),
+      col("key.player_width").cast(IntegerType).as("player_width"),
+      col("key.player_height").cast(IntegerType).as("player_height"),
+      col("key.supports_vpaid").cast(IntegerType).as("supports_vpaid"),
+      col("key.max_vast_version").cast(IntegerType).as("max_vast_version"),
+      col("key.city").cast(IntegerType).as("city"),
+      col("key.content_category_id")
+        .cast(IntegerType)
+        .as("content_category_id"),
+      col("key.operating_system_id")
+        .cast(IntegerType)
+        .as("operating_system_id"),
+      col("key.operating_system_family_id")
+        .cast(IntegerType)
+        .as("operating_system_family_id"),
+      col("key.max_ad_duration").cast(IntegerType).as("max_ad_duration"),
+      col("key.min_ad_duration").cast(IntegerType).as("min_ad_duration"),
+      col("key.max_number_ads").cast(IntegerType).as("max_number_ads"),
+      col("key.max_duration").cast(IntegerType).as("max_duration"),
+      col("key.placement_set_id").cast(IntegerType).as("placement_set_id"),
+      col("key.pod_has_bumpers").as("pod_has_bumpers"),
+      col("key.video_content_duration")
+        .cast(IntegerType)
+        .as("video_content_duration"),
+      col("key.fallback_ad_index").cast(IntegerType).as("fallback_ad_index"),
+      col("key.pod_has_imps").as("pod_has_imps"),
+      col("key.pod_has_responses").as("pod_has_responses"),
+      col("key.region_id").cast(IntegerType).as("region_id"),
+      col("key.pod_has_sold_imps").as("pod_has_sold_imps"),
+      coalesce(
+        when((col("key.pod_has_imps").cast(ByteType) === lit(0))
+               .and(col("value.completions").cast(LongType) > lit(0)),
+             lit(0)
+        ),
+        when((col("key.pod_has_imps").cast(ByteType) === lit(0))
+               .and(col("value.completions").cast(LongType) === lit(0)),
+             lit(1)
+        ),
+        when((col("key.pod_has_sold_imps").cast(ByteType) === lit(0))
+               .and(col("value.completions").cast(LongType) === lit(0)),
+             lit(2)
+        ),
+        when(
+          ((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
+            .cast(LongType)).cast(IntegerType) === col("value.completions")
+            .cast(LongType)).and(
+            (col("value.impression_seconds_kept").cast(LongType) + col(
+              "value.impression_seconds_resold"
+            ).cast(LongType)).cast(IntegerType) === col("key.max_duration")
+              .cast(IntegerType)
+          ),
+          lit(3)
+        ),
+        when(
+          ((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
+            .cast(LongType)).cast(IntegerType) === col("key.max_number_ads")
+            .cast(IntegerType)).and(
+            (col("value.impression_seconds_kept").cast(LongType) + col(
+              "value.impression_seconds_resold"
+            ).cast(LongType)).cast(IntegerType) < col("key.max_duration")
+              .cast(IntegerType)
+          ),
+          lit(4)
+        ),
+        when(
+          ((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
+            .cast(LongType)).cast(IntegerType) === col("value.completions")
+            .cast(LongType)).and(
+            (col("value.impression_seconds_kept").cast(LongType) + col(
+              "value.impression_seconds_resold"
+            ).cast(LongType)).cast(IntegerType) < col("key.max_duration")
+              .cast(IntegerType)
+          ),
+          lit(5)
+        ),
+        when((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
+               .cast(LongType)).cast(IntegerType) < col("value.completions")
+               .cast(LongType),
+             lit(6)
+        ),
+        when(
+          ((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
+            .cast(LongType)).cast(IntegerType) > col("value.completions").cast(
+            LongType
+          )).and(col("value.imps_unsold").cast(LongType) > lit(0)),
+          lit(7)
+        ),
+        when(
+          ((col("value.imps_kept").cast(LongType) + col("value.imps_resold")
+            .cast(LongType)).cast(IntegerType) > col("value.completions").cast(
+            LongType
+          )).and(col("value.imps_unsold").cast(LongType) === lit(0)),
+          lit(8)
+        ),
+        lit(9).cast(IntegerType)
+      ).as("pod_outcome"),
+      col("key.pod_dh").as("pod_dh")
     )
   }
 
