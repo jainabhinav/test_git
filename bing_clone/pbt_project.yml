@@ -48,6 +48,70 @@ pipelines:
       - datasets/Write_Proto_HDFS_agg_platform_video_slot_analytics_pb
     subgraphs: []
     dependencies: {}
+  pipelines/first_agg_platform_video_analytics_hourly:
+    name: first_agg_platform_video_analytics_hourly
+    description: null
+    author: abhinav@simpledatalabs.com
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-09-11 23:00:39'
+    datasets:
+      inputs:
+      - datasets/Read_DML_Range_sup_api_inventory_url_content_category_tsv_sup_api_inventory_url_content_category
+      - datasets/Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics
+      - datasets/Read_Proto_Range_sup_api_member_pb
+      - datasets/Read_Proto_Range_sup_bidder_advertiser_pb
+      - datasets/Read_Proto_Range_sup_bidder_fx_rates
+      - datasets/Read_Proto_Range_sup_code_fx_rate
+      - datasets/Read_Proto_Range_sup_inventory_url_pb
+      - datasets/Read_Proto_Range_sup_member_attributes_pb
+      outputs:
+      - datasets/Write_Proto_HDFS_agg_platform_video_analytics_hourly_pb_agg_platform_video_analytics_hourly
+    subgraphs: []
+    dependencies: {}
+  pipelines/second_agg_platform_video_analytics_hourly:
+    name: second_agg_platform_video_analytics_hourly
+    description: null
+    author: abhinav@simpledatalabs.com
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-09-11 23:01:27'
+    datasets:
+      inputs:
+      - datasets/Read_DML_Range_sup_api_inventory_url_content_category_tsv_sup_api_inventory_url_content_category
+      - datasets/Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics
+      - datasets/Read_Proto_Range_sup_api_member_pb
+      - datasets/Read_Proto_Range_sup_bidder_advertiser_pb
+      - datasets/Read_Proto_Range_sup_bidder_fx_rates
+      - datasets/Read_Proto_Range_sup_code_fx_rate
+      - datasets/Read_Proto_Range_sup_member_attributes_pb
+      outputs:
+      - datasets/Write_Proto_HDFS_agg_platform_video_pod_analytics_pb
+    subgraphs: []
+    dependencies: {}
+  pipelines/third_agg_platform_video_analytics_hourly:
+    name: third_agg_platform_video_analytics_hourly
+    description: null
+    author: abhinav@simpledatalabs.com
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-09-11 23:02:20'
+    datasets:
+      inputs:
+      - datasets/Read_DML_Range_sup_api_inventory_url_content_category_tsv_sup_api_inventory_url_content_category
+      - datasets/Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics
+      - datasets/Read_Proto_Range_sup_api_member_pb
+      - datasets/Read_Proto_Range_sup_bidder_advertiser_pb
+      - datasets/Read_Proto_Range_sup_bidder_fx_rates
+      - datasets/Read_Proto_Range_sup_code_fx_rate
+      - datasets/Read_Proto_Range_sup_member_attributes_pb
+      outputs:
+      - datasets/Write_Proto_HDFS_agg_platform_video_slot_analytics_pb
+    subgraphs: []
+    dependencies: {}
 datasets:
   datasets/Write_Proto_HDFS_agg_platform_video_pod_analytics_pb:
     name: Write_Proto_HDFS_agg_platform_video_pod_analytics_pb

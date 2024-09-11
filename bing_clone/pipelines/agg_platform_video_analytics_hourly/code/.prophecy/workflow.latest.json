@@ -3087,7 +3087,7 @@
         "cache" : true,
         "detailedStats" : false,
         "isImported" : false,
-        "comment" : "Redistributes data across multiple partitions to optimize processing efficiency based on customer IDs.",
+        "comment" : "Redistributes data across multiple partitions to improve processing efficiency based on customer IDs.",
         "autoUpdateComment" : true
       },
       "ports" : {
@@ -20762,7 +20762,7 @@
         "columnsSelector" : [ "Px28r7VP-E-EhHNUe95_2$$5ISrGVwaKQT3xSxbWyuU2##inventory_url_id" ],
         "repartitionType" : "hash_repartitioning",
         "rangeExpressions" : [ ],
-        "defaultPartitions" : "400",
+        "defaultPartitions" : "1000",
         "nPartitions" : "10"
       },
       "componentInfo" : {
