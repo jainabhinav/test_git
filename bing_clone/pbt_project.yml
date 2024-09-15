@@ -57,6 +57,7 @@ pipelines:
       - datasets/Read_Proto_Range_agg_platform_video_requests_transactable_pq_agg_platform_video_requests_transactable_0_to_5
       outputs:
       - datasets/temp_output1
+      - datasets/temp_output2
     subgraphs: []
     dependencies: {}
   pipelines/second_agg_platform_video_analytics:
@@ -73,9 +74,8 @@ pipelines:
       - datasets/Read_Proto_Range_sup_bidder_advertiser_pb
       - datasets/Read_Proto_Range_sup_bidder_fx_rates
       - datasets/Read_Proto_Range_sup_code_fx_rate
-      - datasets/Read_Proto_Range_sup_creative_media_subtype_pb
-      - datasets/Read_Proto_Range_sup_placement_video_attributes_pb
       - datasets/temp_output1
+      - datasets/temp_output3
       outputs:
       - datasets/Write_Proto_HDFS_agg_platform_video_analytics_pq_agg_platform_video_analytics
     subgraphs: []
@@ -105,6 +105,26 @@ pipelines:
       - datasets/Read_Proto_Range_sup_placement_video_attributes_pb
       outputs:
       - datasets/Write_Proto_HDFS_agg_platform_video_analytics_pq_agg_platform_video_analytics
+    subgraphs: []
+    dependencies: {}
+  pipelines/foruth_agg_platform_video_analytics:
+    name: foruth_agg_platform_video_analytics
+    description: null
+    author: abhinav@simpledatalabs.com
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-09-13 11:00:15'
+    datasets:
+      inputs:
+      - datasets/Read_Proto_Range_sup_api_member_pb
+      - datasets/Read_Proto_Range_sup_bidder_fx_rates
+      - datasets/Read_Proto_Range_sup_code_fx_rate
+      - datasets/Read_Proto_Range_sup_creative_media_subtype_pb
+      - datasets/Read_Proto_Range_sup_placement_video_attributes_pb
+      - datasets/temp_output2
+      outputs:
+      - datasets/temp_output3
     subgraphs: []
     dependencies: {}
 datasets:
@@ -317,6 +337,32 @@ datasets:
         description: ''
         author: abhinav@simpledatalabs.com
         createdAt: '2024-09-08 18:44:22'
+  datasets/temp_output2:
+    name: temp_output2
+    description: ''
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-13 11:28:20'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-13 11:28:20'
+  datasets/temp_output3:
+    name: temp_output3
+    description: ''
+    author: abhinav@simpledatalabs.com
+    createdAt: '2024-09-13 11:34:50'
+    mode: batch
+    physicalDatasets:
+      abhinav_dev:
+        fabricId: 442
+        datasetType: File
+        description: ''
+        author: abhinav@simpledatalabs.com
+        createdAt: '2024-09-13 11:34:50'
 templates: {}
 jobs: {}
 gemContainer:

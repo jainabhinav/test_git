@@ -1,0 +1,741 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: auction_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_platform_video_requests_tag_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_platform_video_requests_creative_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_video_events_creative_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_platform_video_impressions_creative_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_clicks_creative_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_pixels_creative_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_impbus_clicks_creative_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_video_events_advertiser_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_platform_video_impressions_advertiser_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_clicks_advertiser_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_pixels_advertiser_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_impbus_clicks_advertiser_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_video_events_buyer_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_platform_video_impressions_buyer_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_clicks_buyer_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_pixels_buyer_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_impbus_clicks_buyer_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_platform_video_requests_seller_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_video_events_seller_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_platform_video_impressions_seller_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_clicks_seller_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_dw_pixels_seller_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: agg_impbus_clicks_seller_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: f_is_buy_side_imp_agg_dw_pixels_imp_type
+    type: integer
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: f_is_buy_side_imp_imp_type_request_imp_type
+    type: integer
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: f_is_buy_side_imp_agg_platform_video_impressions_imp_type
+    type: integer
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: f_is_buy_side_imp_agg_dw_clicks_imp_type
+    type: integer
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: f_calc_derived_fields
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: _sup_creative_media_subtype_pb_LOOKUP1
+    type:
+      type: struct
+      fields:
+      - name: id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: media_subtype
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: advertiser_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: duration_ms
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: vast_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: minimum_vast_version_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_skippable
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: framework_ids
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: _sup_creative_media_subtype_pb_LOOKUP2
+    type:
+      type: struct
+      fields:
+      - name: id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: media_subtype
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: advertiser_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: duration_ms
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: vast_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: minimum_vast_version_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_skippable
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: framework_ids
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: _sup_creative_media_subtype_pb_LOOKUP3
+    type:
+      type: struct
+      fields:
+      - name: id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: media_subtype
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: advertiser_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: duration_ms
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: vast_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: minimum_vast_version_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_skippable
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: framework_ids
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: _sup_creative_media_subtype_pb_LOOKUP4
+    type:
+      type: struct
+      fields:
+      - name: id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: media_subtype
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: advertiser_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: duration_ms
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: vast_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: minimum_vast_version_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_skippable
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: framework_ids
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: _sup_creative_media_subtype_pb_LOOKUP5
+    type:
+      type: struct
+      fields:
+      - name: id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: media_subtype
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: advertiser_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: duration_ms
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: vast_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: minimum_vast_version_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_skippable
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: framework_ids
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: _sup_creative_media_subtype_pb_LOOKUP6
+    type:
+      type: struct
+      fields:
+      - name: id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: media_subtype
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: advertiser_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: duration_ms
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: vast_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: minimum_vast_version_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_skippable
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: framework_ids
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: _sup_creative_media_subtype_pb_LOOKUP
+    type:
+      type: struct
+      fields:
+      - name: id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: media_subtype
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: advertiser_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: duration_ms
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: vast_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: minimum_vast_version_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_skippable
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: framework_ids
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: _sup_placement_video_attributes_pb_LOOKUP
+    type:
+      type: struct
+      fields:
+      - name: id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: supports_skippable
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: max_duration_secs
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: max_ad_duration_secs
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: maximum_number_ads
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: start_delay_secs
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: playback_method
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: video_context
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_mediated
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: skip_offset
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

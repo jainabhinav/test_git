@@ -22,8 +22,12 @@ object Main {
         Main_Graph.config.Context(context.spark, context.config.Main_Graph)
       )
       .cache()
-    val df_Filter_1 = Filter_1(context, df_Main_Graph)
-    temp_output1(context, df_Filter_1)
+    val df_Filter_1            = Filter_1(context,            df_Main_Graph)
+    val df_select_auction_data = select_auction_data(context, df_Filter_1)
+    val df_reformat_auction_data =
+      reformat_auction_data(context, df_select_auction_data).cache()
+    temp_output2(context,            df_reformat_auction_data)
+    temp_output1(context,            df_Filter_1)
   }
 
   def main(args: Array[String]): Unit = {

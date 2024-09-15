@@ -25,12 +25,12 @@ object Rollup_1_1 {
         others_request_imp_type(context).as("others_request_imp_type")
       )
 
-  def rtb_request_imp_type(context: Context) = {
+  def resold_imp_type(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     first(
       when(
-        coalesce(col("request_imp_type").cast(IntegerType), lit(0)) === lit(7),
+        coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6),
         struct(
           col("date_time").cast(LongType).as("date_time"),
           col("auction_id_64").cast(LongType).as("auction_id_64"),
@@ -342,14 +342,12 @@ object Rollup_1_1 {
     )
   }
 
-  def others_imp_type(context: Context) = {
+  def rtb_request_imp_type(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     first(
       when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(0)) =!= lit(6))
-          .and(coalesce(col("imp_type").cast(IntegerType), lit(0)) =!= lit(7))
-          .and(coalesce(col("imp_type").cast(IntegerType), lit(0)) =!= lit(0)),
+        coalesce(col("request_imp_type").cast(IntegerType), lit(0)) === lit(7),
         struct(
           col("date_time").cast(LongType).as("date_time"),
           col("auction_id_64").cast(LongType).as("auction_id_64"),
@@ -978,12 +976,12 @@ object Rollup_1_1 {
     )
   }
 
-  def resold_imp_type(context: Context) = {
+  def resold_request_imp_type(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     first(
       when(
-        coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6),
+        coalesce(col("request_imp_type").cast(IntegerType), lit(0)) === lit(6),
         struct(
           col("date_time").cast(LongType).as("date_time"),
           col("auction_id_64").cast(LongType).as("auction_id_64"),
@@ -1971,12 +1969,14 @@ object Rollup_1_1 {
     )
   }
 
-  def resold_request_imp_type(context: Context) = {
+  def others_imp_type(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     first(
       when(
-        coalesce(col("request_imp_type").cast(IntegerType), lit(0)) === lit(6),
+        (coalesce(col("imp_type").cast(IntegerType), lit(0)) =!= lit(6))
+          .and(coalesce(col("imp_type").cast(IntegerType), lit(0)) =!= lit(7))
+          .and(coalesce(col("imp_type").cast(IntegerType), lit(0)) =!= lit(0)),
         struct(
           col("date_time").cast(LongType).as("date_time"),
           col("auction_id_64").cast(LongType).as("auction_id_64"),
