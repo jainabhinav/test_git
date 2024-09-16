@@ -12,9 +12,9 @@ import org.apache.spark.sql.types._
 import org.apache.spark.sql.expressions._
 import java.time._
 
-object repartition_by_auction_id_1 {
+object repartition_by_inventory_url_id_1 {
 
   def apply(context: Context, in: DataFrame): DataFrame =
-    in.repartition(8000.toInt, col("advertiser_id"))
+    in.repartition(8000.toInt, col("inventory_url_id"))
 
 }

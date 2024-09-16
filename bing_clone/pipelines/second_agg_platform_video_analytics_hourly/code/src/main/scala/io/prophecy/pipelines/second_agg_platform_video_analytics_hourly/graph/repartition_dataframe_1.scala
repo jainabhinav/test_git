@@ -12,13 +12,9 @@ import org.apache.spark.sql.types._
 import org.apache.spark.sql.expressions._
 import java.time._
 
-object Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat {
+object repartition_dataframe_1 {
 
   def apply(context: Context, in: DataFrame): DataFrame =
-    in.select(col("key"),
-              col("value"),
-              col("pod_id_64").cast(LongType).as("pod_id_64"),
-              col("pod_id_64_vector")
-    )
+    in.repartition(12000.toInt, col("pod_id_64"))
 
 }

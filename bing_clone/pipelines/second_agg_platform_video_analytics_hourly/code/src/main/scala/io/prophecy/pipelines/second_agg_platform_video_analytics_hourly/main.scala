@@ -27,10 +27,12 @@ object Main {
       Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics(
         context
       )
-    val df_Filter_valid_pods = Filter_valid_pods(
+    val df_repartition_dataframe_1 = repartition_dataframe_1(
       context,
       df_Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics
     )
+    val df_Filter_valid_pods =
+      Filter_valid_pods(context, df_repartition_dataframe_1)
     val df_repartition_by_auction_id_1 =
       repartition_by_auction_id_1(context, df_Filter_valid_pods)
     SetCheckpointDir(context)
@@ -47,10 +49,15 @@ object Main {
         context,
         df_Reformat_agg_platform_video_analytics_pb_PrevExpressionj0
       )
+    val df_repartition_by_inventory_url_id_1 =
+      repartition_by_inventory_url_id_1(
+        context,
+        df_Reformat_agg_platform_video_analytics_pb_PrevExpression
+      )
     val df_Reformat_agg_platform_video_analytics_pbj0 =
       Reformat_agg_platform_video_analytics_pbj0(
         context,
-        df_Reformat_agg_platform_video_analytics_pb_PrevExpression,
+        df_repartition_by_inventory_url_id_1,
         df_repartition_by_inventory_url_id
       )
     val df_Reformat_agg_platform_video_analytics_pb =
@@ -58,19 +65,18 @@ object Main {
         context,
         df_Reformat_agg_platform_video_analytics_pbj0
       )
+    val df_repartition_by_seller_member_id = repartition_by_seller_member_id(
+      context,
+      df_Reformat_agg_platform_video_analytics_pb
+    )
     val df_Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr =
       Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr(
         context,
-        df_Reformat_agg_platform_video_analytics_pb
-      )
-    val df_Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat =
-      Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat(
-        context,
-        df_Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr
+        df_repartition_by_seller_member_id
       )
     val df_Reformat_monetizable_seconds = Reformat_monetizable_seconds(
       context,
-      df_Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat
+      df_Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr
     )
     val df_Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr =
       Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr(
