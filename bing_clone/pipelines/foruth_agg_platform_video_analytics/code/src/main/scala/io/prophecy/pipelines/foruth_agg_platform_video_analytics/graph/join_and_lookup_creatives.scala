@@ -36,21 +36,20 @@ object join_and_lookup_creatives {
       }
     
     import org.apache.spark.storage.StorageLevel
+    val rep_count = 8000
+    val new_in0 = in0.repartition(rep_count, col("auction_id_64"))
     
     // Repartition in1 to distribute data evenly
     val numPartitions = 1000
-    val new_in1 = in1.repartition(numPartitions, col("id"))
-    
-    // Persist new_in1 since it will be reused multiple times
-    new_in1.persist(StorageLevel.MEMORY_AND_DISK_SER)
+    val new_in1 = in1.repartition(numPartitions, col("id")).persist(StorageLevel.MEMORY_AND_DISK_SER)
     
     println("#####Step name: join by id#####")
     println("step persist time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
     
     // Perform the first join and persist the intermediate result
-    val join1 = in0.as("in0")
+    val join1 = new_in0.as("in0")
       .join(new_in1.as("in1").hint("shuffle_hash"), col("in1.id") === col("in0.agg_dw_clicks_creative_id"), "left_outer")
-      .persist(StorageLevel.DISK_ONLY)
+      .repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
     join1.count()  // Materialize the DataFrame
     
     // Unpersist in0 as it's no longer needed
@@ -59,7 +58,7 @@ object join_and_lookup_creatives {
     // Proceed with subsequent joins, each time unpersisting the previous DataFrame
     val join2 = join1
       .join(new_in1.as("in2").hint("shuffle_hash"), col("in2.id") === col("in0.agg_platform_video_requests_creative_id"), "left_outer")
-      .persist(StorageLevel.DISK_ONLY)
+      .repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
     join2.count()
     
     // Unpersist join1 to free up resources
@@ -67,7 +66,7 @@ object join_and_lookup_creatives {
     
     val join3 = join2
       .join(new_in1.as("in3").hint("shuffle_hash"), col("in3.id") === col("in0.agg_impbus_clicks_creative_id"), "left_outer")
-      .persist(StorageLevel.DISK_ONLY)
+      .repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
     join3.count()
     
     // Unpersist join2
@@ -75,7 +74,7 @@ object join_and_lookup_creatives {
     
     val join4 = join3
       .join(new_in1.as("in4").hint("shuffle_hash"), col("in4.id") === col("in0.agg_platform_video_impressions_creative_id"), "left_outer")
-      .persist(StorageLevel.DISK_ONLY)
+      .repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
     join4.count()
     
     // Unpersist join3
@@ -83,7 +82,7 @@ object join_and_lookup_creatives {
     
     val join5 = join4
       .join(new_in1.as("in5").hint("shuffle_hash"), col("in5.id") === col("in0.agg_dw_video_events_creative_id"), "left_outer")
-      .persist(StorageLevel.DISK_ONLY)
+      .repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
     join5.count()
     
     // Unpersist join4
@@ -91,7 +90,7 @@ object join_and_lookup_creatives {
     
     val join6 = join5
       .join(new_in1.as("in6").hint("shuffle_hash"), col("in6.id") === col("in0.agg_dw_pixels_creative_id"), "left_outer")
-      .persist(StorageLevel.DISK_ONLY)
+      .repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
     join6.count()
     
     // Unpersist join5
@@ -99,7 +98,7 @@ object join_and_lookup_creatives {
     
     val join7 = join6
       .join(new_in1.as("in7").hint("shuffle_hash"), col("in7.id") === col("in0.f_calc_derived_fields"), "left_outer")
-      .persist(StorageLevel.DISK_ONLY)
+      .repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
     join7.count()
     
     // Unpersist join6
@@ -117,7 +116,7 @@ object join_and_lookup_creatives {
         addLookupStruct("in3").as("_sup_creative_media_subtype_pb_LOOKUP6"),
         addLookupStruct("in7").as("_sup_creative_media_subtype_pb_LOOKUP"),
         col("_sup_placement_video_attributes_pb_LOOKUP")
-      ).persist(StorageLevel.DISK_ONLY)
+      ).repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
     
     out0.count()
     // Unpersist join7 and new_in1 as they are no longer needed
