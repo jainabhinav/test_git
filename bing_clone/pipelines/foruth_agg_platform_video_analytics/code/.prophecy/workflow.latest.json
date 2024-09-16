@@ -814,7 +814,7 @@
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
-        "comment" : "Optimizes data processing by reorganizing records based on auction IDs, enhancing performance for subsequent analysis.",
+        "comment" : "Optimizes data processing by redistributing records based on auction identifiers, enhancing performance for subsequent operations.",
         "autoUpdateComment" : true
       },
       "ports" : {
@@ -1363,7 +1363,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "script" : "println(\"#####Step name: repartition by auction id#####\")\nprintln(\"step start time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\nimport org.apache.spark.storage.StorageLevel\nval rep_count = 12000\nval out0 = in0.repartition(col(\"agg_platform_video_requests_tag_id\").cast(IntegerType)).persist(StorageLevel.DISK_ONLY)\n\nprintln(\"#####Step name: repartition by auction id#####\")\nprintln(\"step end time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n",
+        "script" : "println(\"#####Step name: repartition by auction id#####\")\nprintln(\"step start time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\nimport org.apache.spark.storage.StorageLevel\nval rep_count = 12000\nval out0 = in0.repartition(rep_count, col(\"agg_platform_video_requests_tag_id\").cast(IntegerType)).persist(StorageLevel.DISK_ONLY)\n\nprintln(\"#####Step name: repartition by auction id#####\")\nprintln(\"step end time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n",
         "scriptMethodHeader" : "def apply(spark: SparkSession, in0: DataFrame): DataFrame = {",
         "scriptMethodFooter" : "    out0\n}"
       }
@@ -2389,7 +2389,7 @@
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
-        "comment" : "Integrates creative media data with click and impression metrics, enhancing advertising performance analysis.",
+        "comment" : "Combines creative data with various attributes to enhance advertising insights and performance tracking.",
         "autoUpdateComment" : true
       },
       "ports" : {
@@ -3810,7 +3810,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "script" : "println(\"#####Step name: join by id#####\")\nprintln(\"step start time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\ndef addLookupStruct(alias: String): Column = {\n    when(\n      is_not_null(col(s\"$alias.id\")),\n      struct(\n        col(s\"$alias.id\").as(\"id\"),\n        col(s\"$alias.media_subtype\").as(\"media_subtype\"),\n        col(s\"$alias.advertiser_id\").as(\"advertiser_id\"),\n        col(s\"$alias.duration_ms\").as(\"duration_ms\"),\n        col(s\"$alias.vast_type_id\").as(\"vast_type_id\"),\n        col(s\"$alias.minimum_vast_version_id\").as(\"minimum_vast_version_id\"),\n        col(s\"$alias.is_skippable\").as(\"is_skippable\"),\n        col(s\"$alias.framework_ids\").as(\"framework_ids\")\n      )\n    )\n  }\n\nimport org.apache.spark.storage.StorageLevel\n\n// Persist the DataFrame to disk only\n// val new_in0 = in0.repartition(12000).persist(StorageLevel.DISK_ONLY)\n\n// val rep_count = 600\nval new_in1 = in1.repartition(col(\"id\")).persist(StorageLevel.MEMORY_AND_DISK)\n\nprintln(\"#####Step name: join by id#####\")\nprintln(\"step persist time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\n// Perform the join once for in1 and create multiple lookup columns\nval joinedDF = in0.as(\"in0\")\n  .join(new_in1.as(\"in1\"), col(\"in1.id\") === col(\"in0.agg_dw_clicks_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in2\"), col(\"in2.id\") === col(\"in0.agg_platform_video_requests_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in3\"), col(\"in3.id\") === col(\"in0.agg_impbus_clicks_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in4\"), col(\"in4.id\") === col(\"in0.agg_platform_video_impressions_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in5\"), col(\"in5.id\") === col(\"in0.agg_dw_video_events_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in6\"), col(\"in6.id\") === col(\"in0.agg_dw_pixels_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in7\"), col(\"in7.id\") === col(\"in0.f_calc_derived_fields\"), \"left_outer\")\n\n// Create the respective lookup columns\nval out0 = joinedDF\n  .select(\n    col(\"in0.*\"),  // Select all columns from in0\n    addLookupStruct(\"in2\").as(\"_sup_creative_media_subtype_pb_LOOKUP1\"),  // Include the newly generated columns\n    addLookupStruct(\"in5\").as(\"_sup_creative_media_subtype_pb_LOOKUP2\"),\n    addLookupStruct(\"in4\").as(\"_sup_creative_media_subtype_pb_LOOKUP3\"),\n    addLookupStruct(\"in1\").as(\"_sup_creative_media_subtype_pb_LOOKUP4\"),\n    addLookupStruct(\"in6\").as(\"_sup_creative_media_subtype_pb_LOOKUP5\"),\n    addLookupStruct(\"in3\").as(\"_sup_creative_media_subtype_pb_LOOKUP6\"),\n    addLookupStruct(\"in7\").as(\"_sup_creative_media_subtype_pb_LOOKUP\"),\n    col(\"_sup_placement_video_attributes_pb_LOOKUP\")\n  )\n\nprintln(\"#####Step name: join by id#####\")\nprintln(\"step end time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) ",
+        "script" : "println(\"#####Step name: join by id#####\")\nprintln(\"step start time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\ndef addLookupStruct(alias: String): Column = {\n    when(\n      is_not_null(col(s\"$alias.id\")),\n      struct(\n        col(s\"$alias.id\").as(\"id\"),\n        col(s\"$alias.media_subtype\").as(\"media_subtype\"),\n        col(s\"$alias.advertiser_id\").as(\"advertiser_id\"),\n        col(s\"$alias.duration_ms\").as(\"duration_ms\"),\n        col(s\"$alias.vast_type_id\").as(\"vast_type_id\"),\n        col(s\"$alias.minimum_vast_version_id\").as(\"minimum_vast_version_id\"),\n        col(s\"$alias.is_skippable\").as(\"is_skippable\"),\n        col(s\"$alias.framework_ids\").as(\"framework_ids\")\n      )\n    )\n  }\n\nimport org.apache.spark.storage.StorageLevel\n\n// Persist the DataFrame to disk only\nval new_in0 = in0.repartition(12000, col(\"agg_dw_clicks_creative_id\")).persist(StorageLevel.DISK_ONLY)\n\nval rep_count = 800\nval new_in1 = in1.repartition(rep_count, col(\"id\")).persist(StorageLevel.DISK_ONLY)\n\nprintln(\"#####Step name: join by id#####\")\nprintln(\"step persist time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\n// Perform the join once for in1 and create multiple lookup columns\nval joinedDF = in0.as(\"in0\")\n  .join(new_in1.as(\"in1\"), col(\"in1.id\") === col(\"in0.agg_dw_clicks_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in2\"), col(\"in2.id\") === col(\"in0.agg_platform_video_requests_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in3\"), col(\"in3.id\") === col(\"in0.agg_impbus_clicks_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in4\"), col(\"in4.id\") === col(\"in0.agg_platform_video_impressions_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in5\"), col(\"in5.id\") === col(\"in0.agg_dw_video_events_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in6\"), col(\"in6.id\") === col(\"in0.agg_dw_pixels_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in7\"), col(\"in7.id\") === col(\"in0.f_calc_derived_fields\"), \"left_outer\")\n\n// Create the respective lookup columns\nval out0 = joinedDF\n  .select(\n    col(\"in0.*\"),  // Select all columns from in0\n    addLookupStruct(\"in2\").as(\"_sup_creative_media_subtype_pb_LOOKUP1\"),  // Include the newly generated columns\n    addLookupStruct(\"in5\").as(\"_sup_creative_media_subtype_pb_LOOKUP2\"),\n    addLookupStruct(\"in4\").as(\"_sup_creative_media_subtype_pb_LOOKUP3\"),\n    addLookupStruct(\"in1\").as(\"_sup_creative_media_subtype_pb_LOOKUP4\"),\n    addLookupStruct(\"in6\").as(\"_sup_creative_media_subtype_pb_LOOKUP5\"),\n    addLookupStruct(\"in3\").as(\"_sup_creative_media_subtype_pb_LOOKUP6\"),\n    addLookupStruct(\"in7\").as(\"_sup_creative_media_subtype_pb_LOOKUP\"),\n    col(\"_sup_placement_video_attributes_pb_LOOKUP\")\n  )\n\nprintln(\"#####Step name: join by id#####\")\nprintln(\"step end time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) ",
         "scriptMethodHeader" : "def apply(spark: SparkSession, in0: DataFrame, in1: DataFrame): DataFrame = {",
         "scriptMethodFooter" : "    out0\n}"
       }
@@ -3928,8 +3928,8 @@
           "metadata" : {
             "label" : "sup_bidder_fx_rates_lookup",
             "slug" : "sup_bidder_fx_rates_lookup",
-            "x" : -323.4,
-            "y" : 681.2,
+            "x" : -320,
+            "y" : 680,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -4008,8 +4008,8 @@
           "metadata" : {
             "label" : "Reformat_sup_code_fx_rate",
             "slug" : "Reformat_sup_code_fx_rate",
-            "x" : -523.4,
-            "y" : 281.20000000000005,
+            "x" : -520,
+            "y" : 280,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -4128,8 +4128,8 @@
           "metadata" : {
             "label" : "sup_creative_media_subtype_pb_lookup_dedup4",
             "slug" : "sup_creative_media_subtype_pb_lookup_dedup4",
-            "x" : -323.4,
-            "y" : 1081.2,
+            "x" : -320,
+            "y" : 1080,
             "phase" : 4,
             "cache" : false,
             "detailedStats" : false,
@@ -4245,8 +4245,8 @@
           "metadata" : {
             "label" : "Read_Proto_Range_sup_code_fx_rate",
             "slug" : "Read_Proto_Range_sup_code_fx_rate",
-            "x" : -723.4,
-            "y" : 281.20000000000005,
+            "x" : -720,
+            "y" : 280,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -4272,8 +4272,8 @@
           "metadata" : {
             "label" : "Reformat_sup_api_member_pb",
             "slug" : "Reformat_sup_api_member_pb",
-            "x" : -523.4,
-            "y" : 481.20000000000005,
+            "x" : -520,
+            "y" : 480,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -4472,8 +4472,8 @@
           "metadata" : {
             "label" : "Reformat_sup_bidder_fx_rates",
             "slug" : "Reformat_sup_bidder_fx_rates",
-            "x" : -523.4,
-            "y" : 681.2,
+            "x" : -520,
+            "y" : 680,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -4592,8 +4592,8 @@
           "metadata" : {
             "label" : "sup_placement_video_attributes_pb_lookup_dedup15",
             "slug" : "sup_placement_video_attributes_pb_lookup_dedup15",
-            "x" : -323.4,
-            "y" : 1281.2,
+            "x" : -320,
+            "y" : 1280,
             "phase" : 4,
             "cache" : false,
             "detailedStats" : false,
@@ -4727,8 +4727,8 @@
           "metadata" : {
             "label" : "sup_api_member_pb_lookup",
             "slug" : "sup_api_member_pb_lookup",
-            "x" : -323.4,
-            "y" : 481.20000000000005,
+            "x" : -320,
+            "y" : 480,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -4852,8 +4852,8 @@
           "metadata" : {
             "label" : "Read_Proto_Range_sup_placement_video_attributes_pb",
             "slug" : "Read_Proto_Range_sup_placement_video_attributes_pb",
-            "x" : -723.4,
-            "y" : 1281.2,
+            "x" : -720,
+            "y" : 1280,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -4879,8 +4879,8 @@
           "metadata" : {
             "label" : "sup_sup_code_fx_rate_lookup",
             "slug" : "sup_sup_code_fx_rate_lookup",
-            "x" : -123.39999999999998,
-            "y" : 281.20000000000005,
+            "x" : -120,
+            "y" : 280,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -4959,8 +4959,8 @@
           "metadata" : {
             "label" : "Read_Proto_Range_sup_api_member_pb",
             "slug" : "Read_Proto_Range_sup_api_member_pb",
-            "x" : -723.4,
-            "y" : 481.20000000000005,
+            "x" : -720,
+            "y" : 480,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -4986,8 +4986,8 @@
           "metadata" : {
             "label" : "Read_Proto_Range_sup_bidder_fx_rates",
             "slug" : "Read_Proto_Range_sup_bidder_fx_rates",
-            "x" : -723.4,
-            "y" : 681.2,
+            "x" : -720,
+            "y" : 680,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -5013,8 +5013,8 @@
           "metadata" : {
             "label" : "Dedup_Sorted",
             "slug" : "Dedup_Sorted",
-            "x" : -323.4,
-            "y" : 281.20000000000005,
+            "x" : -320,
+            "y" : 280,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -5109,8 +5109,8 @@
           "metadata" : {
             "label" : "Reformat_sup_creative_media_subtype_pb",
             "slug" : "Reformat_sup_creative_media_subtype_pb",
-            "x" : -523.4,
-            "y" : 1081.2,
+            "x" : -520,
+            "y" : 1080,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -5207,7 +5207,7 @@
             "autoUpdateOnRun" : false
           },
           "properties" : {
-            "columnsSelector" : [ ],
+            "columnsSelector" : [ "Tn6EOdGUk2RQAwirqWux3$$PK82NY-7JNKNlrTDytK89##id", "Tn6EOdGUk2RQAwirqWux3$$PK82NY-7JNKNlrTDytK89##media_subtype", "Tn6EOdGUk2RQAwirqWux3$$PK82NY-7JNKNlrTDytK89##advertiser_id", "Tn6EOdGUk2RQAwirqWux3$$PK82NY-7JNKNlrTDytK89##duration_ms", "Tn6EOdGUk2RQAwirqWux3$$PK82NY-7JNKNlrTDytK89##vast_type_id", "Tn6EOdGUk2RQAwirqWux3$$PK82NY-7JNKNlrTDytK89##minimum_vast_version_id", "Tn6EOdGUk2RQAwirqWux3$$PK82NY-7JNKNlrTDytK89##is_skippable", "Tn6EOdGUk2RQAwirqWux3$$PK82NY-7JNKNlrTDytK89##framework_ids" ],
             "expressions" : [ {
               "target" : "id",
               "expression" : {
@@ -5277,8 +5277,8 @@
           "metadata" : {
             "label" : "Reformat_sup_placement_video_attributes_pb",
             "slug" : "Reformat_sup_placement_video_attributes_pb",
-            "x" : -523.4,
-            "y" : 1281.2,
+            "x" : -520,
+            "y" : 1280,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -5393,7 +5393,7 @@
             "autoUpdateOnRun" : false
           },
           "properties" : {
-            "columnsSelector" : [ ],
+            "columnsSelector" : [ "DJN15Vj7OCQoWxghsJiu1$$q2Q6m8Jjh_ZJGbufnVFIj##id", "DJN15Vj7OCQoWxghsJiu1$$q2Q6m8Jjh_ZJGbufnVFIj##supports_skippable", "DJN15Vj7OCQoWxghsJiu1$$q2Q6m8Jjh_ZJGbufnVFIj##max_duration_secs", "DJN15Vj7OCQoWxghsJiu1$$q2Q6m8Jjh_ZJGbufnVFIj##max_ad_duration_secs", "DJN15Vj7OCQoWxghsJiu1$$q2Q6m8Jjh_ZJGbufnVFIj##maximum_number_ads", "DJN15Vj7OCQoWxghsJiu1$$q2Q6m8Jjh_ZJGbufnVFIj##start_delay_secs", "DJN15Vj7OCQoWxghsJiu1$$q2Q6m8Jjh_ZJGbufnVFIj##playback_method", "DJN15Vj7OCQoWxghsJiu1$$q2Q6m8Jjh_ZJGbufnVFIj##video_context", "DJN15Vj7OCQoWxghsJiu1$$q2Q6m8Jjh_ZJGbufnVFIj##is_mediated", "DJN15Vj7OCQoWxghsJiu1$$q2Q6m8Jjh_ZJGbufnVFIj##skip_offset" ],
             "expressions" : [ {
               "target" : "id",
               "expression" : {
@@ -5477,8 +5477,8 @@
           "metadata" : {
             "label" : "Read_Proto_Range_sup_creative_media_subtype_pb",
             "slug" : "Read_Proto_Range_sup_creative_media_subtype_pb",
-            "x" : -723.4,
-            "y" : 1081.2,
+            "x" : -720,
+            "y" : 1080,
             "phase" : 3,
             "cache" : false,
             "detailedStats" : false,
@@ -5649,7 +5649,7 @@
         "x" : 1020,
         "y" : 180,
         "phase" : 0,
-        "cache" : true,
+        "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
         "comment" : "Enhances video request data by incorporating additional attributes from a related dataset, ensuring a comprehensive view of video capabilities.",

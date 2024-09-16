@@ -38,10 +38,10 @@ object join_and_lookup_creatives {
     import org.apache.spark.storage.StorageLevel
     
     // Persist the DataFrame to disk only
-    // val new_in0 = in0.repartition(12000).persist(StorageLevel.DISK_ONLY)
+    val new_in0 = in0.repartition(12000, col("agg_dw_clicks_creative_id")).persist(StorageLevel.DISK_ONLY)
     
-    // val rep_count = 600
-    val new_in1 = in1.repartition(col("id")).persist(StorageLevel.MEMORY_AND_DISK)
+    val rep_count = 800
+    val new_in1 = in1.repartition(rep_count, col("id")).persist(StorageLevel.DISK_ONLY)
     
     println("#####Step name: join by id#####")
     println("step persist time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 

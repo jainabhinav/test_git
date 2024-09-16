@@ -27,11 +27,11 @@ object Main {
       )
     val df_repartition_by_id =
       repartition_by_id(context, df_Create_sup_lookup_files_out2)
-    val df_left_outer_join_video_attributes =
-      left_outer_join_video_attributes(context,
-                                       df_repartition_by_auction_id_1_1,
-                                       df_repartition_by_id
-      ).cache()
+    val df_left_outer_join_video_attributes = left_outer_join_video_attributes(
+      context,
+      df_repartition_by_auction_id_1_1,
+      df_repartition_by_id
+    )
     val df_join_and_lookup_creatives = join_and_lookup_creatives(
       context,
       df_left_outer_join_video_attributes,
