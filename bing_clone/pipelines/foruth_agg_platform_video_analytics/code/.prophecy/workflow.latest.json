@@ -722,6 +722,9 @@
     }, {
       "name" : "spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes",
       "value" : "256MB"
+    }, {
+      "name" : "spark.sql.join.preferSortMergeJoin",
+      "value" : "false"
     } ],
     "hadoopConf" : [ ],
     "codeMode" : "sparse",
@@ -808,13 +811,13 @@
       "metadata" : {
         "label" : "repartition_by_auction_id_1_1",
         "slug" : "repartition_by_auction_id_1_1",
-        "x" : 680,
-        "y" : 60,
+        "x" : 220,
+        "y" : 20,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
-        "comment" : "Optimizes data processing by redistributing records based on auction identifiers, enhancing performance for subsequent operations.",
+        "comment" : "Optimizes data processing by redistributing records based on auction IDs, enhancing performance for subsequent analysis.",
         "autoUpdateComment" : true
       },
       "ports" : {
@@ -1363,7 +1366,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "script" : "println(\"#####Step name: repartition by auction id#####\")\nprintln(\"step start time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\nimport org.apache.spark.storage.StorageLevel\nval rep_count = 12000\nval out0 = in0.repartition(rep_count, col(\"agg_platform_video_requests_tag_id\").cast(IntegerType)).persist(StorageLevel.DISK_ONLY)\n\nprintln(\"#####Step name: repartition by auction id#####\")\nprintln(\"step end time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n",
+        "script" : "println(\"#####Step name: repartition by auction id#####\")\nprintln(\"step start time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\nimport org.apache.spark.storage.StorageLevel\nval rep_count = 8000\nval out0 = in0.repartition(rep_count, col(\"agg_platform_video_requests_tag_id\").cast(IntegerType)).persist(StorageLevel.DISK_ONLY)\n\nprintln(\"#####Step name: repartition by auction id#####\")\nprintln(\"step end time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n",
         "scriptMethodHeader" : "def apply(spark: SparkSession, in0: DataFrame): DataFrame = {",
         "scriptMethodFooter" : "    out0\n}"
       }
@@ -1374,8 +1377,8 @@
       "metadata" : {
         "label" : "temp_output3",
         "slug" : "temp_output3",
-        "x" : 1400,
-        "y" : 240,
+        "x" : 820,
+        "y" : 220,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
@@ -2355,8 +2358,8 @@
       "id" : "5WTY1JTS1O1VIXN1q-Zun$$5nNAXQVdKnFfQh0J0IM3v",
       "component" : "Script",
       "metadata" : {
-        "label" : "Script_1",
-        "slug" : "Script_1",
+        "label" : "config_update",
+        "slug" : "config_update",
         "x" : 20,
         "y" : 220,
         "phase" : -1,
@@ -2383,13 +2386,13 @@
       "metadata" : {
         "label" : "join_and_lookup_creatives",
         "slug" : "join_and_lookup_creatives",
-        "x" : 1220,
-        "y" : 240,
+        "x" : 620,
+        "y" : 220,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
-        "comment" : "Combines creative data with various attributes to enhance advertising insights and performance tracking.",
+        "comment" : "Combines creative data with various metrics to enhance advertising insights and performance tracking.",
         "autoUpdateComment" : true
       },
       "ports" : {
@@ -3810,7 +3813,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "script" : "println(\"#####Step name: join by id#####\")\nprintln(\"step start time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\ndef addLookupStruct(alias: String): Column = {\n    when(\n      is_not_null(col(s\"$alias.id\")),\n      struct(\n        col(s\"$alias.id\").as(\"id\"),\n        col(s\"$alias.media_subtype\").as(\"media_subtype\"),\n        col(s\"$alias.advertiser_id\").as(\"advertiser_id\"),\n        col(s\"$alias.duration_ms\").as(\"duration_ms\"),\n        col(s\"$alias.vast_type_id\").as(\"vast_type_id\"),\n        col(s\"$alias.minimum_vast_version_id\").as(\"minimum_vast_version_id\"),\n        col(s\"$alias.is_skippable\").as(\"is_skippable\"),\n        col(s\"$alias.framework_ids\").as(\"framework_ids\")\n      )\n    )\n  }\n\nimport org.apache.spark.storage.StorageLevel\n\n// Persist the DataFrame to disk only\nval new_in0 = in0.repartition(12000, col(\"agg_dw_clicks_creative_id\")).persist(StorageLevel.DISK_ONLY)\n\nval rep_count = 800\nval new_in1 = in1.repartition(rep_count, col(\"id\")).persist(StorageLevel.DISK_ONLY)\n\nprintln(\"#####Step name: join by id#####\")\nprintln(\"step persist time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\n// Perform the join once for in1 and create multiple lookup columns\nval joinedDF = in0.as(\"in0\")\n  .join(new_in1.as(\"in1\"), col(\"in1.id\") === col(\"in0.agg_dw_clicks_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in2\"), col(\"in2.id\") === col(\"in0.agg_platform_video_requests_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in3\"), col(\"in3.id\") === col(\"in0.agg_impbus_clicks_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in4\"), col(\"in4.id\") === col(\"in0.agg_platform_video_impressions_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in5\"), col(\"in5.id\") === col(\"in0.agg_dw_video_events_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in6\"), col(\"in6.id\") === col(\"in0.agg_dw_pixels_creative_id\"), \"left_outer\")\n  .join(new_in1.as(\"in7\"), col(\"in7.id\") === col(\"in0.f_calc_derived_fields\"), \"left_outer\")\n\n// Create the respective lookup columns\nval out0 = joinedDF\n  .select(\n    col(\"in0.*\"),  // Select all columns from in0\n    addLookupStruct(\"in2\").as(\"_sup_creative_media_subtype_pb_LOOKUP1\"),  // Include the newly generated columns\n    addLookupStruct(\"in5\").as(\"_sup_creative_media_subtype_pb_LOOKUP2\"),\n    addLookupStruct(\"in4\").as(\"_sup_creative_media_subtype_pb_LOOKUP3\"),\n    addLookupStruct(\"in1\").as(\"_sup_creative_media_subtype_pb_LOOKUP4\"),\n    addLookupStruct(\"in6\").as(\"_sup_creative_media_subtype_pb_LOOKUP5\"),\n    addLookupStruct(\"in3\").as(\"_sup_creative_media_subtype_pb_LOOKUP6\"),\n    addLookupStruct(\"in7\").as(\"_sup_creative_media_subtype_pb_LOOKUP\"),\n    col(\"_sup_placement_video_attributes_pb_LOOKUP\")\n  )\n\nprintln(\"#####Step name: join by id#####\")\nprintln(\"step end time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) ",
+        "script" : "println(\"#####Step name: join by id#####\")\nprintln(\"step start time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\ndef addLookupStruct(alias: String): Column = {\n    when(\n      is_not_null(col(s\"$alias.id\")),\n      struct(\n        col(s\"$alias.id\").as(\"id\"),\n        col(s\"$alias.media_subtype\").as(\"media_subtype\"),\n        col(s\"$alias.advertiser_id\").as(\"advertiser_id\"),\n        col(s\"$alias.duration_ms\").as(\"duration_ms\"),\n        col(s\"$alias.vast_type_id\").as(\"vast_type_id\"),\n        col(s\"$alias.minimum_vast_version_id\").as(\"minimum_vast_version_id\"),\n        col(s\"$alias.is_skippable\").as(\"is_skippable\"),\n        col(s\"$alias.framework_ids\").as(\"framework_ids\")\n      )\n    )\n  }\n\nimport org.apache.spark.storage.StorageLevel\n\n// Repartition in1 to distribute data evenly\nval numPartitions = 1000\nval new_in1 = in1.repartition(numPartitions, col(\"id\"))\n\n// Persist new_in1 since it will be reused multiple times\nnew_in1.persist(StorageLevel.MEMORY_AND_DISK_SER)\n\nprintln(\"#####Step name: join by id#####\")\nprintln(\"step persist time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) \n\n// Perform the first join and persist the intermediate result\nval join1 = in0.as(\"in0\")\n  .join(new_in1.as(\"in1\").hint(\"shuffle_hash\"), col(\"in1.id\") === col(\"in0.agg_dw_clicks_creative_id\"), \"left_outer\")\n  .persist(StorageLevel.DISK_ONLY)\njoin1.count()  // Materialize the DataFrame\n\n// Unpersist in0 as it's no longer needed\n// Since in0 was not persisted, no need to unpersist it\n\n// Proceed with subsequent joins, each time unpersisting the previous DataFrame\nval join2 = join1\n  .join(new_in1.as(\"in2\").hint(\"shuffle_hash\"), col(\"in2.id\") === col(\"in0.agg_platform_video_requests_creative_id\"), \"left_outer\")\n  .persist(StorageLevel.DISK_ONLY)\njoin2.count()\n\n// Unpersist join1 to free up resources\njoin1.unpersist()\n\nval join3 = join2\n  .join(new_in1.as(\"in3\").hint(\"shuffle_hash\"), col(\"in3.id\") === col(\"in0.agg_impbus_clicks_creative_id\"), \"left_outer\")\n  .persist(StorageLevel.DISK_ONLY)\njoin3.count()\n\n// Unpersist join2\njoin2.unpersist()\n\nval join4 = join3\n  .join(new_in1.as(\"in4\").hint(\"shuffle_hash\"), col(\"in4.id\") === col(\"in0.agg_platform_video_impressions_creative_id\"), \"left_outer\")\n  .persist(StorageLevel.DISK_ONLY)\njoin4.count()\n\n// Unpersist join3\njoin3.unpersist()\n\nval join5 = join4\n  .join(new_in1.as(\"in5\").hint(\"shuffle_hash\"), col(\"in5.id\") === col(\"in0.agg_dw_video_events_creative_id\"), \"left_outer\")\n  .persist(StorageLevel.DISK_ONLY)\njoin5.count()\n\n// Unpersist join4\njoin4.unpersist()\n\nval join6 = join5\n  .join(new_in1.as(\"in6\").hint(\"shuffle_hash\"), col(\"in6.id\") === col(\"in0.agg_dw_pixels_creative_id\"), \"left_outer\")\n  .persist(StorageLevel.DISK_ONLY)\njoin6.count()\n\n// Unpersist join5\njoin5.unpersist()\n\nval join7 = join6\n  .join(new_in1.as(\"in7\").hint(\"shuffle_hash\"), col(\"in7.id\") === col(\"in0.f_calc_derived_fields\"), \"left_outer\")\n  .persist(StorageLevel.DISK_ONLY)\njoin7.count()\n\n// Unpersist join6\njoin6.unpersist()\n\n// Create the respective lookup columns\nval out0 = join7\n  .select(\n    col(\"in0.*\"),  // Select all columns from in0\n    addLookupStruct(\"in2\").as(\"_sup_creative_media_subtype_pb_LOOKUP1\"),\n    addLookupStruct(\"in5\").as(\"_sup_creative_media_subtype_pb_LOOKUP2\"),\n    addLookupStruct(\"in4\").as(\"_sup_creative_media_subtype_pb_LOOKUP3\"),\n    addLookupStruct(\"in1\").as(\"_sup_creative_media_subtype_pb_LOOKUP4\"),\n    addLookupStruct(\"in6\").as(\"_sup_creative_media_subtype_pb_LOOKUP5\"),\n    addLookupStruct(\"in3\").as(\"_sup_creative_media_subtype_pb_LOOKUP6\"),\n    addLookupStruct(\"in7\").as(\"_sup_creative_media_subtype_pb_LOOKUP\"),\n    col(\"_sup_placement_video_attributes_pb_LOOKUP\")\n  ).persist(StorageLevel.DISK_ONLY)\n\nout0.count()\n// Unpersist join7 and new_in1 as they are no longer needed\njoin7.unpersist()\nnew_in1.unpersist()\n\nprintln(\"#####Step name: join by id#####\")\nprintln(\"step end time: \" + Instant.now().atZone(ZoneId.of(\"America/Chicago\"))) ",
         "scriptMethodHeader" : "def apply(spark: SparkSession, in0: DataFrame, in1: DataFrame): DataFrame = {",
         "scriptMethodFooter" : "    out0\n}"
       }
@@ -3821,8 +3824,8 @@
       "metadata" : {
         "label" : "Create_sup_lookup_files",
         "slug" : "Create_sup_lookup_files",
-        "x" : 620,
-        "y" : 380,
+        "x" : 20,
+        "y" : 420,
         "phase" : 1,
         "cache" : false,
         "detailedStats" : false,
@@ -5506,13 +5509,13 @@
       "metadata" : {
         "label" : "repartition_by_id",
         "slug" : "repartition_by_id",
-        "x" : 820,
-        "y" : 280,
+        "x" : 220,
+        "y" : 360,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
-        "comment" : "Redistributes data based on customer IDs to optimize processing efficiency.",
+        "comment" : "Redistributes data across multiple partitions based on customer IDs to enhance processing efficiency.",
         "autoUpdateComment" : true
       },
       "ports" : {
@@ -5624,7 +5627,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "overwriteDefaultNPartitions" : false,
+        "overwriteDefaultNPartitions" : true,
         "hashExpressions" : [ {
           "format" : "scala",
           "expression" : "col(\"id\")"
@@ -5632,7 +5635,7 @@
         "columnsSelector" : [ "7rwDfFLNWiUJ1y2hL9hlL$$D3rbYOlbU5iJJpmmQ8Nw8##id" ],
         "repartitionType" : "hash_repartitioning",
         "rangeExpressions" : [ ],
-        "defaultPartitions" : "200",
+        "defaultPartitions" : "1000",
         "nPartitions" : "10"
       },
       "componentInfo" : {
@@ -5646,13 +5649,13 @@
       "metadata" : {
         "label" : "left_outer_join_video_attributes",
         "slug" : "left_outer_join_video_attributes",
-        "x" : 1020,
-        "y" : 180,
+        "x" : 420,
+        "y" : 160,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
-        "comment" : "Enhances video request data by incorporating additional attributes from a related dataset, ensuring a comprehensive view of video capabilities.",
+        "comment" : "Enhances video request data with additional attributes, improving content delivery and user experience.",
         "autoUpdateComment" : true
       },
       "ports" : {
@@ -6058,10 +6061,10 @@
         }, {
           "id" : "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O",
           "alias" : "in1",
-          "hintType" : "none",
+          "hintType" : "shuffle_hash",
           "propagateColumns" : false
         } ],
-        "activeTab" : "expressions",
+        "activeTab" : "advanced",
         "columnsSelector" : [ "uU3qhdmtUFT-BRnRSXz9a$$4VG79U0iviA1bZGvE5ZVO##agg_platform_video_requests_tag_id", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##id", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##id", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##supports_skippable", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##max_duration_secs", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##max_ad_duration_secs", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##maximum_number_ads", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##start_delay_secs", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##playback_method", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##video_context", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##is_mediated", "EdgQXnA1drG5by8qvyiS3$$Z2BXYwtxl_ePElebauI4O##skip_offset" ],
         "headAlias" : "in0"
       },
@@ -6076,8 +6079,8 @@
       "metadata" : {
         "label" : "temp_output2",
         "slug" : "temp_output2",
-        "x" : 500,
-        "y" : 60,
+        "x" : 20,
+        "y" : 20,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,

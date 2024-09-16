@@ -15,6 +15,6 @@ import java.time._
 object repartition_by_id {
 
   def apply(context: Context, in: DataFrame): DataFrame =
-    in.repartition(col("id"))
+    in.repartition(1000.toInt, col("id"))
 
 }

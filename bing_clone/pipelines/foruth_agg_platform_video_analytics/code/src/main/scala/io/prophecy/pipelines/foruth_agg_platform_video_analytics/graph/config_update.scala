@@ -12,7 +12,7 @@ import org.apache.spark.sql.types._
 import org.apache.spark.sql.expressions._
 import java.time._
 
-object Script_1 {
+object config_update {
   def apply(context: Context): Unit = {
     val spark = context.spark
     val Config = context.config

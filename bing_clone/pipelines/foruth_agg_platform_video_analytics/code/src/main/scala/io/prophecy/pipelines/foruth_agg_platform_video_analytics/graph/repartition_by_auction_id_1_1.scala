@@ -20,7 +20,7 @@ object repartition_by_auction_id_1_1 {
     println("step start time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
     
     import org.apache.spark.storage.StorageLevel
-    val rep_count = 12000
+    val rep_count = 8000
     val out0 = in0.repartition(rep_count, col("agg_platform_video_requests_tag_id").cast(IntegerType)).persist(StorageLevel.DISK_ONLY)
     
     println("#####Step name: repartition by auction id#####")

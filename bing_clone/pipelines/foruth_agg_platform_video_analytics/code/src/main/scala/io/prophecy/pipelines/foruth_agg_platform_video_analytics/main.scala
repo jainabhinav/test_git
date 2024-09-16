@@ -16,7 +16,7 @@ import java.time._
 object Main {
 
   def apply(context: Context): Unit = {
-    Script_1(context)
+    config_update(context)
     val df_temp_output2 = temp_output2(context)
     val df_repartition_by_auction_id_1_1 =
       repartition_by_auction_id_1_1(context, df_temp_output2)
@@ -63,6 +63,7 @@ object Main {
       "spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes",
       "256MB"
     )
+    spark.conf.set("spark.sql.join.preferSortMergeJoin", "false")
     registerUDFs(spark)
     MetricsCollector.instrument(spark,
                                 "pipelines/foruth_agg_platform_video_analytics"
