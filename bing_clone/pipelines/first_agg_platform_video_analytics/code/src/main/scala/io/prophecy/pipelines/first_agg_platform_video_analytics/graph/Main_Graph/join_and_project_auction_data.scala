@@ -18,12 +18,6 @@ object join_and_project_auction_data {
     val Config = context.config
     import org.apache.spark.storage.StorageLevel
     
-    // Persist the DataFrame to disk only
-    in0.persist(StorageLevel.DISK_ONLY)
-    
-    // Trigger an action to materialize the persistence
-    in0.count() // or any other action like show(), collect(), etc.
-    
     val out0 = in0
       .as("in0")
       .join(

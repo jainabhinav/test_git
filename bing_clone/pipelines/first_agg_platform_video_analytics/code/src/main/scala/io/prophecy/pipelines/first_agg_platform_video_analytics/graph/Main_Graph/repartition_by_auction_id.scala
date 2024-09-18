@@ -15,6 +15,6 @@ import java.time._
 object repartition_by_auction_id {
 
   def apply(context: Context, in: DataFrame): DataFrame =
-    in.repartition(col("auction_id_64"))
+    in.repartition(2000.toInt, col("auction_id_64"))
 
 }

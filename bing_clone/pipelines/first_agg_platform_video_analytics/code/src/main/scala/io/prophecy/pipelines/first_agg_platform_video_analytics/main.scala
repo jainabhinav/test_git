@@ -17,15 +17,13 @@ object Main {
 
   def apply(context: Context): Unit = {
     Script_1(context)
-    val df_Main_Graph = Main_Graph
-      .apply(
-        Main_Graph.config.Context(context.spark, context.config.Main_Graph)
-      )
-      .cache()
+    val df_Main_Graph = Main_Graph.apply(
+      Main_Graph.config.Context(context.spark, context.config.Main_Graph)
+    )
     val df_Filter_1            = Filter_1(context,            df_Main_Graph)
     val df_select_auction_data = select_auction_data(context, df_Filter_1)
     val df_reformat_auction_data =
-      reformat_auction_data(context, df_select_auction_data).cache()
+      reformat_auction_data(context, df_select_auction_data)
     temp_output2(context,            df_reformat_auction_data)
     temp_output1(context,            df_Filter_1)
   }

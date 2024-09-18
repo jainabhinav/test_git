@@ -65,8 +65,13 @@ package object Main_Graph {
       df_Filter_by_Expression_6
     )
     val df_Reformat_2_1 = Reformat_2_1(context, df_Validate_Pick_Video_Events)
-    val df_join_by_auction_id =
-      join_by_auction_id(context, df_Reformat_1_4, df_Reformat_2_1)
+    val df_repartition_by_auction_id_1_1 =
+      repartition_by_auction_id_1_1(context, df_Reformat_2_1)
+    val df_join_by_auction_id = join_by_auction_id(
+      context,
+      df_Reformat_1_4,
+      df_repartition_by_auction_id_1_1
+    )
     val df_Filter_by_Expression_1 =
       Filter_by_Expression_1(context, df_repartition_dataframe_1)
     val df_Reformat_3_1 = Reformat_3_1(context, df_Filter_by_Expression_1)
