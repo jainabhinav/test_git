@@ -22,13 +22,13 @@ object Reformat_agg_platform_video_analyticsj0 {
   ): DataFrame =
     in0
       .as("in0")
-      .join(in1.as("in1"),
+      .join(in1.as("in1").hint("broadcast"),
             col("in0.inventory_url_id").cast(IntegerType) === col(
               "in1.inventory_url_id"
             ),
             "left_outer"
       )
-      .join(in2.as("in2"),
+      .join(in2.as("in2").hint("broadcast"),
             col("in0.inventory_url_id").cast(IntegerType) === col(
               "in2.inventory_url_id"
             ),

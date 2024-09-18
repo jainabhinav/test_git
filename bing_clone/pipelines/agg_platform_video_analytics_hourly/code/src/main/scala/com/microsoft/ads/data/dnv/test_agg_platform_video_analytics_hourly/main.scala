@@ -16,6 +16,7 @@ import java.time._
 object Main {
 
   def apply(context: Context): Unit = {
+    SetCheckpointDir(context)
     val (df_Create_sup_lookup_files_out3,
          df_Create_sup_lookup_files_out2,
          df_Create_sup_lookup_files_out1
@@ -23,8 +24,6 @@ object Main {
       Create_sup_lookup_files.config
         .Context(context.spark, context.config.Create_sup_lookup_files)
     )
-    val df_repartition_dataframe =
-      repartition_dataframe(context, df_Create_sup_lookup_files_out1).cache()
     val df_Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics =
       Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics(
         context
@@ -34,50 +33,16 @@ object Main {
       df_Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics
     )
     val df_repartition_by_auction_id_1 =
-      repartition_by_auction_id_1(context, df_Filter_valid_pods).cache()
-    SetCheckpointDir(context)
-    val df_repartition_to_200 =
-      repartition_to_200(context, df_Create_sup_lookup_files_out3)
-    val df_repartition_by_inventory_url_id =
-      repartition_by_inventory_url_id(context, df_Create_sup_lookup_files_out2)
-        .cache()
+      repartition_by_auction_id_1(context, df_Filter_valid_pods)
     val df_repartition_by_auction_id = repartition_by_auction_id(
       context,
       df_Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics
     )
-    val df_Reformat_agg_platform_video_analytics_PrevExpressionj0 =
-      Reformat_agg_platform_video_analytics_PrevExpressionj0(
-        context,
-        df_repartition_by_auction_id,
-        df_repartition_dataframe
-      )
-    val df_Reformat_agg_platform_video_analytics_pb_PrevExpressionj0 =
-      Reformat_agg_platform_video_analytics_pb_PrevExpressionj0(
-        context,
-        df_repartition_by_auction_id_1,
-        df_repartition_dataframe
-      )
-    val df_Reformat_agg_platform_video_analytics_pb_PrevExpression =
-      Reformat_agg_platform_video_analytics_pb_PrevExpression(
-        context,
-        df_Reformat_agg_platform_video_analytics_pb_PrevExpressionj0
-      )
-    val df_Reformat_agg_platform_video_analytics_pbj0 =
-      Reformat_agg_platform_video_analytics_pbj0(
-        context,
-        df_Reformat_agg_platform_video_analytics_pb_PrevExpression,
-        df_repartition_by_inventory_url_id
-      )
-    val df_Reformat_agg_platform_video_analytics_pb =
-      Reformat_agg_platform_video_analytics_pb(
-        context,
-        df_Reformat_agg_platform_video_analytics_pbj0
-      )
     val df_Reformat_agg_platform_video_analytics_1_PrevExpressionj0 =
       Reformat_agg_platform_video_analytics_1_PrevExpressionj0(
         context,
         df_repartition_by_auction_id_1,
-        df_repartition_dataframe
+        df_Create_sup_lookup_files_out1
       )
     val df_Reformat_agg_platform_video_analytics_1_PrevExpression =
       Reformat_agg_platform_video_analytics_1_PrevExpression(
@@ -88,34 +53,12 @@ object Main {
       Reformat_agg_platform_video_analytics_1j0(
         context,
         df_Reformat_agg_platform_video_analytics_1_PrevExpression,
-        df_repartition_by_inventory_url_id
+        df_Create_sup_lookup_files_out2
       )
     val df_Reformat_agg_platform_video_analytics_1 =
       Reformat_agg_platform_video_analytics_1(
         context,
         df_Reformat_agg_platform_video_analytics_1j0
-      )
-    val df_Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr =
-      Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr(
-        context,
-        df_Reformat_agg_platform_video_analytics_pb
-      )
-    val df_Reformat_agg_platform_video_analytics_PrevExpression =
-      Reformat_agg_platform_video_analytics_PrevExpression(
-        context,
-        df_Reformat_agg_platform_video_analytics_PrevExpressionj0
-      )
-    val df_Reformat_agg_platform_video_analyticsj0 =
-      Reformat_agg_platform_video_analyticsj0(
-        context,
-        df_Reformat_agg_platform_video_analytics_PrevExpression,
-        df_repartition_by_inventory_url_id,
-        df_repartition_to_200
-      )
-    val df_Reformat_agg_platform_video_analytics =
-      Reformat_agg_platform_video_analytics(
-        context,
-        df_Reformat_agg_platform_video_analyticsj0
       )
     val df_Pre_Rollup_agg_platform_video_slot_analytics_pb =
       Pre_Rollup_agg_platform_video_slot_analytics_pb(
@@ -126,6 +69,37 @@ object Main {
       Reformat_agg_platform_video_slot_analytics_pb(
         context,
         df_Pre_Rollup_agg_platform_video_slot_analytics_pb
+      )
+    Write_Proto_HDFS_agg_platform_video_slot_analytics_pb(
+      context,
+      df_Reformat_agg_platform_video_slot_analytics_pb
+    )
+    val df_Reformat_agg_platform_video_analytics_pb_PrevExpressionj0 =
+      Reformat_agg_platform_video_analytics_pb_PrevExpressionj0(
+        context,
+        df_repartition_by_auction_id_1,
+        df_Create_sup_lookup_files_out1
+      )
+    val df_Reformat_agg_platform_video_analytics_pb_PrevExpression =
+      Reformat_agg_platform_video_analytics_pb_PrevExpression(
+        context,
+        df_Reformat_agg_platform_video_analytics_pb_PrevExpressionj0
+      )
+    val df_Reformat_agg_platform_video_analytics_pbj0 =
+      Reformat_agg_platform_video_analytics_pbj0(
+        context,
+        df_Reformat_agg_platform_video_analytics_pb_PrevExpression,
+        df_Create_sup_lookup_files_out2
+      )
+    val df_Reformat_agg_platform_video_analytics_pb =
+      Reformat_agg_platform_video_analytics_pb(
+        context,
+        df_Reformat_agg_platform_video_analytics_pbj0
+      )
+    val df_Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr =
+      Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr(
+        context,
+        df_Reformat_agg_platform_video_analytics_pb
       )
     val df_Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat =
       Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat(
@@ -151,6 +125,33 @@ object Main {
         context,
         df_Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr_Reformat
       )
+    Write_Proto_HDFS_agg_platform_video_pod_analytics_pb(
+      context,
+      df_Reformat_agg_platform_video_pod_analytics_pb
+    )
+    val df_Reformat_agg_platform_video_analytics_PrevExpressionj0 =
+      Reformat_agg_platform_video_analytics_PrevExpressionj0(
+        context,
+        df_repartition_by_auction_id,
+        df_Create_sup_lookup_files_out1
+      )
+    val df_Reformat_agg_platform_video_analytics_PrevExpression =
+      Reformat_agg_platform_video_analytics_PrevExpression(
+        context,
+        df_Reformat_agg_platform_video_analytics_PrevExpressionj0
+      )
+    val df_Reformat_agg_platform_video_analyticsj0 =
+      Reformat_agg_platform_video_analyticsj0(
+        context,
+        df_Reformat_agg_platform_video_analytics_PrevExpression,
+        df_Create_sup_lookup_files_out2,
+        df_Create_sup_lookup_files_out3
+      )
+    val df_Reformat_agg_platform_video_analytics =
+      Reformat_agg_platform_video_analytics(
+        context,
+        df_Reformat_agg_platform_video_analyticsj0
+      )
     val df_Pre_Rollup_agg_platform_video_analytics_hourly_pb =
       Pre_Rollup_agg_platform_video_analytics_hourly_pb(
         context,
@@ -161,17 +162,9 @@ object Main {
         context,
         df_Pre_Rollup_agg_platform_video_analytics_hourly_pb
       )
-    Write_Proto_HDFS_agg_platform_video_pod_analytics_pb(
-      context,
-      df_Reformat_agg_platform_video_pod_analytics_pb
-    )
     Write_Proto_HDFS_agg_platform_video_analytics_hourly_pb_agg_platform_video_analytics_hourly(
       context,
       df_Reformat_agg_platform_video_analytics_hourly_pb
-    )
-    Write_Proto_HDFS_agg_platform_video_slot_analytics_pb(
-      context,
-      df_Reformat_agg_platform_video_slot_analytics_pb
     )
   }
 

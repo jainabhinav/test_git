@@ -17,7 +17,7 @@ object Reformat_agg_platform_video_analytics_PrevExpressionj0 {
   def apply(context: Context, in0: DataFrame, in1: DataFrame): DataFrame =
     in0
       .as("in0")
-      .join(in1.as("in1"),
+      .join(in1.as("in1").hint("broadcast"),
             col("in0.advertiser_id").cast(IntegerType) === col("in1.id"),
             "left_outer"
       )

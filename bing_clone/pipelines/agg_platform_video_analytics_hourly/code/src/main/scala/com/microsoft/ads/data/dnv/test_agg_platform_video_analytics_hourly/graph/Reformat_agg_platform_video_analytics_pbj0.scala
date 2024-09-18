@@ -17,7 +17,7 @@ object Reformat_agg_platform_video_analytics_pbj0 {
   def apply(context: Context, in0: DataFrame, in1: DataFrame): DataFrame =
     in0
       .as("in0")
-      .join(in1.as("in1"),
+      .join(in1.as("in1").hint("broadcast"),
             col("in0.inventory_url_id").cast(IntegerType) === col(
               "in1.inventory_url_id"
             ),

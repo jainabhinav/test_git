@@ -733,66 +733,6 @@
     "target" : "Reformat_agg_platform_video_analytics_1_PrevExpression",
     "targetPort" : "Reformat_agg_platform_video_analytics_1_PrevExpression__in"
   }, {
-    "id" : "6-TQ4si787a-XekeyoM1M$$MZjXLLfJ9Dhv6zJHHfdRZ",
-    "source" : "k_2vpOx3CHCAQ0LdUy4_A$$xpwEE5uTALgzrKPX1PPzx",
-    "sourcePort" : "VYpYgdRBGRvt_lxxdwBDB$$ZhT5aWQnC27JdAaq_VZS3",
-    "target" : "QoMc1bTzGhDUjGd7T1E7H$$0vf_w9RRKdpgcUc4c5tSY",
-    "targetPort" : "6-XjDDcDWAHuL8TUne50i$$x0N4BEDesG_tQk08VVEJn"
-  }, {
-    "id" : "4OacAX2BDs0VVnMRE4qkN",
-    "source" : "k_2vpOx3CHCAQ0LdUy4_A$$xpwEE5uTALgzrKPX1PPzx",
-    "sourcePort" : "VYpYgdRBGRvt_lxxdwBDB$$ZhT5aWQnC27JdAaq_VZS3",
-    "target" : "hvg_Xu8N8U4Znc1qKjm4z$$NgGto2t2uOy3DK5XSkuCf",
-    "targetPort" : "P3fpf0V9qyjNSJa_7R5Xm$$-NTCOJ7aDXco8kQZEnvGJ"
-  }, {
-    "id" : "OpLn7--Xvz_NBZa9PKNv4",
-    "source" : "k_2vpOx3CHCAQ0LdUy4_A$$xpwEE5uTALgzrKPX1PPzx",
-    "sourcePort" : "VYpYgdRBGRvt_lxxdwBDB$$ZhT5aWQnC27JdAaq_VZS3",
-    "target" : "-4dEjZ4Wsa-jNP0-aZ_zB$$LkfdEUtSgykTHjEdh2aWJ",
-    "targetPort" : "h6lpSEnQeEVk0utEUksLh$$wO5khVWt5owjIucjZG_IG"
-  }, {
-    "id" : "DimsT-jQ0h-x3rinw2X_h",
-    "source" : "Create_sup_lookup_files",
-    "sourcePort" : "agg_platform_video_analytics_hourly_pb__Create_sup_lookup_files__out1",
-    "target" : "k_2vpOx3CHCAQ0LdUy4_A$$xpwEE5uTALgzrKPX1PPzx",
-    "targetPort" : "JANRGTzR4QPauLczvHJ23$$I8uuLEJ387tOmKOrkpJx3"
-  }, {
-    "id" : "QBYV9K_PgHf4_57_SDgd7$$boSSyxysXSDv_6G1wUNrF",
-    "source" : "Create_sup_lookup_files",
-    "sourcePort" : "agg_platform_video_analytics_hourly_pb__Create_sup_lookup_files__out2",
-    "target" : "sTlP0tjKMqJ1lStMAN9bU$$wbwUKz3bvIDe230fGV5CG",
-    "targetPort" : "Px28r7VP-E-EhHNUe95_2$$5ISrGVwaKQT3xSxbWyuU2"
-  }, {
-    "id" : "n-XVrmvrjMTJl-mn8DzeP",
-    "source" : "sTlP0tjKMqJ1lStMAN9bU$$wbwUKz3bvIDe230fGV5CG",
-    "sourcePort" : "UHKGuOqfDREd9RNKHaOiq$$AAWycZqMmJ4Fq0K66Mc8_",
-    "target" : "Reformat_agg_platform_video_analyticsj0",
-    "targetPort" : "Reformat_agg_platform_video_analyticsj0__in1"
-  }, {
-    "id" : "53U8cqFMrJhTnJNSRqWES",
-    "source" : "sTlP0tjKMqJ1lStMAN9bU$$wbwUKz3bvIDe230fGV5CG",
-    "sourcePort" : "UHKGuOqfDREd9RNKHaOiq$$AAWycZqMmJ4Fq0K66Mc8_",
-    "target" : "Reformat_agg_platform_video_analytics_pbj0",
-    "targetPort" : "Reformat_agg_platform_video_analytics_pbj0__in1"
-  }, {
-    "id" : "yO53YQBEW2WsiAv9ocugc",
-    "source" : "sTlP0tjKMqJ1lStMAN9bU$$wbwUKz3bvIDe230fGV5CG",
-    "sourcePort" : "UHKGuOqfDREd9RNKHaOiq$$AAWycZqMmJ4Fq0K66Mc8_",
-    "target" : "Reformat_agg_platform_video_analytics_1j0",
-    "targetPort" : "Reformat_agg_platform_video_analytics_1j0__in1"
-  }, {
-    "id" : "hiYhH01CrDGswcRidpOO8",
-    "source" : "HyRfnLjDbA9H9mdaa5OGN$$4UjC7zVB5xA9KrLm7J_J4",
-    "sourcePort" : "_trPahzsXVDB7E-6mErYy$$ZLPzGJzAYXggv-RDvoK6D",
-    "target" : "Reformat_agg_platform_video_analyticsj0",
-    "targetPort" : "Reformat_agg_platform_video_analyticsj0__in2"
-  }, {
-    "id" : "3r9E7Ioom_KoXTx3lYRRC",
-    "source" : "Create_sup_lookup_files",
-    "sourcePort" : "agg_platform_video_analytics_hourly_pb__Create_sup_lookup_files__out3",
-    "target" : "HyRfnLjDbA9H9mdaa5OGN$$4UjC7zVB5xA9KrLm7J_J4",
-    "targetPort" : "7aQj_zaTaTscXoM00kjoD$$XZ_E3I7N5uy836SDCVlq_"
-  }, {
     "id" : "iP_S7IcnBvcYyUbl1-wBp",
     "source" : "Reformat_agg_platform_video_analytics_pb",
     "sourcePort" : "Reformat_agg_platform_video_analytics_pb__out",
@@ -852,6 +792,48 @@
     "sourcePort" : "lzaMIm6Hd_b1P8Hor_vBT$$LJJLsv4PIdlldnJXliFxJ",
     "target" : "QoMc1bTzGhDUjGd7T1E7H$$0vf_w9RRKdpgcUc4c5tSY",
     "targetPort" : "kHdEWhrdsDKIB4U4CyjaP$$uqyqx5ZDB4zvNbjbUArw2"
+  }, {
+    "id" : "J2YSSdIg1VAWV9k9Pb1l5",
+    "source" : "Create_sup_lookup_files",
+    "sourcePort" : "agg_platform_video_analytics_hourly_pb__Create_sup_lookup_files__out3",
+    "target" : "Reformat_agg_platform_video_analyticsj0",
+    "targetPort" : "Reformat_agg_platform_video_analyticsj0__in2"
+  }, {
+    "id" : "R341jvJrsSK6VFFBOwCJL",
+    "source" : "Create_sup_lookup_files",
+    "sourcePort" : "agg_platform_video_analytics_hourly_pb__Create_sup_lookup_files__out1",
+    "target" : "-4dEjZ4Wsa-jNP0-aZ_zB$$LkfdEUtSgykTHjEdh2aWJ",
+    "targetPort" : "h6lpSEnQeEVk0utEUksLh$$wO5khVWt5owjIucjZG_IG"
+  }, {
+    "id" : "sV4_OAhzO7uVPMUVlgFyY",
+    "source" : "Create_sup_lookup_files",
+    "sourcePort" : "agg_platform_video_analytics_hourly_pb__Create_sup_lookup_files__out1",
+    "target" : "hvg_Xu8N8U4Znc1qKjm4z$$NgGto2t2uOy3DK5XSkuCf",
+    "targetPort" : "P3fpf0V9qyjNSJa_7R5Xm$$-NTCOJ7aDXco8kQZEnvGJ"
+  }, {
+    "id" : "u-GS7rGynssngyhU1rwiD",
+    "source" : "Create_sup_lookup_files",
+    "sourcePort" : "agg_platform_video_analytics_hourly_pb__Create_sup_lookup_files__out1",
+    "target" : "QoMc1bTzGhDUjGd7T1E7H$$0vf_w9RRKdpgcUc4c5tSY",
+    "targetPort" : "6-XjDDcDWAHuL8TUne50i$$x0N4BEDesG_tQk08VVEJn"
+  }, {
+    "id" : "2urwMw52YJUypM78WYyCa",
+    "source" : "Create_sup_lookup_files",
+    "sourcePort" : "agg_platform_video_analytics_hourly_pb__Create_sup_lookup_files__out2",
+    "target" : "Reformat_agg_platform_video_analyticsj0",
+    "targetPort" : "Reformat_agg_platform_video_analyticsj0__in1"
+  }, {
+    "id" : "KYXtO3605oyu53ManXqJu",
+    "source" : "Create_sup_lookup_files",
+    "sourcePort" : "agg_platform_video_analytics_hourly_pb__Create_sup_lookup_files__out2",
+    "target" : "Reformat_agg_platform_video_analytics_pbj0",
+    "targetPort" : "Reformat_agg_platform_video_analytics_pbj0__in1"
+  }, {
+    "id" : "NhuD4F53UwLikhd177-9S",
+    "source" : "Create_sup_lookup_files",
+    "sourcePort" : "agg_platform_video_analytics_hourly_pb__Create_sup_lookup_files__out2",
+    "target" : "Reformat_agg_platform_video_analytics_1j0",
+    "targetPort" : "Reformat_agg_platform_video_analytics_1j0__in1"
   } ],
   "processes" : {
     "Write_Proto_HDFS_agg_platform_video_pod_analytics_pb" : {
@@ -862,7 +844,7 @@
         "slug" : "Write_Proto_HDFS_agg_platform_video_pod_analytics_pb",
         "x" : 2800,
         "y" : 440,
-        "phase" : 5,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -1614,10 +1596,12 @@
         "slug" : "Reformat_agg_platform_video_analytics_PrevExpressionj0",
         "x" : 740,
         "y" : 560,
-        "phase" : 4,
+        "phase" : 3,
         "cache" : false,
         "detailedStats" : false,
-        "isImported" : false
+        "isImported" : false,
+        "comment" : "Enhances advertising data by linking it with advertiser details, providing richer context for analysis.",
+        "autoUpdateComment" : true
       },
       "ports" : {
         "inputs" : [ {
@@ -3063,110 +3047,15 @@
         }, {
           "id" : "h6lpSEnQeEVk0utEUksLh$$wO5khVWt5owjIucjZG_IG",
           "alias" : "in1",
-          "hintType" : "none",
+          "hintType" : "broadcast",
           "propagateColumns" : false
         } ],
-        "activeTab" : "conditions",
-        "columnsSelector" : [ ],
+        "activeTab" : "advanced",
+        "columnsSelector" : [ "dj1Tkbpufc_Q0cMO-MhLq$$z9aylFC1e_-p9zNs1Ubh7##advertiser_id", "h6lpSEnQeEVk0utEUksLh$$wO5khVWt5owjIucjZG_IG##id", "h6lpSEnQeEVk0utEUksLh$$wO5khVWt5owjIucjZG_IG##id", "h6lpSEnQeEVk0utEUksLh$$wO5khVWt5owjIucjZG_IG##member_id", "h6lpSEnQeEVk0utEUksLh$$wO5khVWt5owjIucjZG_IG##advertiser_default_currency", "h6lpSEnQeEVk0utEUksLh$$wO5khVWt5owjIucjZG_IG##is_running_political_ads", "h6lpSEnQeEVk0utEUksLh$$wO5khVWt5owjIucjZG_IG##name" ],
         "headAlias" : "in0"
       },
       "componentInfo" : {
         "gemId" : "gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12651.git&subPath=&tag=0.2.5.5&projectSubscriptionProjectId=12651&path=gems/Join",
-        "projectName" : "ProphecySparkBasicsScala"
-      }
-    },
-    "k_2vpOx3CHCAQ0LdUy4_A$$xpwEE5uTALgzrKPX1PPzx" : {
-      "id" : "k_2vpOx3CHCAQ0LdUy4_A$$xpwEE5uTALgzrKPX1PPzx",
-      "component" : "Repartition",
-      "metadata" : {
-        "label" : "repartition_dataframe",
-        "slug" : "repartition_dataframe",
-        "x" : 480,
-        "y" : 860,
-        "phase" : 0,
-        "cache" : true,
-        "detailedStats" : false,
-        "isImported" : false,
-        "comment" : "Redistributes data across multiple partitions to improve processing efficiency based on customer IDs.",
-        "autoUpdateComment" : true
-      },
-      "ports" : {
-        "inputs" : [ {
-          "id" : "JANRGTzR4QPauLczvHJ23$$I8uuLEJ387tOmKOrkpJx3",
-          "slug" : "in",
-          "schema" : {
-            "type" : "struct",
-            "fields" : [ {
-              "name" : "id",
-              "type" : "integer",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            }, {
-              "name" : "member_id",
-              "type" : "integer",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            }, {
-              "name" : "advertiser_default_currency",
-              "type" : "string",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            }, {
-              "name" : "is_running_political_ads",
-              "type" : "boolean",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            }, {
-              "name" : "name",
-              "type" : "string",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            } ]
-          },
-          "isStreaming" : false
-        } ],
-        "outputs" : [ {
-          "id" : "VYpYgdRBGRvt_lxxdwBDB$$ZhT5aWQnC27JdAaq_VZS3",
-          "slug" : "out"
-        } ],
-        "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false,
-        "autoUpdateOnRun" : false
-      },
-      "properties" : {
-        "overwriteDefaultNPartitions" : true,
-        "hashExpressions" : [ {
-          "format" : "scala",
-          "expression" : "col(\"id\")"
-        } ],
-        "columnsSelector" : [ "JANRGTzR4QPauLczvHJ23$$I8uuLEJ387tOmKOrkpJx3##id" ],
-        "repartitionType" : "hash_repartitioning",
-        "rangeExpressions" : [ ],
-        "defaultPartitions" : "200",
-        "nPartitions" : "10"
-      },
-      "componentInfo" : {
-        "gemId" : "gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12651.git&subPath=&tag=0.2.5.5&projectSubscriptionProjectId=12651&path=gems/Repartition",
         "projectName" : "ProphecySparkBasicsScala"
       }
     },
@@ -3178,7 +3067,7 @@
         "slug" : "Reformat_agg_platform_video_analytics_pb",
         "x" : 1400,
         "y" : 440,
-        "phase" : 4,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -4801,10 +4690,12 @@
         "slug" : "Reformat_agg_platform_video_analytics_1j0",
         "x" : 1200,
         "y" : 140,
-        "phase" : 4,
+        "phase" : 1,
         "cache" : false,
         "detailedStats" : false,
-        "isImported" : false
+        "isImported" : false,
+        "comment" : "Enhances video analytics data by linking it with inventory URL details, providing richer context for content categorization.",
+        "autoUpdateComment" : true
       },
       "ports" : {
         "inputs" : [ {
@@ -6385,7 +6276,6 @@
           "joinType" : "left_outer"
         } ],
         "expressions" : [ {
-          "_row_id" : null,
           "target" : "_sup_api_inventory_url_content_category_LOOKUP",
           "expression" : {
             "format" : "scala",
@@ -6401,11 +6291,11 @@
         }, {
           "id" : "Reformat_agg_platform_video_analytics_1j0__in1",
           "alias" : "in1",
-          "hintType" : "none",
+          "hintType" : "broadcast",
           "propagateColumns" : false
         } ],
-        "activeTab" : "conditions",
-        "columnsSelector" : [ ],
+        "activeTab" : "advanced",
+        "columnsSelector" : [ "Reformat_agg_platform_video_analytics_1j0__in0##inventory_url_id", "Reformat_agg_platform_video_analytics_1j0__in1##inventory_url_id", "Reformat_agg_platform_video_analytics_1j0__in1##inventory_url_id", "Reformat_agg_platform_video_analytics_1j0__in1##content_category_id", "Reformat_agg_platform_video_analytics_1j0__in1##parent_category_id" ],
         "headAlias" : "in0"
       },
       "componentInfo" : {
@@ -6421,7 +6311,7 @@
         "slug" : "Reformat_agg_platform_video_analytics_1",
         "x" : 1400,
         "y" : 140,
-        "phase" : 4,
+        "phase" : 1,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -8030,7 +7920,7 @@
         "slug" : "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr",
         "x" : 1600,
         "y" : 440,
-        "phase" : 4,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -8823,7 +8713,6 @@
         "allIns" : false,
         "doPivot" : false,
         "aggregate" : [ {
-          "_row_id" : null,
           "target" : "key",
           "expression" : {
             "format" : "scala",
@@ -8831,7 +8720,6 @@
           },
           "description" : ""
         }, {
-          "_row_id" : null,
           "target" : "value",
           "expression" : {
             "format" : "scala",
@@ -8839,7 +8727,6 @@
           },
           "description" : ""
         }, {
-          "_row_id" : null,
           "target" : "pod_id_64_vector",
           "expression" : {
             "format" : "scala",
@@ -8850,9 +8737,8 @@
         "allowSelection" : true,
         "pivotValues" : [ ],
         "activeTab" : "aggregate",
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.seller_member_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##pod_id_64", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.ymdh", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.call_type", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.publisher_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.site_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.tag_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.browser_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.application_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.inventory_url_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.video_context", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.playback_method", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.content_network_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.content_language_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.content_genre_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.content_program_type_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.content_rating_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.content_delivery_type_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.geo_country", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.billing_currency", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.billing_exchange_rate", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.member_currency", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.member_exchange_rate", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.publisher_currency", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.publisher_exchange_rate", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.device_type", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.supply_type", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.language_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.player_width", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.player_height", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.supports_vpaid", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.max_vast_version", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.city", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.content_category_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.operating_system_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.operating_system_family_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.pod_has_bumpers", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.max_ad_duration", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.min_ad_duration", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.max_number_ads", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.max_duration", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.placement_set_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.video_content_duration", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.fallback_ad_index", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.imps_resold", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.imps_kept", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.imps_unsold", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.ad_responses", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.region_id", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.pod_outcome", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##key.pod_dh", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.reseller_revenue_dollars", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.booked_revenue_dollars", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.starts", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.skips", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.errors", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.first_quartiles", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.second_quartiles", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.third_quartiles", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.completions", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.clicks", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.ad_requests", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.impression_seconds_kept", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.impression_seconds_resold", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.impression_seconds_unsold", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.request_seconds", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.responses_seconds", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.min_possible_opps", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.max_possible_opps", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.fillable_duration", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.unfilled_duration", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.unfilled_duration_below_min_ad_duration", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.imps_sold_bumper", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##value.impression_seconds_sold_bumper", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr__in##pod_id_64_vector" ],
         "groupBy" : [ {
-          "_row_id" : null,
           "target" : "seller_member_id",
           "expression" : {
             "format" : "scala",
@@ -8860,7 +8746,6 @@
           },
           "description" : ""
         }, {
-          "_row_id" : null,
           "target" : "pod_id_64",
           "expression" : {
             "format" : "scala",
@@ -8882,10 +8767,12 @@
         "slug" : "Reformat_agg_platform_video_analytics_pbj0",
         "x" : 1200,
         "y" : 440,
-        "phase" : 4,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
-        "isImported" : false
+        "isImported" : false,
+        "comment" : "Enhances video analytics data by linking it with content category information, improving the ability to analyze inventory performance.",
+        "autoUpdateComment" : true
       },
       "ports" : {
         "inputs" : [ {
@@ -10466,7 +10353,6 @@
           "joinType" : "left_outer"
         } ],
         "expressions" : [ {
-          "_row_id" : null,
           "target" : "_sup_api_inventory_url_content_category_LOOKUP",
           "expression" : {
             "format" : "scala",
@@ -10482,12 +10368,11 @@
         }, {
           "id" : "Reformat_agg_platform_video_analytics_pbj0__in1",
           "alias" : "in1",
-          "hintType" : "none",
+          "hintType" : "broadcast",
           "propagateColumns" : false
         } ],
-        "activeTab" : "conditions",
-        "columnsSelector" : [ ],
-        "whereClause" : null,
+        "activeTab" : "advanced",
+        "columnsSelector" : [ "Reformat_agg_platform_video_analytics_pbj0__in0##inventory_url_id", "Reformat_agg_platform_video_analytics_pbj0__in1##inventory_url_id", "Reformat_agg_platform_video_analytics_pbj0__in1##inventory_url_id", "Reformat_agg_platform_video_analytics_pbj0__in1##content_category_id", "Reformat_agg_platform_video_analytics_pbj0__in1##parent_category_id" ],
         "headAlias" : "in0"
       },
       "componentInfo" : {
@@ -10504,10 +10389,10 @@
         "x" : 480,
         "y" : 200,
         "phase" : 0,
-        "cache" : true,
+        "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
-        "comment" : "Optimizes data distribution by auction ID to enhance processing efficiency.",
+        "comment" : "Redistributes data based on auction identifiers to optimize processing efficiency.",
         "autoUpdateComment" : true
       },
       "ports" : {
@@ -11877,7 +11762,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "overwriteDefaultNPartitions" : true,
+        "overwriteDefaultNPartitions" : false,
         "hashExpressions" : [ {
           "format" : "scala",
           "expression" : "col(\"auction_id_64\")"
@@ -11901,7 +11786,7 @@
         "slug" : "Reformat_agg_platform_video_analytics",
         "x" : 1400,
         "y" : 680,
-        "phase" : 4,
+        "phase" : 3,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -13579,7 +13464,7 @@
         "slug" : "Reformat_agg_platform_video_slot_analytics_pb",
         "x" : 1800,
         "y" : 140,
-        "phase" : 4,
+        "phase" : 1,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -14275,7 +14160,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Reformat_agg_platform_video_slot_analytics_pb__in##key", "Reformat_agg_platform_video_slot_analytics_pb__in##key.ymdh", "Reformat_agg_platform_video_slot_analytics_pb__in##key.seller_member_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.call_type", "Reformat_agg_platform_video_slot_analytics_pb__in##key.publisher_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.site_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.tag_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.application_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.inventory_url_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.video_context", "Reformat_agg_platform_video_slot_analytics_pb__in##key.playback_method", "Reformat_agg_platform_video_slot_analytics_pb__in##key.content_network_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.content_language_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.content_genre_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.content_program_type_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.content_rating_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.content_delivery_type_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.geo_country", "Reformat_agg_platform_video_slot_analytics_pb__in##key.billing_currency", "Reformat_agg_platform_video_slot_analytics_pb__in##key.billing_exchange_rate", "Reformat_agg_platform_video_slot_analytics_pb__in##key.member_currency", "Reformat_agg_platform_video_slot_analytics_pb__in##key.member_exchange_rate", "Reformat_agg_platform_video_slot_analytics_pb__in##key.publisher_currency", "Reformat_agg_platform_video_slot_analytics_pb__in##key.publisher_exchange_rate", "Reformat_agg_platform_video_slot_analytics_pb__in##key.advertiser_default_currency", "Reformat_agg_platform_video_slot_analytics_pb__in##key.advertiser_default_exchange_rate", "Reformat_agg_platform_video_slot_analytics_pb__in##key.creative_duration", "Reformat_agg_platform_video_slot_analytics_pb__in##key.creative_width", "Reformat_agg_platform_video_slot_analytics_pb__in##key.creative_height", "Reformat_agg_platform_video_slot_analytics_pb__in##key.device_type", "Reformat_agg_platform_video_slot_analytics_pb__in##key.supply_type", "Reformat_agg_platform_video_slot_analytics_pb__in##key.language_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.player_width", "Reformat_agg_platform_video_slot_analytics_pb__in##key.player_height", "Reformat_agg_platform_video_slot_analytics_pb__in##key.supports_vpaid", "Reformat_agg_platform_video_slot_analytics_pb__in##key.max_vast_version", "Reformat_agg_platform_video_slot_analytics_pb__in##key.city", "Reformat_agg_platform_video_slot_analytics_pb__in##key.content_category_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.placement_set_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.video_content_duration", "Reformat_agg_platform_video_slot_analytics_pb__in##key.buyer_member_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.bidder_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.advertiser_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.insertion_order_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.campaign_group_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.creative_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.brand_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.deal_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.imp_type", "Reformat_agg_platform_video_slot_analytics_pb__in##key.ad_slot_position", "Reformat_agg_platform_video_slot_analytics_pb__in##key.slot_type", "Reformat_agg_platform_video_slot_analytics_pb__in##key.buyer_seat_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.external_deal_code", "Reformat_agg_platform_video_slot_analytics_pb__in##key.max_number_ads", "Reformat_agg_platform_video_slot_analytics_pb__in##key.max_duration", "Reformat_agg_platform_video_slot_analytics_pb__in##key.operating_system_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.operating_system_family_id", "Reformat_agg_platform_video_slot_analytics_pb__in##key.browser_id", "Reformat_agg_platform_video_slot_analytics_pb__in##value", "Reformat_agg_platform_video_slot_analytics_pb__in##value.reseller_revenue_dollars", "Reformat_agg_platform_video_slot_analytics_pb__in##value.booked_revenue_dollars", "Reformat_agg_platform_video_slot_analytics_pb__in##value.imps", "Reformat_agg_platform_video_slot_analytics_pb__in##value.starts", "Reformat_agg_platform_video_slot_analytics_pb__in##value.skips", "Reformat_agg_platform_video_slot_analytics_pb__in##value.errors", "Reformat_agg_platform_video_slot_analytics_pb__in##value.first_quartiles", "Reformat_agg_platform_video_slot_analytics_pb__in##value.second_quartiles", "Reformat_agg_platform_video_slot_analytics_pb__in##value.third_quartiles", "Reformat_agg_platform_video_slot_analytics_pb__in##value.completions", "Reformat_agg_platform_video_slot_analytics_pb__in##value.clicks", "Reformat_agg_platform_video_slot_analytics_pb__in##value.ad_requests", "Reformat_agg_platform_video_slot_analytics_pb__in##value.ad_responses", "Reformat_agg_platform_video_slot_analytics_pb__in##key.fallback_ad_index", "Reformat_agg_platform_video_slot_analytics_pb__in##key.region_id" ],
         "expressions" : [ {
           "target" : "ymdh",
           "expression" : {
@@ -14795,7 +14680,7 @@
         "slug" : "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat",
         "x" : 1800,
         "y" : 440,
-        "phase" : 4,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -15594,7 +15479,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat__in##key", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat__in##value", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat__in##pod_id_64", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_expr_partition_by_expr_Reformat__in##pod_id_64_vector" ],
         "expressions" : [ {
           "target" : "key",
           "expression" : {
@@ -15638,10 +15523,12 @@
         "slug" : "Reformat_agg_platform_video_analyticsj0",
         "x" : 1200,
         "y" : 680,
-        "phase" : 4,
+        "phase" : 3,
         "cache" : false,
         "detailedStats" : false,
-        "isImported" : false
+        "isImported" : false,
+        "comment" : "Enhances video analytics data by integrating inventory details and content categories, providing a comprehensive view of inventory performance.",
+        "autoUpdateComment" : true
       },
       "ports" : {
         "inputs" : [ {
@@ -17273,7 +17160,6 @@
           "joinType" : "left_outer"
         } ],
         "expressions" : [ {
-          "_row_id" : null,
           "target" : "_sup_api_inventory_url_content_category_LOOKUP",
           "expression" : {
             "format" : "scala",
@@ -17281,7 +17167,6 @@
           },
           "description" : ""
         }, {
-          "_row_id" : null,
           "target" : "_sup_inventory_url_pb_LOOKUP",
           "expression" : {
             "format" : "scala",
@@ -17297,16 +17182,16 @@
         }, {
           "id" : "Reformat_agg_platform_video_analyticsj0__in1",
           "alias" : "in1",
-          "hintType" : "none",
+          "hintType" : "broadcast",
           "propagateColumns" : false
         }, {
           "id" : "Reformat_agg_platform_video_analyticsj0__in2",
           "alias" : "in2",
-          "hintType" : "none",
+          "hintType" : "broadcast",
           "propagateColumns" : false
         } ],
-        "activeTab" : "conditions",
-        "columnsSelector" : [ ],
+        "activeTab" : "advanced",
+        "columnsSelector" : [ "Reformat_agg_platform_video_analyticsj0__in0##inventory_url_id", "Reformat_agg_platform_video_analyticsj0__in1##inventory_url_id", "Reformat_agg_platform_video_analyticsj0__in2##inventory_url_id", "Reformat_agg_platform_video_analyticsj0__in1##inventory_url_id", "Reformat_agg_platform_video_analyticsj0__in1##content_category_id", "Reformat_agg_platform_video_analyticsj0__in1##parent_category_id", "Reformat_agg_platform_video_analyticsj0__in2##inventory_url_id", "Reformat_agg_platform_video_analyticsj0__in2##url", "Reformat_agg_platform_video_analyticsj0__in2##list", "Reformat_agg_platform_video_analyticsj0__in2##quality_index" ],
         "headAlias" : "in0"
       },
       "componentInfo" : {
@@ -17322,7 +17207,7 @@
         "slug" : "SetCheckpointDir",
         "x" : 20,
         "y" : 20,
-        "phase" : 0,
+        "phase" : -1,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -17340,92 +17225,6 @@
         "scriptMethodFooter" : "    \n}"
       }
     },
-    "HyRfnLjDbA9H9mdaa5OGN$$4UjC7zVB5xA9KrLm7J_J4" : {
-      "id" : "HyRfnLjDbA9H9mdaa5OGN$$4UjC7zVB5xA9KrLm7J_J4",
-      "component" : "Repartition",
-      "metadata" : {
-        "label" : "repartition_to_200",
-        "slug" : "repartition_to_200",
-        "x" : 480,
-        "y" : 560,
-        "phase" : 0,
-        "cache" : false,
-        "detailedStats" : false,
-        "isImported" : false,
-        "comment" : "Redistributes data across multiple partitions to optimize processing efficiency based on inventory identifiers.",
-        "autoUpdateComment" : true
-      },
-      "ports" : {
-        "inputs" : [ {
-          "id" : "7aQj_zaTaTscXoM00kjoD$$XZ_E3I7N5uy836SDCVlq_",
-          "slug" : "in",
-          "schema" : {
-            "type" : "struct",
-            "fields" : [ {
-              "name" : "inventory_url_id",
-              "type" : "integer",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            }, {
-              "name" : "url",
-              "type" : "string",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            }, {
-              "name" : "list",
-              "type" : "integer",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            }, {
-              "name" : "quality_index",
-              "type" : "double",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            } ]
-          },
-          "isStreaming" : false
-        } ],
-        "outputs" : [ {
-          "id" : "_trPahzsXVDB7E-6mErYy$$ZLPzGJzAYXggv-RDvoK6D",
-          "slug" : "out"
-        } ],
-        "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false,
-        "autoUpdateOnRun" : false
-      },
-      "properties" : {
-        "overwriteDefaultNPartitions" : true,
-        "hashExpressions" : [ {
-          "format" : "scala",
-          "expression" : "col(\"inventory_url_id\")"
-        } ],
-        "columnsSelector" : [ "7aQj_zaTaTscXoM00kjoD$$XZ_E3I7N5uy836SDCVlq_##inventory_url_id" ],
-        "repartitionType" : "hash_repartitioning",
-        "rangeExpressions" : [ ],
-        "defaultPartitions" : "400",
-        "nPartitions" : "10"
-      },
-      "componentInfo" : {
-        "gemId" : "gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12651.git&subPath=&tag=0.2.5.5&projectSubscriptionProjectId=12651&path=gems/Repartition",
-        "projectName" : "ProphecySparkBasicsScala"
-      }
-    },
     "Write_Proto_HDFS_agg_platform_video_analytics_hourly_pb_agg_platform_video_analytics_hourly" : {
       "id" : "Write_Proto_HDFS_agg_platform_video_analytics_hourly_pb_agg_platform_video_analytics_hourly",
       "component" : "Target",
@@ -17434,7 +17233,7 @@
         "slug" : "Write_Proto_HDFS_agg_platform_video_analytics_hourly_pb_agg_platform_video_analytics_hourly",
         "x" : 2000,
         "y" : 680,
-        "phase" : 5,
+        "phase" : 3,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -18501,7 +18300,7 @@
         "slug" : "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr_Reformat",
         "x" : 2400,
         "y" : 440,
-        "phase" : 4,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -19291,7 +19090,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr_Reformat__in##key", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr_Reformat__in##value", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr_Reformat__in##pod_id_64", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr_Reformat__in##pod_id_64_vector" ],
         "expressions" : [ {
           "target" : "key",
           "expression" : {
@@ -19335,7 +19134,7 @@
         "slug" : "Reformat_agg_platform_video_pod_analytics_pb",
         "x" : 2600,
         "y" : 440,
-        "phase" : 4,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -20125,7 +19924,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Reformat_agg_platform_video_pod_analytics_pb__in##key", "Reformat_agg_platform_video_pod_analytics_pb__in##key.ymdh", "Reformat_agg_platform_video_pod_analytics_pb__in##key.seller_member_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.call_type", "Reformat_agg_platform_video_pod_analytics_pb__in##key.publisher_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.site_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.tag_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.browser_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.application_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.inventory_url_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.video_context", "Reformat_agg_platform_video_pod_analytics_pb__in##key.playback_method", "Reformat_agg_platform_video_pod_analytics_pb__in##key.content_network_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.content_language_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.content_genre_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.content_program_type_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.content_rating_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.content_delivery_type_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.geo_country", "Reformat_agg_platform_video_pod_analytics_pb__in##key.billing_currency", "Reformat_agg_platform_video_pod_analytics_pb__in##key.billing_exchange_rate", "Reformat_agg_platform_video_pod_analytics_pb__in##key.member_currency", "Reformat_agg_platform_video_pod_analytics_pb__in##key.member_exchange_rate", "Reformat_agg_platform_video_pod_analytics_pb__in##key.publisher_currency", "Reformat_agg_platform_video_pod_analytics_pb__in##key.publisher_exchange_rate", "Reformat_agg_platform_video_pod_analytics_pb__in##key.device_type", "Reformat_agg_platform_video_pod_analytics_pb__in##key.supply_type", "Reformat_agg_platform_video_pod_analytics_pb__in##key.language_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.player_width", "Reformat_agg_platform_video_pod_analytics_pb__in##key.player_height", "Reformat_agg_platform_video_pod_analytics_pb__in##key.supports_vpaid", "Reformat_agg_platform_video_pod_analytics_pb__in##key.max_vast_version", "Reformat_agg_platform_video_pod_analytics_pb__in##key.city", "Reformat_agg_platform_video_pod_analytics_pb__in##key.content_category_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.operating_system_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.operating_system_family_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.max_ad_duration", "Reformat_agg_platform_video_pod_analytics_pb__in##key.min_ad_duration", "Reformat_agg_platform_video_pod_analytics_pb__in##key.max_number_ads", "Reformat_agg_platform_video_pod_analytics_pb__in##key.max_duration", "Reformat_agg_platform_video_pod_analytics_pb__in##key.placement_set_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.pod_has_bumpers", "Reformat_agg_platform_video_pod_analytics_pb__in##key.video_content_duration", "Reformat_agg_platform_video_pod_analytics_pb__in##value", "Reformat_agg_platform_video_pod_analytics_pb__in##value.reseller_revenue_dollars", "Reformat_agg_platform_video_pod_analytics_pb__in##value.booked_revenue_dollars", "Reformat_agg_platform_video_pod_analytics_pb__in##value.starts", "Reformat_agg_platform_video_pod_analytics_pb__in##value.skips", "Reformat_agg_platform_video_pod_analytics_pb__in##value.errors", "Reformat_agg_platform_video_pod_analytics_pb__in##value.first_quartiles", "Reformat_agg_platform_video_pod_analytics_pb__in##value.second_quartiles", "Reformat_agg_platform_video_pod_analytics_pb__in##value.third_quartiles", "Reformat_agg_platform_video_pod_analytics_pb__in##value.completions", "Reformat_agg_platform_video_pod_analytics_pb__in##value.clicks", "Reformat_agg_platform_video_pod_analytics_pb__in##value.ad_requests", "Reformat_agg_platform_video_pod_analytics_pb__in##value.ad_responses", "Reformat_agg_platform_video_pod_analytics_pb__in##value.pod_count", "Reformat_agg_platform_video_pod_analytics_pb__in##value.unmatched_min_slot_opportunities", "Reformat_agg_platform_video_pod_analytics_pb__in##value.pod_no_responses", "Reformat_agg_platform_video_pod_analytics_pb__in##value.pod_no_imps", "Reformat_agg_platform_video_pod_analytics_pb__in##value.request_seconds", "Reformat_agg_platform_video_pod_analytics_pb__in##value.responses_seconds", "Reformat_agg_platform_video_pod_analytics_pb__in##value.impression_seconds_resold", "Reformat_agg_platform_video_pod_analytics_pb__in##value.impression_seconds_kept", "Reformat_agg_platform_video_pod_analytics_pb__in##value.impression_seconds_unsold", "Reformat_agg_platform_video_pod_analytics_pb__in##value.imps_resold", "Reformat_agg_platform_video_pod_analytics_pb__in##value.imps_kept", "Reformat_agg_platform_video_pod_analytics_pb__in##value.imps_unsold", "Reformat_agg_platform_video_pod_analytics_pb__in##key.fallback_ad_index", "Reformat_agg_platform_video_pod_analytics_pb__in##key.pod_has_imps", "Reformat_agg_platform_video_pod_analytics_pb__in##key.pod_has_responses", "Reformat_agg_platform_video_pod_analytics_pb__in##key.region_id", "Reformat_agg_platform_video_pod_analytics_pb__in##key.pod_has_sold_imps", "Reformat_agg_platform_video_pod_analytics_pb__in##key.pod_outcome", "Reformat_agg_platform_video_pod_analytics_pb__in##value.fillable_duration", "Reformat_agg_platform_video_pod_analytics_pb__in##value.unfilled_duration", "Reformat_agg_platform_video_pod_analytics_pb__in##value.unfilled_duration_below_min_ad_duration", "Reformat_agg_platform_video_pod_analytics_pb__in##value.imps_sold_bumper", "Reformat_agg_platform_video_pod_analytics_pb__in##value.impression_seconds_sold_bumper", "Reformat_agg_platform_video_pod_analytics_pb__in##key.pod_dh" ],
         "expressions" : [ {
           "target" : "ymdh",
           "expression" : {
@@ -20693,83 +20492,6 @@
         "projectName" : "ProphecySparkBasicsScala"
       }
     },
-    "sTlP0tjKMqJ1lStMAN9bU$$wbwUKz3bvIDe230fGV5CG" : {
-      "id" : "sTlP0tjKMqJ1lStMAN9bU$$wbwUKz3bvIDe230fGV5CG",
-      "component" : "Repartition",
-      "metadata" : {
-        "label" : "repartition_by_inventory_url_id",
-        "slug" : "repartition_by_inventory_url_id",
-        "x" : 940,
-        "y" : 760,
-        "phase" : 0,
-        "cache" : true,
-        "detailedStats" : false,
-        "isImported" : false,
-        "comment" : "Optimizes data distribution based on inventory URL, enhancing processing efficiency for related operations.",
-        "autoUpdateComment" : true
-      },
-      "ports" : {
-        "inputs" : [ {
-          "id" : "Px28r7VP-E-EhHNUe95_2$$5ISrGVwaKQT3xSxbWyuU2",
-          "slug" : "in",
-          "schema" : {
-            "type" : "struct",
-            "fields" : [ {
-              "name" : "inventory_url_id",
-              "type" : "integer",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            }, {
-              "name" : "content_category_id",
-              "type" : "integer",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            }, {
-              "name" : "parent_category_id",
-              "type" : "integer",
-              "nullable" : true,
-              "metadata" : {
-                "description" : "",
-                "mappings" : [ ],
-                "tags" : [ ]
-              }
-            } ]
-          },
-          "isStreaming" : false
-        } ],
-        "outputs" : [ {
-          "id" : "UHKGuOqfDREd9RNKHaOiq$$AAWycZqMmJ4Fq0K66Mc8_",
-          "slug" : "out"
-        } ],
-        "selectedInputFields" : [ ],
-        "isCustomOutputSchema" : false,
-        "autoUpdateOnRun" : false
-      },
-      "properties" : {
-        "overwriteDefaultNPartitions" : true,
-        "hashExpressions" : [ {
-          "format" : "scala",
-          "expression" : "col(\"inventory_url_id\")"
-        } ],
-        "columnsSelector" : [ "Px28r7VP-E-EhHNUe95_2$$5ISrGVwaKQT3xSxbWyuU2##inventory_url_id" ],
-        "repartitionType" : "hash_repartitioning",
-        "rangeExpressions" : [ ],
-        "defaultPartitions" : "1000",
-        "nPartitions" : "10"
-      },
-      "componentInfo" : {
-        "gemId" : "gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12651.git&subPath=&tag=0.2.5.5&projectSubscriptionProjectId=12651&path=gems/Repartition",
-        "projectName" : "ProphecySparkBasicsScala"
-      }
-    },
     "hvg_Xu8N8U4Znc1qKjm4z$$NgGto2t2uOy3DK5XSkuCf" : {
       "id" : "hvg_Xu8N8U4Znc1qKjm4z$$NgGto2t2uOy3DK5XSkuCf",
       "component" : "Join",
@@ -20778,10 +20500,12 @@
         "slug" : "Reformat_agg_platform_video_analytics_pb_PrevExpressionj0",
         "x" : 740,
         "y" : 320,
-        "phase" : 4,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
-        "isImported" : false
+        "isImported" : false,
+        "comment" : "Enhances advertising data by integrating advertiser details, facilitating better analytics and decision-making for marketing strategies.",
+        "autoUpdateComment" : true
       },
       "ports" : {
         "inputs" : [ {
@@ -22227,11 +21951,11 @@
         }, {
           "id" : "P3fpf0V9qyjNSJa_7R5Xm$$-NTCOJ7aDXco8kQZEnvGJ",
           "alias" : "in1",
-          "hintType" : "none",
+          "hintType" : "broadcast",
           "propagateColumns" : false
         } ],
-        "activeTab" : "conditions",
-        "columnsSelector" : [ ],
+        "activeTab" : "advanced",
+        "columnsSelector" : [ "qdEYJdgi8VAUD-Iesztbo$$NlxPsOnLgnr7WaG3M3Vvf##advertiser_id", "P3fpf0V9qyjNSJa_7R5Xm$$-NTCOJ7aDXco8kQZEnvGJ##id", "P3fpf0V9qyjNSJa_7R5Xm$$-NTCOJ7aDXco8kQZEnvGJ##id", "P3fpf0V9qyjNSJa_7R5Xm$$-NTCOJ7aDXco8kQZEnvGJ##member_id", "P3fpf0V9qyjNSJa_7R5Xm$$-NTCOJ7aDXco8kQZEnvGJ##advertiser_default_currency", "P3fpf0V9qyjNSJa_7R5Xm$$-NTCOJ7aDXco8kQZEnvGJ##is_running_political_ads", "P3fpf0V9qyjNSJa_7R5Xm$$-NTCOJ7aDXco8kQZEnvGJ##name" ],
         "headAlias" : "in0"
       },
       "componentInfo" : {
@@ -22251,7 +21975,7 @@
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
-        "comment" : "Optimizes data distribution based on auction identifiers to enhance processing efficiency.",
+        "comment" : "Reorganizes data based on auction identifiers to optimize processing efficiency.",
         "autoUpdateComment" : true
       },
       "ports" : {
@@ -23621,7 +23345,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "overwriteDefaultNPartitions" : true,
+        "overwriteDefaultNPartitions" : false,
         "hashExpressions" : [ {
           "format" : "scala",
           "expression" : "col(\"auction_id_64\")"
@@ -23645,7 +23369,7 @@
         "slug" : "Reformat_agg_platform_video_analytics_hourly_pb",
         "x" : 1800,
         "y" : 680,
-        "phase" : 4,
+        "phase" : 3,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -24755,7 +24479,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Reformat_agg_platform_video_analytics_hourly_pb__in##key", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.ymdh", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.imp_type", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.is_dw_buyer", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.is_dw_seller", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.seller_member_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.publisher_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.site_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.tag_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.placement_set_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.site_domain", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.call_type", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.is_prebid", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.is_super_auction", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.deal_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.content_category_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.playback_method", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.video_context", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.player_width", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.player_height", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.max_duration", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.start_delay", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.supports_vpaid", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.max_vast_version", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.supports_skippable", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.min_ad_duration", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.max_ad_duration", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.buyer_member_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.advertiser_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.insertion_order_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.campaign_group_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.campaign_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.bidder_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.media_type", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.brand_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.creative_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.vast_error_code", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.creative_duration", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.viewdef_definition_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.companion_creative_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.view_detection_enabled", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.device_type", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.supply_type", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.geo_country", "Reformat_agg_platform_video_analytics_hourly_pb__in##value", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.booked_revenue_dollars", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.reseller_revenue_dollars", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.media_cost_dollars", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.booked_revenue_adv_currency", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.media_cost_pub_currency", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.advertiser_currency", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.publisher_currency", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.ad_requests", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.blacklisted_imps", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.ad_responses", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.imps", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.starts", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.skips", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.errors", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.first_quartiles", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.second_quartiles", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.third_quartiles", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.completions", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.clicks", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.post_click_conversions", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.post_view_conversions", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.companion_imps", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.companion_clicks", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.viewed_imps", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.view_measurable_imps", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.application_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.wrapper_vast_error_code", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.wrapper_internal_error_code", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.imps_bid_on", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.num_of_bids", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.buyer_bid", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.seller_member_group_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.is_vpaid", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.viewdef_viewed_imps", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.ad_slot_position", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.slot_type", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.max_number_ads", "Reformat_agg_platform_video_analytics_hourly_pb__in##filled_number_ads_64", "Reformat_agg_platform_video_analytics_hourly_pb__in##max_slot_duration_64", "Reformat_agg_platform_video_analytics_hourly_pb__in##filled_slot_duration_64", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.url_list", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.biddable_imps", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.seller_revenue_event_type_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.seller_revenue_event_units", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.buyer_payment_event_type_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##value.buyer_payment_event_units", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.allowed_media_types_bitmap", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.protocols_bitmap", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.frameworks_bitmap", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.inventory_url_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.mobile_app_instance_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.split_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.campaign_group_type_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.advertiser_default_currency", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.advertiser_default_exchange_rate", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.member_currency", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.member_exchange_rate", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.billing_currency", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.billing_exchange_rate", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.hb_source", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.bidder_seat_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.content_delivery_type_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.content_duration_secs", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.content_genre_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.content_program_type_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.content_rating_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.content_network_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.content_language_id", "Reformat_agg_platform_video_analytics_hourly_pb__in##key.fallback_ad_index" ],
         "expressions" : [ {
           "target" : "ymdh",
           "expression" : {
@@ -25576,7 +25300,7 @@
         "slug" : "Write_Proto_HDFS_agg_platform_video_slot_analytics_pb",
         "x" : 2000,
         "y" : 140,
-        "phase" : 5,
+        "phase" : 1,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -26256,7 +25980,7 @@
         "slug" : "Read_Proto_Range_agg_platform_video_analytics_pb_agg_platform_video_analytics",
         "x" : 20,
         "y" : 220,
-        "phase" : 3,
+        "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -26283,7 +26007,7 @@
         "slug" : "Pre_Rollup_agg_platform_video_slot_analytics_pb",
         "x" : 1600,
         "y" : 140,
-        "phase" : 4,
+        "phase" : 1,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -26982,7 +26706,6 @@
         "allIns" : false,
         "doPivot" : false,
         "aggregate" : [ {
-          "_row_id" : null,
           "target" : "value",
           "expression" : {
             "format" : "scala",
@@ -26991,12 +26714,10 @@
           "description" : ""
         } ],
         "allowSelection" : true,
-        "pivotColumn" : null,
         "pivotValues" : [ ],
         "activeTab" : "aggregate",
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##key", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.reseller_revenue_dollars", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.booked_revenue_dollars", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.imps", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.starts", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.skips", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.errors", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.first_quartiles", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.second_quartiles", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.third_quartiles", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.completions", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.clicks", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.ad_requests", "Pre_Rollup_agg_platform_video_slot_analytics_pb__in##value.ad_responses" ],
         "groupBy" : [ {
-          "_row_id" : null,
           "target" : "key",
           "expression" : {
             "format" : "scala",
@@ -27016,9 +26737,9 @@
       "metadata" : {
         "label" : "Create_sup_lookup_files",
         "slug" : "Create_sup_lookup_files",
-        "x" : 220,
-        "y" : 660,
-        "phase" : 3,
+        "x" : 140,
+        "y" : 740,
+        "phase" : -1,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -29074,7 +28795,7 @@
         "slug" : "Filter_valid_pods",
         "x" : 220,
         "y" : 200,
-        "phase" : 4,
+        "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -30446,7 +30167,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Filter_valid_pods__in##pod_id_64" ],
         "condition" : {
           "format" : "scala",
           "expression" : "is_not_null(col(\"pod_id_64\")).and(col(\"pod_id_64\") > lit(0))"
@@ -30465,7 +30186,7 @@
         "slug" : "Reformat_agg_platform_video_analytics_1_PrevExpression",
         "x" : 940,
         "y" : 120,
-        "phase" : 4,
+        "phase" : 1,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
@@ -31935,7 +31656,7 @@
         "slug" : "Reformat_agg_platform_video_analytics_pb_PrevExpression",
         "x" : 940,
         "y" : 320,
-        "phase" : 4,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
@@ -33405,7 +33126,7 @@
         "slug" : "Pre_Rollup_agg_platform_video_analytics_hourly_pb",
         "x" : 1600,
         "y" : 680,
-        "phase" : 4,
+        "phase" : 3,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -34518,7 +34239,6 @@
         "allIns" : false,
         "doPivot" : false,
         "aggregate" : [ {
-          "_row_id" : null,
           "target" : "value",
           "expression" : {
             "format" : "scala",
@@ -34526,7 +34246,6 @@
           },
           "description" : ""
         }, {
-          "_row_id" : null,
           "target" : "filled_number_ads_64",
           "expression" : {
             "format" : "scala",
@@ -34534,7 +34253,6 @@
           },
           "description" : ""
         }, {
-          "_row_id" : null,
           "target" : "max_slot_duration_64",
           "expression" : {
             "format" : "scala",
@@ -34542,7 +34260,6 @@
           },
           "description" : ""
         }, {
-          "_row_id" : null,
           "target" : "filled_slot_duration_64",
           "expression" : {
             "format" : "scala",
@@ -34551,12 +34268,10 @@
           "description" : ""
         } ],
         "allowSelection" : true,
-        "pivotColumn" : null,
         "pivotValues" : [ ],
         "activeTab" : "aggregate",
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##key", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.booked_revenue_dollars", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.reseller_revenue_dollars", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.media_cost_dollars", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.booked_revenue_adv_currency", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.media_cost_pub_currency", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.ad_requests", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.blacklisted_imps", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.ad_responses", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.imps", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.starts", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.skips", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.errors", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.first_quartiles", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.second_quartiles", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.third_quartiles", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.completions", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.clicks", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.post_click_conversions", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.post_view_conversions", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.companion_imps", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.companion_clicks", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.viewed_imps", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.view_measurable_imps", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.viewdef_viewed_imps", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.imps_bid_on", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.num_of_bids", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.buyer_bid", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.filled_number_ads", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.max_slot_duration", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.filled_slot_duration", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.biddable_imps", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.buyer_payment_event_units", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.seller_revenue_event_units", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##value.imp_requests", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##filled_number_ads_64", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##max_slot_duration_64", "Pre_Rollup_agg_platform_video_analytics_hourly_pb__in##filled_slot_duration_64" ],
         "groupBy" : [ {
-          "_row_id" : null,
           "target" : "key",
           "expression" : {
             "format" : "scala",
@@ -34578,7 +34293,7 @@
         "slug" : "Reformat_monetizable_seconds",
         "x" : 2000,
         "y" : 440,
-        "phase" : 4,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -35368,7 +35083,7 @@
         "autoUpdateOnRun" : false
       },
       "properties" : {
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Reformat_monetizable_seconds__in##key", "Reformat_monetizable_seconds__in##key.ymdh", "Reformat_monetizable_seconds__in##key.seller_member_id", "Reformat_monetizable_seconds__in##key.call_type", "Reformat_monetizable_seconds__in##key.publisher_id", "Reformat_monetizable_seconds__in##key.site_id", "Reformat_monetizable_seconds__in##key.tag_id", "Reformat_monetizable_seconds__in##key.browser_id", "Reformat_monetizable_seconds__in##key.application_id", "Reformat_monetizable_seconds__in##key.inventory_url_id", "Reformat_monetizable_seconds__in##key.video_context", "Reformat_monetizable_seconds__in##key.playback_method", "Reformat_monetizable_seconds__in##key.content_network_id", "Reformat_monetizable_seconds__in##key.content_language_id", "Reformat_monetizable_seconds__in##key.content_genre_id", "Reformat_monetizable_seconds__in##key.content_program_type_id", "Reformat_monetizable_seconds__in##key.content_rating_id", "Reformat_monetizable_seconds__in##key.content_delivery_type_id", "Reformat_monetizable_seconds__in##key.geo_country", "Reformat_monetizable_seconds__in##key.billing_currency", "Reformat_monetizable_seconds__in##key.billing_exchange_rate", "Reformat_monetizable_seconds__in##key.member_currency", "Reformat_monetizable_seconds__in##key.member_exchange_rate", "Reformat_monetizable_seconds__in##key.publisher_currency", "Reformat_monetizable_seconds__in##key.publisher_exchange_rate", "Reformat_monetizable_seconds__in##key.device_type", "Reformat_monetizable_seconds__in##key.supply_type", "Reformat_monetizable_seconds__in##key.language_id", "Reformat_monetizable_seconds__in##key.player_width", "Reformat_monetizable_seconds__in##key.player_height", "Reformat_monetizable_seconds__in##key.supports_vpaid", "Reformat_monetizable_seconds__in##key.max_vast_version", "Reformat_monetizable_seconds__in##key.city", "Reformat_monetizable_seconds__in##key.content_category_id", "Reformat_monetizable_seconds__in##key.operating_system_id", "Reformat_monetizable_seconds__in##key.operating_system_family_id", "Reformat_monetizable_seconds__in##key.max_ad_duration", "Reformat_monetizable_seconds__in##key.min_ad_duration", "Reformat_monetizable_seconds__in##key.max_number_ads", "Reformat_monetizable_seconds__in##key.max_duration", "Reformat_monetizable_seconds__in##key.placement_set_id", "Reformat_monetizable_seconds__in##key.pod_has_bumpers", "Reformat_monetizable_seconds__in##key.video_content_duration", "Reformat_monetizable_seconds__in##key.fallback_ad_index", "Reformat_monetizable_seconds__in##key.pod_has_imps", "Reformat_monetizable_seconds__in##key.pod_has_responses", "Reformat_monetizable_seconds__in##key.region_id", "Reformat_monetizable_seconds__in##key.pod_has_sold_imps", "Reformat_monetizable_seconds__in##value", "Reformat_monetizable_seconds__in##value.completions", "Reformat_monetizable_seconds__in##value.imps_kept", "Reformat_monetizable_seconds__in##value.imps_resold", "Reformat_monetizable_seconds__in##value.impression_seconds_kept", "Reformat_monetizable_seconds__in##value.impression_seconds_resold", "Reformat_monetizable_seconds__in##value.imps_unsold", "Reformat_monetizable_seconds__in##key.pod_dh", "Reformat_monetizable_seconds__in##value.reseller_revenue_dollars", "Reformat_monetizable_seconds__in##value.booked_revenue_dollars", "Reformat_monetizable_seconds__in##value.starts", "Reformat_monetizable_seconds__in##value.skips", "Reformat_monetizable_seconds__in##value.errors", "Reformat_monetizable_seconds__in##value.first_quartiles", "Reformat_monetizable_seconds__in##value.second_quartiles", "Reformat_monetizable_seconds__in##value.third_quartiles", "Reformat_monetizable_seconds__in##value.clicks", "Reformat_monetizable_seconds__in##value.ad_requests", "Reformat_monetizable_seconds__in##value.ad_responses", "Reformat_monetizable_seconds__in##value.pod_count", "Reformat_monetizable_seconds__in##value.unmatched_min_slot_opportunities", "Reformat_monetizable_seconds__in##value.pod_no_responses", "Reformat_monetizable_seconds__in##value.pod_no_imps", "Reformat_monetizable_seconds__in##value.request_seconds", "Reformat_monetizable_seconds__in##value.responses_seconds", "Reformat_monetizable_seconds__in##value.impression_seconds_unsold", "Reformat_monetizable_seconds__in##value.min_possible_opps", "Reformat_monetizable_seconds__in##value.max_possible_opps", "Reformat_monetizable_seconds__in##value.imps_sold_bumper", "Reformat_monetizable_seconds__in##value.impression_seconds_sold_bumper", "Reformat_monetizable_seconds__in##pod_id_64", "Reformat_monetizable_seconds__in##pod_id_64_vector" ],
         "expressions" : [ {
           "target" : "key",
           "expression" : {
@@ -35412,7 +35127,7 @@
         "slug" : "Reformat_agg_platform_video_analytics_PrevExpression",
         "x" : 940,
         "y" : 560,
-        "phase" : 4,
+        "phase" : 3,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
@@ -36882,7 +36597,7 @@
         "slug" : "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr",
         "x" : 2200,
         "y" : 440,
-        "phase" : 4,
+        "phase" : 2,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false
@@ -37675,7 +37390,6 @@
         "allIns" : false,
         "doPivot" : false,
         "aggregate" : [ {
-          "_row_id" : null,
           "target" : "value",
           "expression" : {
             "format" : "scala",
@@ -37683,7 +37397,6 @@
           },
           "description" : ""
         }, {
-          "_row_id" : null,
           "target" : "pod_id_64",
           "expression" : {
             "format" : "scala",
@@ -37691,7 +37404,6 @@
           },
           "description" : ""
         }, {
-          "_row_id" : null,
           "target" : "pod_id_64_vector",
           "expression" : {
             "format" : "scala",
@@ -37700,12 +37412,10 @@
           "description" : ""
         } ],
         "allowSelection" : true,
-        "pivotColumn" : null,
         "pivotValues" : [ ],
         "activeTab" : "aggregate",
-        "columnsSelector" : [ ],
+        "columnsSelector" : [ "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##key", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.reseller_revenue_dollars", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.booked_revenue_dollars", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.starts", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.skips", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.errors", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.first_quartiles", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.second_quartiles", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.third_quartiles", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.completions", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.clicks", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.ad_requests", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.ad_responses", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.pod_count", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.unmatched_min_slot_opportunities", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.pod_no_responses", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.pod_no_imps", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.request_seconds", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.responses_seconds", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.impression_seconds_resold", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.impression_seconds_kept", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.impression_seconds_unsold", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.imps_resold", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.imps_kept", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.imps_unsold", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.min_possible_opps", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.max_possible_opps", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.fillable_duration", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.unfilled_duration", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.unfilled_duration_below_min_ad_duration", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.imps_sold_bumper", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##value.impression_seconds_sold_bumper", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##pod_id_64", "Pre_Rollup_agg_platform_video_pod_analytics_pb_grp_by_key_partition_by_expr__in##pod_id_64_vector" ],
         "groupBy" : [ {
-          "_row_id" : null,
           "target" : "key",
           "expression" : {
             "format" : "scala",
@@ -37727,10 +37437,12 @@
         "slug" : "Reformat_agg_platform_video_analytics_1_PrevExpressionj0",
         "x" : 740,
         "y" : 120,
-        "phase" : 4,
+        "phase" : 1,
         "cache" : false,
         "detailedStats" : false,
-        "isImported" : false
+        "isImported" : false,
+        "comment" : "Enhances advertising data by linking it with advertiser details, providing a comprehensive view of ad campaigns.",
+        "autoUpdateComment" : true
       },
       "ports" : {
         "inputs" : [ {
@@ -39176,11 +38888,11 @@
         }, {
           "id" : "6-XjDDcDWAHuL8TUne50i$$x0N4BEDesG_tQk08VVEJn",
           "alias" : "in1",
-          "hintType" : "none",
+          "hintType" : "broadcast",
           "propagateColumns" : false
         } ],
-        "activeTab" : "conditions",
-        "columnsSelector" : [ ],
+        "activeTab" : "advanced",
+        "columnsSelector" : [ "kHdEWhrdsDKIB4U4CyjaP$$uqyqx5ZDB4zvNbjbUArw2##advertiser_id", "6-XjDDcDWAHuL8TUne50i$$x0N4BEDesG_tQk08VVEJn##id", "6-XjDDcDWAHuL8TUne50i$$x0N4BEDesG_tQk08VVEJn##id", "6-XjDDcDWAHuL8TUne50i$$x0N4BEDesG_tQk08VVEJn##member_id", "6-XjDDcDWAHuL8TUne50i$$x0N4BEDesG_tQk08VVEJn##advertiser_default_currency", "6-XjDDcDWAHuL8TUne50i$$x0N4BEDesG_tQk08VVEJn##is_running_political_ads", "6-XjDDcDWAHuL8TUne50i$$x0N4BEDesG_tQk08VVEJn##name" ],
         "headAlias" : "in0"
       },
       "componentInfo" : {
