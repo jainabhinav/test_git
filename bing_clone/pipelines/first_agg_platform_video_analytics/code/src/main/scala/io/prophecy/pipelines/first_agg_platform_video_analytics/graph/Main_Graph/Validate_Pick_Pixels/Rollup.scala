@@ -21,13 +21,12 @@ object Rollup {
            others(context).as("others")
       )
 
-  def others(context: Context) = {
+  def resold(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     first(
       when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(0)) =!= lit(6))
-          .and(coalesce(col("imp_type").cast(IntegerType), lit(0)) =!= lit(7)),
+        coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6),
         struct(
           col("date_time").cast(LongType).as("date_time"),
           col("auction_id_64").cast(LongType).as("auction_id_64"),
@@ -560,12 +559,13 @@ object Rollup {
     )
   }
 
-  def resold(context: Context) = {
+  def others(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     first(
       when(
-        coalesce(col("imp_type").cast(IntegerType), lit(0)) === lit(6),
+        (coalesce(col("imp_type").cast(IntegerType), lit(0)) =!= lit(6))
+          .and(coalesce(col("imp_type").cast(IntegerType), lit(0)) =!= lit(7)),
         struct(
           col("date_time").cast(LongType).as("date_time"),
           col("auction_id_64").cast(LongType).as("auction_id_64"),

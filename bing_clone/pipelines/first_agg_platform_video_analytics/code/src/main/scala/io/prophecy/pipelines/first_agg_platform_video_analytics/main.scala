@@ -20,12 +20,15 @@ object Main {
     val df_Main_Graph = Main_Graph.apply(
       Main_Graph.config.Context(context.spark, context.config.Main_Graph)
     )
-    val df_Filter_1            = Filter_1(context,            df_Main_Graph)
-    val df_select_auction_data = select_auction_data(context, df_Filter_1)
+    val df_Filter_1 = Filter_1(context, df_Main_Graph)
+    val df_repartition_and_persist =
+      repartition_and_persist(context, df_Filter_1)
+    temp_output1(context,              df_repartition_and_persist)
+    val df_select_auction_data =
+      select_auction_data(context, df_repartition_and_persist)
     val df_reformat_auction_data =
       reformat_auction_data(context, df_select_auction_data)
     temp_output2(context,            df_reformat_auction_data)
-    temp_output1(context,            df_Filter_1)
   }
 
   def main(args: Array[String]): Unit = {
@@ -41,10 +44,13 @@ object Main {
     spark.conf.set("prophecy.metadata.pipeline.uri",
                    "pipelines/first_agg_platform_video_analytics"
     )
-    spark.conf.set("spark.sql.adaptive.enabled",                   "true")
-    spark.conf.set("park.sql.adaptive.coalescePartitions.enabled", "true")
-    spark.conf.set("spark.sql.adaptive.skewJoin.enabled",          "true")
-    spark.conf.set("spark.sql.adaptive.join.enabled",              "true")
+    spark.conf
+      .set("spark.sql.adaptive.coalescePartitions.minPartitionSize", "512MB")
+    spark.conf.set(
+      "spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes",
+      "512MB"
+    )
+    spark.conf.set("spark.sql.autoBroadcastJoinThreshold", "710485760")
     registerUDFs(spark)
     MetricsCollector.instrument(spark,
                                 "pipelines/first_agg_platform_video_analytics"

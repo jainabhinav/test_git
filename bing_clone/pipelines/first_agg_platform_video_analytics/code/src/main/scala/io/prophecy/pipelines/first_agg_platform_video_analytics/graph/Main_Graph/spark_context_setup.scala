@@ -626,22 +626,22 @@ object spark_context_setup {
     in0.persist(StorageLevel.DISK_ONLY)
     
     // Trigger an action to materialize the persistence
-    in0.count() // or any other action like show(), collect(), etc.
+    in0.foreachPartition(_ => ()) // or any other action like show(), collect(), etc.
     
     val out0 = in0
       .as("in0")
       .join(
-        org.apache.spark.sql.functions.broadcast(in3.as("in3")),
+        org.apache.spark.sql.functions.broadcast(in3).as("in3"),
         col("in0.auction_id_64") === col("in3.auction_id_64"),
         "left_outer"
       )
       .join(
-        org.apache.spark.sql.functions.broadcast(in4.as("in4")),
+        org.apache.spark.sql.functions.broadcast(in4).as("in4"),
         col("in0.auction_id_64") === col("in4.auction_id_64"),
         "left_outer"
       )
       .join(
-        org.apache.spark.sql.functions.broadcast(in5.as("in5")),
+        org.apache.spark.sql.functions.broadcast(in5).as("in5"),
         col("in0.auction_id_64") === col("in5.auction_id_64"),
         "left_outer"
       )

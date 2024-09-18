@@ -127,6 +127,27 @@ pipelines:
       - datasets/temp_output3
     subgraphs: []
     dependencies: {}
+  pipelines/first_half:
+    name: first_half
+    description: ''
+    author: abhinav@simpledatalabs.com
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-09-18 18:37:01'
+    datasets:
+      inputs:
+      - datasets/Read_Proto_Range_agg_dw_clicks_pb_agg_dw_clicks
+      - datasets/Read_Proto_Range_agg_dw_pixels_pq_agg_dw_pixels
+      - datasets/Read_Proto_Range_agg_dw_video_events_pq_agg_dw_video_events
+      - datasets/Read_Proto_Range_agg_impbus_clicks_pb_agg_impbus_clicks
+      - datasets/Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions
+      - datasets/Read_Proto_Range_agg_platform_video_requests_pq_agg_platform_video_requests
+      - datasets/Read_Proto_Range_agg_platform_video_requests_transactable_pq_agg_platform_video_requests_transactable_0_to_5
+      outputs:
+      - datasets/temp_output1
+    subgraphs: []
+    dependencies: {}
 datasets:
   datasets/Read_Proto_Range_agg_dw_video_events_pq_agg_dw_video_events:
     name: Read_Proto_Range_agg_dw_video_events_pq_agg_dw_video_events
