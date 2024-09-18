@@ -17,7 +17,7 @@ object left_outer_join_video_attributes {
   def apply(context: Context, in0: DataFrame, in1: DataFrame): DataFrame =
     in0
       .as("in0")
-      .join(in1.as("in1").hint("shuffle_hash"),
+      .join(in1.as("in1").hint("broadcast"),
             col("in0.agg_platform_video_requests_tag_id")
               .cast(IntegerType) === col("in1.id"),
             "left_outer"

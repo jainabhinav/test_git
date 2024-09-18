@@ -2366,108 +2366,54 @@ object Reformat {
       ).as("is_private_auction")
     )
 
-  def buyer_charges(context: Context) = {
+  def log_product_ads(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     struct(
       coalesce(
         when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.rate_card_id").cast(IntegerType)
+             col("resold.log_product_ads.product_feed_id").cast(IntegerType)
         ).cast(IntegerType),
         when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.rate_card_id").cast(IntegerType)
+             col("resold.log_product_ads.product_feed_id").cast(IntegerType)
         ).cast(IntegerType),
         when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.buyer_charges.rate_card_id").cast(IntegerType)
+             col("rtb.log_product_ads.product_feed_id").cast(IntegerType)
         ).cast(IntegerType),
-        col("others.buyer_charges.rate_card_id").cast(IntegerType)
-      ).as("rate_card_id"),
+        col("others.log_product_ads.product_feed_id").cast(IntegerType)
+      ).as("product_feed_id"),
       coalesce(
         when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.member_id").cast(IntegerType)
+             col("resold.log_product_ads.item_selection_strategy_id").cast(
+               IntegerType
+             )
         ).cast(IntegerType),
         when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.member_id").cast(IntegerType)
+             col("resold.log_product_ads.item_selection_strategy_id").cast(
+               IntegerType
+             )
         ).cast(IntegerType),
         when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.buyer_charges.member_id").cast(IntegerType)
+             col("rtb.log_product_ads.item_selection_strategy_id").cast(
+               IntegerType
+             )
         ).cast(IntegerType),
-        col("others.buyer_charges.member_id").cast(IntegerType)
-      ).as("member_id"),
+        col("others.log_product_ads.item_selection_strategy_id").cast(
+          IntegerType
+        )
+      ).as("item_selection_strategy_id"),
       coalesce(
         when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.is_dw")
+             col("resold.log_product_ads.product_uuid")
         ),
         when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.is_dw")
+             col("resold.log_product_ads.product_uuid")
         ),
         when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.buyer_charges.is_dw")
+             col("rtb.log_product_ads.product_uuid")
         ),
-        col("others.buyer_charges.is_dw")
-      ).as("is_dw"),
-      coalesce(
-        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.pricing_terms")
-        ),
-        when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.pricing_terms")
-        ),
-        when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.buyer_charges.pricing_terms")
-        ),
-        col("others.buyer_charges.pricing_terms")
-      ).as("pricing_terms"),
-      coalesce(
-        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.fx_margin_rate_id").cast(IntegerType)
-        ).cast(IntegerType),
-        when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.fx_margin_rate_id").cast(IntegerType)
-        ).cast(IntegerType),
-        when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.buyer_charges.fx_margin_rate_id").cast(IntegerType)
-        ).cast(IntegerType),
-        col("others.buyer_charges.fx_margin_rate_id").cast(IntegerType)
-      ).as("fx_margin_rate_id"),
-      coalesce(
-        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.marketplace_owner_id").cast(IntegerType)
-        ).cast(IntegerType),
-        when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.marketplace_owner_id").cast(IntegerType)
-        ).cast(IntegerType),
-        when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.buyer_charges.marketplace_owner_id").cast(IntegerType)
-        ).cast(IntegerType),
-        col("others.buyer_charges.marketplace_owner_id").cast(IntegerType)
-      ).as("marketplace_owner_id"),
-      coalesce(
-        when(
-          is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-          col("resold.buyer_charges.virtual_marketplace_id").cast(IntegerType)
-        ).cast(IntegerType),
-        when(
-          col("rtb").isNull.and(is_not_null(col("resold"))),
-          col("resold.buyer_charges.virtual_marketplace_id").cast(IntegerType)
-        ).cast(IntegerType),
-        when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.buyer_charges.virtual_marketplace_id").cast(IntegerType)
-        ).cast(IntegerType),
-        col("others.buyer_charges.virtual_marketplace_id").cast(IntegerType)
-      ).as("virtual_marketplace_id"),
-      coalesce(
-        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.amino_enabled")
-        ),
-        when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.buyer_charges.amino_enabled")
-        ),
-        when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.buyer_charges.amino_enabled")
-        ),
-        col("others.buyer_charges.amino_enabled")
-      ).as("amino_enabled")
+        col("others.log_product_ads.product_uuid")
+      ).as("product_uuid")
     )
   }
 
@@ -2576,54 +2522,108 @@ object Reformat {
     )
   }
 
-  def log_product_ads(context: Context) = {
+  def buyer_charges(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     struct(
       coalesce(
         when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.product_feed_id").cast(IntegerType)
+             col("resold.buyer_charges.rate_card_id").cast(IntegerType)
         ).cast(IntegerType),
         when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.product_feed_id").cast(IntegerType)
+             col("resold.buyer_charges.rate_card_id").cast(IntegerType)
         ).cast(IntegerType),
         when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.log_product_ads.product_feed_id").cast(IntegerType)
+             col("rtb.buyer_charges.rate_card_id").cast(IntegerType)
         ).cast(IntegerType),
-        col("others.log_product_ads.product_feed_id").cast(IntegerType)
-      ).as("product_feed_id"),
+        col("others.buyer_charges.rate_card_id").cast(IntegerType)
+      ).as("rate_card_id"),
       coalesce(
         when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.item_selection_strategy_id").cast(
-               IntegerType
-             )
+             col("resold.buyer_charges.member_id").cast(IntegerType)
         ).cast(IntegerType),
         when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.item_selection_strategy_id").cast(
-               IntegerType
-             )
+             col("resold.buyer_charges.member_id").cast(IntegerType)
         ).cast(IntegerType),
         when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.log_product_ads.item_selection_strategy_id").cast(
-               IntegerType
-             )
+             col("rtb.buyer_charges.member_id").cast(IntegerType)
         ).cast(IntegerType),
-        col("others.log_product_ads.item_selection_strategy_id").cast(
-          IntegerType
-        )
-      ).as("item_selection_strategy_id"),
+        col("others.buyer_charges.member_id").cast(IntegerType)
+      ).as("member_id"),
       coalesce(
         when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.product_uuid")
+             col("resold.buyer_charges.is_dw")
         ),
         when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.product_uuid")
+             col("resold.buyer_charges.is_dw")
         ),
         when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.log_product_ads.product_uuid")
+             col("rtb.buyer_charges.is_dw")
         ),
-        col("others.log_product_ads.product_uuid")
-      ).as("product_uuid")
+        col("others.buyer_charges.is_dw")
+      ).as("is_dw"),
+      coalesce(
+        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
+             col("resold.buyer_charges.pricing_terms")
+        ),
+        when(col("rtb").isNull.and(is_not_null(col("resold"))),
+             col("resold.buyer_charges.pricing_terms")
+        ),
+        when(is_not_null(col("rtb")).and(col("resold").isNull),
+             col("rtb.buyer_charges.pricing_terms")
+        ),
+        col("others.buyer_charges.pricing_terms")
+      ).as("pricing_terms"),
+      coalesce(
+        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
+             col("resold.buyer_charges.fx_margin_rate_id").cast(IntegerType)
+        ).cast(IntegerType),
+        when(col("rtb").isNull.and(is_not_null(col("resold"))),
+             col("resold.buyer_charges.fx_margin_rate_id").cast(IntegerType)
+        ).cast(IntegerType),
+        when(is_not_null(col("rtb")).and(col("resold").isNull),
+             col("rtb.buyer_charges.fx_margin_rate_id").cast(IntegerType)
+        ).cast(IntegerType),
+        col("others.buyer_charges.fx_margin_rate_id").cast(IntegerType)
+      ).as("fx_margin_rate_id"),
+      coalesce(
+        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
+             col("resold.buyer_charges.marketplace_owner_id").cast(IntegerType)
+        ).cast(IntegerType),
+        when(col("rtb").isNull.and(is_not_null(col("resold"))),
+             col("resold.buyer_charges.marketplace_owner_id").cast(IntegerType)
+        ).cast(IntegerType),
+        when(is_not_null(col("rtb")).and(col("resold").isNull),
+             col("rtb.buyer_charges.marketplace_owner_id").cast(IntegerType)
+        ).cast(IntegerType),
+        col("others.buyer_charges.marketplace_owner_id").cast(IntegerType)
+      ).as("marketplace_owner_id"),
+      coalesce(
+        when(
+          is_not_null(col("rtb")).and(is_not_null(col("resold"))),
+          col("resold.buyer_charges.virtual_marketplace_id").cast(IntegerType)
+        ).cast(IntegerType),
+        when(
+          col("rtb").isNull.and(is_not_null(col("resold"))),
+          col("resold.buyer_charges.virtual_marketplace_id").cast(IntegerType)
+        ).cast(IntegerType),
+        when(is_not_null(col("rtb")).and(col("resold").isNull),
+             col("rtb.buyer_charges.virtual_marketplace_id").cast(IntegerType)
+        ).cast(IntegerType),
+        col("others.buyer_charges.virtual_marketplace_id").cast(IntegerType)
+      ).as("virtual_marketplace_id"),
+      coalesce(
+        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
+             col("resold.buyer_charges.amino_enabled")
+        ),
+        when(col("rtb").isNull.and(is_not_null(col("resold"))),
+             col("resold.buyer_charges.amino_enabled")
+        ),
+        when(is_not_null(col("rtb")).and(col("resold").isNull),
+             col("rtb.buyer_charges.amino_enabled")
+        ),
+        col("others.buyer_charges.amino_enabled")
+      ).as("amino_enabled")
     )
   }
 

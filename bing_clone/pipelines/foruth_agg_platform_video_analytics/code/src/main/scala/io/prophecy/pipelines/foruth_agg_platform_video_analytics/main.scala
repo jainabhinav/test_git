@@ -17,20 +17,18 @@ object Main {
 
   def apply(context: Context): Unit = {
     config_update(context)
-    val df_temp_output2 = temp_output2(context)
-    val df_repartition_by_auction_id_1_1 =
-      repartition_by_auction_id_1_1(context, df_temp_output2)
     val (df_Create_sup_lookup_files_out2, df_Create_sup_lookup_files_out1) =
       Create_sup_lookup_files.apply(
         Create_sup_lookup_files.config
           .Context(context.spark, context.config.Create_sup_lookup_files)
       )
-    val df_repartition_by_id =
-      repartition_by_id(context, df_Create_sup_lookup_files_out2)
+    val df_temp_output2 = temp_output2(context)
+    val df_repartition_by_auction_id =
+      repartition_by_auction_id(context, df_temp_output2)
     val df_left_outer_join_video_attributes = left_outer_join_video_attributes(
       context,
-      df_repartition_by_auction_id_1_1,
-      df_repartition_by_id
+      df_repartition_by_auction_id,
+      df_Create_sup_lookup_files_out2
     )
     val df_join_and_lookup_creatives = join_and_lookup_creatives(
       context,
@@ -55,15 +53,8 @@ object Main {
     )
     spark.conf.set("spark.sql.adaptive.enabled",                   "true")
     spark.conf.set("park.sql.adaptive.coalescePartitions.enabled", "true")
-    spark.conf
-      .set("spark.sql.adaptive.coalescePartitions.minPartitionSize", "256MB")
-    spark.conf.set("spark.sql.adaptive.skewJoin.enabled",            "true")
-    spark.conf.set("spark.sql.adaptive.join.enabled",                "true")
-    spark.conf.set(
-      "spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes",
-      "256MB"
-    )
-    spark.conf.set("spark.sql.join.preferSortMergeJoin", "false")
+    spark.conf.set("spark.sql.adaptive.skewJoin.enabled",          "true")
+    spark.conf.set("spark.sql.adaptive.join.enabled",              "true")
     registerUDFs(spark)
     MetricsCollector.instrument(spark,
                                 "pipelines/foruth_agg_platform_video_analytics"

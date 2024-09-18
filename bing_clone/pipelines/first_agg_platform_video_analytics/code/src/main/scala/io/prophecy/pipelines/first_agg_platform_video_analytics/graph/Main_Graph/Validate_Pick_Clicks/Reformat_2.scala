@@ -2294,6 +2294,57 @@ object Reformat_2 {
       ).as("is_private_auction")
     )
 
+  def log_product_ads(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    struct(
+      coalesce(
+        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
+             col("resold.log_product_ads.product_feed_id").cast(IntegerType)
+        ).cast(IntegerType),
+        when(col("rtb").isNull.and(is_not_null(col("resold"))),
+             col("resold.log_product_ads.product_feed_id").cast(IntegerType)
+        ).cast(IntegerType),
+        when(is_not_null(col("rtb")).and(col("resold").isNull),
+             col("rtb.log_product_ads.product_feed_id").cast(IntegerType)
+        ).cast(IntegerType),
+        col("others.log_product_ads.product_feed_id").cast(IntegerType)
+      ).as("product_feed_id"),
+      coalesce(
+        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
+             col("resold.log_product_ads.item_selection_strategy_id").cast(
+               IntegerType
+             )
+        ).cast(IntegerType),
+        when(col("rtb").isNull.and(is_not_null(col("resold"))),
+             col("resold.log_product_ads.item_selection_strategy_id").cast(
+               IntegerType
+             )
+        ).cast(IntegerType),
+        when(is_not_null(col("rtb")).and(col("resold").isNull),
+             col("rtb.log_product_ads.item_selection_strategy_id").cast(
+               IntegerType
+             )
+        ).cast(IntegerType),
+        col("others.log_product_ads.item_selection_strategy_id").cast(
+          IntegerType
+        )
+      ).as("item_selection_strategy_id"),
+      coalesce(
+        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
+             col("resold.log_product_ads.product_uuid")
+        ),
+        when(col("rtb").isNull.and(is_not_null(col("resold"))),
+             col("resold.log_product_ads.product_uuid")
+        ),
+        when(is_not_null(col("rtb")).and(col("resold").isNull),
+             col("rtb.log_product_ads.product_uuid")
+        ),
+        col("others.log_product_ads.product_uuid")
+      ).as("product_uuid")
+    )
+  }
+
   def seller_charges(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -2501,57 +2552,6 @@ object Reformat_2 {
         ),
         col("others.buyer_charges.amino_enabled")
       ).as("amino_enabled")
-    )
-  }
-
-  def log_product_ads(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    struct(
-      coalesce(
-        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.product_feed_id").cast(IntegerType)
-        ).cast(IntegerType),
-        when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.product_feed_id").cast(IntegerType)
-        ).cast(IntegerType),
-        when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.log_product_ads.product_feed_id").cast(IntegerType)
-        ).cast(IntegerType),
-        col("others.log_product_ads.product_feed_id").cast(IntegerType)
-      ).as("product_feed_id"),
-      coalesce(
-        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.item_selection_strategy_id").cast(
-               IntegerType
-             )
-        ).cast(IntegerType),
-        when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.item_selection_strategy_id").cast(
-               IntegerType
-             )
-        ).cast(IntegerType),
-        when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.log_product_ads.item_selection_strategy_id").cast(
-               IntegerType
-             )
-        ).cast(IntegerType),
-        col("others.log_product_ads.item_selection_strategy_id").cast(
-          IntegerType
-        )
-      ).as("item_selection_strategy_id"),
-      coalesce(
-        when(is_not_null(col("rtb")).and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.product_uuid")
-        ),
-        when(col("rtb").isNull.and(is_not_null(col("resold"))),
-             col("resold.log_product_ads.product_uuid")
-        ),
-        when(is_not_null(col("rtb")).and(col("resold").isNull),
-             col("rtb.log_product_ads.product_uuid")
-        ),
-        col("others.log_product_ads.product_uuid")
-      ).as("product_uuid")
     )
   }
 

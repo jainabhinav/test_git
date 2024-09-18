@@ -49,25 +49,29 @@ object complex_join_with_lookups {
     
     import org.apache.spark.storage.StorageLevel
     
-    // Persist the DataFrame to disk only
-    val rep_count = 8000
-    val new_in0 = in0.repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
+    // Increase the autoBroadcastJoinThreshold to 10GB
+    spark.conf.set("spark.sql.autoBroadcastJoinThreshold", 10L * 1024 * 1024 * 1024)
     
-    val new_in2 = in1.repartition(400, col("id"), col("member_id")).persist(StorageLevel.DISK_ONLY)
+    // Persist the DataFrame to disk only
+    // val rep_count = 8000
+    // val new_in0 = in0.repartition(rep_count, col("auction_id_64")).persist(StorageLevel.DISK_ONLY)
+    
+    val new_in2 = in1
+    // .repartition(400, col("id"), col("member_id")).persist(StorageLevel.DISK_ONLY)
     
     println("#####Step name: join by id and member_id#####")
     println("step persist time: " + Instant.now().atZone(ZoneId.of("America/Chicago"))) 
     
       // Perform joins with the same DataFrame using different join conditions (handling both lit(1) and lit(0) cases)
-      val joinedDF = new_in0.as("in0")
-        .join(new_in2.as("in1"), joinCondition("agg_dw_pixels", "f_is_buy_side_imp_agg_dw_pixels_imp_type", "in1", isBuySide = true), "left_outer")
-        .join(new_in2.as("in2"), joinCondition("agg_dw_video_events", "f_is_buy_side_imp_imp_type_request_imp_type", "in2", isBuySide = true), "left_outer")
-        .join(new_in2.as("in3"), joinCondition("agg_platform_video_impressions", "f_is_buy_side_imp_agg_platform_video_impressions_imp_type", "in3", isBuySide = true), "left_outer")
-        .join(new_in2.as("in4"), joinCondition("agg_dw_clicks", "f_is_buy_side_imp_agg_dw_clicks_imp_type", "in4", isBuySide = false), "left_outer")
-        .join(new_in2.as("in5"), joinCondition("agg_platform_video_impressions", "f_is_buy_side_imp_agg_platform_video_impressions_imp_type", "in5", isBuySide = false), "left_outer")
-        .join(new_in2.as("in6"), joinCondition("agg_dw_video_events", "f_is_buy_side_imp_imp_type_request_imp_type", "in6", isBuySide = false), "left_outer")
-        .join(new_in2.as("in7"), joinCondition("agg_dw_clicks", "f_is_buy_side_imp_agg_dw_clicks_imp_type", "in7", isBuySide = true), "left_outer")
-        .join(new_in2.as("in8"), joinCondition("agg_dw_pixels", "f_is_buy_side_imp_agg_dw_pixels_imp_type", "in8", isBuySide = false), "left_outer")
+      val joinedDF = in0.as("in0")
+        .join(org.apache.spark.sql.functions.broadcast(new_in2.as("in1")), joinCondition("agg_dw_pixels", "f_is_buy_side_imp_agg_dw_pixels_imp_type", "in1", isBuySide = true), "left_outer")
+        .join(org.apache.spark.sql.functions.broadcast(new_in2.as("in2")), joinCondition("agg_dw_video_events", "f_is_buy_side_imp_imp_type_request_imp_type", "in2", isBuySide = true), "left_outer")
+        .join(org.apache.spark.sql.functions.broadcast(new_in2.as("in3")), joinCondition("agg_platform_video_impressions", "f_is_buy_side_imp_agg_platform_video_impressions_imp_type", "in3", isBuySide = true), "left_outer")
+        .join(org.apache.spark.sql.functions.broadcast(new_in2.as("in4")), joinCondition("agg_dw_clicks", "f_is_buy_side_imp_agg_dw_clicks_imp_type", "in4", isBuySide = false), "left_outer")
+        .join(org.apache.spark.sql.functions.broadcast(new_in2.as("in5")), joinCondition("agg_platform_video_impressions", "f_is_buy_side_imp_agg_platform_video_impressions_imp_type", "in5", isBuySide = false), "left_outer")
+        .join(org.apache.spark.sql.functions.broadcast(new_in2.as("in6")), joinCondition("agg_dw_video_events", "f_is_buy_side_imp_imp_type_request_imp_type", "in6", isBuySide = false), "left_outer")
+        .join(org.apache.spark.sql.functions.broadcast(new_in2.as("in7")), joinCondition("agg_dw_clicks", "f_is_buy_side_imp_agg_dw_clicks_imp_type", "in7", isBuySide = true), "left_outer")
+        .join(org.apache.spark.sql.functions.broadcast(new_in2.as("in8")), joinCondition("agg_dw_pixels", "f_is_buy_side_imp_agg_dw_pixels_imp_type", "in8", isBuySide = false), "left_outer")
     
       // Add the lookup columns based on the joined DataFrames
       val out0 = joinedDF
@@ -80,8 +84,8 @@ object complex_join_with_lookups {
         createLookupStruct("in5").as("_sup_bidder_advertiser_pb_LOOKUP"),
         createLookupStruct("in6").as("_sup_bidder_advertiser_pb_LOOKUP4"),
         createLookupStruct("in7").as("_sup_bidder_advertiser_pb_LOOKUP6"),
-        createLookupStruct("in8").as("_sup_bidder_advertiser_pb_LOOKUP2"),
-        col("_sup_placement_video_attributes_pb_LOOKUP")
+        createLookupStruct("in8").as("_sup_bidder_advertiser_pb_LOOKUP2")
+        // ,col("_sup_placement_video_attributes_pb_LOOKUP")
       )
     
     println("#####Step name: join by id and member_id#####")

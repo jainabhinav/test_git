@@ -43,17 +43,10 @@ object Main {
     spark.conf.set("prophecy.metadata.pipeline.uri",
                    "pipelines/first_agg_platform_video_analytics"
     )
-    spark.conf.set("spark.sql.autoBroadcastJoinThreshold",         "710485760")
     spark.conf.set("spark.sql.adaptive.enabled",                   "true")
     spark.conf.set("park.sql.adaptive.coalescePartitions.enabled", "true")
-    spark.conf
-      .set("spark.sql.adaptive.coalescePartitions.minPartitionSize", "512MB")
-    spark.conf.set("spark.sql.adaptive.skewJoin.enabled",            "true")
-    spark.conf.set("spark.sql.adaptive.join.enabled",                "true")
-    spark.conf.set(
-      "spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes",
-      "512MB"
-    )
+    spark.conf.set("spark.sql.adaptive.skewJoin.enabled",          "true")
+    spark.conf.set("spark.sql.adaptive.join.enabled",              "true")
     registerUDFs(spark)
     MetricsCollector.instrument(spark,
                                 "pipelines/first_agg_platform_video_analytics"

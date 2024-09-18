@@ -1,10 +1,10 @@
-package io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph
+package io.prophecy.pipelines.first_agg_platform_video_analytics.graph
 
 import io.prophecy.libs._
 import io.prophecy.pipelines.first_agg_platform_video_analytics.udfs.PipelineInitCode._
 import io.prophecy.pipelines.first_agg_platform_video_analytics.udfs.UDFs._
 import io.prophecy.pipelines.first_agg_platform_video_analytics.udfs.ColumnFunctions._
-import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.config.Context
+import io.prophecy.pipelines.first_agg_platform_video_analytics.config.Context
 import org.apache.spark._
 import org.apache.spark.sql._
 import org.apache.spark.sql.functions._
