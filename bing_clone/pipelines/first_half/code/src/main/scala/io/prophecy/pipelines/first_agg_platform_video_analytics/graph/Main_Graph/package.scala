@@ -25,14 +25,6 @@ package object Main_Graph {
       context,
       df_Read_Proto_Range_agg_dw_video_events_pq_agg_dw_video_events
     )
-    val df_Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions =
-      Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions(
-        context
-      )
-    val df_repartition_dataframe_1 = repartition_dataframe_1(
-      context,
-      df_Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions
-    )
     val df_Read_Proto_Range_agg_platform_video_requests_pq_agg_platform_video_requests =
       Read_Proto_Range_agg_platform_video_requests_pq_agg_platform_video_requests(
         context
@@ -55,8 +47,6 @@ package object Main_Graph {
       repartition_by_auction_id_1(context, df_Partition_by_Key_UnionAll)
     val df_Filter_by_Expression_3 =
       Filter_by_Expression_3(context, df_repartition_by_auction_id_1)
-    val df_Dedup_Sorted_1 = Dedup_Sorted_1(context, df_Filter_by_Expression_3)
-    val df_Reformat_1_4   = Reformat_1_4(context,   df_Dedup_Sorted_1)
     val df_Filter_by_Expression_6 =
       Filter_by_Expression_6(context, df_repartition_by_auction_id)
     val df_Validate_Pick_Video_Events = Validate_Pick_Video_Events.apply(
@@ -64,9 +54,19 @@ package object Main_Graph {
         .Context(context.spark, context.config.Validate_Pick_Video_Events),
       df_Filter_by_Expression_6
     )
-    val df_Reformat_2_1 = Reformat_2_1(context, df_Validate_Pick_Video_Events)
+    val df_Reformat_2_1   = Reformat_2_1(context,   df_Validate_Pick_Video_Events)
+    val df_Dedup_Sorted_1 = Dedup_Sorted_1(context, df_Filter_by_Expression_3)
+    val df_Reformat_1_4   = Reformat_1_4(context,   df_Dedup_Sorted_1)
     val df_join_by_auction_id =
       join_by_auction_id(context, df_Reformat_1_4, df_Reformat_2_1)
+    val df_Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions =
+      Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions(
+        context
+      )
+    val df_repartition_dataframe_1 = repartition_dataframe_1(
+      context,
+      df_Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions
+    )
     val df_Filter_by_Expression_1 =
       Filter_by_Expression_1(context, df_repartition_dataframe_1)
     val df_Reformat_3_1 = Reformat_3_1(context, df_Filter_by_Expression_1)

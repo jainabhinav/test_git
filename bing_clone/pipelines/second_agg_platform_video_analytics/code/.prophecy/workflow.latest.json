@@ -25423,8 +25423,8 @@
       "metadata" : {
         "label" : "temp_output1",
         "slug" : "temp_output1",
-        "x" : 320,
-        "y" : 120,
+        "x" : 100,
+        "y" : 60,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,

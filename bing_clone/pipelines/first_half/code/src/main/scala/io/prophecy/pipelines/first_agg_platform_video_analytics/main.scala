@@ -17,13 +17,48 @@ object Main {
 
   def apply(context: Context): Unit = {
     Script_1(context)
-    val df_Main_Graph = Main_Graph
-      .apply(
-        Main_Graph.config.Context(context.spark, context.config.Main_Graph)
-      )
-      .cache()
+    val df_Main_Graph = Main_Graph.apply(
+      Main_Graph.config.Context(context.spark, context.config.Main_Graph)
+    )
+    val (df_Create_sup_lookup_files_out2,
+         df_Create_sup_lookup_files_out1,
+         df_Create_sup_lookup_files_target1
+    ) = Create_sup_lookup_files.apply(
+      Create_sup_lookup_files.config
+        .Context(context.spark, context.config.Create_sup_lookup_files)
+    )
     val df_Filter_1 = Filter_1(context, df_Main_Graph)
-    temp_output1(context, df_Filter_1)
+    val df_repartition_and_persist =
+      repartition_and_persist(context, df_Filter_1)
+    val df_select_auction_data =
+      select_auction_data(context, df_repartition_and_persist)
+    val df_reformat_auction_data =
+      reformat_auction_data(context, df_select_auction_data)
+    val df_left_outer_join_video_attributes = left_outer_join_video_attributes(
+      context,
+      df_reformat_auction_data,
+      df_Create_sup_lookup_files_out2
+    )
+    val df_join_and_lookup_creatives = join_and_lookup_creatives(
+      context,
+      df_left_outer_join_video_attributes,
+      df_Create_sup_lookup_files_out1
+    )
+    val df_complex_join_with_lookups = complex_join_with_lookups(
+      context,
+      df_join_and_lookup_creatives,
+      df_Create_sup_lookup_files_target1
+    )
+    val df_join_auction_data = join_auction_data(context,
+                                                 df_repartition_and_persist,
+                                                 df_complex_join_with_lookups
+    )
+    val df_Reformat_agg_platform_video_analytics_pb =
+      Reformat_agg_platform_video_analytics_pb(context, df_join_auction_data)
+    Write_Proto_HDFS_agg_platform_video_analytics_pq_agg_platform_video_analytics(
+      context,
+      df_Reformat_agg_platform_video_analytics_pb
+    )
   }
 
   def main(args: Array[String]): Unit = {
@@ -36,18 +71,14 @@ object Main {
       .enableHiveSupport()
       .getOrCreate()
     val context = Context(spark, config)
-    spark.conf.set("prophecy.metadata.pipeline.uri",               "pipelines/first_half")
-    spark.conf.set("spark.sql.autoBroadcastJoinThreshold",         "710485760")
-    spark.conf.set("spark.sql.adaptive.enabled",                   "true")
-    spark.conf.set("park.sql.adaptive.coalescePartitions.enabled", "true")
+    spark.conf.set("prophecy.metadata.pipeline.uri", "pipelines/first_half")
     spark.conf
       .set("spark.sql.adaptive.coalescePartitions.minPartitionSize", "512MB")
-    spark.conf.set("spark.sql.adaptive.skewJoin.enabled",            "true")
-    spark.conf.set("spark.sql.adaptive.join.enabled",                "true")
     spark.conf.set(
       "spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes",
       "512MB"
     )
+    spark.conf.set("spark.sql.autoBroadcastJoinThreshold", "710485760")
     registerUDFs(spark)
     MetricsCollector.instrument(spark, "pipelines/first_half") {
       apply(context)

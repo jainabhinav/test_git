@@ -17,12 +17,15 @@ object join_and_project_auction_data {
     val spark = context.spark
     val Config = context.config
     import org.apache.spark.storage.StorageLevel
+    println("before persist: join_and_project_auction_data")
     
-    // Persist the DataFrame to disk only
     in0.persist(StorageLevel.DISK_ONLY)
     
     // Trigger an action to materialize the persistence
-    in0.count() // or any other action like show(), collect(), etc.
+    import org.apache.spark.sql.Row
+    in0.foreachPartition { (_: Iterator[Row]) => () }
+    
+    println("after persist: join_and_project_auction_data")
     
     val out0 = in0
       .as("in0")

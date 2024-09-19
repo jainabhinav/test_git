@@ -144,8 +144,14 @@ pipelines:
       - datasets/Read_Proto_Range_agg_platform_video_impressions_pq_agg_platform_video_impressions
       - datasets/Read_Proto_Range_agg_platform_video_requests_pq_agg_platform_video_requests
       - datasets/Read_Proto_Range_agg_platform_video_requests_transactable_pq_agg_platform_video_requests_transactable_0_to_5
+      - datasets/Read_Proto_Range_sup_api_member_pb
+      - datasets/Read_Proto_Range_sup_bidder_advertiser_pb
+      - datasets/Read_Proto_Range_sup_bidder_fx_rates
+      - datasets/Read_Proto_Range_sup_code_fx_rate
+      - datasets/Read_Proto_Range_sup_creative_media_subtype_pb
+      - datasets/Read_Proto_Range_sup_placement_video_attributes_pb
       outputs:
-      - datasets/temp_output1
+      - datasets/Write_Proto_HDFS_agg_platform_video_analytics_pq_agg_platform_video_analytics
     subgraphs: []
     dependencies: {}
 datasets:

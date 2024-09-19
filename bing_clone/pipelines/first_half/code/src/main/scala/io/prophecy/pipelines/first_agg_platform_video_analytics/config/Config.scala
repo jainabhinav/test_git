@@ -6,6 +6,9 @@ import io.prophecy.libs._
 import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Main_Graph.config.{
   Config => Main_Graph_Config
 }
+import io.prophecy.pipelines.first_agg_platform_video_analytics.graph.Create_sup_lookup_files.config.{
+  Config => Create_sup_lookup_files_Config
+}
 
 case class Config(
   var XR_BUSINESS_HOUR: String = "willBeOverwrittenByScript",
@@ -15,7 +18,9 @@ case class Config(
   var Main_Graph: Main_Graph_Config = Main_Graph_Config(),
   var datasets:   Datasets = Datasets(),
   var system:     System = System(),
-  var jobs:       Option[Jobs] = None
+  var jobs:       Option[Jobs] = None,
+  var Create_sup_lookup_files: Create_sup_lookup_files_Config =
+    Create_sup_lookup_files_Config()
 ) extends ConfigBase
 
 object Datasets {

@@ -625,8 +625,9 @@ object spark_context_setup {
     // Persist the DataFrame to disk only
     in0.persist(StorageLevel.DISK_ONLY)
     
-    // Trigger an action to materialize the persistence
-    in0.count() // or any other action like show(), collect(), etc.
+    import org.apache.spark.sql.Row
+    
+    in0.foreachPartition { (_: Iterator[Row]) => () }
     
     val out0 = in0
       .as("in0")
