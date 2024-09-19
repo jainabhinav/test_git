@@ -22,7 +22,9 @@ object join_and_project_auction_data {
     in0.persist(StorageLevel.DISK_ONLY)
     
     // Trigger an action to materialize the persistence
-    in0.foreachPartition(_ => ())
+    import org.apache.spark.sql.Row
+    in0.foreachPartition { (_: Iterator[Row]) => () }
+    
     println("after persist: join_and_project_auction_data")
     
     val out0 = in0

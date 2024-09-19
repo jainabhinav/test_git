@@ -18,10 +18,14 @@ object repartition_and_persist {
     val Config = context.config
     import org.apache.spark.storage.StorageLevel
     
+    println("before persist: repartition_and_persist")
     // Cache in0 to avoid recomputation
     // val rep_count = spark.conf.get("spark.sql.shuffle.partitions").toInt
     val out0 = in0.persist(StorageLevel.DISK_ONLY)
-    out0.foreachPartition(_ => ())
+    
+    import org.apache.spark.sql.Row
+    out0.foreachPartition { (_: Iterator[Row]) => () }
+    println("after persist: repartition_and_persist")
     out0
   }
 
