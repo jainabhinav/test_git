@@ -1,0 +1,25 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for each member in the dataset
+      mappings: []
+      tags: []
+  - name: sales_tax_rate_pct
+    type: double
+    nullable: true
+    metadata:
+      description: Percentage rate of sales tax applicable to the member
+      mappings: []
+      tags: []
+  - name: deleted
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates whether the record has been marked as deleted.
+      mappings: []
+      tags: []

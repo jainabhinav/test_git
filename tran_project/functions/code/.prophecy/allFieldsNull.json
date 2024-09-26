@@ -1,0 +1,1 @@
+{"initCode":"","code":"udf((row: Row) => \n      if (row == null) true\n      else row.schema.fields.forall(f => row.isNullAt(row.fieldIndex(f.name)))\n    )\n"}

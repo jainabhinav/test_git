@@ -1,0 +1,1451 @@
+name: MS_bing
+description: ''
+version: 0.0.1
+author: sumitpaul@prophecy.io
+language: scala
+buildSystem: ''
+buildSystemDetails:
+  artefactID: msbing
+  parentArtefactID: sumitpaulprophecyioteam
+  buildSystem: maven
+  author: null
+  createdAt: '2024-09-12 17:10:12'
+pipelines:
+  pipelines/test1:
+    name: test1
+    description: ''
+    author: sumitpaul@prophecy.io
+    mode: batch
+    artefactID: ''
+    language: scala
+    createdAt: '2024-09-12 17:10:12'
+    datasets:
+      inputs:
+      - datasets/deferred_pricing_pb_log_impbus_impressions_pricing_5
+      - datasets/df_dbg_tran_adv_campaign_1
+      - datasets/df_dbg_tran_adv_id_by_campaign_id_1
+      - datasets/df_dbg_tran_advertiser_id_1
+      - datasets/df_dbg_tran_api_url_1
+      - datasets/df_dbg_tran_campaign_lkp_1
+      - datasets/df_dbg_tran_deal_lookup_1
+      - datasets/df_dbg_tran_ip_range_1
+      - datasets/df_dbg_tran_member_adv_1
+      - datasets/df_dbg_tran_placement_video_attributes_1
+      - datasets/df_dbg_tran_publisher_id_1
+      - datasets/df_dbg_tran_site_id_1
+      - datasets/df_dbg_tran_sup_member_id_1
+      - datasets/pb_log_dw_bid
+      - datasets/pb_log_dw_imptracker
+      - datasets/pb_log_dw_view
+      - datasets/pb_log_impbus_auction_event
+      - datasets/pb_log_impbus_impressions
+      - datasets/pb_log_impbus_impressions_5
+      - datasets/pb_log_impbus_impressions_pricing
+      - datasets/pb_log_impbus_imptracker
+      - datasets/pb_log_impbus_preempt
+      - datasets/pb_log_impbus_preempt_deferred_5
+      - datasets/pb_log_impbus_view
+      - datasets/pb_stage_seen_denormalized
+      - datasets/pb_video_slot_5
+      - datasets/stage_invalid_impressions_quarantine
+      - datasets/stage_tl_trx_trans_denormalized
+      - datasets/sup_bidder_member_tax
+      - datasets/target_agg_dw_curator_impressions_pb
+      - datasets/target_agg_dw_impressions_pb
+      - datasets/target_starget_impbus_impression_sample_trans_path_pb
+      outputs:
+      - datasets/dbg_tran_leftjoin
+      - datasets/pb_stage_seen_denormalized
+      - datasets/stage_invalid_impressions_quarantine
+      - datasets/stage_tl_trx_trans_denormalized
+      - datasets/target_agg_dw_curator_impressions_pb
+      - datasets/target_agg_dw_impressions_pb
+      - datasets/target_starget_impbus_impression_sample_trans_path_pb
+    subgraphs: []
+    dependencies: {}
+datasets:
+  datasets/pb_log_impbus_imptracker:
+    name: pb_log_impbus_imptracker
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 08:30:20'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 08:30:20'
+  datasets/pb_log_impbus_impressions_5:
+    name: pb_log_impbus_impressions_5
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 08:31:18'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 08:31:18'
+  datasets/pb_log_impbus_impressions_pricing:
+    name: pb_log_impbus_impressions_pricing
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 08:33:28'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 08:33:28'
+  datasets/pb_log_impbus_preempt:
+    name: pb_log_impbus_preempt
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 08:35:18'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 08:35:18'
+  datasets/pb_log_impbus_preempt_deferred_5:
+    name: pb_log_impbus_preempt_deferred_5
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 08:35:55'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 08:35:55'
+  datasets/pb_log_impbus_impressions:
+    name: pb_log_impbus_impressions
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 08:39:33'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 08:39:33'
+  datasets/deferred_pricing_pb_log_impbus_impressions_pricing_5:
+    name: deferred_pricing_pb_log_impbus_impressions_pricing_5
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 08:41:52'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 08:41:52'
+  datasets/pb_log_impbus_view:
+    name: pb_log_impbus_view
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 10:34:36'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 10:34:36'
+  datasets/pb_log_impbus_auction_event:
+    name: pb_log_impbus_auction_event
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 10:35:23'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 10:35:23'
+  datasets/pb_log_dw_bid:
+    name: pb_log_dw_bid
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 10:36:03'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 10:36:03'
+  datasets/pb_log_dw_imptracker:
+    name: pb_log_dw_imptracker
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 10:37:01'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 10:37:01'
+  datasets/pb_log_dw_view:
+    name: pb_log_dw_view
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 10:37:39'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 10:37:39'
+  datasets/pb_video_slot_5:
+    name: pb_video_slot_5
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 10:38:44'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 10:38:44'
+  datasets/stage_invalid_impressions_quarantine:
+    name: stage_invalid_impressions_quarantine
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 11:15:21'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 11:15:21'
+  datasets/pb_sup_ip_range:
+    name: pb_sup_ip_range
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 12:01:07'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 12:01:07'
+  datasets/pb_sup_tl_api_inventory_url:
+    name: pb_sup_tl_api_inventory_url
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 12:04:05'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 12:04:05'
+  datasets/pb_sup_placement_video_attributes:
+    name: pb_sup_placement_video_attributes
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 12:04:55'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 12:04:55'
+  datasets/pb_sup_sell_side_object_hierarchy:
+    name: pb_sup_sell_side_object_hierarchy
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 12:06:07'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 12:06:07'
+  datasets/pb_sup_bidder_campaign:
+    name: pb_sup_bidder_campaign
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 12:09:09'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 12:09:09'
+  datasets/df_dbg_tran_placement_video_attributes_1:
+    name: df_dbg_tran_placement_video_attributes_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:44:13'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:44:13'
+  datasets/df_dbg_tran_api_url_1:
+    name: df_dbg_tran_api_url_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:46:59'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:46:59'
+  datasets/df_dbg_tran_publisher_id_1:
+    name: df_dbg_tran_publisher_id_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:48:18'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:48:18'
+  datasets/df_dbg_tran_adv_id_by_campaign_id_1:
+    name: df_dbg_tran_adv_id_by_campaign_id_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:49:33'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:49:33'
+  datasets/df_dbg_tran_advertiser_id_1:
+    name: df_dbg_tran_advertiser_id_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:50:50'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:50:50'
+  datasets/df_dbg_tran_site_id_1:
+    name: df_dbg_tran_site_id_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:52:01'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:52:01'
+  datasets/df_dbg_tran_ip_range_1:
+    name: df_dbg_tran_ip_range_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:53:47'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:53:47'
+  datasets/df_dbg_tran_deal_lookup_1:
+    name: df_dbg_tran_deal_lookup_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:54:45'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:54:45'
+  datasets/df_dbg_tran_campaign_lkp_1:
+    name: df_dbg_tran_campaign_lkp_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:55:36'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:55:36'
+  datasets/df_dbg_tran_member_adv_1:
+    name: df_dbg_tran_member_adv_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:56:35'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:56:35'
+  datasets/df_dbg_tran_adv_campaign_1:
+    name: df_dbg_tran_adv_campaign_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:58:37'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:58:37'
+  datasets/df_dbg_tran_sup_member_id_1:
+    name: df_dbg_tran_sup_member_id_1
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-13 13:59:37'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-13 13:59:37'
+  datasets/dbg_tran_leftjoin:
+    name: dbg_tran_leftjoin
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-16 14:53:41'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-16 14:53:41'
+  datasets/pb_stage_seen_denormalized:
+    name: pb_stage_seen_denormalized
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-17 09:00:57'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-17 09:00:57'
+  datasets/sup_bidder_member_tax:
+    name: sup_bidder_member_tax
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-17 12:41:31'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-17 12:41:31'
+  datasets/stage_tl_trx_trans_denormalized:
+    name: stage_tl_trx_trans_denormalized
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-17 13:11:48'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-17 13:11:48'
+  datasets/target_starget_impbus_impression_sample_trans_path_pb:
+    name: target_starget_impbus_impression_sample_trans_path_pb
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-17 13:12:29'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-17 13:12:29'
+  datasets/target_agg_dw_impressions_pb:
+    name: target_agg_dw_impressions_pb
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-17 13:51:02'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-17 13:51:02'
+  datasets/target_agg_dw_curator_impressions_pb:
+    name: target_agg_dw_curator_impressions_pb
+    description: ''
+    author: sumitpaul@prophecy.io
+    createdAt: '2024-09-17 14:03:41'
+    mode: batch
+    physicalDatasets:
+      sumit-dev-dbx:
+        fabricId: 3572
+        datasetType: File
+        description: ''
+        author: sumitpaul@prophecy.io
+        createdAt: '2024-09-17 14:03:41'
+templates: {}
+jobs: {}
+gemContainer:
+  languageVersion: 2.12.15
+  gemLibsVersion: 1.1.26
+  gems: {}
+  dependencies: null
+functions:
+  author: null
+  createdAt: '2024-09-12 17:10:12'
+  udfs:
+    udfs/temp18771_UDF:
+      name: temp18771_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3018_UDF:
+      name: temp3018_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/personal_identifier_udf:
+      name: personal_identifier_udf
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup1627_UDF:
+      name: rollup1627_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup1615_UDF:
+      name: rollup1615_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup1621_UDF:
+      name: rollup1621_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1151664_UDF:
+      name: temp1151664_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2545540_UDF:
+      name: temp2545540_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3256870_UDF:
+      name: temp3256870_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp634656_UDF:
+      name: temp634656_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1344271_UDF:
+      name: temp1344271_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2053714_UDF:
+      name: temp2053714_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2762257_UDF:
+      name: temp2762257_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3471027_UDF:
+      name: temp3471027_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp4180587_UDF:
+      name: temp4180587_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp6282792_UDF:
+      name: temp6282792_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp6995147_UDF:
+      name: temp6995147_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp10430067_UDF:
+      name: temp10430067_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/f_create_agg_dw_impressions_virtual_log_dw_bid_10949800:
+      name: f_create_agg_dw_impressions_virtual_log_dw_bid_10949800
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1248466_UDF:
+      name: temp1248466_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2704269_UDF:
+      name: temp2704269_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3446552_UDF:
+      name: temp3446552_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp692552_UDF:
+      name: temp692552_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1433148_UDF:
+      name: temp1433148_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2173548_UDF:
+      name: temp2173548_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2912975_UDF:
+      name: temp2912975_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3652655_UDF:
+      name: temp3652655_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp4393171_UDF:
+      name: temp4393171_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup_146_UDF_inner:
+      name: rollup_146_UDF_inner
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/rollup_150_UDF_inner:
+      name: rollup_150_UDF_inner
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp6618434_UDF:
+      name: temp6618434_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp7361735_UDF:
+      name: temp7361735_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp10950958_UDF:
+      name: temp10950958_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp1248596_UDF:
+      name: temp1248596_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp2704511_UDF:
+      name: temp2704511_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp3446850_UDF:
+      name: temp3446850_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp10951013_UDF:
+      name: temp10951013_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/temp7091_UDF:
+      name: temp7091_UDF
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/processUDF_8439:
+      name: processUDF_8439
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    udfs/allFieldsNull:
+      name: allFieldsNull
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+  udafs: {}
+  expressions:
+    expressions/xcdf_member_owner_object_check:
+      name: xcdf_member_owner_object_check
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/xcdf_member_owner_object_no_imp_type_check:
+      name: xcdf_member_owner_object_no_imp_type_check
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_buyer_bid_bucket:
+      name: f_get_buyer_bid_bucket
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_preempt_over_impression_non_zero_waterfall:
+      name: f_preempt_over_impression_non_zero_waterfall
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_pricing_term:
+      name: f_get_pricing_term
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_viewdef_definition_id:
+      name: f_viewdef_definition_id
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_pricing_term_amount:
+      name: f_convert_pricing_term_amount
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_drop_is_deduction_pricing_terms:
+      name: f_drop_is_deduction_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_transaction_event_pricing:
+      name: f_get_transaction_event_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_non_measurable_reason:
+      name: f_view_non_measurable_reason
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_viewdef_viewable:
+      name: f_viewdef_viewable
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_result:
+      name: f_view_result
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_transaction_event:
+      name: f_transaction_event
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_preempt_over_impression:
+      name: f_preempt_over_impression
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_should_process_views:
+      name: f_should_process_views
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_impression_transaction_event_pricing:
+      name: f_get_impression_transaction_event_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_preempt_over_impression_non_zero_explicit:
+      name: f_preempt_over_impression_non_zero_explicit
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_measurable:
+      name: f_view_measurable
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_should_zero_seller_revenue:
+      name: f_should_zero_seller_revenue
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_viewable:
+      name: f_viewable
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_view_detection_enabled:
+      name: f_view_detection_enabled
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_has_transacted:
+      name: f_has_transacted
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/seller_deduction_term_id_1:
+      name: seller_deduction_term_id_1
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/seller_deduction_term_id_74:
+      name: seller_deduction_term_id_74
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/buyer_charges_pricing_terms:
+      name: buyer_charges_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/seller_charges_pricing_terms:
+      name: seller_charges_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_curator_margin:
+      name: f_get_curator_margin
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_total_tech_fees:
+      name: f_get_total_tech_fees
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_seller_fees:
+      name: f_get_seller_fees
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_update_data_costs_deal:
+      name: f_update_data_costs_deal
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_is_curator_margin_media_cost_dependent:
+      name: f_get_is_curator_margin_media_cost_dependent
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_curator_margin_type:
+      name: f_get_curator_margin_type
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/is_not_null_right_n143:
+      name: is_not_null_right_n143
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_log_impbus_imptracker_to_log_impbus_impressions_pricing:
+      name: f_convert_log_impbus_imptracker_to_log_impbus_impressions_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_log_dw_imptracker_to_log_dw_bid:
+      name: f_convert_log_dw_imptracker_to_log_dw_bid
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_convert_log_impbus_imptracker_to_log_impbus_impressions:
+      name: f_convert_log_impbus_imptracker_to_log_impbus_impressions
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_buy_side:
+      name: f_is_buy_side
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_error_imp:
+      name: f_is_error_imp
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_non_cpm_payment_or_payment:
+      name: f_is_non_cpm_payment_or_payment
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_transaction_event_type_id:
+      name: f_transaction_event_type_id
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_media_cost_dollars_cpm:
+      name: f_get_media_cost_dollars_cpm
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_zero_pricing_term_amount_if_non_cpm:
+      name: f_zero_pricing_term_amount_if_non_cpm
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_find_personal_identifier:
+      name: f_find_personal_identifier
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_string_to_anon_user_info:
+      name: f_string_to_anon_user_info
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_default_or_error_imp:
+      name: f_is_default_or_error_imp
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_update_data_costs:
+      name: f_update_data_costs
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_create_agg_dw_impressions_return_11108229:
+      name: f_create_agg_dw_impressions_return_11108229
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_create_agg_dw_impressions:
+      name: f_create_agg_dw_impressions
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_curated:
+      name: f_router_is_curated
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_dw:
+      name: f_router_is_dw
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_quarantined:
+      name: f_router_is_quarantined
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_router_is_transacted:
+      name: f_router_is_transacted
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/v_impression_transaction_event_pricing:
+      name: v_impression_transaction_event_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/impression_buyer_charges_pricing_terms:
+      name: impression_buyer_charges_pricing_terms
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/v_transaction_event_pricing:
+      name: v_transaction_event_pricing
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_forward_for_next_stage:
+      name: f_forward_for_next_stage
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_is_matching_payment_and_agg_type:
+      name: f_is_matching_payment_and_agg_type
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_payment_type_matches:
+      name: f_payment_type_matches
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_keep_data_charge:
+      name: f_keep_data_charge
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_create_agg_dw_impressions_return_11668529:
+      name: f_create_agg_dw_impressions_return_11668529
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_create_agg_dw_impressions_return_11668614:
+      name: f_create_agg_dw_impressions_return_11668614
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/resolve_exchange_rate:
+      name: resolve_exchange_rate
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_agg_tl_network_analytics_pb_costs:
+      name: f_get_agg_tl_network_analytics_pb_costs
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+    expressions/f_get_agg_tl_network_analytics_pb_currency:
+      name: f_get_agg_tl_network_analytics_pb_currency
+      description: ''
+      tags: []
+      inputs: []
+      outputs: []
+      author: sumitpaul@prophecy.io
+      createdAt: '2022-12-15 18:04:50'
+  airflowFunctions: {}
+  businessRules: {}
+subgraphs: {}
+sqlModels: {}
+sqlSnapshots: {}
+sqlTests: {}
+sqlMacros: {}
+sqlSeeds: {}
+sqlSources: {}
+sqlUnreferencedSources: {}
+sqlPipeline: null
+dependencies:
+- modifiedAt: '2024-09-12T17:10:12.812171Z'
+  name: plibMaven
+  version: 8.0.31
+  id: '1877497392'
+  createdAt: '2024-09-12T17:10:12.812171Z'
+  type: plibMaven
+projectDependencies:
+  '12651':
+    projectUID: 12651
+    projectName: ProphecySparkBasicsScala
+    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12651.git&subPath=
+    version: 0.2.5.5
+    isDefault: true
+    author: null
+    createdAt: '2024-09-12 17:10:00'
+  '12652':
+    projectUID: 12652
+    projectName: ProphecyWarehouseScala
+    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12652.git&subPath=
+    version: 0.0.5
+    isDefault: true
+    author: null
+    createdAt: '2024-09-12 17:10:00'
+  '19667':
+    projectUID: 19667
+    projectName: ProphecySparkAbinitioScala
+    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/qRkqzzJt_project_19667.git&subPath=
+    version: 0.0.21
+    isDefault: false
+    author: null
+    createdAt: '2024-09-13 09:30:55'
+flags:
+  shouldAddDefaultDependenciesIfAbsent: true
+pipelineConfigurations: {}

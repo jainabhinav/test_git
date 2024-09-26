@@ -1,0 +1,445 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: date_time
+    type: long
+    nullable: true
+    metadata:
+      description: Timestamp of the log entry
+      mappings: []
+      tags: []
+  - name: auction_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: Unique identifier for the auction
+      mappings: []
+      tags: []
+  - name: imp_transacted
+    type: integer
+    nullable: true
+    metadata:
+      description: Number of impressions transacted in the auction
+      mappings: []
+      tags: []
+  - name: buyer_spend
+    type: double
+    nullable: true
+    metadata:
+      description: Total amount spent by the buyer in the auction
+      mappings: []
+      tags: []
+  - name: seller_revenue
+    type: double
+    nullable: true
+    metadata:
+      description: Total revenue earned by the seller from the auction
+      mappings: []
+      tags: []
+  - name: bidder_fees
+    type: double
+    nullable: true
+    metadata:
+      description: Fees charged to the bidder for participating in the auction
+      mappings: []
+      tags: []
+  - name: instance_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the auction instance
+      mappings: []
+      tags: []
+  - name: fold_position
+    type: integer
+    nullable: true
+    metadata:
+      description: Position of the ad in the auction fold
+      mappings: []
+      tags: []
+  - name: seller_deduction
+    type: double
+    nullable: true
+    metadata:
+      description: Amount deducted from the seller's revenue
+      mappings: []
+      tags: []
+  - name: buyer_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique ID of the buyer participating in the auction
+      mappings: []
+      tags: []
+  - name: creative_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the creative used in the auction
+      mappings: []
+      tags: []
+  - name: cleared_direct
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates if the transaction was cleared directly
+      mappings: []
+      tags: []
+  - name: buyer_currency
+    type: string
+    nullable: true
+    metadata:
+      description: Currency used by the buyer for the transaction
+      mappings: []
+      tags: []
+  - name: buyer_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: Exchange rate applied for the buyer's currency
+      mappings: []
+      tags: []
+  - name: width
+    type: integer
+    nullable: true
+    metadata:
+      description: Width dimension of the creative asset
+      mappings: []
+      tags: []
+  - name: height
+    type: integer
+    nullable: true
+    metadata:
+      description: Height of the advertisement creative
+      mappings: []
+      tags: []
+  - name: brand_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the brand associated with the creative
+      mappings: []
+      tags: []
+  - name: creative_audit_status
+    type: integer
+    nullable: true
+    metadata:
+      description: Status of the audit for the advertisement creative
+      mappings: []
+      tags: []
+  - name: is_creative_hosted
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates whether the creative is hosted externally
+      mappings: []
+      tags: []
+  - name: vp_expose_domains
+    type: integer
+    nullable: true
+    metadata:
+      description: Number of domains exposed to the viewable impression
+      mappings: []
+      tags: []
+  - name: vp_expose_categories
+    type: integer
+    nullable: true
+    metadata:
+      description: Number of categories exposed to the view.
+      mappings: []
+      tags: []
+  - name: vp_expose_pubs
+    type: integer
+    nullable: true
+    metadata:
+      description: Number of publishers exposed to the view.
+      mappings: []
+      tags: []
+  - name: vp_expose_tag
+    type: integer
+    nullable: true
+    metadata:
+      description: Tag associated with the view exposure.
+      mappings: []
+      tags: []
+  - name: bidder_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the bidder in the auction.
+      mappings: []
+      tags: []
+  - name: deal_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the specific deal associated with the auction.
+      mappings: []
+      tags: []
+  - name: imp_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of impression recorded
+      mappings: []
+      tags: []
+  - name: is_dw
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates if the impression is part of a data warehouse
+      mappings: []
+      tags: []
+  - name: vp_bitmap
+    type: long
+    nullable: true
+    metadata:
+      description: Bitmap representation of viewability parameters
+      mappings: []
+      tags: []
+  - name: ttl
+    type: integer
+    nullable: true
+    metadata:
+      description: Time to live for the impression data
+      mappings: []
+      tags: []
+  - name: view_detection_enabled
+    type: integer
+    nullable: true
+    metadata:
+      description: Flag indicating if view detection is enabled for the impression
+      mappings: []
+      tags: []
+  - name: media_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of media involved in the transaction
+      mappings: []
+      tags: []
+  - name: auction_timestamp
+    type: long
+    nullable: true
+    metadata:
+      description: Timestamp indicating when the auction took place
+      mappings: []
+      tags: []
+  - name: spend_protection
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicator for spend protection measures in place
+      mappings: []
+      tags: []
+  - name: viewdef_definition_id_buyer_member
+    type: integer
+    nullable: true
+    metadata:
+      description: ID for the view definition associated with the buyer member
+      mappings: []
+      tags: []
+  - name: deal_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of deal associated with the auction
+      mappings: []
+      tags: []
+  - name: ym_floor_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the floor price set in the auction
+      mappings: []
+      tags: []
+  - name: ym_bias_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the bias applied to the auction
+      mappings: []
+      tags: []
+  - name: bid_price_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of bid price used in the auction
+      mappings: []
+      tags: []
+  - name: spend_protection_pixel_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the pixel used for spend protection
+      mappings: []
+      tags: []
+  - name: ip_address
+    type: string
+    nullable: true
+    metadata:
+      description: IP address of the buyer participating in the auction
+      mappings: []
+      tags: []
+  - name: buyer_transaction_def
+    type:
+      type: struct
+      fields:
+      - name: transaction_event
+        type: integer
+        nullable: true
+        metadata:
+          description: Specific event related to the buyer's transaction
+          mappings: []
+          tags: []
+      - name: transaction_event_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: Type ID of the buyer's transaction event
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: Details of the buyer's transaction events
+      mappings: []
+      tags: []
+  - name: seller_transaction_def
+    type:
+      type: struct
+      fields:
+      - name: transaction_event
+        type: integer
+        nullable: true
+        metadata:
+          description: Specific event related to the seller's transaction
+          mappings: []
+          tags: []
+      - name: transaction_event_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: Type ID of the transaction event for the seller
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: Details of the seller's transaction events
+      mappings: []
+      tags: []
+  - name: buyer_bid
+    type: double
+    nullable: true
+    metadata:
+      description: Bid amount offered by the buyer
+      mappings: []
+      tags: []
+  - name: expected_events
+    type: integer
+    nullable: true
+    metadata:
+      description: Number of events anticipated during the transaction
+      mappings: []
+      tags: []
+  - name: accept_timestamp
+    type: long
+    nullable: true
+    metadata:
+      description: Timestamp when the bid was accepted
+      mappings: []
+      tags: []
+  - name: external_creative_id
+    type: string
+    nullable: true
+    metadata:
+      description: ID of the creative asset from an external source
+      mappings: []
+      tags: []
+  - name: seat_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the seat in the auction
+      mappings: []
+      tags: []
+  - name: is_prebid_server
+    type: boolean
+    nullable: true
+    metadata:
+      description: Indicates if the auction is conducted through a prebid server
+      mappings: []
+      tags: []
+  - name: curated_deal_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ID for the curated deal associated with the auction
+      mappings: []
+      tags: []
+  - name: external_campaign_id
+    type: string
+    nullable: true
+    metadata:
+      description: ID for the external advertising campaign linked to the auction
+      mappings: []
+      tags: []
+  - name: trust_id
+    type: string
+    nullable: true
+    metadata:
+      description: Identifier for the trust associated with the transaction
+      mappings: []
+      tags: []
+  - name: log_product_ads
+    type:
+      type: struct
+      fields:
+      - name: product_feed_id
+        type: integer
+        nullable: true
+        metadata:
+          description: Identifier for the product feed associated with the advertisement
+          mappings: []
+          tags: []
+      - name: item_selection_strategy_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ID representing the strategy used for item selection in the
+            advertisement
+          mappings: []
+          tags: []
+      - name: product_uuid
+        type: string
+        nullable: true
+        metadata:
+          description: Unique identifier for the product being advertised
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: Details related to product advertisements in the log
+      mappings: []
+      tags: []
+  - name: external_bidrequest_id
+    type: long
+    nullable: true
+    metadata:
+      description: ID for the external bid request associated with the advertisement
+      mappings: []
+      tags: []
+  - name: external_bidrequest_imp_id
+    type: long
+    nullable: true
+    metadata:
+      description: ID of the external bid request impression
+      mappings: []
+      tags: []
+  - name: creative_media_subtype_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the subtype of the creative media used
+      mappings: []
+      tags: []

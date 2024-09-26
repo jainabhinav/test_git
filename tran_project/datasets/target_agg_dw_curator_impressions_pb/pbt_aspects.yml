@@ -1,0 +1,875 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: date_time
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: auction_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: buyer_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: curator_member_id
+    type: integer
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: publisher_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: bidder_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: width
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: height
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: site_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: tag_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: geo_country
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: brand_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: site_domain
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: application_id
+    type: string
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: device_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: insertion_order_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: media_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: curated_deal_id
+    type: integer
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: curated_deal_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_deal_id
+    type: integer
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_deal_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: campaign_group_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: campaign_group_type_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: fx_rate_snapshot_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_curated
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: video_context
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: view_result
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: view_detection_enabled
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: viewdef_definition_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: viewdef_viewable
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: view_measurable
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: viewable
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: total_data_costs_microcents
+    type: long
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: total_cost_microcents
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: total_partner_fees_microcents
+    type: long
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: net_media_cost_microcents
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: gross_revenue_microcents
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: total_tech_fees_microcents
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: targeted_segment_details
+    type:
+      type: array
+      elementType:
+        type: struct
+        fields:
+        - name: segment_id
+          type: integer
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+        - name: last_seen_min
+          type: integer
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+      containsNull: true
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: excluded_targeted_segment_details
+    type:
+      type: array
+      elementType:
+        type: struct
+        fields:
+        - name: segment_id
+          type: integer
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+      containsNull: true
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: supply_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: vp_expose_domains
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: inventory_url_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: curator_margin_microcents
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_curator_margin_media_cost_dependent
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: curator_margin_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: bidder_seat_id
+    type: integer
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: personal_data
+    type:
+      type: struct
+      fields:
+      - name: user_id_64
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: device_unique_id
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: external_uid
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: ip_address
+        type: binary
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: crossdevice_group
+        type:
+          type: struct
+          fields:
+          - name: graph_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: group_id
+            type: long
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: latitude
+        type: double
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: longitude
+        type: double
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: ipv6_address
+        type: binary
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: subject_to_gdpr
+        type: boolean
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: geo_country
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: gdpr_consent_string
+        type: string
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: preempt_ip_address
+        type: binary
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: device_type
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: device_make_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: device_model_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: new_user_id_64
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_service_provider_mode
+        type: boolean
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: is_personal_info_sale
+        type: boolean
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: user_tz_offset
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: region
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: dma
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: city
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: postal_code
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: mobile_app_instance_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: creative_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: truncate_ip
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: vp_bitmap
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: gdpr_consent_string
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: anonymized_user_info
+    type:
+      type: struct
+      fields:
+      - name: user_id
+        type: binary
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: view_non_measurable_reason
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: operating_system
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: browser
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: language
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: device_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: data_costs
+    type:
+      type: array
+      elementType:
+        type: struct
+        fields:
+        - name: data_member_id
+          type: integer
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+        - name: cost
+          type: double
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+        - name: used_segments
+          type:
+            type: array
+            elementType: integer
+            containsNull: true
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+        - name: cost_pct
+          type: double
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+      containsNull: true
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: crossdevice_graph_cost
+    type:
+      type: struct
+      fields:
+      - name: graph_provider_member_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: cost_cpm_usd
+        type: double
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: personal_identifiers
+    type:
+      type: array
+      elementType:
+        type: struct
+        fields:
+        - name: identity_type
+          type: integer
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+        - name: identity_value
+          type: string
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+      containsNull: true
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: crossdevice_group_anon
+    type:
+      type: struct
+      fields:
+      - name: graph_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: group_id
+        type: binary
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: crossdevice_graph_membership
+    type:
+      type: array
+      elementType:
+        type: struct
+        fields:
+        - name: graph_id
+          type: integer
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+        - name: group_id
+          type: binary
+          nullable: true
+          metadata:
+            description: ''
+            mappings: []
+            tags: []
+      containsNull: true
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: has_crossdevice_reach_extension
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: targeted_crossdevice_graph_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: curated_line_item_currency
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: split_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: bidding_host_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: buyer_dpvp_bitmap
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: seller_dpvp_bitmap
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: external_campaign_id
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: external_bidrequest_imp_id
+    type: long
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: external_bidrequest_id
+    type: long
+    nullable: false
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: postal_code_ext_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

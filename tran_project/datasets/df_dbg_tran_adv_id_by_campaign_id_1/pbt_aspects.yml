@@ -1,0 +1,32 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: buyer_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: The unique ID of the buyer member involved in the transaction
+      mappings: []
+      tags: []
+  - name: advertiser_id
+    type: integer
+    nullable: true
+    metadata:
+      description: The unique ID of the advertiser associated with the campaign
+      mappings: []
+      tags: []
+  - name: campaign_group_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the group of campaigns associated with the transaction
+      mappings: []
+      tags: []
+  - name: campaign_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the advertising campaign
+      mappings: []
+      tags: []

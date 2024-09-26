@@ -1,0 +1,202 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: date_time
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: auction_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: user_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: tracker_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: campaign_group_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: can_convert
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: insertion_order_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: revenue_value
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: revenue_value_adv_curr
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: commission_cpm
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: commission_revshare
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: pricing_type
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_currency
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: advertiser_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: media_buy_cost
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: media_buy_rev_share_pct
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: revenue_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: payment_type
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: revenue_info
+    type:
+      type: struct
+      fields:
+      - name: total_partner_fees_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: booked_revenue_dollars
+        type: double
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: booked_revenue_adv_curr
+        type: double
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: total_data_costs_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: total_profit_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: total_segment_data_costs_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: total_feature_costs_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

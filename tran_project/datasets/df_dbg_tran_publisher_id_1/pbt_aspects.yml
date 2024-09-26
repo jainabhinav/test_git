@@ -1,0 +1,32 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: seller_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the seller member
+      mappings: []
+      tags: []
+  - name: publisher_id
+    type: integer
+    nullable: true
+    metadata:
+      description: The unique identifier for the publisher
+      mappings: []
+      tags: []
+  - name: site_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the site associated with the transaction
+      mappings: []
+      tags: []
+  - name: tag_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the advertising tag used by the publisher
+      mappings: []
+      tags: []

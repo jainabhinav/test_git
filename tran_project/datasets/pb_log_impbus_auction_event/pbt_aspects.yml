@@ -1,0 +1,314 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: date_time
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: auction_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: payment_value_microcents
+    type: long
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: transaction_event
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: transaction_event_type_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: is_deferred
+    type: boolean
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: auction_event_pricing
+    type:
+      type: struct
+      fields:
+      - name: gross_payment_value_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: net_payment_value_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: seller_revenue_microcents
+        type: long
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: buyer_charges
+        type:
+          type: struct
+          fields:
+          - name: rate_card_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: member_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: is_dw
+            type: boolean
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: pricing_terms
+            type:
+              type: array
+              elementType:
+                type: struct
+                fields:
+                - name: term_id
+                  type: integer
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+                - name: amount
+                  type: double
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+                - name: rate
+                  type: double
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+                - name: is_deduction
+                  type: boolean
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+                - name: is_media_cost_dependent
+                  type: boolean
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+                - name: data_member_id
+                  type: integer
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+              containsNull: true
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: fx_margin_rate_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: marketplace_owner_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: virtual_marketplace_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: amino_enabled
+            type: boolean
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: seller_charges
+        type:
+          type: struct
+          fields:
+          - name: rate_card_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: member_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: is_dw
+            type: boolean
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: pricing_terms
+            type:
+              type: array
+              elementType:
+                type: struct
+                fields:
+                - name: term_id
+                  type: integer
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+                - name: amount
+                  type: double
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+                - name: rate
+                  type: double
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+                - name: is_deduction
+                  type: boolean
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+                - name: is_media_cost_dependent
+                  type: boolean
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+                - name: data_member_id
+                  type: integer
+                  nullable: true
+                  metadata:
+                    description: ''
+                    mappings: []
+                    tags: []
+              containsNull: true
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: fx_margin_rate_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: marketplace_owner_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: virtual_marketplace_id
+            type: integer
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+          - name: amino_enabled
+            type: boolean
+            nullable: true
+            metadata:
+              description: ''
+              mappings: []
+              tags: []
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: buyer_transacted
+        type: boolean
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+      - name: seller_transacted
+        type: boolean
+        nullable: true
+        metadata:
+          description: ''
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

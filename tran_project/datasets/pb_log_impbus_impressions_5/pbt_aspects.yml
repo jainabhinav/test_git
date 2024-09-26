@@ -1,0 +1,1356 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: date_time
+    type: long
+    nullable: true
+    metadata:
+      description: Timestamp of the impression event
+      mappings: []
+      tags: []
+  - name: auction_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: Unique identifier for the auction
+      mappings: []
+      tags: []
+  - name: user_id_64
+    type: long
+    nullable: true
+    metadata:
+      description: Unique identifier for the user
+      mappings: []
+      tags: []
+  - name: tag_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the advertising tag
+      mappings: []
+      tags: []
+  - name: ip_address
+    type: string
+    nullable: true
+    metadata:
+      description: IP address of the user at the time of the impression
+      mappings: []
+      tags: []
+  - name: venue_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the venue where the impression occurred
+      mappings: []
+      tags: []
+  - name: site_domain
+    type: string
+    nullable: true
+    metadata:
+      description: Domain of the site where the impression was logged
+      mappings: []
+      tags: []
+  - name: width
+    type: integer
+    nullable: true
+    metadata:
+      description: Width of the ad impression in pixels
+      mappings: []
+      tags: []
+  - name: height
+    type: integer
+    nullable: true
+    metadata:
+      description: Height of the ad impression in pixels
+      mappings: []
+      tags: []
+  - name: geo_country
+    type: string
+    nullable: true
+    metadata:
+      description: Country where the user is located during the impression
+      mappings: []
+      tags: []
+  - name: geo_region
+    type: string
+    nullable: true
+    metadata:
+      description: Region associated with the user's geographical location
+      mappings: []
+      tags: []
+  - name: gender
+    type: string
+    nullable: true
+    metadata:
+      description: Gender of the user
+      mappings: []
+      tags: []
+  - name: age
+    type: integer
+    nullable: true
+    metadata:
+      description: Age of the user
+      mappings: []
+      tags: []
+  - name: bidder_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the bidder in the auction
+      mappings: []
+      tags: []
+  - name: seller_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the seller in the auction
+      mappings: []
+      tags: []
+  - name: buyer_member_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ID of the buyer member participating in the auction
+      mappings: []
+      tags: []
+  - name: creative_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the creative asset being displayed
+      mappings: []
+      tags: []
+  - name: imp_blacklist_or_fraud
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicator of whether the impression is flagged for blacklist or
+        fraud
+      mappings: []
+      tags: []
+  - name: imp_bid_on
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates if a bid was placed on the impression
+      mappings: []
+      tags: []
+  - name: buyer_bid
+    type: double
+    nullable: true
+    metadata:
+      description: The bid amount offered by the buyer for the impression
+      mappings: []
+      tags: []
+  - name: buyer_spend
+    type: double
+    nullable: true
+    metadata:
+      description: Total amount spent by the buyer in the auction
+      mappings: []
+      tags: []
+  - name: seller_revenue
+    type: double
+    nullable: true
+    metadata:
+      description: Total revenue generated for the seller from the auction
+      mappings: []
+      tags: []
+  - name: num_of_bids
+    type: integer
+    nullable: true
+    metadata:
+      description: Number of bids placed during the auction
+      mappings: []
+      tags: []
+  - name: ecp
+    type: double
+    nullable: true
+    metadata:
+      description: Effective cost per impression for the auction
+      mappings: []
+      tags: []
+  - name: reserve_price
+    type: double
+    nullable: true
+    metadata:
+      description: Minimum price set by the seller for the auction
+      mappings: []
+      tags: []
+  - name: inv_code
+    type: string
+    nullable: true
+    metadata:
+      description: Code representing the inventory type
+      mappings: []
+      tags: []
+  - name: call_type
+    type: string
+    nullable: true
+    metadata:
+      description: Type of call made for the impression
+      mappings: []
+      tags: []
+  - name: inventory_source_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the source of the inventory
+      mappings: []
+      tags: []
+  - name: cookie_age
+    type: integer
+    nullable: true
+    metadata:
+      description: Age of the user's cookie in days
+      mappings: []
+      tags: []
+  - name: brand_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the brand associated with the impression
+      mappings: []
+      tags: []
+  - name: cleared_direct
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates if the impression was cleared directly
+      mappings: []
+      tags: []
+  - name: forex_allowance
+    type: double
+    nullable: true
+    metadata:
+      description: Allowance for foreign exchange adjustments
+      mappings: []
+      tags: []
+  - name: fold_position
+    type: integer
+    nullable: true
+    metadata:
+      description: Position of the ad within the fold of the webpage
+      mappings: []
+      tags: []
+  - name: external_inv_id
+    type: integer
+    nullable: true
+    metadata:
+      description: External identifier for the inventory
+      mappings: []
+      tags: []
+  - name: imp_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of impression being logged
+      mappings: []
+      tags: []
+  - name: is_delivered
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates whether the impression was successfully delivered.
+      mappings: []
+      tags: []
+  - name: is_dw
+    type: integer
+    nullable: true
+    metadata:
+      description: Flag indicating if the impression is part of a data warehouse.
+      mappings: []
+      tags: []
+  - name: publisher_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the publisher of the ad.
+      mappings: []
+      tags: []
+  - name: site_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the specific site where the impression occurred.
+      mappings: []
+      tags: []
+  - name: content_category_id
+    type: integer
+    nullable: true
+    metadata:
+      description: ID representing the category of content associated with the impression.
+      mappings: []
+      tags: []
+  - name: datacenter_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the data center handling the request
+      mappings: []
+      tags: []
+  - name: eap
+    type: double
+    nullable: true
+    metadata:
+      description: Estimated Advertising Performance metric
+      mappings: []
+      tags: []
+  - name: user_tz_offset
+    type: integer
+    nullable: true
+    metadata:
+      description: Time zone offset for the user
+      mappings: []
+      tags: []
+  - name: user_group_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the group to which the user belongs
+      mappings: []
+      tags: []
+  - name: pub_rule_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the publication rules applied
+      mappings: []
+      tags: []
+  - name: media_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of media associated with the impression
+      mappings: []
+      tags: []
+  - name: operating_system
+    type: integer
+    nullable: true
+    metadata:
+      description: Operating system used by the user
+      mappings: []
+      tags: []
+  - name: browser
+    type: integer
+    nullable: true
+    metadata:
+      description: Web browser used by the user
+      mappings: []
+      tags: []
+  - name: language
+    type: integer
+    nullable: true
+    metadata:
+      description: Language preference of the user
+      mappings: []
+      tags: []
+  - name: application_id
+    type: string
+    nullable: true
+    metadata:
+      description: Identifier for the application involved in the impression
+      mappings: []
+      tags: []
+  - name: user_locale
+    type: string
+    nullable: true
+    metadata:
+      description: The locale setting of the user
+      mappings: []
+      tags: []
+  - name: inventory_url_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the inventory URL
+      mappings: []
+      tags: []
+  - name: audit_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of audit performed on the impression
+      mappings: []
+      tags: []
+  - name: shadow_price
+    type: double
+    nullable: true
+    metadata:
+      description: The shadow price set for the impression
+      mappings: []
+      tags: []
+  - name: impbus_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the impression business record
+      mappings: []
+      tags: []
+  - name: buyer_currency
+    type: string
+    nullable: true
+    metadata:
+      description: Currency used by the buyer for transactions
+      mappings: []
+      tags: []
+  - name: buyer_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: Exchange rate applied to the buyer's currency
+      mappings: []
+      tags: []
+  - name: seller_currency
+    type: string
+    nullable: true
+    metadata:
+      description: Currency used by the seller for transactions
+      mappings: []
+      tags: []
+  - name: seller_exchange_rate
+    type: double
+    nullable: true
+    metadata:
+      description: Exchange rate applied to the seller's currency
+      mappings: []
+      tags: []
+  - name: vp_expose_domains
+    type: integer
+    nullable: true
+    metadata:
+      description: Number of domains exposed to the buyer during the auction
+      mappings: []
+      tags: []
+  - name: vp_expose_categories
+    type: integer
+    nullable: true
+    metadata:
+      description: Number of categories exposed to the user
+      mappings: []
+      tags: []
+  - name: vp_expose_pubs
+    type: integer
+    nullable: true
+    metadata:
+      description: Number of publishers exposed to the user
+      mappings: []
+      tags: []
+  - name: vp_expose_tag
+    type: integer
+    nullable: true
+    metadata:
+      description: Number of tags exposed to the user
+      mappings: []
+      tags: []
+  - name: is_exclusive
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates if the bid is exclusive
+      mappings: []
+      tags: []
+  - name: bidder_instance_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the bidder instance
+      mappings: []
+      tags: []
+  - name: visibility_profile_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the visibility profile associated with the impression.
+      mappings: []
+      tags: []
+  - name: truncate_ip
+    type: integer
+    nullable: true
+    metadata:
+      description: Flag indicating if the IP address has been truncated for privacy.
+      mappings: []
+      tags: []
+  - name: device_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the device used in the impression.
+      mappings: []
+      tags: []
+  - name: carrier_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the carrier associated with the device.
+      mappings: []
+      tags: []
+  - name: creative_audit_status
+    type: integer
+    nullable: true
+    metadata:
+      description: Status of the audit for the creative used in the impression.
+      mappings: []
+      tags: []
+  - name: is_creative_hosted
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates whether the creative is hosted on the platform
+      mappings: []
+      tags: []
+  - name: city
+    type: integer
+    nullable: true
+    metadata:
+      description: City associated with the user or impression
+      mappings: []
+      tags: []
+  - name: latitude
+    type: string
+    nullable: true
+    metadata:
+      description: Latitude coordinate of the impression location
+      mappings: []
+      tags: []
+  - name: longitude
+    type: string
+    nullable: true
+    metadata:
+      description: Longitude coordinate of the impression location
+      mappings: []
+      tags: []
+  - name: device_unique_id
+    type: string
+    nullable: true
+    metadata:
+      description: Unique identifier for the device used
+      mappings: []
+      tags: []
+  - name: supply_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of supply for the impression
+      mappings: []
+      tags: []
+  - name: is_toolbar
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates if the impression is from a toolbar
+      mappings: []
+      tags: []
+  - name: deal_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the specific deal associated with the impression
+      mappings: []
+      tags: []
+  - name: vp_bitmap
+    type: long
+    nullable: true
+    metadata:
+      description: Bitmap representation of visibility profile
+      mappings: []
+      tags: []
+  - name: ttl
+    type: integer
+    nullable: true
+    metadata:
+      description: Time to live for the impression
+      mappings: []
+      tags: []
+  - name: view_detection_enabled
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates if view detection is enabled for the impression
+      mappings: []
+      tags: []
+  - name: ozone_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the Ozone platform
+      mappings: []
+      tags: []
+  - name: is_performance
+    type: integer
+    nullable: true
+    metadata:
+      description: Flag indicating if the impression is performance-based
+      mappings: []
+      tags: []
+  - name: sdk_version
+    type: string
+    nullable: true
+    metadata:
+      description: Version of the software development kit used
+      mappings: []
+      tags: []
+  - name: inventory_session_frequency
+    type: integer
+    nullable: true
+    metadata:
+      description: Frequency of inventory sessions during the impression
+      mappings: []
+      tags: []
+  - name: bid_price_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of bid price set for the auction
+      mappings: []
+      tags: []
+  - name: device_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of device used by the user
+      mappings: []
+      tags: []
+  - name: dma
+    type: integer
+    nullable: true
+    metadata:
+      description: Designated Market Area identifier for geographic targeting
+      mappings: []
+      tags: []
+  - name: postal
+    type: string
+    nullable: true
+    metadata:
+      description: Postal code associated with the user
+      mappings: []
+      tags: []
+  - name: package_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the advertising package used
+      mappings: []
+      tags: []
+  - name: spend_protection
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicates if there are measures in place to protect spending
+      mappings: []
+      tags: []
+  - name: is_secure
+    type: integer
+    nullable: true
+    metadata:
+      description: Flag indicating whether the transaction is secure
+      mappings: []
+      tags: []
+  - name: estimated_view_rate
+    type: double
+    nullable: true
+    metadata:
+      description: Estimated rate at which the ad is expected to be viewed
+      mappings: []
+      tags: []
+  - name: external_request_id
+    type: string
+    nullable: true
+    metadata:
+      description: Unique identifier for the external request
+      mappings: []
+      tags: []
+  - name: viewdef_definition_id_buyer_member
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the view definition associated with the buyer member
+      mappings: []
+      tags: []
+  - name: spend_protection_pixel_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the spend protection pixel used in tracking
+      mappings: []
+      tags: []
+  - name: external_uid
+    type: string
+    nullable: true
+    metadata:
+      description: Unique identifier for the user from external sources
+      mappings: []
+      tags: []
+  - name: request_uuid
+    type: string
+    nullable: true
+    metadata:
+      description: Unique identifier for the request made
+      mappings: []
+      tags: []
+  - name: mobile_app_instance_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the instance of the mobile application
+      mappings: []
+      tags: []
+  - name: traffic_source_code
+    type: string
+    nullable: true
+    metadata:
+      description: Code representing the source of the traffic
+      mappings: []
+      tags: []
+  - name: stitch_group_id
+    type: string
+    nullable: true
+    metadata:
+      description: Identifier for the group of stitched impressions
+      mappings: []
+      tags: []
+  - name: deal_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of deal associated with the impression
+      mappings: []
+      tags: []
+  - name: ym_floor_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the yield management floor price
+      mappings: []
+      tags: []
+  - name: ym_bias_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the yield management bias applied
+      mappings: []
+      tags: []
+  - name: estimated_view_rate_over_total
+    type: double
+    nullable: true
+    metadata:
+      description: Estimated view rate compared to total impressions
+      mappings: []
+      tags: []
+  - name: device_make_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the make of the device used
+      mappings: []
+      tags: []
+  - name: operating_system_family_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the family of the operating system
+      mappings: []
+      tags: []
+  - name: tag_sizes
+    type:
+      type: array
+      elementType:
+        type: struct
+        fields:
+        - name: width
+          type: integer
+          nullable: true
+          metadata:
+            description: Width of the tag
+            mappings: []
+            tags: []
+        - name: height
+          type: integer
+          nullable: true
+          metadata:
+            description: Height of the tag
+            mappings: []
+            tags: []
+      containsNull: true
+    nullable: true
+    metadata:
+      description: Sizes of the tags used for the impressions
+      mappings: []
+      tags: []
+  - name: seller_transaction_def
+    type:
+      type: struct
+      fields:
+      - name: transaction_event
+        type: integer
+        nullable: true
+        metadata:
+          description: Specific event associated with the seller's transaction
+          mappings: []
+          tags: []
+      - name: transaction_event_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: Type ID of the seller's transaction event
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: Details of the seller's transaction event
+      mappings: []
+      tags: []
+  - name: buyer_transaction_def
+    type:
+      type: struct
+      fields:
+      - name: transaction_event
+        type: integer
+        nullable: true
+        metadata:
+          description: Specific event associated with the buyer's transaction
+          mappings: []
+          tags: []
+      - name: transaction_event_type_id
+        type: integer
+        nullable: true
+        metadata:
+          description: Type of transaction event related to the buyer
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: Details of the buyer's transaction event
+      mappings: []
+      tags: []
+  - name: predicted_video_view_info
+    type:
+      type: struct
+      fields:
+      - name: iab_view_rate_over_measured
+        type: double
+        nullable: true
+        metadata:
+          description: Predicted view rate compared to measured views
+          mappings: []
+          tags: []
+      - name: iab_view_rate_over_total
+        type: double
+        nullable: true
+        metadata:
+          description: Predicted view rate compared to total views
+          mappings: []
+          tags: []
+      - name: predicted_100pv50pd_video_view_rate
+        type: double
+        nullable: true
+        metadata:
+          description: Predicted view rate for specific video engagement metrics
+          mappings: []
+          tags: []
+      - name: predicted_100pv50pd_video_view_rate_over_total
+        type: double
+        nullable: true
+        metadata:
+          description: Estimated view rate for video ads based on specific metrics.
+          mappings: []
+          tags: []
+      - name: video_completion_rate
+        type: double
+        nullable: true
+        metadata:
+          description: Rate at which viewers complete watching the video ad.
+          mappings: []
+          tags: []
+      - name: view_prediction_source
+        type: integer
+        nullable: true
+        metadata:
+          description: Source of the prediction for video views.
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: Information related to predicted video view rates
+      mappings: []
+      tags: []
+  - name: auction_url
+    type:
+      type: struct
+      fields:
+      - name: site_url
+        type: string
+        nullable: true
+        metadata:
+          description: The specific site URL where the auction is taking place.
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: Details of the auction URL associated with the impression.
+      mappings: []
+      tags: []
+  - name: allowed_media_types
+    type:
+      type: array
+      elementType: integer
+      containsNull: true
+    nullable: true
+    metadata:
+      description: List of media types permitted for the auction
+      mappings: []
+      tags: []
+  - name: is_imp_rejecter_applied
+    type: boolean
+    nullable: true
+    metadata:
+      description: Indicates if an impression rejecter has been applied
+      mappings: []
+      tags: []
+  - name: imp_rejecter_do_auction
+    type: boolean
+    nullable: true
+    metadata:
+      description: Flag indicating if the impression rejecter participates in the
+        auction
+      mappings: []
+      tags: []
+  - name: geo_location
+    type:
+      type: struct
+      fields:
+      - name: latitude
+        type: float
+        nullable: true
+        metadata:
+          description: Latitude coordinate of the impression's geographical location
+          mappings: []
+          tags: []
+      - name: longitude
+        type: float
+        nullable: true
+        metadata:
+          description: Longitude of the geographical location of the impression
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: Geographical location details of the impression
+      mappings: []
+      tags: []
+  - name: seller_bid_currency_conversion_rate
+    type: double
+    nullable: true
+    metadata:
+      description: Conversion rate for the seller's bid currency
+      mappings: []
+      tags: []
+  - name: seller_bid_currency_code
+    type: string
+    nullable: true
+    metadata:
+      description: Currency code used for the seller's bid
+      mappings: []
+      tags: []
+  - name: is_prebid
+    type: boolean
+    nullable: true
+    metadata:
+      description: Indicates if the impression is part of a pre-bid auction
+      mappings: []
+      tags: []
+  - name: default_referrer_url
+    type: string
+    nullable: true
+    metadata:
+      description: The default URL from which the impression request originated
+      mappings: []
+      tags: []
+  - name: engagement_rates
+    type:
+      type: array
+      elementType:
+        type: struct
+        fields:
+        - name: engagement_rate_type
+          type: integer
+          nullable: true
+          metadata:
+            description: Type of engagement rate measured
+            mappings: []
+            tags: []
+        - name: rate
+          type: double
+          nullable: true
+          metadata:
+            description: Value of the engagement rate
+            mappings: []
+            tags: []
+        - name: engagement_rate_type_id
+          type: integer
+          nullable: true
+          metadata:
+            description: Identifier for the type of engagement rate
+            mappings: []
+            tags: []
+      containsNull: true
+    nullable: true
+    metadata:
+      description: Details of engagement rates associated with the impression
+      mappings: []
+      tags: []
+  - name: fx_rate_snapshot_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the foreign exchange rate snapshot used
+      mappings: []
+      tags: []
+  - name: payment_type
+    type: integer
+    nullable: true
+    metadata:
+      description: Type of payment method used in the transaction
+      mappings: []
+      tags: []
+  - name: apply_cost_on_default
+    type: integer
+    nullable: true
+    metadata:
+      description: Indicator of whether costs are applied by default
+      mappings: []
+      tags: []
+  - name: media_buy_cost
+    type: double
+    nullable: true
+    metadata:
+      description: Total cost incurred for media buying
+      mappings: []
+      tags: []
+  - name: media_buy_rev_share_pct
+    type: double
+    nullable: true
+    metadata:
+      description: Percentage of revenue shared from media buying
+      mappings: []
+      tags: []
+  - name: auction_duration_ms
+    type: integer
+    nullable: true
+    metadata:
+      description: Duration of the auction in milliseconds
+      mappings: []
+      tags: []
+  - name: expected_events
+    type: integer
+    nullable: true
+    metadata:
+      description: The number of events anticipated during the auction
+      mappings: []
+      tags: []
+  - name: anonymized_user_info
+    type:
+      type: struct
+      fields:
+      - name: user_id
+        type: binary
+        nullable: true
+        metadata:
+          description: Anonymized identifier for the user
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: Information about the user that is anonymized for privacy
+      mappings: []
+      tags: []
+  - name: region_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the geographical region of the auction
+      mappings: []
+      tags: []
+  - name: media_company_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the media company involved in the auction
+      mappings: []
+      tags: []
+  - name: gdpr_consent_cookie
+    type: string
+    nullable: true
+    metadata:
+      description: Cookie indicating user consent for GDPR compliance
+      mappings: []
+      tags: []
+  - name: subject_to_gdpr
+    type: boolean
+    nullable: true
+    metadata:
+      description: Flag indicating if the user is subject to GDPR regulations
+      mappings: []
+      tags: []
+  - name: browser_code_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the browser used by the user
+      mappings: []
+      tags: []
+  - name: is_prebid_server_included
+    type: integer
+    nullable: true
+    metadata:
+      description: Flag indicating if the prebid server is included in the auction
+      mappings: []
+      tags: []
+  - name: seat_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the seat in the advertising auction
+      mappings: []
+      tags: []
+  - name: uid_source
+    type: integer
+    nullable: true
+    metadata:
+      description: Source identifier for the user ID
+      mappings: []
+      tags: []
+  - name: is_whiteops_scanned
+    type: boolean
+    nullable: true
+    metadata:
+      description: Indicates if the impression has been scanned by White Ops for fraud
+        detection
+      mappings: []
+      tags: []
+  - name: pred_info
+    type: integer
+    nullable: true
+    metadata:
+      description: Information related to predictions made for the impression
+      mappings: []
+      tags: []
+  - name: crossdevice_groups
+    type:
+      type: array
+      elementType:
+        type: struct
+        fields:
+        - name: graph_id
+          type: integer
+          nullable: true
+          metadata:
+            description: Unique identifier for the cross-device graph
+            mappings: []
+            tags: []
+        - name: group_id
+          type: long
+          nullable: true
+          metadata:
+            description: Identifier for the cross-device group associated with the
+              impression.
+            mappings: []
+            tags: []
+      containsNull: true
+    nullable: true
+    metadata:
+      description: Groups of devices associated with the user for cross-device tracking
+      mappings: []
+      tags: []
+  - name: is_amp
+    type: boolean
+    nullable: true
+    metadata:
+      description: Indicates whether the impression is served on an AMP (Accelerated
+        Mobile Pages) page.
+      mappings: []
+      tags: []
+  - name: hb_source
+    type: integer
+    nullable: true
+    metadata:
+      description: Source of the header bidding request.
+      mappings: []
+      tags: []
+  - name: external_campaign_id
+    type: string
+    nullable: true
+    metadata:
+      description: Identifier for the external advertising campaign linked to the
+        impression.
+      mappings: []
+      tags: []
+  - name: log_product_ads
+    type:
+      type: struct
+      fields:
+      - name: product_feed_id
+        type: integer
+        nullable: true
+        metadata:
+          description: Identifier for the product feed associated with the ad
+          mappings: []
+          tags: []
+      - name: item_selection_strategy_id
+        type: integer
+        nullable: true
+        metadata:
+          description: ID representing the strategy used for item selection in the
+            ad
+          mappings: []
+          tags: []
+      - name: product_uuid
+        type: string
+        nullable: true
+        metadata:
+          description: Unique identifier for the product being advertised
+          mappings: []
+          tags: []
+    nullable: true
+    metadata:
+      description: Details related to product ads logged during the impression.
+      mappings: []
+      tags: []
+  - name: ss_native_assembly_enabled
+    type: boolean
+    nullable: true
+    metadata:
+      description: Indicates if native assembly for the ad is enabled
+      mappings: []
+      tags: []
+  - name: emp
+    type: double
+    nullable: true
+    metadata:
+      description: Estimated media performance metric
+      mappings: []
+      tags: []
+  - name: personal_identifiers
+    type:
+      type: array
+      elementType:
+        type: struct
+        fields:
+        - name: identity_type
+          type: integer
+          nullable: true
+          metadata:
+            description: Type of personal identifier
+            mappings: []
+            tags: []
+        - name: identity_value
+          type: string
+          nullable: true
+          metadata:
+            description: Value of the personal identifier
+            mappings: []
+            tags: []
+      containsNull: true
+    nullable: true
+    metadata:
+      description: Array of personal identifiers associated with the user
+      mappings: []
+      tags: []
+  - name: personal_identifiers_experimental
+    type:
+      type: array
+      elementType:
+        type: struct
+        fields:
+        - name: identity_type
+          type: integer
+          nullable: true
+          metadata:
+            description: Type of experimental personal identifier
+            mappings: []
+            tags: []
+        - name: identity_value
+          type: string
+          nullable: true
+          metadata:
+            description: Experimental value representing a user's personal identifier
+            mappings: []
+            tags: []
+      containsNull: true
+    nullable: true
+    metadata:
+      description: Array of experimental personal identifiers associated with the
+        user
+      mappings: []
+      tags: []
+  - name: postal_code_ext_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Extended ID for the postal code
+      mappings: []
+      tags: []
+  - name: hashed_ip
+    type: string
+    nullable: true
+    metadata:
+      description: Anonymized version of the user's IP address
+      mappings: []
+      tags: []
+  - name: external_deal_code
+    type: string
+    nullable: true
+    metadata:
+      description: Code associated with external deals
+      mappings: []
+      tags: []
+  - name: creative_duration
+    type: integer
+    nullable: true
+    metadata:
+      description: Duration of the creative content in seconds
+      mappings: []
+      tags: []
+  - name: openrtb_req_subdomain
+    type: string
+    nullable: true
+    metadata:
+      description: Subdomain used for OpenRTB requests
+      mappings: []
+      tags: []
+  - name: creative_media_subtype_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Identifier for the subtype of creative media
+      mappings: []
+      tags: []
+  - name: is_private_auction
+    type: boolean
+    nullable: true
+    metadata:
+      description: Indicates if the auction is private
+      mappings: []
+      tags: []
+  - name: private_auction_eligible
+    type: boolean
+    nullable: true
+    metadata:
+      description: Indicates if the auction is eligible for private bidding
+      mappings: []
+      tags: []
+  - name: client_request_id
+    type: string
+    nullable: true
+    metadata:
+      description: Unique identifier for the client's request
+      mappings: []
+      tags: []
+  - name: chrome_traffic_label
+    type: integer
+    nullable: true
+    metadata:
+      description: Label indicating the type of traffic from Chrome browser
+      mappings: []
+      tags: []

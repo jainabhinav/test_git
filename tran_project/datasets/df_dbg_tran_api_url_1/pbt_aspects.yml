@@ -1,0 +1,18 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: inventory_url_id
+    type: integer
+    nullable: true
+    metadata:
+      description: Unique identifier for the inventory URL
+      mappings: []
+      tags: []
+  - name: inventory_url
+    type: string
+    nullable: true
+    metadata:
+      description: The URL linking to the inventory data
+      mappings: []
+      tags: []

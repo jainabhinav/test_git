@@ -1,0 +1,1 @@
+{"parameters":[{"name":"imp_type","type":"column","metadata":{"description":"","tags":[],"mappings":[]}}],"output":"integer","isCustomSchemaEnabled":true,"code":"when(coalesce(imp_type, lit(0)).isin(1,3,8), lit(1)).otherwise(lit(0)).cast(IntegerType)","language":"scala","description":""}
