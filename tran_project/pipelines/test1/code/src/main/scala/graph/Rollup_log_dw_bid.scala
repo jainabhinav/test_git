@@ -92,13 +92,440 @@ object Rollup_log_dw_bid {
           .as("video_slot")
       )
 
-  def log_dw_bid_deal(context: Context) = {
+  def log_dw_view(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    lit(null).cast(
+      StructType(
+        Array(
+          StructField("date_time",                LongType,    true),
+          StructField("auction_id_64",            LongType,    true),
+          StructField("user_id_64",               LongType,    true),
+          StructField("advertiser_currency",      StringType,  true),
+          StructField("advertiser_exchange_rate", DoubleType,  true),
+          StructField("booked_revenue_dollars",   DoubleType,  true),
+          StructField("booked_revenue_adv_curr",  DoubleType,  true),
+          StructField("publisher_currency",       StringType,  true),
+          StructField("publisher_exchange_rate",  DoubleType,  true),
+          StructField("payment_value",            DoubleType,  true),
+          StructField("ip_address",               StringType,  true),
+          StructField("auction_timestamp",        LongType,    true),
+          StructField("view_auction_event_type",  IntegerType, true),
+          StructField(
+            "anonymized_user_info",
+            StructType(Array(StructField("user_id", BinaryType, true))),
+            true
+          ),
+          StructField("view_event_type_id", IntegerType, true),
+          StructField(
+            "revenue_info",
+            StructType(
+              Array(
+                StructField("total_partner_fees_microcents", LongType,   true),
+                StructField("booked_revenue_dollars",        DoubleType, true),
+                StructField("booked_revenue_adv_curr",       DoubleType, true),
+                StructField("total_data_costs_microcents",   LongType,   true),
+                StructField("total_profit_microcents",       LongType,   true),
+                StructField("total_segment_data_costs_microcents",
+                            LongType,
+                            true
+                ),
+                StructField("total_feature_costs_microcents", LongType, true)
+              )
+            ),
+            true
+          ),
+          StructField("use_revenue_info",     BooleanType, true),
+          StructField("is_deferred",          BooleanType, true),
+          StructField("ecpm_conversion_rate", DoubleType,  true)
+        )
+      )
+    )
+  }
+
+  def log_impbus_auction_event(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    lit(null).cast(
+      StructType(
+        Array(
+          StructField("date_time",                 LongType,    true),
+          StructField("auction_id_64",             LongType,    true),
+          StructField("payment_value_microcents",  LongType,    true),
+          StructField("transaction_event",         IntegerType, true),
+          StructField("transaction_event_type_id", IntegerType, true),
+          StructField("is_deferred",               BooleanType, true),
+          StructField(
+            "auction_event_pricing",
+            StructType(
+              Array(
+                StructField("gross_payment_value_microcents", LongType, true),
+                StructField("net_payment_value_microcents",   LongType, true),
+                StructField("seller_revenue_microcents",      LongType, true),
+                StructField(
+                  "buyer_charges",
+                  StructType(
+                    Array(
+                      StructField("rate_card_id", IntegerType, true),
+                      StructField("member_id",    IntegerType, true),
+                      StructField("is_dw",        BooleanType, true),
+                      StructField(
+                        "pricing_terms",
+                        ArrayType(
+                          StructType(
+                            Array(
+                              StructField("term_id",      IntegerType, true),
+                              StructField("amount",       DoubleType,  true),
+                              StructField("rate",         DoubleType,  true),
+                              StructField("is_deduction", BooleanType, true),
+                              StructField("is_media_cost_dependent",
+                                          BooleanType,
+                                          true
+                              ),
+                              StructField("data_member_id", IntegerType, true)
+                            )
+                          ),
+                          true
+                        ),
+                        true
+                      ),
+                      StructField("fx_margin_rate_id",      IntegerType, true),
+                      StructField("marketplace_owner_id",   IntegerType, true),
+                      StructField("virtual_marketplace_id", IntegerType, true),
+                      StructField("amino_enabled",          BooleanType, true)
+                    )
+                  ),
+                  true
+                ),
+                StructField(
+                  "seller_charges",
+                  StructType(
+                    Array(
+                      StructField("rate_card_id", IntegerType, true),
+                      StructField("member_id",    IntegerType, true),
+                      StructField("is_dw",        BooleanType, true),
+                      StructField(
+                        "pricing_terms",
+                        ArrayType(
+                          StructType(
+                            Array(
+                              StructField("term_id",      IntegerType, true),
+                              StructField("amount",       DoubleType,  true),
+                              StructField("rate",         DoubleType,  true),
+                              StructField("is_deduction", BooleanType, true),
+                              StructField("is_media_cost_dependent",
+                                          BooleanType,
+                                          true
+                              ),
+                              StructField("data_member_id", IntegerType, true)
+                            )
+                          ),
+                          true
+                        ),
+                        true
+                      ),
+                      StructField("fx_margin_rate_id",      IntegerType, true),
+                      StructField("marketplace_owner_id",   IntegerType, true),
+                      StructField("virtual_marketplace_id", IntegerType, true),
+                      StructField("amino_enabled",          BooleanType, true)
+                    )
+                  ),
+                  true
+                ),
+                StructField("buyer_transacted",  BooleanType, true),
+                StructField("seller_transacted", BooleanType, true)
+              )
+            ),
+            true
+          )
+        )
+      )
+    )
+  }
+
+  def log_impbus_impressions_pricing_dup(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    lit(null).cast(
+      StructType(
+        Array(
+          StructField("date_time",     LongType, true),
+          StructField("auction_id_64", LongType, true),
+          StructField(
+            "buyer_charges",
+            StructType(
+              Array(
+                StructField("rate_card_id", IntegerType, true),
+                StructField("member_id",    IntegerType, true),
+                StructField("is_dw",        BooleanType, true),
+                StructField(
+                  "pricing_terms",
+                  ArrayType(
+                    StructType(
+                      Array(
+                        StructField("term_id",      IntegerType, true),
+                        StructField("amount",       DoubleType,  true),
+                        StructField("rate",         DoubleType,  true),
+                        StructField("is_deduction", BooleanType, true),
+                        StructField("is_media_cost_dependent",
+                                    BooleanType,
+                                    true
+                        ),
+                        StructField("data_member_id", IntegerType, true)
+                      )
+                    ),
+                    true
+                  ),
+                  true
+                ),
+                StructField("fx_margin_rate_id",      IntegerType, true),
+                StructField("marketplace_owner_id",   IntegerType, true),
+                StructField("virtual_marketplace_id", IntegerType, true),
+                StructField("amino_enabled",          BooleanType, true)
+              )
+            ),
+            true
+          ),
+          StructField(
+            "seller_charges",
+            StructType(
+              Array(
+                StructField("rate_card_id", IntegerType, true),
+                StructField("member_id",    IntegerType, true),
+                StructField("is_dw",        BooleanType, true),
+                StructField(
+                  "pricing_terms",
+                  ArrayType(
+                    StructType(
+                      Array(
+                        StructField("term_id",      IntegerType, true),
+                        StructField("amount",       DoubleType,  true),
+                        StructField("rate",         DoubleType,  true),
+                        StructField("is_deduction", BooleanType, true),
+                        StructField("is_media_cost_dependent",
+                                    BooleanType,
+                                    true
+                        ),
+                        StructField("data_member_id", IntegerType, true)
+                      )
+                    ),
+                    true
+                  ),
+                  true
+                ),
+                StructField("fx_margin_rate_id",      IntegerType, true),
+                StructField("marketplace_owner_id",   IntegerType, true),
+                StructField("virtual_marketplace_id", IntegerType, true),
+                StructField("amino_enabled",          BooleanType, true)
+              )
+            ),
+            true
+          ),
+          StructField("buyer_spend",                 DoubleType,  true),
+          StructField("seller_revenue",              DoubleType,  true),
+          StructField("rate_card_auction_type",      IntegerType, true),
+          StructField("rate_card_media_type",        IntegerType, true),
+          StructField("direct_clear",                BooleanType, true),
+          StructField("auction_timestamp",           LongType,    true),
+          StructField("instance_id",                 IntegerType, true),
+          StructField("two_phase_reduction_applied", BooleanType, true),
+          StructField("trade_agreement_id",          IntegerType, true),
+          StructField("log_timestamp",               LongType,    true),
+          StructField(
+            "trade_agreement_info",
+            StructType(
+              Array(
+                StructField("applied_term_id",   IntegerType, true),
+                StructField("applied_term_type", IntegerType, true),
+                StructField("targeted_term_ids",
+                            ArrayType(IntegerType, true),
+                            true
+                )
+              )
+            ),
+            true
+          ),
+          StructField("is_buy_it_now",   BooleanType, true),
+          StructField("net_buyer_spend", DoubleType,  true),
+          StructField(
+            "impression_event_pricing",
+            StructType(
+              Array(
+                StructField("gross_payment_value_microcents", LongType, true),
+                StructField("net_payment_value_microcents",   LongType, true),
+                StructField("seller_revenue_microcents",      LongType, true),
+                StructField(
+                  "buyer_charges",
+                  StructType(
+                    Array(
+                      StructField("rate_card_id", IntegerType, true),
+                      StructField("member_id",    IntegerType, true),
+                      StructField("is_dw",        BooleanType, true),
+                      StructField(
+                        "pricing_terms",
+                        ArrayType(
+                          StructType(
+                            Array(
+                              StructField("term_id",      IntegerType, true),
+                              StructField("amount",       DoubleType,  true),
+                              StructField("rate",         DoubleType,  true),
+                              StructField("is_deduction", BooleanType, true),
+                              StructField("is_media_cost_dependent",
+                                          BooleanType,
+                                          true
+                              ),
+                              StructField("data_member_id", IntegerType, true)
+                            )
+                          ),
+                          true
+                        ),
+                        true
+                      ),
+                      StructField("fx_margin_rate_id",      IntegerType, true),
+                      StructField("marketplace_owner_id",   IntegerType, true),
+                      StructField("virtual_marketplace_id", IntegerType, true),
+                      StructField("amino_enabled",          BooleanType, true)
+                    )
+                  ),
+                  true
+                ),
+                StructField(
+                  "seller_charges",
+                  StructType(
+                    Array(
+                      StructField("rate_card_id", IntegerType, true),
+                      StructField("member_id",    IntegerType, true),
+                      StructField("is_dw",        BooleanType, true),
+                      StructField(
+                        "pricing_terms",
+                        ArrayType(
+                          StructType(
+                            Array(
+                              StructField("term_id",      IntegerType, true),
+                              StructField("amount",       DoubleType,  true),
+                              StructField("rate",         DoubleType,  true),
+                              StructField("is_deduction", BooleanType, true),
+                              StructField("is_media_cost_dependent",
+                                          BooleanType,
+                                          true
+                              ),
+                              StructField("data_member_id", IntegerType, true)
+                            )
+                          ),
+                          true
+                        ),
+                        true
+                      ),
+                      StructField("fx_margin_rate_id",      IntegerType, true),
+                      StructField("marketplace_owner_id",   IntegerType, true),
+                      StructField("virtual_marketplace_id", IntegerType, true),
+                      StructField("amino_enabled",          BooleanType, true)
+                    )
+                  ),
+                  true
+                ),
+                StructField("buyer_transacted",  BooleanType, true),
+                StructField("seller_transacted", BooleanType, true)
+              )
+            ),
+            true
+          ),
+          StructField("counterparty_ruleset_type", IntegerType, true),
+          StructField("estimated_audience_imps",   FloatType,   true),
+          StructField("audience_imps",             FloatType,   true)
+        )
+      )
+    )
+  }
+
+  def log_impbus_view(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    lit(null).cast(
+      StructType(
+        Array(
+          StructField("date_time",                       LongType,    true),
+          StructField("auction_id_64",                   LongType,    true),
+          StructField("user_id_64",                      LongType,    true),
+          StructField("view_result",                     IntegerType, true),
+          StructField("ttl",                             IntegerType, true),
+          StructField("view_data",                       StringType,  true),
+          StructField("viewdef_definition_id",           IntegerType, true),
+          StructField("viewdef_view_result",             IntegerType, true),
+          StructField("view_not_measurable_type",        IntegerType, true),
+          StructField("view_not_visible_type",           IntegerType, true),
+          StructField("view_frame_type",                 IntegerType, true),
+          StructField("view_script_version",             IntegerType, true),
+          StructField("view_tag_version",                StringType,  true),
+          StructField("view_screen_width",               IntegerType, true),
+          StructField("view_screen_height",              IntegerType, true),
+          StructField("view_js_browser",                 StringType,  true),
+          StructField("view_js_platform",                StringType,  true),
+          StructField("view_banner_left",                IntegerType, true),
+          StructField("view_banner_top",                 IntegerType, true),
+          StructField("view_banner_width",               IntegerType, true),
+          StructField("view_banner_height",              IntegerType, true),
+          StructField("view_tracking_duration",          DoubleType,  true),
+          StructField("view_page_duration",              DoubleType,  true),
+          StructField("view_usage_duration",             DoubleType,  true),
+          StructField("view_surface",                    DoubleType,  true),
+          StructField("view_js_message",                 StringType,  true),
+          StructField("view_player_width",               IntegerType, true),
+          StructField("view_player_height",              IntegerType, true),
+          StructField("view_iab_duration",               DoubleType,  true),
+          StructField("view_iab_inview_count",           IntegerType, true),
+          StructField("view_duration_gt_0pct",           DoubleType,  true),
+          StructField("view_duration_gt_25pct",          DoubleType,  true),
+          StructField("view_duration_gt_50pct",          DoubleType,  true),
+          StructField("view_duration_gt_75pct",          DoubleType,  true),
+          StructField("view_duration_eq_100pct",         DoubleType,  true),
+          StructField("auction_timestamp",               LongType,    true),
+          StructField("view_has_banner_left",            IntegerType, true),
+          StructField("view_has_banner_top",             IntegerType, true),
+          StructField("view_mouse_position_final_x",     IntegerType, true),
+          StructField("view_mouse_position_final_y",     IntegerType, true),
+          StructField("view_has_mouse_position_final",   IntegerType, true),
+          StructField("view_mouse_position_initial_x",   IntegerType, true),
+          StructField("view_mouse_position_initial_y",   IntegerType, true),
+          StructField("view_has_mouse_position_initial", IntegerType, true),
+          StructField("view_mouse_position_page_x",      IntegerType, true),
+          StructField("view_mouse_position_page_y",      IntegerType, true),
+          StructField("view_has_mouse_position_page",    IntegerType, true),
+          StructField("view_mouse_position_timeout_x",   IntegerType, true),
+          StructField("view_mouse_position_timeout_y",   IntegerType, true),
+          StructField("view_has_mouse_position_timeout", IntegerType, true),
+          StructField("view_session_id",                 LongType,    true),
+          StructField(
+            "view_video",
+            StructType(
+              Array(
+                StructField("view_audio_duration_eq_100pct", DoubleType, true),
+                StructField("view_creative_duration",        DoubleType, true)
+              )
+            ),
+            true
+          ),
+          StructField(
+            "anonymized_user_info",
+            StructType(Array(StructField("user_id", BinaryType, true))),
+            true
+          ),
+          StructField("is_deferred", BooleanType, true)
+        )
+      )
+    )
+  }
+
+  def log_dw_bid(context: Context) = {
     val spark  = context.spark
     val Config = context.config
     first(
       when(
-        is_not_null(col("log_type").cast(IntegerType))
-          .and(col("log_type").cast(IntegerType) === lit(6)),
+        col("log_type").isNull.or(
+          is_not_null(col("log_type").cast(IntegerType))
+            .and(col("log_type").cast(IntegerType) =!= lit(6))
+            .and(col("log_type").cast(IntegerType) =!= lit(7))
+        ),
         struct(
           col("date_time").cast(LongType).as("date_time"),
           col("auction_id_64").cast(LongType).as("auction_id_64"),
@@ -259,84 +686,6 @@ object Rollup_log_dw_bid {
         )
       ),
       true
-    )
-  }
-
-  def log_impbus_view(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    lit(null).cast(
-      StructType(
-        Array(
-          StructField("date_time",                       LongType,    true),
-          StructField("auction_id_64",                   LongType,    true),
-          StructField("user_id_64",                      LongType,    true),
-          StructField("view_result",                     IntegerType, true),
-          StructField("ttl",                             IntegerType, true),
-          StructField("view_data",                       StringType,  true),
-          StructField("viewdef_definition_id",           IntegerType, true),
-          StructField("viewdef_view_result",             IntegerType, true),
-          StructField("view_not_measurable_type",        IntegerType, true),
-          StructField("view_not_visible_type",           IntegerType, true),
-          StructField("view_frame_type",                 IntegerType, true),
-          StructField("view_script_version",             IntegerType, true),
-          StructField("view_tag_version",                StringType,  true),
-          StructField("view_screen_width",               IntegerType, true),
-          StructField("view_screen_height",              IntegerType, true),
-          StructField("view_js_browser",                 StringType,  true),
-          StructField("view_js_platform",                StringType,  true),
-          StructField("view_banner_left",                IntegerType, true),
-          StructField("view_banner_top",                 IntegerType, true),
-          StructField("view_banner_width",               IntegerType, true),
-          StructField("view_banner_height",              IntegerType, true),
-          StructField("view_tracking_duration",          DoubleType,  true),
-          StructField("view_page_duration",              DoubleType,  true),
-          StructField("view_usage_duration",             DoubleType,  true),
-          StructField("view_surface",                    DoubleType,  true),
-          StructField("view_js_message",                 StringType,  true),
-          StructField("view_player_width",               IntegerType, true),
-          StructField("view_player_height",              IntegerType, true),
-          StructField("view_iab_duration",               DoubleType,  true),
-          StructField("view_iab_inview_count",           IntegerType, true),
-          StructField("view_duration_gt_0pct",           DoubleType,  true),
-          StructField("view_duration_gt_25pct",          DoubleType,  true),
-          StructField("view_duration_gt_50pct",          DoubleType,  true),
-          StructField("view_duration_gt_75pct",          DoubleType,  true),
-          StructField("view_duration_eq_100pct",         DoubleType,  true),
-          StructField("auction_timestamp",               LongType,    true),
-          StructField("view_has_banner_left",            IntegerType, true),
-          StructField("view_has_banner_top",             IntegerType, true),
-          StructField("view_mouse_position_final_x",     IntegerType, true),
-          StructField("view_mouse_position_final_y",     IntegerType, true),
-          StructField("view_has_mouse_position_final",   IntegerType, true),
-          StructField("view_mouse_position_initial_x",   IntegerType, true),
-          StructField("view_mouse_position_initial_y",   IntegerType, true),
-          StructField("view_has_mouse_position_initial", IntegerType, true),
-          StructField("view_mouse_position_page_x",      IntegerType, true),
-          StructField("view_mouse_position_page_y",      IntegerType, true),
-          StructField("view_has_mouse_position_page",    IntegerType, true),
-          StructField("view_mouse_position_timeout_x",   IntegerType, true),
-          StructField("view_mouse_position_timeout_y",   IntegerType, true),
-          StructField("view_has_mouse_position_timeout", IntegerType, true),
-          StructField("view_session_id",                 LongType,    true),
-          StructField(
-            "view_video",
-            StructType(
-              Array(
-                StructField("view_audio_duration_eq_100pct", DoubleType, true),
-                StructField("view_creative_duration",        DoubleType, true)
-              )
-            ),
-            true
-          ),
-          StructField(
-            "anonymized_user_info",
-            StructType(Array(StructField("user_id", BinaryType, true))),
-            true
-          ),
-          StructField("is_deferred", BooleanType, true)
-        )
-      )
     )
   }
 
@@ -510,6 +859,98 @@ object Rollup_log_dw_bid {
         )
       ),
       true
+    )
+  }
+
+  def log_impbus_preempt_dup(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    lit(null).cast(
+      StructType(
+        Array(
+          StructField("date_time",                          LongType,    true),
+          StructField("auction_id_64",                      LongType,    true),
+          StructField("imp_transacted",                     IntegerType, true),
+          StructField("buyer_spend",                        DoubleType,  true),
+          StructField("seller_revenue",                     DoubleType,  true),
+          StructField("bidder_fees",                        DoubleType,  true),
+          StructField("instance_id",                        IntegerType, true),
+          StructField("fold_position",                      IntegerType, true),
+          StructField("seller_deduction",                   DoubleType,  true),
+          StructField("buyer_member_id",                    IntegerType, true),
+          StructField("creative_id",                        IntegerType, true),
+          StructField("cleared_direct",                     IntegerType, true),
+          StructField("buyer_currency",                     StringType,  true),
+          StructField("buyer_exchange_rate",                DoubleType,  true),
+          StructField("width",                              IntegerType, true),
+          StructField("height",                             IntegerType, true),
+          StructField("brand_id",                           IntegerType, true),
+          StructField("creative_audit_status",              IntegerType, true),
+          StructField("is_creative_hosted",                 IntegerType, true),
+          StructField("vp_expose_domains",                  IntegerType, true),
+          StructField("vp_expose_categories",               IntegerType, true),
+          StructField("vp_expose_pubs",                     IntegerType, true),
+          StructField("vp_expose_tag",                      IntegerType, true),
+          StructField("bidder_id",                          IntegerType, true),
+          StructField("deal_id",                            IntegerType, true),
+          StructField("imp_type",                           IntegerType, true),
+          StructField("is_dw",                              IntegerType, true),
+          StructField("vp_bitmap",                          LongType,    true),
+          StructField("ttl",                                IntegerType, true),
+          StructField("view_detection_enabled",             IntegerType, true),
+          StructField("media_type",                         IntegerType, true),
+          StructField("auction_timestamp",                  LongType,    true),
+          StructField("spend_protection",                   IntegerType, true),
+          StructField("viewdef_definition_id_buyer_member", IntegerType, true),
+          StructField("deal_type",                          IntegerType, true),
+          StructField("ym_floor_id",                        IntegerType, true),
+          StructField("ym_bias_id",                         IntegerType, true),
+          StructField("bid_price_type",                     IntegerType, true),
+          StructField("spend_protection_pixel_id",          IntegerType, true),
+          StructField("ip_address",                         StringType,  true),
+          StructField(
+            "buyer_transaction_def",
+            StructType(
+              Array(StructField("transaction_event",         IntegerType, true),
+                    StructField("transaction_event_type_id", IntegerType, true)
+              )
+            ),
+            true
+          ),
+          StructField(
+            "seller_transaction_def",
+            StructType(
+              Array(StructField("transaction_event",         IntegerType, true),
+                    StructField("transaction_event_type_id", IntegerType, true)
+              )
+            ),
+            true
+          ),
+          StructField("buyer_bid",            DoubleType,  true),
+          StructField("expected_events",      IntegerType, true),
+          StructField("accept_timestamp",     LongType,    true),
+          StructField("external_creative_id", StringType,  true),
+          StructField("seat_id",              IntegerType, true),
+          StructField("is_prebid_server",     BooleanType, true),
+          StructField("curated_deal_id",      IntegerType, true),
+          StructField("external_campaign_id", StringType,  true),
+          StructField("trust_id",             StringType,  true),
+          StructField(
+            "log_product_ads",
+            StructType(
+              Array(
+                StructField("product_feed_id",            IntegerType, true),
+                StructField("item_selection_strategy_id", IntegerType, true),
+                StructField("product_uuid",               StringType,  true)
+              )
+            ),
+            true
+          ),
+          StructField("external_bidrequest_id",     LongType,    true),
+          StructField("external_bidrequest_imp_id", LongType,    true),
+          StructField("creative_media_subtype_id",  IntegerType, true)
+        )
+      )
     )
   }
 
@@ -991,6 +1432,268 @@ object Rollup_log_dw_bid {
     )
   }
 
+  def log_impbus_preempt(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    lit(null).cast(
+      StructType(
+        Array(
+          StructField("date_time",                          LongType,    true),
+          StructField("auction_id_64",                      LongType,    true),
+          StructField("imp_transacted",                     IntegerType, true),
+          StructField("buyer_spend",                        DoubleType,  true),
+          StructField("seller_revenue",                     DoubleType,  true),
+          StructField("bidder_fees",                        DoubleType,  true),
+          StructField("instance_id",                        IntegerType, true),
+          StructField("fold_position",                      IntegerType, true),
+          StructField("seller_deduction",                   DoubleType,  true),
+          StructField("buyer_member_id",                    IntegerType, true),
+          StructField("creative_id",                        IntegerType, true),
+          StructField("cleared_direct",                     IntegerType, true),
+          StructField("buyer_currency",                     StringType,  true),
+          StructField("buyer_exchange_rate",                DoubleType,  true),
+          StructField("width",                              IntegerType, true),
+          StructField("height",                             IntegerType, true),
+          StructField("brand_id",                           IntegerType, true),
+          StructField("creative_audit_status",              IntegerType, true),
+          StructField("is_creative_hosted",                 IntegerType, true),
+          StructField("vp_expose_domains",                  IntegerType, true),
+          StructField("vp_expose_categories",               IntegerType, true),
+          StructField("vp_expose_pubs",                     IntegerType, true),
+          StructField("vp_expose_tag",                      IntegerType, true),
+          StructField("bidder_id",                          IntegerType, true),
+          StructField("deal_id",                            IntegerType, true),
+          StructField("imp_type",                           IntegerType, true),
+          StructField("is_dw",                              IntegerType, true),
+          StructField("vp_bitmap",                          LongType,    true),
+          StructField("ttl",                                IntegerType, true),
+          StructField("view_detection_enabled",             IntegerType, true),
+          StructField("media_type",                         IntegerType, true),
+          StructField("auction_timestamp",                  LongType,    true),
+          StructField("spend_protection",                   IntegerType, true),
+          StructField("viewdef_definition_id_buyer_member", IntegerType, true),
+          StructField("deal_type",                          IntegerType, true),
+          StructField("ym_floor_id",                        IntegerType, true),
+          StructField("ym_bias_id",                         IntegerType, true),
+          StructField("bid_price_type",                     IntegerType, true),
+          StructField("spend_protection_pixel_id",          IntegerType, true),
+          StructField("ip_address",                         StringType,  true),
+          StructField(
+            "buyer_transaction_def",
+            StructType(
+              Array(StructField("transaction_event",         IntegerType, true),
+                    StructField("transaction_event_type_id", IntegerType, true)
+              )
+            ),
+            true
+          ),
+          StructField(
+            "seller_transaction_def",
+            StructType(
+              Array(StructField("transaction_event",         IntegerType, true),
+                    StructField("transaction_event_type_id", IntegerType, true)
+              )
+            ),
+            true
+          ),
+          StructField("buyer_bid",            DoubleType,  true),
+          StructField("expected_events",      IntegerType, true),
+          StructField("accept_timestamp",     LongType,    true),
+          StructField("external_creative_id", StringType,  true),
+          StructField("seat_id",              IntegerType, true),
+          StructField("is_prebid_server",     BooleanType, true),
+          StructField("curated_deal_id",      IntegerType, true),
+          StructField("external_campaign_id", StringType,  true),
+          StructField("trust_id",             StringType,  true),
+          StructField(
+            "log_product_ads",
+            StructType(
+              Array(
+                StructField("product_feed_id",            IntegerType, true),
+                StructField("item_selection_strategy_id", IntegerType, true),
+                StructField("product_uuid",               StringType,  true)
+              )
+            ),
+            true
+          ),
+          StructField("external_bidrequest_id",     LongType,    true),
+          StructField("external_bidrequest_imp_id", LongType,    true),
+          StructField("creative_media_subtype_id",  IntegerType, true)
+        )
+      )
+    )
+  }
+
+  def log_dw_bid_deal(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    first(
+      when(
+        is_not_null(col("log_type").cast(IntegerType))
+          .and(col("log_type").cast(IntegerType) === lit(6)),
+        struct(
+          col("date_time").cast(LongType).as("date_time"),
+          col("auction_id_64").cast(LongType).as("auction_id_64"),
+          col("price"),
+          col("member_id").cast(IntegerType).as("member_id"),
+          col("advertiser_id").cast(IntegerType).as("advertiser_id"),
+          col("campaign_group_id").cast(IntegerType).as("campaign_group_id"),
+          col("campaign_id").cast(IntegerType).as("campaign_id"),
+          col("creative_id").cast(IntegerType).as("creative_id"),
+          col("creative_freq").cast(IntegerType).as("creative_freq"),
+          col("creative_rec").cast(IntegerType).as("creative_rec"),
+          col("advertiser_freq").cast(IntegerType).as("advertiser_freq"),
+          col("advertiser_rec").cast(IntegerType).as("advertiser_rec"),
+          col("is_remarketing").cast(IntegerType).as("is_remarketing"),
+          col("user_group_id").cast(IntegerType).as("user_group_id"),
+          col("media_buy_cost"),
+          col("is_default").cast(IntegerType).as("is_default"),
+          col("pub_rule_id").cast(IntegerType).as("pub_rule_id"),
+          col("media_buy_rev_share_pct"),
+          col("pricing_type"),
+          col("can_convert").cast(IntegerType).as("can_convert"),
+          col("is_control").cast(IntegerType).as("is_control"),
+          col("control_pct"),
+          col("control_creative_id")
+            .cast(IntegerType)
+            .as("control_creative_id"),
+          col("cadence_modifier"),
+          col("advertiser_currency"),
+          col("advertiser_exchange_rate"),
+          col("insertion_order_id").cast(IntegerType).as("insertion_order_id"),
+          col("predict_type").cast(IntegerType).as("predict_type"),
+          col("predict_type_goal").cast(IntegerType).as("predict_type_goal"),
+          col("revenue_value_dollars"),
+          col("revenue_value_adv_curr"),
+          col("commission_cpm"),
+          col("commission_revshare"),
+          col("serving_fees_cpm"),
+          col("serving_fees_revshare"),
+          col("publisher_currency"),
+          col("publisher_exchange_rate"),
+          col("payment_type").cast(IntegerType).as("payment_type"),
+          col("payment_value"),
+          col("creative_group_freq")
+            .cast(IntegerType)
+            .as("creative_group_freq"),
+          col("creative_group_rec").cast(IntegerType).as("creative_group_rec"),
+          col("revenue_type").cast(IntegerType).as("revenue_type"),
+          col("apply_cost_on_default")
+            .cast(IntegerType)
+            .as("apply_cost_on_default"),
+          col("instance_id").cast(IntegerType).as("instance_id"),
+          col("vp_expose_age").cast(IntegerType).as("vp_expose_age"),
+          col("vp_expose_gender").cast(IntegerType).as("vp_expose_gender"),
+          col("targeted_segments"),
+          col("ttl").cast(IntegerType).as("ttl"),
+          col("auction_timestamp").cast(LongType).as("auction_timestamp"),
+          col("data_costs"),
+          col("targeted_segment_list"),
+          col("campaign_group_freq")
+            .cast(IntegerType)
+            .as("campaign_group_freq"),
+          col("campaign_group_rec").cast(IntegerType).as("campaign_group_rec"),
+          col("insertion_order_freq")
+            .cast(IntegerType)
+            .as("insertion_order_freq"),
+          col("insertion_order_rec")
+            .cast(IntegerType)
+            .as("insertion_order_rec"),
+          col("buyer_gender"),
+          col("buyer_age").cast(IntegerType).as("buyer_age"),
+          col("custom_model_id").cast(IntegerType).as("custom_model_id"),
+          col("custom_model_last_modified")
+            .cast(LongType)
+            .as("custom_model_last_modified"),
+          col("custom_model_output_code"),
+          col("bid_priority").cast(IntegerType).as("bid_priority"),
+          col("explore_disposition")
+            .cast(IntegerType)
+            .as("explore_disposition"),
+          col("revenue_auction_event_type")
+            .cast(IntegerType)
+            .as("revenue_auction_event_type"),
+          col("campaign_group_models"),
+          col("impression_transaction_type")
+            .cast(IntegerType)
+            .as("impression_transaction_type"),
+          col("is_deferred").cast(IntegerType).as("is_deferred"),
+          col("log_type").cast(IntegerType).as("log_type"),
+          col("crossdevice_group_anon"),
+          col("fx_rate_snapshot_id")
+            .cast(IntegerType)
+            .as("fx_rate_snapshot_id"),
+          col("crossdevice_graph_cost"),
+          col("revenue_event_type_id")
+            .cast(IntegerType)
+            .as("revenue_event_type_id"),
+          col("targeted_segment_details"),
+          col("insertion_order_budget_interval_id")
+            .cast(IntegerType)
+            .as("insertion_order_budget_interval_id"),
+          col("campaign_group_budget_interval_id")
+            .cast(IntegerType)
+            .as("campaign_group_budget_interval_id"),
+          col("cold_start_price_type")
+            .cast(IntegerType)
+            .as("cold_start_price_type"),
+          col("discovery_state").cast(IntegerType).as("discovery_state"),
+          col("revenue_info"),
+          col("use_revenue_info"),
+          col("sales_tax_rate_pct"),
+          col("targeted_crossdevice_graph_id")
+            .cast(IntegerType)
+            .as("targeted_crossdevice_graph_id"),
+          col("product_feed_id").cast(IntegerType).as("product_feed_id"),
+          col("item_selection_strategy_id")
+            .cast(IntegerType)
+            .as("item_selection_strategy_id"),
+          col("discovery_prediction"),
+          col("bidding_host_id").cast(IntegerType).as("bidding_host_id"),
+          col("split_id").cast(IntegerType).as("split_id"),
+          col("excluded_targeted_segment_details"),
+          col("predicted_kpi_event_rate"),
+          col("has_crossdevice_reach_extension"),
+          col("advertiser_expected_value_ecpm_ac"),
+          col("bpp_multiplier"),
+          col("bpp_offset"),
+          col("bid_modifier"),
+          col("payment_value_microcents")
+            .cast(LongType)
+            .as("payment_value_microcents"),
+          col("crossdevice_graph_membership"),
+          col("valuation_landscape"),
+          col("line_item_currency"),
+          col("measurement_fee_cpm_usd"),
+          col("measurement_provider_id")
+            .cast(IntegerType)
+            .as("measurement_provider_id"),
+          col("measurement_provider_member_id")
+            .cast(IntegerType)
+            .as("measurement_provider_member_id"),
+          col("offline_attribution_provider_member_id")
+            .cast(IntegerType)
+            .as("offline_attribution_provider_member_id"),
+          col("offline_attribution_cost_usd_cpm"),
+          col("targeted_segment_details_by_id_type"),
+          col("offline_attribution"),
+          col("frequency_cap_type_internal")
+            .cast(IntegerType)
+            .as("frequency_cap_type_internal"),
+          col("modeled_cap_did_override_line_item_daily_cap"),
+          col("modeled_cap_user_sample_rate"),
+          col("bid_rate"),
+          col("district_postal_code_lists"),
+          col("pre_bpp_price"),
+          col("feature_tests_bitmap")
+            .cast(IntegerType)
+            .as("feature_tests_bitmap")
+        )
+      ),
+      true
+    )
+  }
+
   def log_dw_bid_curator(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -1158,709 +1861,6 @@ object Rollup_log_dw_bid {
         )
       ),
       true
-    )
-  }
-
-  def log_impbus_impressions_pricing_dup(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    lit(null).cast(
-      StructType(
-        Array(
-          StructField("date_time",     LongType, true),
-          StructField("auction_id_64", LongType, true),
-          StructField(
-            "buyer_charges",
-            StructType(
-              Array(
-                StructField("rate_card_id", IntegerType, true),
-                StructField("member_id",    IntegerType, true),
-                StructField("is_dw",        BooleanType, true),
-                StructField(
-                  "pricing_terms",
-                  ArrayType(
-                    StructType(
-                      Array(
-                        StructField("term_id",      IntegerType, true),
-                        StructField("amount",       DoubleType,  true),
-                        StructField("rate",         DoubleType,  true),
-                        StructField("is_deduction", BooleanType, true),
-                        StructField("is_media_cost_dependent",
-                                    BooleanType,
-                                    true
-                        ),
-                        StructField("data_member_id", IntegerType, true)
-                      )
-                    ),
-                    true
-                  ),
-                  true
-                ),
-                StructField("fx_margin_rate_id",      IntegerType, true),
-                StructField("marketplace_owner_id",   IntegerType, true),
-                StructField("virtual_marketplace_id", IntegerType, true),
-                StructField("amino_enabled",          BooleanType, true)
-              )
-            ),
-            true
-          ),
-          StructField(
-            "seller_charges",
-            StructType(
-              Array(
-                StructField("rate_card_id", IntegerType, true),
-                StructField("member_id",    IntegerType, true),
-                StructField("is_dw",        BooleanType, true),
-                StructField(
-                  "pricing_terms",
-                  ArrayType(
-                    StructType(
-                      Array(
-                        StructField("term_id",      IntegerType, true),
-                        StructField("amount",       DoubleType,  true),
-                        StructField("rate",         DoubleType,  true),
-                        StructField("is_deduction", BooleanType, true),
-                        StructField("is_media_cost_dependent",
-                                    BooleanType,
-                                    true
-                        ),
-                        StructField("data_member_id", IntegerType, true)
-                      )
-                    ),
-                    true
-                  ),
-                  true
-                ),
-                StructField("fx_margin_rate_id",      IntegerType, true),
-                StructField("marketplace_owner_id",   IntegerType, true),
-                StructField("virtual_marketplace_id", IntegerType, true),
-                StructField("amino_enabled",          BooleanType, true)
-              )
-            ),
-            true
-          ),
-          StructField("buyer_spend",                 DoubleType,  true),
-          StructField("seller_revenue",              DoubleType,  true),
-          StructField("rate_card_auction_type",      IntegerType, true),
-          StructField("rate_card_media_type",        IntegerType, true),
-          StructField("direct_clear",                BooleanType, true),
-          StructField("auction_timestamp",           LongType,    true),
-          StructField("instance_id",                 IntegerType, true),
-          StructField("two_phase_reduction_applied", BooleanType, true),
-          StructField("trade_agreement_id",          IntegerType, true),
-          StructField("log_timestamp",               LongType,    true),
-          StructField(
-            "trade_agreement_info",
-            StructType(
-              Array(
-                StructField("applied_term_id",   IntegerType, true),
-                StructField("applied_term_type", IntegerType, true),
-                StructField("targeted_term_ids",
-                            ArrayType(IntegerType, true),
-                            true
-                )
-              )
-            ),
-            true
-          ),
-          StructField("is_buy_it_now",   BooleanType, true),
-          StructField("net_buyer_spend", DoubleType,  true),
-          StructField(
-            "impression_event_pricing",
-            StructType(
-              Array(
-                StructField("gross_payment_value_microcents", LongType, true),
-                StructField("net_payment_value_microcents",   LongType, true),
-                StructField("seller_revenue_microcents",      LongType, true),
-                StructField(
-                  "buyer_charges",
-                  StructType(
-                    Array(
-                      StructField("rate_card_id", IntegerType, true),
-                      StructField("member_id",    IntegerType, true),
-                      StructField("is_dw",        BooleanType, true),
-                      StructField(
-                        "pricing_terms",
-                        ArrayType(
-                          StructType(
-                            Array(
-                              StructField("term_id",      IntegerType, true),
-                              StructField("amount",       DoubleType,  true),
-                              StructField("rate",         DoubleType,  true),
-                              StructField("is_deduction", BooleanType, true),
-                              StructField("is_media_cost_dependent",
-                                          BooleanType,
-                                          true
-                              ),
-                              StructField("data_member_id", IntegerType, true)
-                            )
-                          ),
-                          true
-                        ),
-                        true
-                      ),
-                      StructField("fx_margin_rate_id",      IntegerType, true),
-                      StructField("marketplace_owner_id",   IntegerType, true),
-                      StructField("virtual_marketplace_id", IntegerType, true),
-                      StructField("amino_enabled",          BooleanType, true)
-                    )
-                  ),
-                  true
-                ),
-                StructField(
-                  "seller_charges",
-                  StructType(
-                    Array(
-                      StructField("rate_card_id", IntegerType, true),
-                      StructField("member_id",    IntegerType, true),
-                      StructField("is_dw",        BooleanType, true),
-                      StructField(
-                        "pricing_terms",
-                        ArrayType(
-                          StructType(
-                            Array(
-                              StructField("term_id",      IntegerType, true),
-                              StructField("amount",       DoubleType,  true),
-                              StructField("rate",         DoubleType,  true),
-                              StructField("is_deduction", BooleanType, true),
-                              StructField("is_media_cost_dependent",
-                                          BooleanType,
-                                          true
-                              ),
-                              StructField("data_member_id", IntegerType, true)
-                            )
-                          ),
-                          true
-                        ),
-                        true
-                      ),
-                      StructField("fx_margin_rate_id",      IntegerType, true),
-                      StructField("marketplace_owner_id",   IntegerType, true),
-                      StructField("virtual_marketplace_id", IntegerType, true),
-                      StructField("amino_enabled",          BooleanType, true)
-                    )
-                  ),
-                  true
-                ),
-                StructField("buyer_transacted",  BooleanType, true),
-                StructField("seller_transacted", BooleanType, true)
-              )
-            ),
-            true
-          ),
-          StructField("counterparty_ruleset_type", IntegerType, true),
-          StructField("estimated_audience_imps",   FloatType,   true),
-          StructField("audience_imps",             FloatType,   true)
-        )
-      )
-    )
-  }
-
-  def log_dw_view(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    lit(null).cast(
-      StructType(
-        Array(
-          StructField("date_time",                LongType,    true),
-          StructField("auction_id_64",            LongType,    true),
-          StructField("user_id_64",               LongType,    true),
-          StructField("advertiser_currency",      StringType,  true),
-          StructField("advertiser_exchange_rate", DoubleType,  true),
-          StructField("booked_revenue_dollars",   DoubleType,  true),
-          StructField("booked_revenue_adv_curr",  DoubleType,  true),
-          StructField("publisher_currency",       StringType,  true),
-          StructField("publisher_exchange_rate",  DoubleType,  true),
-          StructField("payment_value",            DoubleType,  true),
-          StructField("ip_address",               StringType,  true),
-          StructField("auction_timestamp",        LongType,    true),
-          StructField("view_auction_event_type",  IntegerType, true),
-          StructField(
-            "anonymized_user_info",
-            StructType(Array(StructField("user_id", BinaryType, true))),
-            true
-          ),
-          StructField("view_event_type_id", IntegerType, true),
-          StructField(
-            "revenue_info",
-            StructType(
-              Array(
-                StructField("total_partner_fees_microcents", LongType,   true),
-                StructField("booked_revenue_dollars",        DoubleType, true),
-                StructField("booked_revenue_adv_curr",       DoubleType, true),
-                StructField("total_data_costs_microcents",   LongType,   true),
-                StructField("total_profit_microcents",       LongType,   true),
-                StructField("total_segment_data_costs_microcents",
-                            LongType,
-                            true
-                ),
-                StructField("total_feature_costs_microcents", LongType, true)
-              )
-            ),
-            true
-          ),
-          StructField("use_revenue_info",     BooleanType, true),
-          StructField("is_deferred",          BooleanType, true),
-          StructField("ecpm_conversion_rate", DoubleType,  true)
-        )
-      )
-    )
-  }
-
-  def log_impbus_preempt(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    lit(null).cast(
-      StructType(
-        Array(
-          StructField("date_time",                          LongType,    true),
-          StructField("auction_id_64",                      LongType,    true),
-          StructField("imp_transacted",                     IntegerType, true),
-          StructField("buyer_spend",                        DoubleType,  true),
-          StructField("seller_revenue",                     DoubleType,  true),
-          StructField("bidder_fees",                        DoubleType,  true),
-          StructField("instance_id",                        IntegerType, true),
-          StructField("fold_position",                      IntegerType, true),
-          StructField("seller_deduction",                   DoubleType,  true),
-          StructField("buyer_member_id",                    IntegerType, true),
-          StructField("creative_id",                        IntegerType, true),
-          StructField("cleared_direct",                     IntegerType, true),
-          StructField("buyer_currency",                     StringType,  true),
-          StructField("buyer_exchange_rate",                DoubleType,  true),
-          StructField("width",                              IntegerType, true),
-          StructField("height",                             IntegerType, true),
-          StructField("brand_id",                           IntegerType, true),
-          StructField("creative_audit_status",              IntegerType, true),
-          StructField("is_creative_hosted",                 IntegerType, true),
-          StructField("vp_expose_domains",                  IntegerType, true),
-          StructField("vp_expose_categories",               IntegerType, true),
-          StructField("vp_expose_pubs",                     IntegerType, true),
-          StructField("vp_expose_tag",                      IntegerType, true),
-          StructField("bidder_id",                          IntegerType, true),
-          StructField("deal_id",                            IntegerType, true),
-          StructField("imp_type",                           IntegerType, true),
-          StructField("is_dw",                              IntegerType, true),
-          StructField("vp_bitmap",                          LongType,    true),
-          StructField("ttl",                                IntegerType, true),
-          StructField("view_detection_enabled",             IntegerType, true),
-          StructField("media_type",                         IntegerType, true),
-          StructField("auction_timestamp",                  LongType,    true),
-          StructField("spend_protection",                   IntegerType, true),
-          StructField("viewdef_definition_id_buyer_member", IntegerType, true),
-          StructField("deal_type",                          IntegerType, true),
-          StructField("ym_floor_id",                        IntegerType, true),
-          StructField("ym_bias_id",                         IntegerType, true),
-          StructField("bid_price_type",                     IntegerType, true),
-          StructField("spend_protection_pixel_id",          IntegerType, true),
-          StructField("ip_address",                         StringType,  true),
-          StructField(
-            "buyer_transaction_def",
-            StructType(
-              Array(StructField("transaction_event",         IntegerType, true),
-                    StructField("transaction_event_type_id", IntegerType, true)
-              )
-            ),
-            true
-          ),
-          StructField(
-            "seller_transaction_def",
-            StructType(
-              Array(StructField("transaction_event",         IntegerType, true),
-                    StructField("transaction_event_type_id", IntegerType, true)
-              )
-            ),
-            true
-          ),
-          StructField("buyer_bid",            DoubleType,  true),
-          StructField("expected_events",      IntegerType, true),
-          StructField("accept_timestamp",     LongType,    true),
-          StructField("external_creative_id", StringType,  true),
-          StructField("seat_id",              IntegerType, true),
-          StructField("is_prebid_server",     BooleanType, true),
-          StructField("curated_deal_id",      IntegerType, true),
-          StructField("external_campaign_id", StringType,  true),
-          StructField("trust_id",             StringType,  true),
-          StructField(
-            "log_product_ads",
-            StructType(
-              Array(
-                StructField("product_feed_id",            IntegerType, true),
-                StructField("item_selection_strategy_id", IntegerType, true),
-                StructField("product_uuid",               StringType,  true)
-              )
-            ),
-            true
-          ),
-          StructField("external_bidrequest_id",     LongType,    true),
-          StructField("external_bidrequest_imp_id", LongType,    true),
-          StructField("creative_media_subtype_id",  IntegerType, true)
-        )
-      )
-    )
-  }
-
-  def log_dw_bid(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    first(
-      when(
-        col("log_type").isNull.or(
-          is_not_null(col("log_type").cast(IntegerType))
-            .and(col("log_type").cast(IntegerType) =!= lit(6))
-            .and(col("log_type").cast(IntegerType) =!= lit(7))
-        ),
-        struct(
-          col("date_time").cast(LongType).as("date_time"),
-          col("auction_id_64").cast(LongType).as("auction_id_64"),
-          col("price"),
-          col("member_id").cast(IntegerType).as("member_id"),
-          col("advertiser_id").cast(IntegerType).as("advertiser_id"),
-          col("campaign_group_id").cast(IntegerType).as("campaign_group_id"),
-          col("campaign_id").cast(IntegerType).as("campaign_id"),
-          col("creative_id").cast(IntegerType).as("creative_id"),
-          col("creative_freq").cast(IntegerType).as("creative_freq"),
-          col("creative_rec").cast(IntegerType).as("creative_rec"),
-          col("advertiser_freq").cast(IntegerType).as("advertiser_freq"),
-          col("advertiser_rec").cast(IntegerType).as("advertiser_rec"),
-          col("is_remarketing").cast(IntegerType).as("is_remarketing"),
-          col("user_group_id").cast(IntegerType).as("user_group_id"),
-          col("media_buy_cost"),
-          col("is_default").cast(IntegerType).as("is_default"),
-          col("pub_rule_id").cast(IntegerType).as("pub_rule_id"),
-          col("media_buy_rev_share_pct"),
-          col("pricing_type"),
-          col("can_convert").cast(IntegerType).as("can_convert"),
-          col("is_control").cast(IntegerType).as("is_control"),
-          col("control_pct"),
-          col("control_creative_id")
-            .cast(IntegerType)
-            .as("control_creative_id"),
-          col("cadence_modifier"),
-          col("advertiser_currency"),
-          col("advertiser_exchange_rate"),
-          col("insertion_order_id").cast(IntegerType).as("insertion_order_id"),
-          col("predict_type").cast(IntegerType).as("predict_type"),
-          col("predict_type_goal").cast(IntegerType).as("predict_type_goal"),
-          col("revenue_value_dollars"),
-          col("revenue_value_adv_curr"),
-          col("commission_cpm"),
-          col("commission_revshare"),
-          col("serving_fees_cpm"),
-          col("serving_fees_revshare"),
-          col("publisher_currency"),
-          col("publisher_exchange_rate"),
-          col("payment_type").cast(IntegerType).as("payment_type"),
-          col("payment_value"),
-          col("creative_group_freq")
-            .cast(IntegerType)
-            .as("creative_group_freq"),
-          col("creative_group_rec").cast(IntegerType).as("creative_group_rec"),
-          col("revenue_type").cast(IntegerType).as("revenue_type"),
-          col("apply_cost_on_default")
-            .cast(IntegerType)
-            .as("apply_cost_on_default"),
-          col("instance_id").cast(IntegerType).as("instance_id"),
-          col("vp_expose_age").cast(IntegerType).as("vp_expose_age"),
-          col("vp_expose_gender").cast(IntegerType).as("vp_expose_gender"),
-          col("targeted_segments"),
-          col("ttl").cast(IntegerType).as("ttl"),
-          col("auction_timestamp").cast(LongType).as("auction_timestamp"),
-          col("data_costs"),
-          col("targeted_segment_list"),
-          col("campaign_group_freq")
-            .cast(IntegerType)
-            .as("campaign_group_freq"),
-          col("campaign_group_rec").cast(IntegerType).as("campaign_group_rec"),
-          col("insertion_order_freq")
-            .cast(IntegerType)
-            .as("insertion_order_freq"),
-          col("insertion_order_rec")
-            .cast(IntegerType)
-            .as("insertion_order_rec"),
-          col("buyer_gender"),
-          col("buyer_age").cast(IntegerType).as("buyer_age"),
-          col("custom_model_id").cast(IntegerType).as("custom_model_id"),
-          col("custom_model_last_modified")
-            .cast(LongType)
-            .as("custom_model_last_modified"),
-          col("custom_model_output_code"),
-          col("bid_priority").cast(IntegerType).as("bid_priority"),
-          col("explore_disposition")
-            .cast(IntegerType)
-            .as("explore_disposition"),
-          col("revenue_auction_event_type")
-            .cast(IntegerType)
-            .as("revenue_auction_event_type"),
-          col("campaign_group_models"),
-          col("impression_transaction_type")
-            .cast(IntegerType)
-            .as("impression_transaction_type"),
-          col("is_deferred").cast(IntegerType).as("is_deferred"),
-          col("log_type").cast(IntegerType).as("log_type"),
-          col("crossdevice_group_anon"),
-          col("fx_rate_snapshot_id")
-            .cast(IntegerType)
-            .as("fx_rate_snapshot_id"),
-          col("crossdevice_graph_cost"),
-          col("revenue_event_type_id")
-            .cast(IntegerType)
-            .as("revenue_event_type_id"),
-          col("targeted_segment_details"),
-          col("insertion_order_budget_interval_id")
-            .cast(IntegerType)
-            .as("insertion_order_budget_interval_id"),
-          col("campaign_group_budget_interval_id")
-            .cast(IntegerType)
-            .as("campaign_group_budget_interval_id"),
-          col("cold_start_price_type")
-            .cast(IntegerType)
-            .as("cold_start_price_type"),
-          col("discovery_state").cast(IntegerType).as("discovery_state"),
-          col("revenue_info"),
-          col("use_revenue_info"),
-          col("sales_tax_rate_pct"),
-          col("targeted_crossdevice_graph_id")
-            .cast(IntegerType)
-            .as("targeted_crossdevice_graph_id"),
-          col("product_feed_id").cast(IntegerType).as("product_feed_id"),
-          col("item_selection_strategy_id")
-            .cast(IntegerType)
-            .as("item_selection_strategy_id"),
-          col("discovery_prediction"),
-          col("bidding_host_id").cast(IntegerType).as("bidding_host_id"),
-          col("split_id").cast(IntegerType).as("split_id"),
-          col("excluded_targeted_segment_details"),
-          col("predicted_kpi_event_rate"),
-          col("has_crossdevice_reach_extension"),
-          col("advertiser_expected_value_ecpm_ac"),
-          col("bpp_multiplier"),
-          col("bpp_offset"),
-          col("bid_modifier"),
-          col("payment_value_microcents")
-            .cast(LongType)
-            .as("payment_value_microcents"),
-          col("crossdevice_graph_membership"),
-          col("valuation_landscape"),
-          col("line_item_currency"),
-          col("measurement_fee_cpm_usd"),
-          col("measurement_provider_id")
-            .cast(IntegerType)
-            .as("measurement_provider_id"),
-          col("measurement_provider_member_id")
-            .cast(IntegerType)
-            .as("measurement_provider_member_id"),
-          col("offline_attribution_provider_member_id")
-            .cast(IntegerType)
-            .as("offline_attribution_provider_member_id"),
-          col("offline_attribution_cost_usd_cpm"),
-          col("targeted_segment_details_by_id_type"),
-          col("offline_attribution"),
-          col("frequency_cap_type_internal")
-            .cast(IntegerType)
-            .as("frequency_cap_type_internal"),
-          col("modeled_cap_did_override_line_item_daily_cap"),
-          col("modeled_cap_user_sample_rate"),
-          col("bid_rate"),
-          col("district_postal_code_lists"),
-          col("pre_bpp_price"),
-          col("feature_tests_bitmap")
-            .cast(IntegerType)
-            .as("feature_tests_bitmap")
-        )
-      ),
-      true
-    )
-  }
-
-  def log_impbus_auction_event(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    lit(null).cast(
-      StructType(
-        Array(
-          StructField("date_time",                 LongType,    true),
-          StructField("auction_id_64",             LongType,    true),
-          StructField("payment_value_microcents",  LongType,    true),
-          StructField("transaction_event",         IntegerType, true),
-          StructField("transaction_event_type_id", IntegerType, true),
-          StructField("is_deferred",               BooleanType, true),
-          StructField(
-            "auction_event_pricing",
-            StructType(
-              Array(
-                StructField("gross_payment_value_microcents", LongType, true),
-                StructField("net_payment_value_microcents",   LongType, true),
-                StructField("seller_revenue_microcents",      LongType, true),
-                StructField(
-                  "buyer_charges",
-                  StructType(
-                    Array(
-                      StructField("rate_card_id", IntegerType, true),
-                      StructField("member_id",    IntegerType, true),
-                      StructField("is_dw",        BooleanType, true),
-                      StructField(
-                        "pricing_terms",
-                        ArrayType(
-                          StructType(
-                            Array(
-                              StructField("term_id",      IntegerType, true),
-                              StructField("amount",       DoubleType,  true),
-                              StructField("rate",         DoubleType,  true),
-                              StructField("is_deduction", BooleanType, true),
-                              StructField("is_media_cost_dependent",
-                                          BooleanType,
-                                          true
-                              ),
-                              StructField("data_member_id", IntegerType, true)
-                            )
-                          ),
-                          true
-                        ),
-                        true
-                      ),
-                      StructField("fx_margin_rate_id",      IntegerType, true),
-                      StructField("marketplace_owner_id",   IntegerType, true),
-                      StructField("virtual_marketplace_id", IntegerType, true),
-                      StructField("amino_enabled",          BooleanType, true)
-                    )
-                  ),
-                  true
-                ),
-                StructField(
-                  "seller_charges",
-                  StructType(
-                    Array(
-                      StructField("rate_card_id", IntegerType, true),
-                      StructField("member_id",    IntegerType, true),
-                      StructField("is_dw",        BooleanType, true),
-                      StructField(
-                        "pricing_terms",
-                        ArrayType(
-                          StructType(
-                            Array(
-                              StructField("term_id",      IntegerType, true),
-                              StructField("amount",       DoubleType,  true),
-                              StructField("rate",         DoubleType,  true),
-                              StructField("is_deduction", BooleanType, true),
-                              StructField("is_media_cost_dependent",
-                                          BooleanType,
-                                          true
-                              ),
-                              StructField("data_member_id", IntegerType, true)
-                            )
-                          ),
-                          true
-                        ),
-                        true
-                      ),
-                      StructField("fx_margin_rate_id",      IntegerType, true),
-                      StructField("marketplace_owner_id",   IntegerType, true),
-                      StructField("virtual_marketplace_id", IntegerType, true),
-                      StructField("amino_enabled",          BooleanType, true)
-                    )
-                  ),
-                  true
-                ),
-                StructField("buyer_transacted",  BooleanType, true),
-                StructField("seller_transacted", BooleanType, true)
-              )
-            ),
-            true
-          )
-        )
-      )
-    )
-  }
-
-  def log_impbus_preempt_dup(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    lit(null).cast(
-      StructType(
-        Array(
-          StructField("date_time",                          LongType,    true),
-          StructField("auction_id_64",                      LongType,    true),
-          StructField("imp_transacted",                     IntegerType, true),
-          StructField("buyer_spend",                        DoubleType,  true),
-          StructField("seller_revenue",                     DoubleType,  true),
-          StructField("bidder_fees",                        DoubleType,  true),
-          StructField("instance_id",                        IntegerType, true),
-          StructField("fold_position",                      IntegerType, true),
-          StructField("seller_deduction",                   DoubleType,  true),
-          StructField("buyer_member_id",                    IntegerType, true),
-          StructField("creative_id",                        IntegerType, true),
-          StructField("cleared_direct",                     IntegerType, true),
-          StructField("buyer_currency",                     StringType,  true),
-          StructField("buyer_exchange_rate",                DoubleType,  true),
-          StructField("width",                              IntegerType, true),
-          StructField("height",                             IntegerType, true),
-          StructField("brand_id",                           IntegerType, true),
-          StructField("creative_audit_status",              IntegerType, true),
-          StructField("is_creative_hosted",                 IntegerType, true),
-          StructField("vp_expose_domains",                  IntegerType, true),
-          StructField("vp_expose_categories",               IntegerType, true),
-          StructField("vp_expose_pubs",                     IntegerType, true),
-          StructField("vp_expose_tag",                      IntegerType, true),
-          StructField("bidder_id",                          IntegerType, true),
-          StructField("deal_id",                            IntegerType, true),
-          StructField("imp_type",                           IntegerType, true),
-          StructField("is_dw",                              IntegerType, true),
-          StructField("vp_bitmap",                          LongType,    true),
-          StructField("ttl",                                IntegerType, true),
-          StructField("view_detection_enabled",             IntegerType, true),
-          StructField("media_type",                         IntegerType, true),
-          StructField("auction_timestamp",                  LongType,    true),
-          StructField("spend_protection",                   IntegerType, true),
-          StructField("viewdef_definition_id_buyer_member", IntegerType, true),
-          StructField("deal_type",                          IntegerType, true),
-          StructField("ym_floor_id",                        IntegerType, true),
-          StructField("ym_bias_id",                         IntegerType, true),
-          StructField("bid_price_type",                     IntegerType, true),
-          StructField("spend_protection_pixel_id",          IntegerType, true),
-          StructField("ip_address",                         StringType,  true),
-          StructField(
-            "buyer_transaction_def",
-            StructType(
-              Array(StructField("transaction_event",         IntegerType, true),
-                    StructField("transaction_event_type_id", IntegerType, true)
-              )
-            ),
-            true
-          ),
-          StructField(
-            "seller_transaction_def",
-            StructType(
-              Array(StructField("transaction_event",         IntegerType, true),
-                    StructField("transaction_event_type_id", IntegerType, true)
-              )
-            ),
-            true
-          ),
-          StructField("buyer_bid",            DoubleType,  true),
-          StructField("expected_events",      IntegerType, true),
-          StructField("accept_timestamp",     LongType,    true),
-          StructField("external_creative_id", StringType,  true),
-          StructField("seat_id",              IntegerType, true),
-          StructField("is_prebid_server",     BooleanType, true),
-          StructField("curated_deal_id",      IntegerType, true),
-          StructField("external_campaign_id", StringType,  true),
-          StructField("trust_id",             StringType,  true),
-          StructField(
-            "log_product_ads",
-            StructType(
-              Array(
-                StructField("product_feed_id",            IntegerType, true),
-                StructField("item_selection_strategy_id", IntegerType, true),
-                StructField("product_uuid",               StringType,  true)
-              )
-            ),
-            true
-          ),
-          StructField("external_bidrequest_id",     LongType,    true),
-          StructField("external_bidrequest_imp_id", LongType,    true),
-          StructField("creative_media_subtype_id",  IntegerType, true)
-        )
-      )
     )
   }
 

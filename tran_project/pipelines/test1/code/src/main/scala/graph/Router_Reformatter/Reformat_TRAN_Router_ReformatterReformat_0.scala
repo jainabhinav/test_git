@@ -748,6 +748,276 @@ object Reformat_TRAN_Router_ReformatterReformat_0 {
         .as("postal_code_ext_id")
     )
 
+  def net_media_cost_microcents(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    when(
+      is_not_null(col("log_impbus_impressions_pricing")).cast(BooleanType),
+      when(
+        coalesce(col("log_impbus_impressions_pricing.seller_charges.is_dw")
+                   .cast(IntegerType),
+                 lit(0)
+        ).cast(IntegerType) === lit(1),
+        coalesce(col(
+                   "log_impbus_impressions_pricing.impression_event_pricing.seller_revenue_microcents"
+                 ).cast(LongType),
+                 lit(0)
+        ).cast(LongType) + when(
+          is_not_null(col("log_impbus_impressions_pricing"))
+            .cast(BooleanType)
+            .and(
+              coalesce(col(
+                         "log_impbus_impressions_pricing.seller_charges.is_dw"
+                       ).cast(IntegerType),
+                       lit(0)
+              ).cast(IntegerType) === lit(1)
+            )
+            .and(
+              is_not_null(
+                col(
+                  "log_impbus_impressions_pricing.seller_charges.pricing_terms"
+                )
+              ).cast(BooleanType)
+            ),
+          decimal_round_even(
+            f_get_seller_fees(
+              col("log_impbus_impressions_pricing.seller_charges.pricing_terms")
+            ) * lit(100000.0d),
+            0
+          )
+        ).otherwise(lit(0)).cast(LongType) + when(
+          is_not_null(col("log_impbus_impressions_pricing")).cast(BooleanType),
+          when(
+            (coalesce(col("log_impbus_impressions_pricing.seller_charges.is_dw")
+                        .cast(IntegerType),
+                      lit(0)
+            ).cast(IntegerType) === lit(1))
+              .and(
+                f_transaction_event(
+                  col("log_impbus_impressions.buyer_transaction_def"),
+                  col("log_impbus_preempt.buyer_transaction_def")
+                ) === lit(1)
+              )
+              .and(
+                is_not_null(col("log_dw_bid_deal.data_costs")).cast(BooleanType)
+              ),
+            aggregate(
+              f_update_data_costs_deal(
+                col("log_dw_bid_deal.data_costs"),
+                coalesce(
+                  lookup("sup_bidder_member_sales_tax_rate",
+                         coalesce(col("_sup_common_deal_LOOKUP1").getField(
+                                    "member_id"
+                                  ),
+                                  lit(0)
+                         )
+                  ).getField("sales_tax_rate_pct"),
+                  lit(0)
+                )
+              ),
+              lit(0).cast(DoubleType),
+              (acc, ii) => acc + ii.getField("cost") * lit(100000)
+            )
+          ).otherwise(lit(0))
+        ).otherwise(lit(0)).cast(DoubleType)
+      ).otherwise(lit(0))
+    ).otherwise(lit(0)).cast(LongType)
+  }
+
+  def data_costs(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    coalesce(
+      when(
+        when(
+          is_not_null(col("log_impbus_impressions_pricing")).cast(BooleanType),
+          when(
+            coalesce(col("log_impbus_impressions_pricing.seller_charges.is_dw")
+                       .cast(IntegerType),
+                     lit(0)
+            ).cast(IntegerType) === lit(1),
+            f_transaction_event(
+              col("log_impbus_impressions.buyer_transaction_def"),
+              col("log_impbus_preempt.buyer_transaction_def")
+            )
+          ).otherwise(lit(0))
+        ).otherwise(lit(0)).cast(IntegerType) =!= lit(1),
+        lit(null)
+      ),
+      when(
+        is_not_null(col("log_dw_bid_curator.data_costs")).cast(BooleanType),
+        f_update_data_costs_deal(
+          col("log_dw_bid_curator.data_costs"),
+          coalesce(
+            lookup(
+              "sup_bidder_member_sales_tax_rate",
+              when(
+                coalesce(
+                  col("log_impbus_preempt.curated_deal_id").cast(IntegerType),
+                  lit(0)
+                ) =!= lit(0),
+                coalesce(col("_sup_common_deal_LOOKUP").getField("member_id"),
+                         lit(0)
+                )
+              ).otherwise(lit(0)).cast(IntegerType)
+            ).getField("sales_tax_rate_pct"),
+            lit(0)
+          )
+        )
+      ).otherwise(
+        lit(null).cast(
+          ArrayType(
+            StructType(
+              Array(
+                StructField("data_member_id", IntegerType, true),
+                StructField("cost",           DoubleType,  true),
+                StructField("used_segments",
+                            ArrayType(IntegerType, true),
+                            true
+                ),
+                StructField("cost_pct", DoubleType, true)
+              )
+            ),
+            true
+          )
+        )
+      )
+    )
+  }
+
+  def total_cost_microcents(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    when(
+      is_not_null(col("log_impbus_impressions_pricing")).cast(BooleanType),
+      when(
+        coalesce(col("log_impbus_impressions_pricing.seller_charges.is_dw")
+                   .cast(IntegerType),
+                 lit(0)
+        ).cast(IntegerType) === lit(1),
+        coalesce(col(
+                   "log_impbus_impressions_pricing.impression_event_pricing.seller_revenue_microcents"
+                 ).cast(LongType),
+                 lit(0)
+        ).cast(LongType) + when(
+          is_not_null(col("log_impbus_impressions_pricing"))
+            .cast(BooleanType)
+            .and(
+              coalesce(col(
+                         "log_impbus_impressions_pricing.seller_charges.is_dw"
+                       ).cast(IntegerType),
+                       lit(0)
+              ).cast(IntegerType) === lit(1)
+            )
+            .and(
+              is_not_null(
+                col(
+                  "log_impbus_impressions_pricing.seller_charges.pricing_terms"
+                )
+              ).cast(BooleanType)
+            ),
+          decimal_round_even(
+            f_get_seller_fees(
+              col("log_impbus_impressions_pricing.seller_charges.pricing_terms")
+            ) * lit(100000.0d),
+            0
+          )
+        ).otherwise(lit(0)).cast(LongType) + when(
+          is_not_null(col("log_impbus_impressions_pricing")).cast(BooleanType),
+          when(
+            (coalesce(col("log_impbus_impressions_pricing.seller_charges.is_dw")
+                        .cast(IntegerType),
+                      lit(0)
+            ).cast(IntegerType) === lit(1))
+              .and(
+                f_transaction_event(
+                  col("log_impbus_impressions.buyer_transaction_def"),
+                  col("log_impbus_preempt.buyer_transaction_def")
+                ) === lit(1)
+              )
+              .and(
+                is_not_null(col("log_dw_bid_deal.data_costs")).cast(BooleanType)
+              ),
+            aggregate(
+              f_update_data_costs_deal(
+                col("log_dw_bid_deal.data_costs"),
+                coalesce(
+                  lookup("sup_bidder_member_sales_tax_rate",
+                         coalesce(col("_sup_common_deal_LOOKUP1").getField(
+                                    "member_id"
+                                  ),
+                                  lit(0)
+                         )
+                  ).getField("sales_tax_rate_pct"),
+                  lit(0)
+                )
+              ),
+              lit(0).cast(DoubleType),
+              (acc, ii) => acc + ii.getField("cost") * lit(100000)
+            )
+          ).otherwise(lit(0))
+        ).otherwise(lit(0)).cast(DoubleType) + when(
+          is_not_null(col("log_impbus_impressions_pricing"))
+            .cast(BooleanType)
+            .and(
+              coalesce(col(
+                         "log_impbus_impressions_pricing.seller_charges.is_dw"
+                       ).cast(IntegerType),
+                       lit(0)
+              ).cast(IntegerType) === lit(1)
+            )
+            .and(
+              is_not_null(
+                when(
+                  f_should_process_views(
+                    col("log_dw_view"),
+                    f_transaction_event(
+                      col("log_impbus_impressions.seller_transaction_def"),
+                      col("log_impbus_preempt.seller_transaction_def")
+                    ),
+                    f_transaction_event(
+                      col("log_impbus_impressions.buyer_transaction_def"),
+                      col("log_impbus_preempt.buyer_transaction_def")
+                    )
+                  ) === lit(1),
+                  col(
+                    "log_impbus_auction_event.auction_event_pricing.buyer_charges"
+                  ).getField("pricing_terms")
+                ).otherwise(
+                  col("log_impbus_impressions_pricing.buyer_charges")
+                    .getField("pricing_terms")
+                )
+              ).cast(BooleanType)
+            ),
+          decimal_round_even(
+            f_get_total_tech_fees(
+              when(
+                f_should_process_views(
+                  col("log_dw_view"),
+                  f_transaction_event(
+                    col("log_impbus_impressions.seller_transaction_def"),
+                    col("log_impbus_preempt.seller_transaction_def")
+                  ),
+                  f_transaction_event(
+                    col("log_impbus_impressions.buyer_transaction_def"),
+                    col("log_impbus_preempt.buyer_transaction_def")
+                  )
+                ) === lit(1),
+                col(
+                  "log_impbus_auction_event.auction_event_pricing.buyer_charges"
+                ).getField("pricing_terms")
+              ).otherwise(
+                col("log_impbus_impressions_pricing.buyer_charges")
+                  .getField("pricing_terms")
+              )
+            ) * lit(100000.0d),
+            0
+          )
+        ).otherwise(lit(0)).cast(LongType)
+      ).otherwise(lit(0))
+    ).otherwise(lit(0)).cast(LongType)
+  }
+
   def gross_revenue_microcents(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -1036,276 +1306,6 @@ object Reformat_TRAN_Router_ReformatterReformat_0 {
         ).otherwise(lit(0.0d)).cast(DoubleType) + col(
           "log_dw_bid_curator.crossdevice_graph_cost.cost_cpm_usd"
         ) * lit(100000.0d)
-      ).otherwise(lit(0))
-    ).otherwise(lit(0)).cast(LongType)
-  }
-
-  def total_cost_microcents(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    when(
-      is_not_null(col("log_impbus_impressions_pricing")).cast(BooleanType),
-      when(
-        coalesce(col("log_impbus_impressions_pricing.seller_charges.is_dw")
-                   .cast(IntegerType),
-                 lit(0)
-        ).cast(IntegerType) === lit(1),
-        coalesce(col(
-                   "log_impbus_impressions_pricing.impression_event_pricing.seller_revenue_microcents"
-                 ).cast(LongType),
-                 lit(0)
-        ).cast(LongType) + when(
-          is_not_null(col("log_impbus_impressions_pricing"))
-            .cast(BooleanType)
-            .and(
-              coalesce(col(
-                         "log_impbus_impressions_pricing.seller_charges.is_dw"
-                       ).cast(IntegerType),
-                       lit(0)
-              ).cast(IntegerType) === lit(1)
-            )
-            .and(
-              is_not_null(
-                col(
-                  "log_impbus_impressions_pricing.seller_charges.pricing_terms"
-                )
-              ).cast(BooleanType)
-            ),
-          decimal_round_even(
-            f_get_seller_fees(
-              col("log_impbus_impressions_pricing.seller_charges.pricing_terms")
-            ) * lit(100000.0d),
-            0
-          )
-        ).otherwise(lit(0)).cast(LongType) + when(
-          is_not_null(col("log_impbus_impressions_pricing")).cast(BooleanType),
-          when(
-            (coalesce(col("log_impbus_impressions_pricing.seller_charges.is_dw")
-                        .cast(IntegerType),
-                      lit(0)
-            ).cast(IntegerType) === lit(1))
-              .and(
-                f_transaction_event(
-                  col("log_impbus_impressions.buyer_transaction_def"),
-                  col("log_impbus_preempt.buyer_transaction_def")
-                ) === lit(1)
-              )
-              .and(
-                is_not_null(col("log_dw_bid_deal.data_costs")).cast(BooleanType)
-              ),
-            aggregate(
-              f_update_data_costs_deal(
-                col("log_dw_bid_deal.data_costs"),
-                coalesce(
-                  lookup("sup_bidder_member_sales_tax_rate",
-                         coalesce(col("_sup_common_deal_LOOKUP1").getField(
-                                    "member_id"
-                                  ),
-                                  lit(0)
-                         )
-                  ).getField("sales_tax_rate_pct"),
-                  lit(0)
-                )
-              ),
-              lit(0).cast(DoubleType),
-              (acc, ii) => acc + ii.getField("cost") * lit(100000)
-            )
-          ).otherwise(lit(0))
-        ).otherwise(lit(0)).cast(DoubleType) + when(
-          is_not_null(col("log_impbus_impressions_pricing"))
-            .cast(BooleanType)
-            .and(
-              coalesce(col(
-                         "log_impbus_impressions_pricing.seller_charges.is_dw"
-                       ).cast(IntegerType),
-                       lit(0)
-              ).cast(IntegerType) === lit(1)
-            )
-            .and(
-              is_not_null(
-                when(
-                  f_should_process_views(
-                    col("log_dw_view"),
-                    f_transaction_event(
-                      col("log_impbus_impressions.seller_transaction_def"),
-                      col("log_impbus_preempt.seller_transaction_def")
-                    ),
-                    f_transaction_event(
-                      col("log_impbus_impressions.buyer_transaction_def"),
-                      col("log_impbus_preempt.buyer_transaction_def")
-                    )
-                  ) === lit(1),
-                  col(
-                    "log_impbus_auction_event.auction_event_pricing.buyer_charges"
-                  ).getField("pricing_terms")
-                ).otherwise(
-                  col("log_impbus_impressions_pricing.buyer_charges")
-                    .getField("pricing_terms")
-                )
-              ).cast(BooleanType)
-            ),
-          decimal_round_even(
-            f_get_total_tech_fees(
-              when(
-                f_should_process_views(
-                  col("log_dw_view"),
-                  f_transaction_event(
-                    col("log_impbus_impressions.seller_transaction_def"),
-                    col("log_impbus_preempt.seller_transaction_def")
-                  ),
-                  f_transaction_event(
-                    col("log_impbus_impressions.buyer_transaction_def"),
-                    col("log_impbus_preempt.buyer_transaction_def")
-                  )
-                ) === lit(1),
-                col(
-                  "log_impbus_auction_event.auction_event_pricing.buyer_charges"
-                ).getField("pricing_terms")
-              ).otherwise(
-                col("log_impbus_impressions_pricing.buyer_charges")
-                  .getField("pricing_terms")
-              )
-            ) * lit(100000.0d),
-            0
-          )
-        ).otherwise(lit(0)).cast(LongType)
-      ).otherwise(lit(0))
-    ).otherwise(lit(0)).cast(LongType)
-  }
-
-  def data_costs(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    coalesce(
-      when(
-        when(
-          is_not_null(col("log_impbus_impressions_pricing")).cast(BooleanType),
-          when(
-            coalesce(col("log_impbus_impressions_pricing.seller_charges.is_dw")
-                       .cast(IntegerType),
-                     lit(0)
-            ).cast(IntegerType) === lit(1),
-            f_transaction_event(
-              col("log_impbus_impressions.buyer_transaction_def"),
-              col("log_impbus_preempt.buyer_transaction_def")
-            )
-          ).otherwise(lit(0))
-        ).otherwise(lit(0)).cast(IntegerType) =!= lit(1),
-        lit(null)
-      ),
-      when(
-        is_not_null(col("log_dw_bid_curator.data_costs")).cast(BooleanType),
-        f_update_data_costs_deal(
-          col("log_dw_bid_curator.data_costs"),
-          coalesce(
-            lookup(
-              "sup_bidder_member_sales_tax_rate",
-              when(
-                coalesce(
-                  col("log_impbus_preempt.curated_deal_id").cast(IntegerType),
-                  lit(0)
-                ) =!= lit(0),
-                coalesce(col("_sup_common_deal_LOOKUP").getField("member_id"),
-                         lit(0)
-                )
-              ).otherwise(lit(0)).cast(IntegerType)
-            ).getField("sales_tax_rate_pct"),
-            lit(0)
-          )
-        )
-      ).otherwise(
-        lit(null).cast(
-          ArrayType(
-            StructType(
-              Array(
-                StructField("data_member_id", IntegerType, true),
-                StructField("cost",           DoubleType,  true),
-                StructField("used_segments",
-                            ArrayType(IntegerType, true),
-                            true
-                ),
-                StructField("cost_pct", DoubleType, true)
-              )
-            ),
-            true
-          )
-        )
-      )
-    )
-  }
-
-  def net_media_cost_microcents(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    when(
-      is_not_null(col("log_impbus_impressions_pricing")).cast(BooleanType),
-      when(
-        coalesce(col("log_impbus_impressions_pricing.seller_charges.is_dw")
-                   .cast(IntegerType),
-                 lit(0)
-        ).cast(IntegerType) === lit(1),
-        coalesce(col(
-                   "log_impbus_impressions_pricing.impression_event_pricing.seller_revenue_microcents"
-                 ).cast(LongType),
-                 lit(0)
-        ).cast(LongType) + when(
-          is_not_null(col("log_impbus_impressions_pricing"))
-            .cast(BooleanType)
-            .and(
-              coalesce(col(
-                         "log_impbus_impressions_pricing.seller_charges.is_dw"
-                       ).cast(IntegerType),
-                       lit(0)
-              ).cast(IntegerType) === lit(1)
-            )
-            .and(
-              is_not_null(
-                col(
-                  "log_impbus_impressions_pricing.seller_charges.pricing_terms"
-                )
-              ).cast(BooleanType)
-            ),
-          decimal_round_even(
-            f_get_seller_fees(
-              col("log_impbus_impressions_pricing.seller_charges.pricing_terms")
-            ) * lit(100000.0d),
-            0
-          )
-        ).otherwise(lit(0)).cast(LongType) + when(
-          is_not_null(col("log_impbus_impressions_pricing")).cast(BooleanType),
-          when(
-            (coalesce(col("log_impbus_impressions_pricing.seller_charges.is_dw")
-                        .cast(IntegerType),
-                      lit(0)
-            ).cast(IntegerType) === lit(1))
-              .and(
-                f_transaction_event(
-                  col("log_impbus_impressions.buyer_transaction_def"),
-                  col("log_impbus_preempt.buyer_transaction_def")
-                ) === lit(1)
-              )
-              .and(
-                is_not_null(col("log_dw_bid_deal.data_costs")).cast(BooleanType)
-              ),
-            aggregate(
-              f_update_data_costs_deal(
-                col("log_dw_bid_deal.data_costs"),
-                coalesce(
-                  lookup("sup_bidder_member_sales_tax_rate",
-                         coalesce(col("_sup_common_deal_LOOKUP1").getField(
-                                    "member_id"
-                                  ),
-                                  lit(0)
-                         )
-                  ).getField("sales_tax_rate_pct"),
-                  lit(0)
-                )
-              ),
-              lit(0).cast(DoubleType),
-              (acc, ii) => acc + ii.getField("cost") * lit(100000)
-            )
-          ).otherwise(lit(0))
-        ).otherwise(lit(0)).cast(DoubleType)
       ).otherwise(lit(0))
     ).otherwise(lit(0)).cast(LongType)
   }

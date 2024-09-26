@@ -45,16 +45,9 @@ pipelines:
       - datasets/pb_log_impbus_preempt
       - datasets/pb_log_impbus_preempt_deferred_5
       - datasets/pb_log_impbus_view
-      - datasets/pb_stage_seen_denormalized
       - datasets/pb_video_slot_5
-      - datasets/stage_invalid_impressions_quarantine
-      - datasets/stage_tl_trx_trans_denormalized
       - datasets/sup_bidder_member_tax
-      - datasets/target_agg_dw_curator_impressions_pb
-      - datasets/target_agg_dw_impressions_pb
-      - datasets/target_starget_impbus_impression_sample_trans_path_pb
       outputs:
-      - datasets/dbg_tran_leftjoin
       - datasets/pb_stage_seen_denormalized
       - datasets/stage_invalid_impressions_quarantine
       - datasets/stage_tl_trx_trans_denormalized
@@ -558,8 +551,45 @@ datasets:
         description: ''
         author: sumitpaul@prophecy.io
         createdAt: '2024-09-17 14:03:41'
-templates: {}
-jobs: {}
+templates:
+  templates/maven:
+    name: maven
+    description: null
+    author: abhinav@prophecy.io
+    version: v1
+    mode: batch
+    language: scala
+    createdAt: '2024-09-26 13:31:18'
+    datasets:
+      inputs: []
+      outputs: []
+    dependencies: {}
+jobs:
+  jobs/test_tran_job:
+    name: test_tran_job
+    description: ''
+    fabricUID: 9
+    scheduler:
+      Databricks: {}
+    cloudProvider: null
+    jobSize: abhinav_medium
+    scheduleCron: 0 0 0 1/1 * ? *
+    timeout: null
+    alerting:
+      emails: ''
+      onStart: false
+      onSuccess: false
+      onFailure: false
+    pipelines:
+    - pipelines/test1
+    jobClusterMode:
+      clusterMode:
+        Single: {}
+      clusterId: null
+    enabled: null
+    createdAt: '2024-09-26 13:29:28'
+    author: abhinav@prophecy.io
+    models: []
 gemContainer:
   languageVersion: 2.12.15
   gemLibsVersion: 1.1.26
@@ -1422,26 +1452,26 @@ dependencies:
   createdAt: '2024-09-12T17:10:12.812171Z'
   type: plibMaven
 projectDependencies:
-  '12651':
-    projectUID: 12651
+  '8':
+    projectUID: 8
     projectName: ProphecySparkBasicsScala
-    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12651.git&subPath=
+    repositoryPath: gitUri=http://gitserver:3000/yIytkCgB_team_4/yIytkCgB_project_8.git&subPath=
     version: 0.2.5.5
     isDefault: true
     author: null
     createdAt: '2024-09-12 17:10:00'
-  '12652':
-    projectUID: 12652
+  '9':
+    projectUID: 9
     projectName: ProphecyWarehouseScala
-    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12652.git&subPath=
+    repositoryPath: gitUri=http://gitserver:3000/yIytkCgB_team_4/yIytkCgB_project_9.git&subPath=
     version: 0.0.5
     isDefault: true
     author: null
     createdAt: '2024-09-12 17:10:00'
-  '19667':
-    projectUID: 19667
+  '15':
+    projectUID: 15
     projectName: ProphecySparkAbinitioScala
-    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/qRkqzzJt_project_19667.git&subPath=
+    repositoryPath: gitUri=http://gitserver:3000/yIytkCgB_team_4/yIytkCgB_project_15.git&subPath=
     version: 0.0.21
     isDefault: false
     author: null

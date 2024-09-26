@@ -1809,109 +1809,6 @@ object Reformat_agg_dw_impressions {
       )
     )
 
-  def buyer_charges(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    struct(
-      coalesce(
-        col(
-          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.rate_card_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_auction_event.auction_event_pricing.buyer_charges.rate_card_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.rate_card_id"
-        ).cast(IntegerType),
-        col("log_impbus_impressions_pricing.buyer_charges.rate_card_id").cast(
-          IntegerType
-        )
-      ).as("rate_card_id"),
-      coalesce(
-        col(
-          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.member_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_auction_event.auction_event_pricing.buyer_charges.member_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.member_id"
-        ).cast(IntegerType),
-        col("log_impbus_impressions_pricing.buyer_charges.member_id").cast(
-          IntegerType
-        )
-      ).as("member_id"),
-      coalesce(
-        col(
-          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.is_dw"
-        ).cast(ByteType),
-        col(
-          "log_impbus_auction_event.auction_event_pricing.buyer_charges.is_dw"
-        ).cast(ByteType),
-        col(
-          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.is_dw"
-        ).cast(ByteType),
-        col("log_impbus_impressions_pricing.buyer_charges.is_dw").cast(ByteType)
-      ).as("is_dw"),
-      col("in_f_create_agg_dw_impressions.buyer_charges_pricing_terms_var")
-        .as("pricing_terms"),
-      coalesce(
-        col(
-          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.fx_margin_rate_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_auction_event.auction_event_pricing.buyer_charges.fx_margin_rate_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.fx_margin_rate_id"
-        ).cast(IntegerType),
-        col("log_impbus_impressions_pricing.buyer_charges.fx_margin_rate_id")
-          .cast(IntegerType)
-      ).as("fx_margin_rate_id"),
-      coalesce(
-        col(
-          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.marketplace_owner_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_auction_event.auction_event_pricing.buyer_charges.marketplace_owner_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.marketplace_owner_id"
-        ).cast(IntegerType),
-        col("log_impbus_impressions_pricing.buyer_charges.marketplace_owner_id")
-          .cast(IntegerType)
-      ).as("marketplace_owner_id"),
-      coalesce(
-        col(
-          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.virtual_marketplace_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_auction_event.auction_event_pricing.buyer_charges.virtual_marketplace_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.virtual_marketplace_id"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_impressions_pricing.buyer_charges.virtual_marketplace_id"
-        ).cast(IntegerType)
-      ).as("virtual_marketplace_id"),
-      coalesce(
-        col(
-          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.amino_enabled"
-        ).cast(IntegerType),
-        col(
-          "log_impbus_auction_event.auction_event_pricing.buyer_charges.amino_enabled"
-        ).cast(ByteType),
-        col(
-          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.amino_enabled"
-        ).cast(ByteType),
-        col("log_impbus_impressions_pricing.buyer_charges.amino_enabled").cast(
-          ByteType
-        )
-      ).as("amino_enabled")
-    )
-  }
-
   def seller_charges(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -2022,6 +1919,109 @@ object Reformat_agg_dw_impressions {
           "log_impbus_impressions_pricing.impression_event_pricing.seller_charges.amino_enabled"
         ).cast(ByteType),
         col("log_impbus_impressions_pricing.seller_charges.amino_enabled").cast(
+          ByteType
+        )
+      ).as("amino_enabled")
+    )
+  }
+
+  def buyer_charges(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    struct(
+      coalesce(
+        col(
+          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.rate_card_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_auction_event.auction_event_pricing.buyer_charges.rate_card_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.rate_card_id"
+        ).cast(IntegerType),
+        col("log_impbus_impressions_pricing.buyer_charges.rate_card_id").cast(
+          IntegerType
+        )
+      ).as("rate_card_id"),
+      coalesce(
+        col(
+          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.member_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_auction_event.auction_event_pricing.buyer_charges.member_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.member_id"
+        ).cast(IntegerType),
+        col("log_impbus_impressions_pricing.buyer_charges.member_id").cast(
+          IntegerType
+        )
+      ).as("member_id"),
+      coalesce(
+        col(
+          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.is_dw"
+        ).cast(ByteType),
+        col(
+          "log_impbus_auction_event.auction_event_pricing.buyer_charges.is_dw"
+        ).cast(ByteType),
+        col(
+          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.is_dw"
+        ).cast(ByteType),
+        col("log_impbus_impressions_pricing.buyer_charges.is_dw").cast(ByteType)
+      ).as("is_dw"),
+      col("in_f_create_agg_dw_impressions.buyer_charges_pricing_terms_var")
+        .as("pricing_terms"),
+      coalesce(
+        col(
+          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.fx_margin_rate_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_auction_event.auction_event_pricing.buyer_charges.fx_margin_rate_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.fx_margin_rate_id"
+        ).cast(IntegerType),
+        col("log_impbus_impressions_pricing.buyer_charges.fx_margin_rate_id")
+          .cast(IntegerType)
+      ).as("fx_margin_rate_id"),
+      coalesce(
+        col(
+          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.marketplace_owner_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_auction_event.auction_event_pricing.buyer_charges.marketplace_owner_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.marketplace_owner_id"
+        ).cast(IntegerType),
+        col("log_impbus_impressions_pricing.buyer_charges.marketplace_owner_id")
+          .cast(IntegerType)
+      ).as("marketplace_owner_id"),
+      coalesce(
+        col(
+          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.virtual_marketplace_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_auction_event.auction_event_pricing.buyer_charges.virtual_marketplace_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.virtual_marketplace_id"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_impressions_pricing.buyer_charges.virtual_marketplace_id"
+        ).cast(IntegerType)
+      ).as("virtual_marketplace_id"),
+      coalesce(
+        col(
+          "in_f_create_agg_dw_impressions.v_transaction_event_pricing_var.buyer_charges.amino_enabled"
+        ).cast(IntegerType),
+        col(
+          "log_impbus_auction_event.auction_event_pricing.buyer_charges.amino_enabled"
+        ).cast(ByteType),
+        col(
+          "log_impbus_impressions_pricing.impression_event_pricing.buyer_charges.amino_enabled"
+        ).cast(ByteType),
+        col("log_impbus_impressions_pricing.buyer_charges.amino_enabled").cast(
           ByteType
         )
       ).as("amino_enabled")

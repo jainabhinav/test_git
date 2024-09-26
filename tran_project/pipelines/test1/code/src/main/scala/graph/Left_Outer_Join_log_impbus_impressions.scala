@@ -131,6 +131,75 @@ object Left_Outer_Join_log_impbus_impressions {
         ).as("video_slot")
       )
 
+  def log_impbus_view(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    struct(
+      col("in1.date_time").as("date_time"),
+      col("in1.auction_id_64").as("auction_id_64"),
+      col("in1.user_id_64").as("user_id_64"),
+      col("in1.view_result").as("view_result"),
+      col("in1.ttl").as("ttl"),
+      col("in1.view_data").as("view_data"),
+      col("in1.viewdef_definition_id").as("viewdef_definition_id"),
+      col("in1.viewdef_view_result").as("viewdef_view_result"),
+      col("in1.view_not_measurable_type").as("view_not_measurable_type"),
+      col("in1.view_not_visible_type").as("view_not_visible_type"),
+      col("in1.view_frame_type").as("view_frame_type"),
+      col("in1.view_script_version").as("view_script_version"),
+      col("in1.view_tag_version").as("view_tag_version"),
+      col("in1.view_screen_width").as("view_screen_width"),
+      col("in1.view_screen_height").as("view_screen_height"),
+      col("in1.view_js_browser").as("view_js_browser"),
+      col("in1.view_js_platform").as("view_js_platform"),
+      col("in1.view_banner_left").as("view_banner_left"),
+      col("in1.view_banner_top").as("view_banner_top"),
+      col("in1.view_banner_width").as("view_banner_width"),
+      col("in1.view_banner_height").as("view_banner_height"),
+      col("in1.view_tracking_duration").as("view_tracking_duration"),
+      col("in1.view_page_duration").as("view_page_duration"),
+      col("in1.view_usage_duration").as("view_usage_duration"),
+      col("in1.view_surface").as("view_surface"),
+      col("in1.view_js_message").as("view_js_message"),
+      col("in1.view_player_width").as("view_player_width"),
+      col("in1.view_player_height").as("view_player_height"),
+      col("in1.view_iab_duration").as("view_iab_duration"),
+      col("in1.view_iab_inview_count").as("view_iab_inview_count"),
+      col("in1.view_duration_gt_0pct").as("view_duration_gt_0pct"),
+      col("in1.view_duration_gt_25pct").as("view_duration_gt_25pct"),
+      col("in1.view_duration_gt_50pct").as("view_duration_gt_50pct"),
+      col("in1.view_duration_gt_75pct").as("view_duration_gt_75pct"),
+      col("in1.view_duration_eq_100pct").as("view_duration_eq_100pct"),
+      col("in1.auction_timestamp").as("auction_timestamp"),
+      col("in1.view_has_banner_left").as("view_has_banner_left"),
+      col("in1.view_has_banner_top").as("view_has_banner_top"),
+      col("in1.view_mouse_position_final_x").as("view_mouse_position_final_x"),
+      col("in1.view_mouse_position_final_y").as("view_mouse_position_final_y"),
+      col("in1.view_has_mouse_position_final")
+        .as("view_has_mouse_position_final"),
+      col("in1.view_mouse_position_initial_x")
+        .as("view_mouse_position_initial_x"),
+      col("in1.view_mouse_position_initial_y")
+        .as("view_mouse_position_initial_y"),
+      col("in1.view_has_mouse_position_initial")
+        .as("view_has_mouse_position_initial"),
+      col("in1.view_mouse_position_page_x").as("view_mouse_position_page_x"),
+      col("in1.view_mouse_position_page_y").as("view_mouse_position_page_y"),
+      col("in1.view_has_mouse_position_page")
+        .as("view_has_mouse_position_page"),
+      col("in1.view_mouse_position_timeout_x")
+        .as("view_mouse_position_timeout_x"),
+      col("in1.view_mouse_position_timeout_y")
+        .as("view_mouse_position_timeout_y"),
+      col("in1.view_has_mouse_position_timeout")
+        .as("view_has_mouse_position_timeout"),
+      col("in1.view_session_id").as("view_session_id"),
+      col("in1.view_video").as("view_video"),
+      col("in1.anonymized_user_info").as("anonymized_user_info"),
+      col("in1.is_deferred").as("is_deferred")
+    )
+  }
+
   def log_dw_bid_last(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -408,75 +477,6 @@ object Left_Outer_Join_log_impbus_impressions {
           StructField("feature_tests_bitmap", IntegerType, true)
         )
       )
-    )
-  }
-
-  def log_impbus_view(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    struct(
-      col("in1.date_time").as("date_time"),
-      col("in1.auction_id_64").as("auction_id_64"),
-      col("in1.user_id_64").as("user_id_64"),
-      col("in1.view_result").as("view_result"),
-      col("in1.ttl").as("ttl"),
-      col("in1.view_data").as("view_data"),
-      col("in1.viewdef_definition_id").as("viewdef_definition_id"),
-      col("in1.viewdef_view_result").as("viewdef_view_result"),
-      col("in1.view_not_measurable_type").as("view_not_measurable_type"),
-      col("in1.view_not_visible_type").as("view_not_visible_type"),
-      col("in1.view_frame_type").as("view_frame_type"),
-      col("in1.view_script_version").as("view_script_version"),
-      col("in1.view_tag_version").as("view_tag_version"),
-      col("in1.view_screen_width").as("view_screen_width"),
-      col("in1.view_screen_height").as("view_screen_height"),
-      col("in1.view_js_browser").as("view_js_browser"),
-      col("in1.view_js_platform").as("view_js_platform"),
-      col("in1.view_banner_left").as("view_banner_left"),
-      col("in1.view_banner_top").as("view_banner_top"),
-      col("in1.view_banner_width").as("view_banner_width"),
-      col("in1.view_banner_height").as("view_banner_height"),
-      col("in1.view_tracking_duration").as("view_tracking_duration"),
-      col("in1.view_page_duration").as("view_page_duration"),
-      col("in1.view_usage_duration").as("view_usage_duration"),
-      col("in1.view_surface").as("view_surface"),
-      col("in1.view_js_message").as("view_js_message"),
-      col("in1.view_player_width").as("view_player_width"),
-      col("in1.view_player_height").as("view_player_height"),
-      col("in1.view_iab_duration").as("view_iab_duration"),
-      col("in1.view_iab_inview_count").as("view_iab_inview_count"),
-      col("in1.view_duration_gt_0pct").as("view_duration_gt_0pct"),
-      col("in1.view_duration_gt_25pct").as("view_duration_gt_25pct"),
-      col("in1.view_duration_gt_50pct").as("view_duration_gt_50pct"),
-      col("in1.view_duration_gt_75pct").as("view_duration_gt_75pct"),
-      col("in1.view_duration_eq_100pct").as("view_duration_eq_100pct"),
-      col("in1.auction_timestamp").as("auction_timestamp"),
-      col("in1.view_has_banner_left").as("view_has_banner_left"),
-      col("in1.view_has_banner_top").as("view_has_banner_top"),
-      col("in1.view_mouse_position_final_x").as("view_mouse_position_final_x"),
-      col("in1.view_mouse_position_final_y").as("view_mouse_position_final_y"),
-      col("in1.view_has_mouse_position_final")
-        .as("view_has_mouse_position_final"),
-      col("in1.view_mouse_position_initial_x")
-        .as("view_mouse_position_initial_x"),
-      col("in1.view_mouse_position_initial_y")
-        .as("view_mouse_position_initial_y"),
-      col("in1.view_has_mouse_position_initial")
-        .as("view_has_mouse_position_initial"),
-      col("in1.view_mouse_position_page_x").as("view_mouse_position_page_x"),
-      col("in1.view_mouse_position_page_y").as("view_mouse_position_page_y"),
-      col("in1.view_has_mouse_position_page")
-        .as("view_has_mouse_position_page"),
-      col("in1.view_mouse_position_timeout_x")
-        .as("view_mouse_position_timeout_x"),
-      col("in1.view_mouse_position_timeout_y")
-        .as("view_mouse_position_timeout_y"),
-      col("in1.view_has_mouse_position_timeout")
-        .as("view_has_mouse_position_timeout"),
-      col("in1.view_session_id").as("view_session_id"),
-      col("in1.view_video").as("view_video"),
-      col("in1.anonymized_user_info").as("anonymized_user_info"),
-      col("in1.is_deferred").as("is_deferred")
     )
   }
 

@@ -120,201 +120,6 @@ object Left_Outer_Join_log_impbus_preeempt {
     )
   }
 
-  def log_impbus_impressions_pricing(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    lit(null).cast(
-      StructType(
-        Array(
-          StructField("date_time",     LongType, true),
-          StructField("auction_id_64", LongType, true),
-          StructField(
-            "buyer_charges",
-            StructType(
-              Array(
-                StructField("rate_card_id", IntegerType, true),
-                StructField("member_id",    IntegerType, true),
-                StructField("is_dw",        BooleanType, true),
-                StructField(
-                  "pricing_terms",
-                  ArrayType(
-                    StructType(
-                      Array(
-                        StructField("term_id",      IntegerType, true),
-                        StructField("amount",       DoubleType,  true),
-                        StructField("rate",         DoubleType,  true),
-                        StructField("is_deduction", BooleanType, true),
-                        StructField("is_media_cost_dependent",
-                                    BooleanType,
-                                    true
-                        ),
-                        StructField("data_member_id", IntegerType, true)
-                      )
-                    ),
-                    true
-                  ),
-                  true
-                ),
-                StructField("fx_margin_rate_id",      IntegerType, true),
-                StructField("marketplace_owner_id",   IntegerType, true),
-                StructField("virtual_marketplace_id", IntegerType, true),
-                StructField("amino_enabled",          BooleanType, true)
-              )
-            ),
-            true
-          ),
-          StructField(
-            "seller_charges",
-            StructType(
-              Array(
-                StructField("rate_card_id", IntegerType, true),
-                StructField("member_id",    IntegerType, true),
-                StructField("is_dw",        BooleanType, true),
-                StructField(
-                  "pricing_terms",
-                  ArrayType(
-                    StructType(
-                      Array(
-                        StructField("term_id",      IntegerType, true),
-                        StructField("amount",       DoubleType,  true),
-                        StructField("rate",         DoubleType,  true),
-                        StructField("is_deduction", BooleanType, true),
-                        StructField("is_media_cost_dependent",
-                                    BooleanType,
-                                    true
-                        ),
-                        StructField("data_member_id", IntegerType, true)
-                      )
-                    ),
-                    true
-                  ),
-                  true
-                ),
-                StructField("fx_margin_rate_id",      IntegerType, true),
-                StructField("marketplace_owner_id",   IntegerType, true),
-                StructField("virtual_marketplace_id", IntegerType, true),
-                StructField("amino_enabled",          BooleanType, true)
-              )
-            ),
-            true
-          ),
-          StructField("buyer_spend",                 DoubleType,  true),
-          StructField("seller_revenue",              DoubleType,  true),
-          StructField("rate_card_auction_type",      IntegerType, true),
-          StructField("rate_card_media_type",        IntegerType, true),
-          StructField("direct_clear",                BooleanType, true),
-          StructField("auction_timestamp",           LongType,    true),
-          StructField("instance_id",                 IntegerType, true),
-          StructField("two_phase_reduction_applied", BooleanType, true),
-          StructField("trade_agreement_id",          IntegerType, true),
-          StructField("log_timestamp",               LongType,    true),
-          StructField(
-            "trade_agreement_info",
-            StructType(
-              Array(
-                StructField("applied_term_id",   IntegerType, true),
-                StructField("applied_term_type", IntegerType, true),
-                StructField("targeted_term_ids",
-                            ArrayType(IntegerType, true),
-                            true
-                )
-              )
-            ),
-            true
-          ),
-          StructField("is_buy_it_now",   BooleanType, true),
-          StructField("net_buyer_spend", DoubleType,  true),
-          StructField(
-            "impression_event_pricing",
-            StructType(
-              Array(
-                StructField("gross_payment_value_microcents", LongType, true),
-                StructField("net_payment_value_microcents",   LongType, true),
-                StructField("seller_revenue_microcents",      LongType, true),
-                StructField(
-                  "buyer_charges",
-                  StructType(
-                    Array(
-                      StructField("rate_card_id", IntegerType, true),
-                      StructField("member_id",    IntegerType, true),
-                      StructField("is_dw",        BooleanType, true),
-                      StructField(
-                        "pricing_terms",
-                        ArrayType(
-                          StructType(
-                            Array(
-                              StructField("term_id",      IntegerType, true),
-                              StructField("amount",       DoubleType,  true),
-                              StructField("rate",         DoubleType,  true),
-                              StructField("is_deduction", BooleanType, true),
-                              StructField("is_media_cost_dependent",
-                                          BooleanType,
-                                          true
-                              ),
-                              StructField("data_member_id", IntegerType, true)
-                            )
-                          ),
-                          true
-                        ),
-                        true
-                      ),
-                      StructField("fx_margin_rate_id",      IntegerType, true),
-                      StructField("marketplace_owner_id",   IntegerType, true),
-                      StructField("virtual_marketplace_id", IntegerType, true),
-                      StructField("amino_enabled",          BooleanType, true)
-                    )
-                  ),
-                  true
-                ),
-                StructField(
-                  "seller_charges",
-                  StructType(
-                    Array(
-                      StructField("rate_card_id", IntegerType, true),
-                      StructField("member_id",    IntegerType, true),
-                      StructField("is_dw",        BooleanType, true),
-                      StructField(
-                        "pricing_terms",
-                        ArrayType(
-                          StructType(
-                            Array(
-                              StructField("term_id",      IntegerType, true),
-                              StructField("amount",       DoubleType,  true),
-                              StructField("rate",         DoubleType,  true),
-                              StructField("is_deduction", BooleanType, true),
-                              StructField("is_media_cost_dependent",
-                                          BooleanType,
-                                          true
-                              ),
-                              StructField("data_member_id", IntegerType, true)
-                            )
-                          ),
-                          true
-                        ),
-                        true
-                      ),
-                      StructField("fx_margin_rate_id",      IntegerType, true),
-                      StructField("marketplace_owner_id",   IntegerType, true),
-                      StructField("virtual_marketplace_id", IntegerType, true),
-                      StructField("amino_enabled",          BooleanType, true)
-                    )
-                  ),
-                  true
-                ),
-                StructField("buyer_transacted",  BooleanType, true),
-                StructField("seller_transacted", BooleanType, true)
-              )
-            ),
-            true
-          ),
-          StructField("counterparty_ruleset_type", IntegerType, true),
-          StructField("estimated_audience_imps",   FloatType,   true),
-          StructField("audience_imps",             FloatType,   true)
-        )
-      )
-    )
-  }
-
   def log_impbus_impressions_pricing_dup(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -679,6 +484,201 @@ object Left_Outer_Join_log_impbus_preeempt {
         col("left.private_auction_eligible").as("private_auction_eligible"),
         col("left.client_request_id").as("client_request_id"),
         col("left.chrome_traffic_label").as("chrome_traffic_label")
+      )
+    )
+  }
+
+  def log_impbus_impressions_pricing(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    lit(null).cast(
+      StructType(
+        Array(
+          StructField("date_time",     LongType, true),
+          StructField("auction_id_64", LongType, true),
+          StructField(
+            "buyer_charges",
+            StructType(
+              Array(
+                StructField("rate_card_id", IntegerType, true),
+                StructField("member_id",    IntegerType, true),
+                StructField("is_dw",        BooleanType, true),
+                StructField(
+                  "pricing_terms",
+                  ArrayType(
+                    StructType(
+                      Array(
+                        StructField("term_id",      IntegerType, true),
+                        StructField("amount",       DoubleType,  true),
+                        StructField("rate",         DoubleType,  true),
+                        StructField("is_deduction", BooleanType, true),
+                        StructField("is_media_cost_dependent",
+                                    BooleanType,
+                                    true
+                        ),
+                        StructField("data_member_id", IntegerType, true)
+                      )
+                    ),
+                    true
+                  ),
+                  true
+                ),
+                StructField("fx_margin_rate_id",      IntegerType, true),
+                StructField("marketplace_owner_id",   IntegerType, true),
+                StructField("virtual_marketplace_id", IntegerType, true),
+                StructField("amino_enabled",          BooleanType, true)
+              )
+            ),
+            true
+          ),
+          StructField(
+            "seller_charges",
+            StructType(
+              Array(
+                StructField("rate_card_id", IntegerType, true),
+                StructField("member_id",    IntegerType, true),
+                StructField("is_dw",        BooleanType, true),
+                StructField(
+                  "pricing_terms",
+                  ArrayType(
+                    StructType(
+                      Array(
+                        StructField("term_id",      IntegerType, true),
+                        StructField("amount",       DoubleType,  true),
+                        StructField("rate",         DoubleType,  true),
+                        StructField("is_deduction", BooleanType, true),
+                        StructField("is_media_cost_dependent",
+                                    BooleanType,
+                                    true
+                        ),
+                        StructField("data_member_id", IntegerType, true)
+                      )
+                    ),
+                    true
+                  ),
+                  true
+                ),
+                StructField("fx_margin_rate_id",      IntegerType, true),
+                StructField("marketplace_owner_id",   IntegerType, true),
+                StructField("virtual_marketplace_id", IntegerType, true),
+                StructField("amino_enabled",          BooleanType, true)
+              )
+            ),
+            true
+          ),
+          StructField("buyer_spend",                 DoubleType,  true),
+          StructField("seller_revenue",              DoubleType,  true),
+          StructField("rate_card_auction_type",      IntegerType, true),
+          StructField("rate_card_media_type",        IntegerType, true),
+          StructField("direct_clear",                BooleanType, true),
+          StructField("auction_timestamp",           LongType,    true),
+          StructField("instance_id",                 IntegerType, true),
+          StructField("two_phase_reduction_applied", BooleanType, true),
+          StructField("trade_agreement_id",          IntegerType, true),
+          StructField("log_timestamp",               LongType,    true),
+          StructField(
+            "trade_agreement_info",
+            StructType(
+              Array(
+                StructField("applied_term_id",   IntegerType, true),
+                StructField("applied_term_type", IntegerType, true),
+                StructField("targeted_term_ids",
+                            ArrayType(IntegerType, true),
+                            true
+                )
+              )
+            ),
+            true
+          ),
+          StructField("is_buy_it_now",   BooleanType, true),
+          StructField("net_buyer_spend", DoubleType,  true),
+          StructField(
+            "impression_event_pricing",
+            StructType(
+              Array(
+                StructField("gross_payment_value_microcents", LongType, true),
+                StructField("net_payment_value_microcents",   LongType, true),
+                StructField("seller_revenue_microcents",      LongType, true),
+                StructField(
+                  "buyer_charges",
+                  StructType(
+                    Array(
+                      StructField("rate_card_id", IntegerType, true),
+                      StructField("member_id",    IntegerType, true),
+                      StructField("is_dw",        BooleanType, true),
+                      StructField(
+                        "pricing_terms",
+                        ArrayType(
+                          StructType(
+                            Array(
+                              StructField("term_id",      IntegerType, true),
+                              StructField("amount",       DoubleType,  true),
+                              StructField("rate",         DoubleType,  true),
+                              StructField("is_deduction", BooleanType, true),
+                              StructField("is_media_cost_dependent",
+                                          BooleanType,
+                                          true
+                              ),
+                              StructField("data_member_id", IntegerType, true)
+                            )
+                          ),
+                          true
+                        ),
+                        true
+                      ),
+                      StructField("fx_margin_rate_id",      IntegerType, true),
+                      StructField("marketplace_owner_id",   IntegerType, true),
+                      StructField("virtual_marketplace_id", IntegerType, true),
+                      StructField("amino_enabled",          BooleanType, true)
+                    )
+                  ),
+                  true
+                ),
+                StructField(
+                  "seller_charges",
+                  StructType(
+                    Array(
+                      StructField("rate_card_id", IntegerType, true),
+                      StructField("member_id",    IntegerType, true),
+                      StructField("is_dw",        BooleanType, true),
+                      StructField(
+                        "pricing_terms",
+                        ArrayType(
+                          StructType(
+                            Array(
+                              StructField("term_id",      IntegerType, true),
+                              StructField("amount",       DoubleType,  true),
+                              StructField("rate",         DoubleType,  true),
+                              StructField("is_deduction", BooleanType, true),
+                              StructField("is_media_cost_dependent",
+                                          BooleanType,
+                                          true
+                              ),
+                              StructField("data_member_id", IntegerType, true)
+                            )
+                          ),
+                          true
+                        ),
+                        true
+                      ),
+                      StructField("fx_margin_rate_id",      IntegerType, true),
+                      StructField("marketplace_owner_id",   IntegerType, true),
+                      StructField("virtual_marketplace_id", IntegerType, true),
+                      StructField("amino_enabled",          BooleanType, true)
+                    )
+                  ),
+                  true
+                ),
+                StructField("buyer_transacted",  BooleanType, true),
+                StructField("seller_transacted", BooleanType, true)
+              )
+            ),
+            true
+          ),
+          StructField("counterparty_ruleset_type", IntegerType, true),
+          StructField("estimated_audience_imps",   FloatType,   true),
+          StructField("audience_imps",             FloatType,   true)
+        )
       )
     )
   }

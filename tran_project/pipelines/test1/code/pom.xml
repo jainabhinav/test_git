@@ -1,7 +1,7 @@
 <project 
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>MS_bing</groupId>
+    <groupId>tran_graph</groupId>
     <artifactId>test1</artifactId>
     <description>workflow</description>
     <version>1.0</version>
@@ -9,7 +9,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     <properties>
         <scalaBaseVersion>2.12</scalaBaseVersion>
         <scalaVersion>2.12.15</scalaVersion>
-        <sparkVersion>3.3.0</sparkVersion>
+        <sparkVersion>3.5.1</sparkVersion>
         <prophecyLibsVersion>8.0.31</prophecyLibsVersion>
     </properties>
     <repositories>
@@ -109,7 +109,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         <dependency>
             <groupId>io.prophecy</groupId>
             <artifactId>prophecy-libs_${scalaBaseVersion}</artifactId>
-            <version>${sparkVersion}-${prophecyLibsVersion}</version>
+            <version>3.5.0-${prophecyLibsVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>

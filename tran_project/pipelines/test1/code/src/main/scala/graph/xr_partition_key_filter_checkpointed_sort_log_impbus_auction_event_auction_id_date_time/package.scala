@@ -15,9 +15,7 @@ package object xr_partition_key_filter_checkpointed_sort_log_impbus_auction_even
     val df_Partition_by_Key_2 = Partition_by_Key_2(context, in)
     val df_Filter_by_Expression_2 =
       Filter_by_Expression_2(context, df_Partition_by_Key_2)
-    val df_Checkpointed_Sort__Partial_Sort_2 =
-      Checkpointed_Sort__Partial_Sort_2(context, df_Filter_by_Expression_2)
-    df_Checkpointed_Sort__Partial_Sort_2
+    df_Filter_by_Expression_2
   }
 
 }

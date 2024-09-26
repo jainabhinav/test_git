@@ -33,9 +33,7 @@ package object xr_partition_key_filter_checkpointed_sort_log_impbus_impressions_
       Partition_by_Key_3(context, df_Partition_by_Key_UnionAll_1)
     val df_Filter_by_Expression_3 =
       Filter_by_Expression_3(context, df_Partition_by_Key_3)
-    val df_Checkpointed_Sort__Partial_Sort_3 =
-      Checkpointed_Sort__Partial_Sort_3(context, df_Filter_by_Expression_3)
-    df_Checkpointed_Sort__Partial_Sort_3
+    df_Filter_by_Expression_3
   }
 
 }
