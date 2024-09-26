@@ -1,0 +1,1061 @@
+{
+  "metainfo" : {
+    "type" : "Databricks",
+    "fabricId" : "9",
+    "jobId" : "jobs/test_tran_job",
+    "name" : "test_tran_job",
+    "schedule" : "0 0 0 1/1 * ? *",
+    "scheduleTimeZone" : "UTC",
+    "jobClusterMode" : {
+      "clusterMode" : "Single"
+    },
+    "enabled" : false,
+    "defaultClusterSize" : "abhinav_medium",
+    "alerting" : {
+      "emails" : "",
+      "onStart" : false,
+      "onSuccess" : false,
+      "onFailure" : false
+    },
+    "maxConcurrentRuns" : 1,
+    "processDefaultSettings" : {
+      "type" : "Inherited",
+      "retries" : 0,
+      "alerting" : {
+        "emails" : "",
+        "onStart" : false,
+        "onSuccess" : false,
+        "onFailure" : false
+      }
+    },
+    "availableFabrics" : [ {
+      "id" : "9",
+      "name" : "db_fabric",
+      "clusterSizes" : {
+        "default" : "small",
+        "availableClusterSizes" : [ "small", "abhinav_medium" ]
+      },
+      "pylibsResolutionMode" : {
+        "PublicCentral" : { }
+      },
+      "scalalibsResolutionMode" : {
+        "PublicCentral" : { }
+      }
+    } ]
+  },
+  "processes" : {
+    "86AeVpB-hQ1XYT2xbev4Y" : {
+      "id" : "86AeVpB-hQ1XYT2xbev4Y",
+      "component" : "Pipeline",
+      "metadata" : {
+        "label" : "test1",
+        "slug" : "test1",
+        "x" : 100,
+        "y" : 100
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in",
+          "slug" : ""
+        } ],
+        "outputs" : [ {
+          "id" : "out",
+          "slug" : ""
+        } ]
+      },
+      "settings" : {
+        "type" : "Inherited",
+        "alerting" : {
+          "emails" : "",
+          "onStart" : false,
+          "onSuccess" : false,
+          "onFailure" : false
+        }
+      },
+      "properties" : {
+        "pipelineId" : "pipelines/test1",
+        "configurations" : {
+          "schema" : [ {
+            "name" : "XR_BUSINESS_DATE",
+            "optional" : false,
+            "kind" : {
+              "type" : "string",
+              "value" : "20200331"
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : false
+          }, {
+            "name" : "XR_ADI_MEMBER_INFO",
+            "optional" : false,
+            "kind" : {
+              "type" : "string",
+              "value" : "dbfs:/FileStore/data_engg/msbing/transaction_graph/Write_Multiple_Files_memberCounts"
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : false
+          }, {
+            "name" : "XR_LOOKUP_DATA",
+            "optional" : false,
+            "kind" : {
+              "type" : "string",
+              "value" : "hdfs:/data_team/team_user_space/blee/prophecy"
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : false
+          }, {
+            "name" : "XR_BUSINESS_HOUR",
+            "optional" : false,
+            "kind" : {
+              "type" : "string",
+              "value" : "05"
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : false
+          }, {
+            "name" : "xr_partition_key_filter_checkpointed_sort_log_impbus_preempt_auction_id_date_time",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : true
+          }, {
+            "name" : "xr_partition_key_filter_checkpointed_sort_log_impbus_view_auction_id_date_time",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : true
+          }, {
+            "name" : "xr_partition_key_filter_checkpointed_sort_log_dw_view_auction_id_date_time",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : true
+          }, {
+            "name" : "Router_Reformatter",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ {
+                "name" : "XR_LOOKUP_DATA",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "hdfs:/app_abinitio/dev"
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "XR_BUSINESS_HOUR",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "05"
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "XR_BUSINESS_DATE",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "2020031"
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              } ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : true
+          }, {
+            "name" : "xr_partition_key_filter_checkpointed_sort_log_dw_bid_auction_id_date_time",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : true
+          }, {
+            "name" : "Create_sup_lookup_files",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ {
+                "name" : "datasets",
+                "optional" : false,
+                "kind" : {
+                  "type" : "record",
+                  "fields" : [ {
+                    "name" : "hdfsLogPrefix",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/logs"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "hdfsSupPrefix",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/sup"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "hdfsAggPrefix",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/aggs"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "inputs",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "record",
+                      "fields" : [ {
+                        "name" : "log_impbus_impressions_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_impressions_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_impbus_impressions_deferred_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_impressions_deferred_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_impbus_imptracker_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_imptracker_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_impbus_impressions_pricing_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_impressions_pricing_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_impbus_impressions_deferred_pricing_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_impressions_deferred_pricing_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_impbus_preempt_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_preempt_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_impbus_preempt_deferred_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_preempt_deferred_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_impbus_view_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_view_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_impbus_auction_event_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_auction_event_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_dw_bid_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_dw_bid_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_dw_imptracker_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_dw_imptracker_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "log_dw_view_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_dw_view_pb/v000"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "video_slot_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/validated_logs/video_slot_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "sup_ip_range_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_ip_range_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "sup_common_deal_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_common_deal"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "sup_bidder_member_sales_tax_rate_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_bidder_member_sales_tax_rate_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "sup_bidder_insertion_order_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_bidder_insertion_order_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "sup_sell_side_object_hierarchy_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_sell_side_object_hierarchy_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "sup_bidder_campaign_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_bidder_campaign"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "sup_placement_video_attributes_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_placement_video_attributes_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "sup_buy_side_object_hierarchy_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_buy_side_object_hierarchy_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "sup_tl_api_inventory_url_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_tl_api_inventory_url_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      } ]
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "outputs",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "record",
+                      "fields" : [ {
+                        "name" : "agg_dw_curator_impressions_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/agg_dw_curator_impressions_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "stage_seen_transacted_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/stage_seen_transacted_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "stage_tl_trx_trans_denormalized_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/stage_tl_trx_trans_denormalized_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "stage_impbus_impression_sample_trans_path_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/stage_impbus_impression_sample_trans_path_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "agg_dw_impressions_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/agg_dw_impressions_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "stage_invalid_impressions_quarantine_pb",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/stage_invalid_impressions_quarantine_pb"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      }, {
+                        "name" : "memberCounts",
+                        "optional" : false,
+                        "kind" : {
+                          "type" : "string",
+                          "value" : "hdfs:/data_team/team_user_space/blee/prophecy/filters/memberCounts"
+                        },
+                        "isReferenced" : false,
+                        "isWorkflowNodeConfiguration" : false
+                      } ]
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "hdfsProtoDescriptor",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/artifacts/schemas-descriptor/current/schemas-descriptor.protobin"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  } ]
+                },
+                "isReferenced" : true,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "XR_BUSINESS_DATE",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "20200331"
+                },
+                "isReferenced" : true,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "XR_ADI_MEMBER_INFO",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "dbfs:/FileStore/data_engg/msbing/transaction_graph/Write_Multiple_Files_memberCounts"
+                },
+                "isReferenced" : true,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "XR_LOOKUP_DATA",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "hdfs:/data_team/team_user_space/blee/prophecy"
+                },
+                "isReferenced" : true,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "XR_BUSINESS_HOUR",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "05"
+                },
+                "isReferenced" : true,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "system",
+                "optional" : false,
+                "kind" : {
+                  "type" : "record",
+                  "fields" : [ {
+                    "name" : "startDate",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "2020-03-31 05:00:00"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sparkSubmit",
+                    "optional" : true,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : ""
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "appJar",
+                    "optional" : true,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : ""
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "runtimeConf",
+                    "optional" : true,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : ""
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sparkArguments",
+                    "optional" : true,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : ""
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  } ]
+                },
+                "isReferenced" : true,
+                "isWorkflowNodeConfiguration" : false
+              } ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : true
+          }, {
+            "name" : "xr_partition_key_filter_checkpointed_sort_log_impbus_impressions_pricing_auction_id_date_time",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : true
+          }, {
+            "name" : "LookupToJoin50",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : true
+          }, {
+            "name" : "xr_partition_key_filter_checkpointed_sort_log_impbus_auction_event_auction_id_date_time",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : true
+          }, {
+            "name" : "datasets",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ {
+                "name" : "hdfsLogPrefix",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "hdfs:/data_team/logs"
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "hdfsSupPrefix",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "hdfs:/data_team/sup"
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "hdfsAggPrefix",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "hdfs:/data_team/aggs"
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "inputs",
+                "optional" : false,
+                "kind" : {
+                  "type" : "record",
+                  "fields" : [ {
+                    "name" : "log_impbus_impressions_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_impressions_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_impbus_impressions_deferred_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_impressions_deferred_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_impbus_imptracker_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_imptracker_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_impbus_impressions_pricing_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_impressions_pricing_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_impbus_impressions_deferred_pricing_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_impressions_deferred_pricing_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_impbus_preempt_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_preempt_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_impbus_preempt_deferred_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_preempt_deferred_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_impbus_view_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_view_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_impbus_auction_event_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_impbus_auction_event_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_dw_bid_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_dw_bid_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_dw_imptracker_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_dw_imptracker_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "log_dw_view_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/logs/log_dw_view_pb/v000"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "video_slot_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/validated_logs/video_slot_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sup_ip_range_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_ip_range_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sup_common_deal_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_common_deal"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sup_bidder_member_sales_tax_rate_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_bidder_member_sales_tax_rate_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sup_bidder_insertion_order_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_bidder_insertion_order_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sup_sell_side_object_hierarchy_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_sell_side_object_hierarchy_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sup_bidder_campaign_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_bidder_campaign"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sup_placement_video_attributes_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_placement_video_attributes_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sup_buy_side_object_hierarchy_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_buy_side_object_hierarchy_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sup_tl_api_inventory_url_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/sup/sup_tl_api_inventory_url_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  } ]
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "outputs",
+                "optional" : false,
+                "kind" : {
+                  "type" : "record",
+                  "fields" : [ {
+                    "name" : "agg_dw_curator_impressions_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/agg_dw_curator_impressions_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "stage_seen_transacted_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/stage_seen_transacted_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "stage_tl_trx_trans_denormalized_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/stage_tl_trx_trans_denormalized_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "stage_impbus_impression_sample_trans_path_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/stage_impbus_impression_sample_trans_path_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "agg_dw_impressions_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/agg_dw_impressions_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "stage_invalid_impressions_quarantine_pb",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/aggs/stage_invalid_impressions_quarantine_pb"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "memberCounts",
+                    "optional" : false,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : "hdfs:/data_team/team_user_space/blee/prophecy/filters/memberCounts"
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  } ]
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "hdfsProtoDescriptor",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "hdfs:/data_team/artifacts/schemas-descriptor/current/schemas-descriptor.protobin"
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              } ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : false
+          }, {
+            "name" : "jobs",
+            "optional" : true,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ {
+                "name" : "trx_tl_ad_request_trans_path_core_processing_pb",
+                "optional" : true,
+                "kind" : {
+                  "type" : "record",
+                  "fields" : [ {
+                    "name" : "sparkArguments",
+                    "optional" : true,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : ""
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  }, {
+                    "name" : "sparkCommands",
+                    "optional" : true,
+                    "kind" : {
+                      "type" : "string",
+                      "value" : ""
+                    },
+                    "isReferenced" : false,
+                    "isWorkflowNodeConfiguration" : false
+                  } ]
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              } ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : false
+          }, {
+            "name" : "system",
+            "optional" : false,
+            "kind" : {
+              "type" : "record",
+              "fields" : [ {
+                "name" : "startDate",
+                "optional" : false,
+                "kind" : {
+                  "type" : "string",
+                  "value" : "2020-03-31 05:00:00"
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "sparkSubmit",
+                "optional" : true,
+                "kind" : {
+                  "type" : "string",
+                  "value" : ""
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "appJar",
+                "optional" : true,
+                "kind" : {
+                  "type" : "string",
+                  "value" : ""
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "runtimeConf",
+                "optional" : true,
+                "kind" : {
+                  "type" : "string",
+                  "value" : ""
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              }, {
+                "name" : "sparkArguments",
+                "optional" : true,
+                "kind" : {
+                  "type" : "string",
+                  "value" : ""
+                },
+                "isReferenced" : false,
+                "isWorkflowNodeConfiguration" : false
+              } ]
+            },
+            "isReferenced" : false,
+            "isWorkflowNodeConfiguration" : false
+          } ],
+          "instances" : {
+            "tran_graph" : [ "default" ]
+          },
+          "overrides" : { },
+          "selectedInstance" : "default"
+        }
+      }
+    }
+  },
+  "connections" : [ ]
+}
