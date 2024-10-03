@@ -14,8 +14,10 @@ import java.time._
 object reformatted_data {
 
   def apply(context: Context, in: DataFrame): DataFrame =
-    in.select(ceil(col("amount")).as("amount"),
-              upper(col("first_name")).as("first_name")
+    context.instrument(
+      in.select(ceil(col("amount")).as("amount"),
+                upper(col("first_name")).as("first_name")
+      )
     )
 
 }

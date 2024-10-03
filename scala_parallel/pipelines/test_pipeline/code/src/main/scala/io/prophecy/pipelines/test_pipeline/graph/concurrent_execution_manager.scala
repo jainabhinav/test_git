@@ -12,7 +12,7 @@ import org.apache.spark.sql.expressions._
 import java.time._
 
 object concurrent_execution_manager {
-  def apply(context: Context, in0: DataFrame, in1: DataFrame): Unit = {
+  def apply(context: Context, in0: DataFrame, in1: DataFrame): Unit = context.instrument {
     val spark = context.spark
     val Config = context.config
     import scala.concurrent.{Await, ExecutionContext, Future}

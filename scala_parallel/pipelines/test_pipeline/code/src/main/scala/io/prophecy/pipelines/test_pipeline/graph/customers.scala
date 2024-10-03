@@ -12,26 +12,28 @@ import java.time._
 object customers {
 
   def apply(context: Context): DataFrame =
-    context.spark.read
-      .format("csv")
-      .option("header", true)
-      .option("sep",    ",")
-      .schema(
-        StructType(
-          Array(
-            StructField("customer_id",       StringType, true),
-            StructField("first_name",        StringType, true),
-            StructField("last_name",         StringType, true),
-            StructField("phone",             StringType, true),
-            StructField("email",             StringType, true),
-            StructField("country_code",      StringType, true),
-            StructField("account_open_date", StringType, true),
-            StructField("account_flags",     StringType, true)
+    context.instrument(
+      context.spark.read
+        .format("csv")
+        .option("header", true)
+        .option("sep",    ",")
+        .schema(
+          StructType(
+            Array(
+              StructField("customer_id",       StringType, true),
+              StructField("first_name",        StringType, true),
+              StructField("last_name",         StringType, true),
+              StructField("phone",             StringType, true),
+              StructField("email",             StringType, true),
+              StructField("country_code",      StringType, true),
+              StructField("account_open_date", StringType, true),
+              StructField("account_flags",     StringType, true)
+            )
           )
         )
-      )
-      .load(
-        "dbfs:/Prophecy/109f794f881c8194b6a2b869509675e9/CustomersDatasetInput.csv"
-      )
+        .load(
+          "dbfs:/Prophecy/109f794f881c8194b6a2b869509675e9/CustomersDatasetInput.csv"
+        )
+    )
 
 }

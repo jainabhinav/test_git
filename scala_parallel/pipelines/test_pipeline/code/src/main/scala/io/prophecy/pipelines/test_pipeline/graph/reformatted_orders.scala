@@ -14,13 +14,15 @@ import java.time._
 object reformatted_orders {
 
   def apply(context: Context, in: DataFrame): DataFrame =
-    in.select(col("order_id"),
-              col("customer_id"),
-              col("amount"),
-              col("order_date"),
-              col("account_open_date"),
-              col("first_name"),
-              col("last_name")
+    context.instrument(
+      in.select(col("order_id"),
+                col("customer_id"),
+                col("amount"),
+                col("order_date"),
+                col("account_open_date"),
+                col("first_name"),
+                col("last_name")
+      )
     )
 
 }
