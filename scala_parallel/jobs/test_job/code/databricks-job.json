@@ -31,8 +31,11 @@
           "spark.prophecy.tasks" : "H4sIAAAAAAAAAKtWKkktLokvyCxIzcnMS1WyUoIxi/VRZWoBB5hk2SsAAAA=",
           "spark.prophecy.metadata.job.branch" : "__PROJECT_RELEASE_VERSION_PLACEHOLDER__",
           "spark.prophecy.metadata.url" : "__PROPHECY_URL_PLACEHOLDER__",
-          "spark.prophecy.execution.metrics.disabled" : "true",
+          "spark.prophecy.execution.metrics.disabled" : "false",
+          "spark.prophecy.execution.metrics.component-metrics.table" : "abhinav_demo.component_runs1",
+          "spark.prophecy.execution.metrics.pipeline-metrics.table" : "abhinav_demo.pipeline_runs1",
           "spark.prophecy.execution.service.url" : "wss://execution.dp.app.prophecy.io/eventws",
+          "spark.prophecy.execution.metrics.interims.table" : "abhinav_demo.interims1",
           "spark.databricks.isv.product" : "prophecy"
         },
         "cluster_source" : "API",
