@@ -1,0 +1,53 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: order_id
+    type: string
+    nullable: true
+    metadata:
+      description: Unique identifier for each order placed
+      mappings: []
+      tags: []
+  - name: customer_id
+    type: string
+    nullable: true
+    metadata:
+      description: Unique identifier for the customer who placed the order
+      mappings: []
+      tags: []
+  - name: amount
+    type: string
+    nullable: true
+    metadata:
+      description: Total monetary value of the order
+      mappings: []
+      tags: []
+  - name: order_date
+    type: string
+    nullable: true
+    metadata:
+      description: Date when the order was placed
+      mappings: []
+      tags: []
+  - name: account_open_date
+    type: string
+    nullable: true
+    metadata:
+      description: Date when the customer account was opened
+      mappings: []
+      tags: []
+  - name: first_name
+    type: string
+    nullable: true
+    metadata:
+      description: The first name of the customer
+      mappings: []
+      tags: []
+  - name: last_name
+    type: string
+    nullable: true
+    metadata:
+      description: The last name of the customer
+      mappings: []
+      tags: []

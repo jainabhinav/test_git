@@ -1,0 +1,69 @@
+{
+  "metainfo" : {
+    "type" : "Databricks",
+    "fabricId" : "2122",
+    "jobId" : "jobs/test_job",
+    "name" : "test_job",
+    "schedule" : "0 0/15 * * * ? *",
+    "scheduleTimeZone" : "UTC",
+    "jobClusterMode" : {
+      "clusterMode" : "Single"
+    },
+    "enabled" : true,
+    "defaultClusterSize" : "small",
+    "alerting" : {
+      "emails" : "",
+      "onStart" : false,
+      "onSuccess" : false,
+      "onFailure" : false
+    },
+    "maxConcurrentRuns" : 1,
+    "processDefaultSettings" : {
+      "retries" : 0,
+      "emails" : "",
+      "onStart" : false,
+      "onSuccess" : false,
+      "onFailure" : false
+    }
+  },
+  "processes" : {
+    "WU_oHnJyJYaqT8n1QR9QT" : {
+      "id" : "WU_oHnJyJYaqT8n1QR9QT",
+      "component" : "Pipeline",
+      "metadata" : {
+        "label" : "test_pipeline",
+        "slug" : "test_pipeline",
+        "x" : 100,
+        "y" : 100
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "in",
+          "slug" : ""
+        } ],
+        "outputs" : [ {
+          "id" : "out",
+          "slug" : ""
+        } ]
+      },
+      "settings" : {
+        "emails" : "",
+        "onStart" : false,
+        "onSuccess" : false,
+        "onFailure" : false
+      },
+      "properties" : {
+        "pipelineId" : "pipelines/test_pipeline",
+        "configurations" : {
+          "schema" : [ ],
+          "instances" : {
+            "scala_parallel" : [ "default" ]
+          },
+          "overrides" : { },
+          "selectedInstance" : "default"
+        }
+      }
+    }
+  },
+  "connections" : [ ]
+}
