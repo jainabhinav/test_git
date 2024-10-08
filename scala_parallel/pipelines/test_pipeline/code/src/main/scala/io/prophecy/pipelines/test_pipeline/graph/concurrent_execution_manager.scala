@@ -16,34 +16,132 @@ object concurrent_execution_manager {
     val spark = context.spark
     val Config = context.config
     import scala.concurrent.{Await, ExecutionContext, Future}
-    val t1 = Future(in0.write
+    import scala.collection.mutable.ListBuffer
+    import org.apache.hadoop.conf.Configuration
+    import org.apache.hadoop.fs.Path
+    import org.apache.spark.sql.functions._
+    import org.joda.time.format._
+    import spark.sqlContext.implicits._
+    import scala.collection.JavaConverters.mapAsJavaMapConverter
+    import scala.util.Try
+    def CONCURRENT_TASKS   = 4
+    def concurrentExecutor = ConcurrentExecutor(CONCURRENT_TASKS)
+    def targetConfigs_temp =
+      List(
+        TargetConfig(id = "in0",
+                     alias = "in0",
+                     path = "`abhinav_demo`.`test_scala_parallel1`",
+                     isPathAbsolute = "false",
+                     partitionType = "hour",
+                     partitionDateOrHour = "sdg",
+                     allowTargetOverwrite = "true"
+        ),
+        TargetConfig(
+          id = "sWyrPmba0uj7Av6YL5QXl$$yBykcWsp6JMpuNJQkGje4",
+          alias = "in1",
+          path = "`abhinav_demo`.`test_scala_parallel2`",
+          isPathAbsolute = "false",
+          partitionType = "hour",
+          partitionDateOrHour = "sdf",
+          allowTargetOverwrite = "true"
+        ),
+        TargetConfig(
+          id = "sWyrPmba0uj7Av6YL5QXl$$yBykcWsp6JMpuNJQkGje4",
+          alias = "in1",
+          path = "`abhinav_demo`.`test_scala_parallel3`",
+          isPathAbsolute = "false",
+          partitionType = "hour",
+          partitionDateOrHour = "sdf",
+          allowTargetOverwrite = "true"
+        ),
+        TargetConfig(
+          id = "sWyrPmba0uj7Av6YL5QXl$$yBykcWsp6JMpuNJQkGje4",
+          alias = "in1",
+          path = "`abhinav_demo`.`test_scala_parallel4`",
+          isPathAbsolute = "false",
+          partitionType = "hour",
+          partitionDateOrHour = "sdf",
+          allowTargetOverwrite = "true"
+        )
+      )
+    def tasks =
+      targetConfigs_temp
+        .zip(List(in0, in1))
+        .map({
+          case (x, y) =>
+            def HOUR:                   String  = "hour".toLowerCase
+            def pathArg:                String  = x.path.trim
+            def isPathAbsoluteArg:      Boolean = x.isPathAbsolute == "true"
+    //         def partitionDateOrHourArg: String  = x.partitionDateOrHour.trim
+    //         def isHourlyPartition:      Boolean = x.partitionType == "hour"
+    //         def allowTargetOverwriteArg: Boolean =
+    //           x.allowTargetOverwrite == "true"
+    //         def getPartitionedOutputPaths(
+    //           inputPath:             String,
+    //           partitionDateOrHour:   String,
+    //           isHourlyPartitionType: Boolean
+    //         ): String =
+    //           Try(
+    //             new Path(inputPath,
+    //                      (if (isHourlyPartitionType)
+    //                         DateTimeFormat.forPattern("yyyy/MM/dd/HH")
+    //                       else DateTimeFormat.forPattern("yyyy/MM/dd")).print(
+    //                        (if (isHourlyPartitionType)
+    //                           DateTimeFormat.forPattern("yyyy-MM-dd HH:00:00")
+    //                         else
+    //                           DateTimeFormat.forPattern(
+    //                             "yyyy-MM-dd 00:00:00"
+    //                           )).parseDateTime(partitionDateOrHour)
+    //                      )
+    //             ).toString()
+    //           ).get
+    //         def prepareOutputDir(
+    //           pathString:           String,
+    //           allowTargetOverwrite: Boolean,
+    //           configuration:        Configuration
+    //         ): Unit = {
+    //           val path = new Path(pathString)
+    //           val fs   = path.getFileSystem(configuration)
+    //           if (fs.exists(path) && fs.getFileStatus(path).isDirectory)
+    //             if (allowTargetOverwrite) fs.delete(path, true)
+    //           fs.mkdirs(path.getParent)
+    //         }
+    //         val msg = s"""MicrosoftMultiParquetWriter:
+    //          |Path:$pathArg,
+    //          |IsPathAbsolute:$isPathAbsoluteArg,
+    //          |PartitionDateOrHour:$partitionDateOrHourArg,
+    //          |IsHour:$isHourlyPartition,
+    //          |""".stripMargin.replaceAllLiterally("""
+    // """, " ")
+    //         Console.out.println(msg)
+    //         Console.err.println(msg)
+    //         val outputPath =
+    //           if (isPathAbsoluteArg) pathArg
+    //           else
+    //             getPartitionedOutputPaths(pathArg,
+    //                                       partitionDateOrHourArg,
+    //                                       isHourlyPartition
+    //             )
+    //         Console.out.println(
+    //           s"MicrosoftMultiParquetReader: Output Paths:$outputPath"
+    //         )
+    //         Console.err.println(
+    //           s"MicrosoftMultiParquetReader: Output Paths:$outputPath"
+    //         )
+    //         prepareOutputDir(outputPath,
+    //                          allowTargetOverwriteArg,
+    //                          spark.sparkContext.hadoopConfiguration
+    //         )
+            Future(y.write
             .format("delta")
             .option("overwriteSchema", true)
             .mode("overwrite")
-            .saveAsTable("`abhinav_demo`.`test_scala_parallel1`"))
-    
-    
-    val t2 = Future(in1.write
-            .format("delta")
-            .option("overwriteSchema", true)
-            .mode("overwrite")
-            .saveAsTable("`abhinav_demo`.`test_scala_parallel2`"))
-    
-    in0.write
-            .format("delta")
-            .option("overwriteSchema", true)
-            .mode("overwrite")
-            .saveAsTable("`abhinav_demo`.`test_scala_parallel3`")
-    
-    in1.write
-            .format("delta")
-            .option("overwriteSchema", true)
-            .mode("overwrite")
-            .saveAsTable("`abhinav_demo`.`test_scala_parallel4`")
-    
-    val tasks = List(t1, t2) // change
-    concurrentExecutor.waitForResult(tasks) // change
-    concurrentExecutor.shutdown() // change
+            .saveAsTable(pathArg))
+        })
+    concurrentExecutor.waitForResult(tasks)
+    concurrentExecutor.shutdown()
+    Console.out.println("Multi Parquet Write successful")
+    Console.err.println("Multi Parquet Write successful")
   }
 
 }

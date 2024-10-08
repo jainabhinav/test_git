@@ -97,7 +97,19 @@ jobs:
 gemContainer:
   languageVersion: 2.12.15
   gemLibsVersion: 1.1.26
-  gems: {}
+  gems:
+    gems/MultiParquetParallel:
+      name: MultiParquetParallel
+      category: Custom
+      subCategory: ''
+      description: null
+      author: abhinav+demo@prophecy.io
+      mode: batch
+      files:
+      - src/main/scala/abhinavdemoprophecyioteam/scalaparallel/gems/MultiParquetParallel.scala
+      gemType: ComponentGem
+      dependencies: null
+      createdAt: '2024-10-04 07:38:46'
   dependencies: null
 functions:
   author: null

@@ -28,7 +28,7 @@
       "udfs" : [ ],
       "functionPackageName" : "abhinavdemoprophecyioteam.scalaparallel.functions",
       "sharedFunctionPackageNames" : [ "io.prophecy.scalagems.functions", "io.prophecy.warehousegems.functions" ],
-      "initialCode" : "import java.util.concurrent.atomic.AtomicInteger\nimport java.util.concurrent.{Executors, ThreadFactory}\nimport scala.concurrent.duration.Duration\nimport scala.concurrent.{Await, ExecutionContext, Future}\n\n/**\n * Utility that allow concurrent execution of spark stages.\n */\ncase class ConcurrentExecutor(concurrentTasks: Int) {\n  private val pool = Executors.newFixedThreadPool(concurrentTasks, new ThreadFactory {\n    private val threadNumber = new AtomicInteger(1)\n    private val defaultFactory = Executors.defaultThreadFactory()\n\n    override def newThread(r: Runnable): Thread = {\n      val thread = defaultFactory.newThread(r)\n      thread.setName(s\"spark-driver-concurrent-execution-thread-${threadNumber.getAndIncrement()}\")\n      thread.setDaemon(true)\n      thread\n    }\n  })\n\n  private implicit val ec: ExecutionContext = ExecutionContext.fromExecutor(pool)\n\n  def executionContext(): ExecutionContext = ec\n\n  def shutdown(): Unit = pool.shutdownNow()\n\n  def waitForResult[T](list: List[Future[T]]): List[T] = Await.result(flattenListWithFailFastFuture(list), Duration.Inf)\n\n  private def flattenListWithFailFastFuture[T](list: List[Future[T]]): Future[List[T]] = {\n    // Create a single future that fails on first failure (fail fast)\n    list.foldLeft(Future.successful(List.empty[T])) { (acc, future) =>\n      acc.flatMap(results => future.map(result => results :+ result))\n    }\n  }\n}\n\nval CONCURRENT_TASKS = 3 // change\nval concurrentExecutor = ConcurrentExecutor(CONCURRENT_TASKS) // change\nimplicit val ec: ExecutionContext = concurrentExecutor.executionContext()"
+      "initialCode" : "import java.util.concurrent.atomic.AtomicInteger\nimport java.util.concurrent.{Executors, ThreadFactory}\nimport scala.concurrent.duration.Duration\nimport scala.concurrent.{Await, ExecutionContext, Future}\n\n\ncase class TargetConfig(\n  id: String,\n  alias: String,\n  path: String = \"\",\n  isPathAbsolute: String = \"false\",\n  partitionType: String = \"hour\",\n  partitionDateOrHour: String = \"\",\n  allowTargetOverwrite: String = \"true\"\n)\n\n\n/**\n * Utility that allow concurrent execution of spark stages.\n */\ncase class ConcurrentExecutor(concurrentTasks: Int) {\n  private val pool = Executors.newFixedThreadPool(concurrentTasks, new ThreadFactory {\n    private val threadNumber = new AtomicInteger(1)\n    private val defaultFactory = Executors.defaultThreadFactory()\n\n    override def newThread(r: Runnable): Thread = {\n      val thread = defaultFactory.newThread(r)\n      thread.setName(s\"spark-driver-concurrent-execution-thread-${threadNumber.getAndIncrement()}\")\n      thread.setDaemon(true)\n      thread\n    }\n  })\n\n  private implicit val ec: ExecutionContext = ExecutionContext.fromExecutor(pool)\n\n  def executionContext(): ExecutionContext = ec\n\n  def shutdown(): Unit = pool.shutdownNow()\n\n  def waitForResult[T](list: List[Future[T]]): List[T] = Await.result(flattenListWithFailFastFuture(list), Duration.Inf)\n\n  private def flattenListWithFailFastFuture[T](list: List[Future[T]]): Future[List[T]] = {\n    // Create a single future that fails on first failure (fail fast)\n    list.foldLeft(Future.successful(List.empty[T])) { (acc, future) =>\n      acc.flatMap(results => future.map(result => results :+ result))\n    }\n  }\n}\n\nval CONCURRENT_TASKS = 3 // change\nval concurrentExecutor = ConcurrentExecutor(CONCURRENT_TASKS) // change\nimplicit val ec: ExecutionContext = concurrentExecutor.executionContext()"
     },
     "udafs" : {
       "language" : "scala",
@@ -118,8 +118,8 @@
       "metadata" : {
         "label" : "reformatted_data",
         "slug" : "reformatted_data",
-        "x" : -180,
-        "y" : -240,
+        "x" : 240,
+        "y" : -20,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
@@ -237,8 +237,8 @@
       "metadata" : {
         "label" : "join_orders_with_customers",
         "slug" : "join_orders_with_customers",
-        "x" : -360,
-        "y" : -140,
+        "x" : 40,
+        "y" : 80,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
@@ -483,13 +483,13 @@
       "metadata" : {
         "label" : "concurrent_execution_manager",
         "slug" : "concurrent_execution_manager",
-        "x" : 60,
-        "y" : -120,
+        "x" : 440,
+        "y" : 80,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
         "isImported" : false,
-        "comment" : "Manages the concurrent saving of data to multiple tables, enhancing efficiency in data processing.",
+        "comment" : "Manages concurrent data writing tasks to improve efficiency in processing multiple datasets simultaneously.",
         "autoUpdateComment" : true
       },
       "ports" : {
@@ -597,7 +597,7 @@
         "autoUpdateOnRun" : true
       },
       "properties" : {
-        "script" : "import scala.concurrent.{Await, ExecutionContext, Future}\nval t1 = Future(in0.write\n        .format(\"delta\")\n        .option(\"overwriteSchema\", true)\n        .mode(\"overwrite\")\n        .saveAsTable(\"`abhinav_demo`.`test_scala_parallel1`\"))\n\n\nval t2 = Future(in1.write\n        .format(\"delta\")\n        .option(\"overwriteSchema\", true)\n        .mode(\"overwrite\")\n        .saveAsTable(\"`abhinav_demo`.`test_scala_parallel2`\"))\n\nin0.write\n        .format(\"delta\")\n        .option(\"overwriteSchema\", true)\n        .mode(\"overwrite\")\n        .saveAsTable(\"`abhinav_demo`.`test_scala_parallel3`\")\n\nin1.write\n        .format(\"delta\")\n        .option(\"overwriteSchema\", true)\n        .mode(\"overwrite\")\n        .saveAsTable(\"`abhinav_demo`.`test_scala_parallel4`\")\n\nval tasks = List(t1, t2) // change\nconcurrentExecutor.waitForResult(tasks) // change\nconcurrentExecutor.shutdown() // change\n",
+        "script" : "import scala.concurrent.{Await, ExecutionContext, Future}\nimport scala.collection.mutable.ListBuffer\nimport org.apache.hadoop.conf.Configuration\nimport org.apache.hadoop.fs.Path\nimport org.apache.spark.sql.functions._\nimport org.joda.time.format._\nimport spark.sqlContext.implicits._\nimport scala.collection.JavaConverters.mapAsJavaMapConverter\nimport scala.util.Try\ndef CONCURRENT_TASKS   = 4\ndef concurrentExecutor = ConcurrentExecutor(CONCURRENT_TASKS)\ndef targetConfigs_temp =\n  List(\n    TargetConfig(id = \"in0\",\n                 alias = \"in0\",\n                 path = \"`abhinav_demo`.`test_scala_parallel1`\",\n                 isPathAbsolute = \"false\",\n                 partitionType = \"hour\",\n                 partitionDateOrHour = \"sdg\",\n                 allowTargetOverwrite = \"true\"\n    ),\n    TargetConfig(\n      id = \"sWyrPmba0uj7Av6YL5QXl$$yBykcWsp6JMpuNJQkGje4\",\n      alias = \"in1\",\n      path = \"`abhinav_demo`.`test_scala_parallel2`\",\n      isPathAbsolute = \"false\",\n      partitionType = \"hour\",\n      partitionDateOrHour = \"sdf\",\n      allowTargetOverwrite = \"true\"\n    ),\n    TargetConfig(\n      id = \"sWyrPmba0uj7Av6YL5QXl$$yBykcWsp6JMpuNJQkGje4\",\n      alias = \"in1\",\n      path = \"`abhinav_demo`.`test_scala_parallel3`\",\n      isPathAbsolute = \"false\",\n      partitionType = \"hour\",\n      partitionDateOrHour = \"sdf\",\n      allowTargetOverwrite = \"true\"\n    ),\n    TargetConfig(\n      id = \"sWyrPmba0uj7Av6YL5QXl$$yBykcWsp6JMpuNJQkGje4\",\n      alias = \"in1\",\n      path = \"`abhinav_demo`.`test_scala_parallel4`\",\n      isPathAbsolute = \"false\",\n      partitionType = \"hour\",\n      partitionDateOrHour = \"sdf\",\n      allowTargetOverwrite = \"true\"\n    )\n  )\ndef tasks =\n  targetConfigs_temp\n    .zip(List(in0, in1))\n    .map({\n      case (x, y) =>\n        def HOUR:                   String  = \"hour\".toLowerCase\n        def pathArg:                String  = x.path.trim\n        def isPathAbsoluteArg:      Boolean = x.isPathAbsolute == \"true\"\n//         def partitionDateOrHourArg: String  = x.partitionDateOrHour.trim\n//         def isHourlyPartition:      Boolean = x.partitionType == \"hour\"\n//         def allowTargetOverwriteArg: Boolean =\n//           x.allowTargetOverwrite == \"true\"\n//         def getPartitionedOutputPaths(\n//           inputPath:             String,\n//           partitionDateOrHour:   String,\n//           isHourlyPartitionType: Boolean\n//         ): String =\n//           Try(\n//             new Path(inputPath,\n//                      (if (isHourlyPartitionType)\n//                         DateTimeFormat.forPattern(\"yyyy/MM/dd/HH\")\n//                       else DateTimeFormat.forPattern(\"yyyy/MM/dd\")).print(\n//                        (if (isHourlyPartitionType)\n//                           DateTimeFormat.forPattern(\"yyyy-MM-dd HH:00:00\")\n//                         else\n//                           DateTimeFormat.forPattern(\n//                             \"yyyy-MM-dd 00:00:00\"\n//                           )).parseDateTime(partitionDateOrHour)\n//                      )\n//             ).toString()\n//           ).get\n//         def prepareOutputDir(\n//           pathString:           String,\n//           allowTargetOverwrite: Boolean,\n//           configuration:        Configuration\n//         ): Unit = {\n//           val path = new Path(pathString)\n//           val fs   = path.getFileSystem(configuration)\n//           if (fs.exists(path) && fs.getFileStatus(path).isDirectory)\n//             if (allowTargetOverwrite) fs.delete(path, true)\n//           fs.mkdirs(path.getParent)\n//         }\n//         val msg = s\"\"\"MicrosoftMultiParquetWriter:\n//          |Path:$pathArg,\n//          |IsPathAbsolute:$isPathAbsoluteArg,\n//          |PartitionDateOrHour:$partitionDateOrHourArg,\n//          |IsHour:$isHourlyPartition,\n//          |\"\"\".stripMargin.replaceAllLiterally(\"\"\"\n// \"\"\", \" \")\n//         Console.out.println(msg)\n//         Console.err.println(msg)\n//         val outputPath =\n//           if (isPathAbsoluteArg) pathArg\n//           else\n//             getPartitionedOutputPaths(pathArg,\n//                                       partitionDateOrHourArg,\n//                                       isHourlyPartition\n//             )\n//         Console.out.println(\n//           s\"MicrosoftMultiParquetReader: Output Paths:$outputPath\"\n//         )\n//         Console.err.println(\n//           s\"MicrosoftMultiParquetReader: Output Paths:$outputPath\"\n//         )\n//         prepareOutputDir(outputPath,\n//                          allowTargetOverwriteArg,\n//                          spark.sparkContext.hadoopConfiguration\n//         )\n        Future(y.write\n        .format(\"delta\")\n        .option(\"overwriteSchema\", true)\n        .mode(\"overwrite\")\n        .saveAsTable(pathArg))\n    })\nconcurrentExecutor.waitForResult(tasks)\nconcurrentExecutor.shutdown()\nConsole.out.println(\"Multi Parquet Write successful\")\nConsole.err.println(\"Multi Parquet Write successful\")",
         "scriptMethodHeader" : "def apply(spark: SparkSession, in0: DataFrame, in1: DataFrame): Unit = {",
         "scriptMethodFooter" : "    \n}"
       }
@@ -608,8 +608,8 @@
       "metadata" : {
         "label" : "customers",
         "slug" : "customers",
-        "x" : -560,
-        "y" : -40,
+        "x" : -160,
+        "y" : 180,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
@@ -637,8 +637,8 @@
       "metadata" : {
         "label" : "orders",
         "slug" : "orders",
-        "x" : -560,
-        "y" : -240,
+        "x" : -160,
+        "y" : -20,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,
@@ -666,8 +666,8 @@
       "metadata" : {
         "label" : "reformatted_orders",
         "slug" : "reformatted_orders",
-        "x" : -180,
-        "y" : -20,
+        "x" : 240,
+        "y" : 180,
         "phase" : 0,
         "cache" : false,
         "detailedStats" : false,

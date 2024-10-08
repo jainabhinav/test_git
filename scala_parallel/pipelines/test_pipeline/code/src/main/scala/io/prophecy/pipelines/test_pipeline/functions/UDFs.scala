@@ -23,6 +23,16 @@ object PipelineInitCode extends Serializable {
   import scala.concurrent.duration.Duration
   import scala.concurrent.{Await, ExecutionContext, Future}
 
+  case class TargetConfig(
+    id:                   String,
+    alias:                String,
+    path:                 String = "",
+    isPathAbsolute:       String = "false",
+    partitionType:        String = "hour",
+    partitionDateOrHour:  String = "",
+    allowTargetOverwrite: String = "true"
+  )
+
   case class ConcurrentExecutor(concurrentTasks: Int) {
 
     private val pool = Executors.newFixedThreadPool(
