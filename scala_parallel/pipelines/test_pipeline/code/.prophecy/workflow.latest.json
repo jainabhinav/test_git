@@ -110,6 +110,18 @@
     "sourcePort" : "EzevCNMuIb2nPRY4SLaX6$$EekVVIMHaIO26VbZYAciA",
     "target" : "QlROI4pK21U_cNSSxH8MU$$1QPAQeXgpPlG4G4NM5hM7",
     "targetPort" : "bIDv8KXlg2LUxS90qotvn$$t_ejGMg4woK2tTALZFfmZ"
+  }, {
+    "id" : "YfHx5pL6N-dLU4D9vxeQ5",
+    "source" : "tF0E9Yr1aBgkya3_uOJNF$$732SwBeK45JHxHcQ22uo6",
+    "sourcePort" : "3OCEelRZXsVXE9ignz8YG$$3wPiNpfSVZQ8F5Nx2BPWt",
+    "target" : "fVCyGjK3co29li0vfzxY1$$UkSNGv3-naUHyLPw6es8j",
+    "targetPort" : "eOecQeiyF-YhgY8TYjIeP$$8hfN9CCPyByPi_eYSaa4s"
+  }, {
+    "id" : "38XYgcEHznawaSYFpsai-",
+    "source" : "eszfzlPtbw_EGDWDRvwZ-$$bIhTJG6-_FG_XB2t8gaXx",
+    "sourcePort" : "EzevCNMuIb2nPRY4SLaX6$$EekVVIMHaIO26VbZYAciA",
+    "target" : "fVCyGjK3co29li0vfzxY1$$UkSNGv3-naUHyLPw6es8j",
+    "targetPort" : "P69dK6oaw5Kv-9uvv4wHx$$2NOjcsli9H4_IQEILnzfp"
   } ],
   "processes" : {
     "tF0E9Yr1aBgkya3_uOJNF$$732SwBeK45JHxHcQ22uo6" : {
@@ -812,6 +824,150 @@
       "componentInfo" : {
         "gemId" : "gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12651.git&subPath=&tag=0.2.5.5&projectSubscriptionProjectId=12651&path=gems/Reformat",
         "projectName" : "ProphecySparkBasicsScala"
+      }
+    },
+    "fVCyGjK3co29li0vfzxY1$$UkSNGv3-naUHyLPw6es8j" : {
+      "id" : "fVCyGjK3co29li0vfzxY1$$UkSNGv3-naUHyLPw6es8j",
+      "component" : "MultiParquetParallel",
+      "metadata" : {
+        "label" : "multi_parquet_write",
+        "slug" : "multi_parquet_write",
+        "x" : 460,
+        "y" : -180,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : false,
+        "comment" : "Facilitates the concurrent writing of data to multiple Parquet files, enhancing data storage efficiency and organization.",
+        "autoUpdateComment" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "eOecQeiyF-YhgY8TYjIeP$$8hfN9CCPyByPi_eYSaa4s",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "amount",
+              "type" : "long",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "first_name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        }, {
+          "id" : "P69dK6oaw5Kv-9uvv4wHx$$2NOjcsli9H4_IQEILnzfp",
+          "slug" : "in1",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "order_id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Unique identifier for each order placed",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "customer_id",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Unique identifier for the customer who placed the order",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "amount",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Total monetary value of the order",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "order_date",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Date when the order was placed",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "account_open_date",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "Date when the customer account was opened",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "first_name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "The first name of the customer",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "last_name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "The last name of the customer",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : true,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "targetConfigs" : [ {
+          "path" : "asdaf",
+          "isPathAbsolute" : "false",
+          "allowTargetOverwrite" : "true",
+          "partitionType" : "hour",
+          "alias" : "in0",
+          "id" : "in0",
+          "partitionDateOrHour" : "sgsd"
+        }, {
+          "path" : "sdgsdg",
+          "isPathAbsolute" : "false",
+          "allowTargetOverwrite" : "true",
+          "partitionType" : "hour",
+          "alias" : "in1",
+          "id" : "P69dK6oaw5Kv-9uvv4wHx$$2NOjcsli9H4_IQEILnzfp",
+          "partitionDateOrHour" : "sdgsdg"
+        } ],
+        "concurrentTasks" : "2"
+      },
+      "componentInfo" : {
+        "gemId" : "gems/MultiParquetParallel",
+        "projectName" : "scala_parallel"
       }
     }
   },

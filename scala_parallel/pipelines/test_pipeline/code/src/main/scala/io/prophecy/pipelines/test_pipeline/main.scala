@@ -48,6 +48,7 @@ object Main {
                                  df_reformatted_data,
                                  df_reformatted_orders
     )
+    multi_parquet_write(context, df_reformatted_data, df_reformatted_orders)
   }
 
   def main(args: Array[String]): Unit = {
