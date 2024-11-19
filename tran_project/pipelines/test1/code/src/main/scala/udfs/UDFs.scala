@@ -52,10 +52,7 @@ object UDFs extends Serializable {
     spark.udf.register("temp7091_UDF",         temp7091_UDF)
     spark.udf.register("processUDF_8439",      processUDF_8439)
     spark.udf.register("allFieldsNull",        allFieldsNull)
-    try registerAllUDFs(spark)
-    catch {
-      case _ => ()
-    }
+    registerAllUDFs(spark)
   }
 
   def temp18771_UDF = {

@@ -48,6 +48,102 @@ object Normalize {
       )
   }
 
+  def member_id(context: Context) = {
+    val spark  = context.spark
+    val Config = context.config
+    coalesce(
+      when(
+        (when(
+          is_not_null(col("log_impbus_impressions_pricing.buyer_charges.is_dw"))
+            .and(
+              is_not_null(
+                col("log_impbus_impressions_pricing.seller_charges.is_dw")
+              )
+            ),
+          col("log_impbus_impressions_pricing.buyer_charges.is_dw").cast(
+            ByteType
+          ) + col("log_impbus_impressions_pricing.seller_charges.is_dw").cast(
+            ByteType
+          )
+        ).otherwise(lit(1)) === lit(2))
+          .and(col("index") === lit(1))
+          .and(
+            when(
+              (coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(1))
+                .or(
+                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(2)
+                )
+                .or(
+                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(3)
+                )
+                .or(
+                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(4)
+                )
+                .or(
+                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(6)
+                )
+                .or(
+                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(8)
+                ),
+              col("seller_member_id").cast(IntegerType)
+            ).otherwise(col("buyer_member_id").cast(IntegerType)) === col(
+              "seller_member_id"
+            ).cast(IntegerType)
+          ),
+        col("buyer_member_id").cast(IntegerType)
+      ),
+      when(
+        (when(
+          is_not_null(col("log_impbus_impressions_pricing.buyer_charges.is_dw"))
+            .and(
+              is_not_null(
+                col("log_impbus_impressions_pricing.seller_charges.is_dw")
+              )
+            ),
+          col("log_impbus_impressions_pricing.buyer_charges.is_dw").cast(
+            ByteType
+          ) + col("log_impbus_impressions_pricing.seller_charges.is_dw").cast(
+            ByteType
+          )
+        ).otherwise(lit(1)) === lit(2))
+          .and(col("index") === lit(1))
+          .and(
+            when(
+              (coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(1))
+                .or(
+                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(2)
+                )
+                .or(
+                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(3)
+                )
+                .or(
+                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(4)
+                )
+                .or(
+                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(6)
+                )
+                .or(
+                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(8)
+                ),
+              col("seller_member_id").cast(IntegerType)
+            ).otherwise(col("buyer_member_id").cast(IntegerType)) === col(
+              "buyer_member_id"
+            ).cast(IntegerType)
+          ),
+        col("seller_member_id").cast(IntegerType)
+      ),
+      when(
+        (coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(1))
+          .or(coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(2))
+          .or(coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(3))
+          .or(coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(4))
+          .or(coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(6))
+          .or(coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(8)),
+        col("seller_member_id").cast(IntegerType)
+      ).otherwise(col("buyer_member_id").cast(IntegerType))
+    )
+  }
+
   def imp_type(context: Context) = {
     val spark  = context.spark
     val Config = context.config
@@ -217,102 +313,6 @@ object Normalize {
         lit(6)
       ),
       coalesce(col("imp_type").cast(IntegerType), lit(1))
-    )
-  }
-
-  def member_id(context: Context) = {
-    val spark  = context.spark
-    val Config = context.config
-    coalesce(
-      when(
-        (when(
-          is_not_null(col("log_impbus_impressions_pricing.buyer_charges.is_dw"))
-            .and(
-              is_not_null(
-                col("log_impbus_impressions_pricing.seller_charges.is_dw")
-              )
-            ),
-          col("log_impbus_impressions_pricing.buyer_charges.is_dw").cast(
-            ByteType
-          ) + col("log_impbus_impressions_pricing.seller_charges.is_dw").cast(
-            ByteType
-          )
-        ).otherwise(lit(1)) === lit(2))
-          .and(col("index") === lit(1))
-          .and(
-            when(
-              (coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(1))
-                .or(
-                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(2)
-                )
-                .or(
-                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(3)
-                )
-                .or(
-                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(4)
-                )
-                .or(
-                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(6)
-                )
-                .or(
-                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(8)
-                ),
-              col("seller_member_id").cast(IntegerType)
-            ).otherwise(col("buyer_member_id").cast(IntegerType)) === col(
-              "seller_member_id"
-            ).cast(IntegerType)
-          ),
-        col("buyer_member_id").cast(IntegerType)
-      ),
-      when(
-        (when(
-          is_not_null(col("log_impbus_impressions_pricing.buyer_charges.is_dw"))
-            .and(
-              is_not_null(
-                col("log_impbus_impressions_pricing.seller_charges.is_dw")
-              )
-            ),
-          col("log_impbus_impressions_pricing.buyer_charges.is_dw").cast(
-            ByteType
-          ) + col("log_impbus_impressions_pricing.seller_charges.is_dw").cast(
-            ByteType
-          )
-        ).otherwise(lit(1)) === lit(2))
-          .and(col("index") === lit(1))
-          .and(
-            when(
-              (coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(1))
-                .or(
-                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(2)
-                )
-                .or(
-                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(3)
-                )
-                .or(
-                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(4)
-                )
-                .or(
-                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(6)
-                )
-                .or(
-                  coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(8)
-                ),
-              col("seller_member_id").cast(IntegerType)
-            ).otherwise(col("buyer_member_id").cast(IntegerType)) === col(
-              "buyer_member_id"
-            ).cast(IntegerType)
-          ),
-        col("seller_member_id").cast(IntegerType)
-      ),
-      when(
-        (coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(1))
-          .or(coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(2))
-          .or(coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(3))
-          .or(coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(4))
-          .or(coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(6))
-          .or(coalesce(col("imp_type").cast(IntegerType), lit(1)) === lit(8)),
-        col("seller_member_id").cast(IntegerType)
-      ).otherwise(col("buyer_member_id").cast(IntegerType))
     )
   }
 

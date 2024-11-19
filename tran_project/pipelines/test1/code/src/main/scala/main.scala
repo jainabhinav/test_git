@@ -133,15 +133,8 @@ object Main {
       context,
       df_Partition_by_Key_video_slot_auction_id
     )
-    val df_Checkpointed_Sort_video_slot_auction_id_64__Partial_Sort =
-      Checkpointed_Sort_video_slot_auction_id_64__Partial_Sort(
-        context,
-        df_Filter_by_Expression_video_slot
-      )
-    val df_Rollup_video_slot = Rollup_video_slot(
-      context,
-      df_Checkpointed_Sort_video_slot_auction_id_64__Partial_Sort
-    )
+    val df_Rollup_video_slot =
+      Rollup_video_slot(context, df_Filter_by_Expression_video_slot)
     val df_Rollup_video_slot_Reformat =
       Rollup_video_slot_Reformat(context, df_Rollup_video_slot)
     val df_Read_Proto_Range_log_impbus_imptracker_pb_log_impbus_imptracker =
@@ -323,7 +316,6 @@ object Main {
       context,
       df_Left_Outer_Join_log_impbus_impressions
     )
-    val df_Checkpoint_1 = Checkpoint_1(context, df_Reformat_select_log_dw_bid)
     val (df_Router_Reformatter_adi,
          df_Router_Reformatter_curated,
          df_Router_Reformatter_out2,
@@ -342,7 +334,7 @@ object Main {
       df_Create_sup_lookup_files_out1,
       df_Create_sup_lookup_files_out2,
       df_Create_sup_lookup_files_out,
-      df_Checkpoint_1
+      df_Reformat_select_log_dw_bid
     )
     val df_Gather_SSPQ_normalize_schema_0 =
       Gather_SSPQ_normalize_schema_0(context, df_Router_Reformatter_ssd)
@@ -411,18 +403,15 @@ object Main {
       Reformat_agg_dw_impressions_args_PreCompute(context, df_LookupToJoin50)
     val df_auction_data_projection_1 =
       auction_data_projection_1(context, df_Gather_SSPQ)
-    if (false)
-      dbg_tran_leftjoin(context, df_Reformat_select_log_dw_bid)
-    val df_Checkpoint =
-      Checkpoint(context, df_Reformat_agg_dw_impressions_args_PreCompute)
     val df_Reformat_agg_dw_impressions_PrevExpression =
-      Reformat_agg_dw_impressions_PrevExpression(context, df_Checkpoint)
-    val df_checkpoint_dataframe = checkpoint_dataframe(
+      Reformat_agg_dw_impressions_PrevExpression(
+        context,
+        df_Reformat_agg_dw_impressions_args_PreCompute
+      )
+    val df_Reformat_agg_dw_impressions = Reformat_agg_dw_impressions(
       context,
       df_Reformat_agg_dw_impressions_PrevExpression
     )
-    val df_Reformat_agg_dw_impressions =
-      Reformat_agg_dw_impressions(context, df_checkpoint_dataframe)
     val df_Filter_by_Expression_agg_dw_impressionsj0 =
       Filter_by_Expression_agg_dw_impressionsj0(context,
                                                 df_Reformat_agg_dw_impressions,
@@ -448,15 +437,9 @@ object Main {
       context,
       df_full_data_projection
     )
-    val df_target_starget_impbus_impression_sample_trans_path_pb =
-      target_starget_impbus_impression_sample_trans_path_pb(context)
     Write_Proto_HDFS_SSPQ_stage_tl_trx_trans_denormalized_pb_stage_seen_denormalized(
       context,
       df_auction_data_projection_1
-    )
-    val df_Filter_UnitTest_1 = Filter_UnitTest_1(
-      context,
-      df_Partition_by_Key_log_impbus_impressions_auction_id_UnionAll_normalize_schema_2
     )
     val df_Reformat_agg_dw_impressions_member_info =
       Reformat_agg_dw_impressions_member_info(
@@ -491,15 +474,6 @@ object Main {
     Write_Proto_HDFS_stage_seen_transacted_pb_stage_seen_denormalized(
       context,
       df_auction_data_projection
-    )
-    val df_target_agg_dw_impressions_pb = target_agg_dw_impressions_pb(context)
-    val df_stage_invalid_impressions_quarantine =
-      stage_invalid_impressions_quarantine(context)
-    val df_target_agg_dw_curator_impressions_pb =
-      target_agg_dw_curator_impressions_pb(context)
-    val df_pb_stage_seen_denormalized = pb_stage_seen_denormalized(context)
-    val df_stage_tl_trx_trans_denormalized = stage_tl_trx_trans_denormalized(
-      context
     )
   }
 

@@ -25,9 +25,7 @@ package object xr_partition_key_filter_checkpointed_sort_log_impbus_preempt_auct
       Partition_by_Key_4(context, df_Partition_by_Key_UnionAll_2)
     val df_Filter_by_Expression_4 =
       Filter_by_Expression_4(context, df_Partition_by_Key_4)
-    val df_Checkpointed_Sort__Partial_Sort_4 =
-      Checkpointed_Sort__Partial_Sort_4(context, df_Filter_by_Expression_4)
-    df_Checkpointed_Sort__Partial_Sort_4
+    df_Filter_by_Expression_4
   }
 
 }

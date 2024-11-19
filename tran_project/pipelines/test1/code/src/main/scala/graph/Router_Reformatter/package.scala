@@ -40,23 +40,6 @@ package object Router_Reformatter {
          df_RowDistributor_1_adi,
          df_RowDistributor_1_quarantine
     ) = RowDistributor_1(context, df_Reformat_1)
-    val df_Reformat_TRAN_Router_Reformatter_RowDistributor__Dropout0_1 =
-      Reformat_TRAN_Router_Reformatter_RowDistributor__Dropout0_1(
-        context,
-        df_RowDistributor_1_adi_transacted_ssd
-      )
-    val df_Reformat_TRAN_Router_ReformatterReformat_1j0 =
-      Reformat_TRAN_Router_ReformatterReformat_1j0(
-        context,
-        df_Reformat_TRAN_Router_Reformatter_RowDistributor__Dropout0_1,
-        in5,
-        in4,
-        in6
-      )
-    val df_reformat_view_detection = reformat_view_detection(
-      context,
-      df_Reformat_TRAN_Router_ReformatterReformat_1j0
-    )
     val df_Reformat_TRAN_Router_Reformatter_RowDistributor__Dropout0_3 =
       Reformat_TRAN_Router_Reformatter_RowDistributor__Dropout0_3(
         context,
@@ -110,6 +93,19 @@ package object Router_Reformatter {
       Reformat_TRAN_Router_ReformatterReformat_2(
         context,
         df_Reformat_TRAN_Router_ReformatterReformat_2j0
+      )
+    val df_Reformat_TRAN_Router_Reformatter_RowDistributor__Dropout0_1 =
+      Reformat_TRAN_Router_Reformatter_RowDistributor__Dropout0_1(
+        context,
+        df_RowDistributor_1_adi_transacted_ssd
+      )
+    val df_Reformat_TRAN_Router_ReformatterReformat_1j0 =
+      Reformat_TRAN_Router_ReformatterReformat_1j0(
+        context,
+        df_Reformat_TRAN_Router_Reformatter_RowDistributor__Dropout0_1,
+        in5,
+        in4,
+        in6
       )
     val df_Reformat_TRAN_Router_ReformatterReformat_1 =
       Reformat_TRAN_Router_ReformatterReformat_1(

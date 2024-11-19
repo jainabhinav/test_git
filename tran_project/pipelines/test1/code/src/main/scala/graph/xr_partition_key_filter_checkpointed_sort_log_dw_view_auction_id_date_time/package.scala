@@ -15,9 +15,7 @@ package object xr_partition_key_filter_checkpointed_sort_log_dw_view_auction_id_
     val df_Partition_by_Key_1 = Partition_by_Key_1(context, in)
     val df_Filter_by_Expression_1 =
       Filter_by_Expression_1(context, df_Partition_by_Key_1)
-    val df_Checkpointed_Sort__Partial_Sort_1 =
-      Checkpointed_Sort__Partial_Sort_1(context, df_Filter_by_Expression_1)
-    df_Checkpointed_Sort__Partial_Sort_1
+    df_Filter_by_Expression_1
   }
 
 }
