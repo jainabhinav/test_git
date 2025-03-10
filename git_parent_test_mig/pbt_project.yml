@@ -1,6 +1,6 @@
 name: git_parent_test_mig
 description: ''
-version: 0.0.1
+version: '0.4'
 author: admin@prophecy.io
 language: scala
 buildSystem: ''
