@@ -1,0 +1,25 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: Year
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: Mega Category
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: Sum_Non-Opex Adjustments Amount
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

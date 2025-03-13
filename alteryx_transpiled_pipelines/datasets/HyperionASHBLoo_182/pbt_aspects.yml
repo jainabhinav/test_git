@@ -1,0 +1,18 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: CC Lookup
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: EPM_ESS_Function_ASHB_Attr
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

@@ -1,0 +1,25 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: Function as per AIN Business Case Team
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: CTS V3
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: In-Scope?
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

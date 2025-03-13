@@ -1,0 +1,18 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: pa account
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: Sum_Sum_LCLCFX
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

@@ -1,0 +1,25 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: AIN Ext. Lab. Net Savings Stage
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: GSS Enterprise Savings
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: In-Scope
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

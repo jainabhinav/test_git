@@ -1,0 +1,18 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: CTS Mapping
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: CC Lookup
+    type: double
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []

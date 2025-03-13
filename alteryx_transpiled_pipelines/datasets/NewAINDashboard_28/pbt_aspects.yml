@@ -1,0 +1,25 @@
+version: 1
+schema:
+  type: struct
+  fields:
+  - name: Function
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: Mapped Roles - Negotiation Status
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
+  - name: '# Job Roles'
+    type: string
+    nullable: true
+    metadata:
+      description: ''
+      mappings: []
+      tags: []
