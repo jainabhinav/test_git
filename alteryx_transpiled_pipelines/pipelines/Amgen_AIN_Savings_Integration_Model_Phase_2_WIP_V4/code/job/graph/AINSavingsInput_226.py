@@ -1,0 +1,18 @@
+from pyspark.sql import *
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+from prophecy.utils import *
+from prophecy.libs import typed_lit
+from job.config.ConfigStore import *
+from job.udfs.UDFs import *
+
+def AINSavingsInput_226(spark: SparkSession) -> DataFrame:
+    return spark.read\
+        .schema(
+          StructType([
+            StructField("AIN Resource Cost-2030-Incremental", DoubleType(), True), StructField("AIN Resource Cost-2028-Cumulative", DoubleType(), True), StructField("AIN Resource Cost-2030-Cumulative", DoubleType(), True), StructField("Function", StringType(), True), StructField("AIN Savings-2025-Cumulative", DoubleType(), True), StructField("AIN Resource Cost-2026-Cumulative", DoubleType(), True), StructField("AIN Savings-2028-Cumulative", DoubleType(), True), StructField("EW Reduction-2029-Incremental", DoubleType(), True), StructField("AIN Savings-2030-Cumulative", DoubleType(), True), StructField("AIN Savings-2026-Cumulative", DoubleType(), True), StructField("EW Reduction-2026-Incremental", DoubleType(), True), StructField("AIN Savings-2026-Incremental", DoubleType(), True), StructField("AIN Savings-2030-Incremental", DoubleType(), True), StructField("AIN Savings-2028-Incremental", DoubleType(), True), StructField("AIN Savings-2027-Incremental", DoubleType(), True), StructField("EW Reduction-2030-Incremental", DoubleType(), True), StructField("AIN Resource Cost-2026-Incremental", DoubleType(), True), StructField("AIN Savings-2027-Cumulative", DoubleType(), True), StructField("EW Reduction-2027-Incremental", DoubleType(), True), StructField("EW Reduction-2030-Cumulative", DoubleType(), True), StructField("EW Reduction-2026-Cumulative", DoubleType(), True), StructField("AIN Resource Cost-2029-Cumulative", DoubleType(), True), StructField("AIN Resource Cost-2025-Incremental", DoubleType(), True), StructField("EW Reduction-2028-Cumulative", DoubleType(), True), StructField("AIN Resource Cost-2027-Cumulative", DoubleType(), True), StructField("AIN Savings-2029-Cumulative", DoubleType(), True), StructField("EW Reduction-2025-Incremental", DoubleType(), True), StructField("AIN Savings-2024-Incremental", DoubleType(), True), StructField("EW Reduction-2025-Cumulative", DoubleType(), True), StructField("AIN Resource Cost-2024-Incremental", DoubleType(), True), StructField("AIN Resource Cost-2027-Incremental", DoubleType(), True), StructField("AIN Resource Cost-2028-Incremental", DoubleType(), True), StructField("Cost Center", DoubleType(), True), StructField("EW Reduction-2024-Incremental", DoubleType(), True), StructField("AIN Resource Cost-2024-Cumulative", DoubleType(), True), StructField("EVP", DoubleType(), True), StructField("HLMC", DoubleType(), True), StructField("EW Reduction-2027-Cumulative", DoubleType(), True), StructField("EW Reduction-2028-Incremental", DoubleType(), True), StructField("AIN Resource Cost-2025-Cumulative", DoubleType(), True), StructField("AIN Savings-2024-Cumulative", DoubleType(), True), StructField("AIN Savings-2025-Incremental", DoubleType(), True), StructField("EW Reduction-2029-Cumulative", DoubleType(), True), StructField("AIN Savings-2029-Incremental", DoubleType(), True), StructField("AIN Resource Cost-2029-Incremental", DoubleType(), True), StructField("EW Reduction-2024-Cumulative", DoubleType(), True)
+        ])
+        )\
+        .option("header", True)\
+        .option("sep", ",")\
+        .csv("C:\\Users\\nikhil.f.bansal\\Amgen\\Amgen India - 08.15 Baseline Analytics Engine and Dashboards\\Data Shared by ACN\\Savings Ingestion\\AIN Savings\\02. Source Data for the Model\\AIN Savings Input.xlsx|||`DTI Savings$`")
