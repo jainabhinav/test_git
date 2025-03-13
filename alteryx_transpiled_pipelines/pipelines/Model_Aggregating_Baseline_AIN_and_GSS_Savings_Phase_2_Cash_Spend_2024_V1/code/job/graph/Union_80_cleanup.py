@@ -1,0 +1,65 @@
+from pyspark.sql import *
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+from prophecy.utils import *
+from prophecy.libs import typed_lit
+from job.config.ConfigStore import *
+from job.udfs.UDFs import *
+
+def Union_80_cleanup(spark: SparkSession, in0: DataFrame) -> DataFrame:
+    return in0.select(
+        col("`_GSS BAU Savings (Realised)`").alias("GSS BAU Savings (Realised)"), 
+        col("`_GSS BAU Savings`").alias("GSS BAU Savings"), 
+        col("_AIN_Savings").alias("AIN_Savings"), 
+        col("`_OSE Labor`").alias("OSE Labor"), 
+        col("`_GSS Incremental High Savings (Realised)`").alias("GSS Incremental High Savings (Realised)"), 
+        col("`_In-Scope`").alias("In-Scope"), 
+        col("`_Planning Account Description`").alias("Planning Account Description"), 
+        col("`_GSS Enterprise Savings`").alias("GSS Enterprise Savings"), 
+        col("`_scenario name`").alias("scenario name"), 
+        col("`_Company Code`").alias("Company Code"), 
+        col("`_sub mc`").alias("sub mc"), 
+        col("_site").alias("site"), 
+        col("`_Non-Opex Adjustments`").alias("Non-Opex Adjustments"), 
+        col("`_Cash Spend`").alias("Cash Spend"), 
+        col("`_AIN Ext. Lab. Net Savings Stage`").alias("AIN Ext. Lab. Net Savings Stage"), 
+        col("_year").alias("year"), 
+        col("`_material group`").alias("material group"), 
+        col("`_Company Description`").alias("Company Description"), 
+        col("_ASHB").alias("ASHB"), 
+        col("`_tableau display category`").alias("tableau display category"), 
+        col("_quarter").alias("quarter"), 
+        col("_%Split").alias("%Split"), 
+        col("`_AIN EW_Reduction (Realised)`").alias("AIN EW_Reduction (Realised)"), 
+        col("`_tableau display mega category`").alias("tableau display mega category"), 
+        col("`_Hyperion Category Code`").alias("Hyperion Category Code"), 
+        col("_version").alias("version"), 
+        col("`_scenario type`").alias("scenario type"), 
+        col("`_planning sku`").alias("planning sku"), 
+        col("_Sum_Adjusted_Sum_USDAFX").alias("Sum_Adjusted_Sum_USDAFX"), 
+        col("`_cost center number`").alias("cost center number"), 
+        col("`_Planning Account Actual`").alias("Planning Account Actual"), 
+        col("`_GSS Incremental Low Savings`").alias("GSS Incremental Low Savings"), 
+        col("`_gl account`").alias("gl account"), 
+        col("`_AIN EW_Reduction`").alias("AIN EW_Reduction"), 
+        col("`_Hyperion Category`").alias("Hyperion Category"), 
+        col("_evp").alias("evp"), 
+        col("`_CTS v3`").alias("CTS v3"), 
+        col("_Sum_Adjusted_Sum_LCL").alias("Sum_Adjusted_Sum_LCL"), 
+        col("_Category").alias("Category"), 
+        col("`_material group description`").alias("material group description"), 
+        col("`_AIN_Savings (Realised)`").alias("AIN_Savings (Realised)"), 
+        col("_mc").alias("mc"), 
+        col("_hlmc").alias("hlmc"), 
+        col("`_Planning Account Description Actual`").alias("Planning Account Description Actual"), 
+        col("_AIN_Resource_Cost").alias("AIN_Resource_Cost"), 
+        col("`_regrouped level 4`").alias("regrouped level 4"), 
+        col("`_cost center`").alias("cost center"), 
+        col("`_product description`").alias("product description"), 
+        col("`_Planning Account`").alias("Planning Account"), 
+        col("`_GSS Incremental Low Savings (Realised)`").alias("GSS Incremental Low Savings (Realised)"), 
+        col("`_GSS Incremental High Savings`").alias("GSS Incremental High Savings"), 
+        col("_Sum_Adjusted_Sum_LCLCFX").alias("Sum_Adjusted_Sum_LCLCFX"), 
+        col("`_AIN_Resource_Cost (Realised)`").alias("AIN_Resource_Cost (Realised)"), 
+        col("`_gl account number`").alias("gl account number")
+    )

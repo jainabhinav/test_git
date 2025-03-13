@@ -1,0 +1,18 @@
+from pyspark.sql import *
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+from prophecy.utils import *
+from prophecy.libs import typed_lit
+from job.config.ConfigStore import *
+from job.udfs.UDFs import *
+
+def Filter_40_reject(spark: SparkSession, in0: DataFrame) -> DataFrame:
+    return in0.filter(
+        ~ (
+          (((((((((((((((((((((((((((((((((((((col("`PA Account`") != lit("PA600010")).cast(BooleanType()) & (col("`PA Account`") != lit("PA600011")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA600012")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA600009")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA601010")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA601012")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA601013")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA601014")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA601018")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA601022")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA602010")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA603010")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA603510")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA603515")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA610610")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA620522")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA620910")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA620912")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA620951")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA621110")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA621210")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA621912")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA621913")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA622851")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA623010")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA624010")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA625010")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA627110")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA627610")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA628010")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA628011")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA628012")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA628014")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA628015")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA699910")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA950006")).cast(BooleanType())).cast(BooleanType()) & (col("`PA Account`") != lit("PA950007")).cast(BooleanType())).cast(BooleanType())
+          & (col("`PA Account`") != lit("PA960008")).cast(BooleanType())
+        )\
+          .cast(
+          BooleanType()
+        )
+    )

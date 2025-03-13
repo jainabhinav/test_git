@@ -1,0 +1,132 @@
+from pyspark.sql import *
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+from job.config.ConfigStore import *
+from job.udfs.UDFs import *
+from prophecy.utils import *
+from job.graph import *
+
+def pipeline(spark: SparkSession) -> None:
+    df_CashSpendOSELab_82 = CashSpendOSELab_82(spark)
+    df_Transpose_83 = Transpose_83(spark, df_CashSpendOSELab_82)
+    df_AlteryxSelect_84 = AlteryxSelect_84(spark, df_Transpose_83)
+    df_Unique_85 = Unique_85(spark, df_AlteryxSelect_84)
+    df_TextInput_2 = TextInput_2(spark)
+    df_TextInput_2_cast = TextInput_2_cast(spark, df_TextInput_2)
+    df_AlteryxSelect_4 = AlteryxSelect_4(spark, df_TextInput_2_cast)
+    df_CashSpendCTSV3L_40 = CashSpendCTSV3L_40(spark)
+    df_AlteryxSelect_42 = AlteryxSelect_42(spark, df_CashSpendCTSV3L_40)
+    df_Unique_43 = Unique_43(spark, df_AlteryxSelect_42)
+    df_CashQ42024_xlsx_96 = CashQ42024_xlsx_96(spark)
+    df_Union_100_reformat_0 = Union_100_reformat_0(spark, df_CashQ42024_xlsx_96)
+    df_CashQ12024_xlsx_97 = CashQ12024_xlsx_97(spark)
+    df_Union_100_reformat_1 = Union_100_reformat_1(spark, df_CashQ12024_xlsx_97)
+    df_CashQ22024_xlsx_98 = CashQ22024_xlsx_98(spark)
+    df_Union_100_reformat_2 = Union_100_reformat_2(spark, df_CashQ22024_xlsx_98)
+    df_CashQ32024_xlsx_99 = CashQ32024_xlsx_99(spark)
+    df_Union_100_reformat_3 = Union_100_reformat_3(spark, df_CashQ32024_xlsx_99)
+    df_Union_100 = Union_100(
+        spark, 
+        df_Union_100_reformat_0, 
+        df_Union_100_reformat_1, 
+        df_Union_100_reformat_2, 
+        df_Union_100_reformat_3
+    )
+    df_AlteryxSelect_17 = AlteryxSelect_17(spark, df_Union_100)
+    df_Filter_11 = Filter_11(spark, df_AlteryxSelect_17)
+    df_AlteryxSelect_9 = AlteryxSelect_9(spark, df_Filter_11)
+    df_Formula_10 = Formula_10(spark, df_AlteryxSelect_9)
+    df_Summarize_1 = Summarize_1(spark, df_Formula_10)
+    df_AlteryxSelect_37 = AlteryxSelect_37(spark, df_Summarize_1)
+    df_AlteryxSelect_41 = AlteryxSelect_41(spark, df_CashSpendCTSV3L_40)
+    df_Unique_44 = Unique_44(spark, df_AlteryxSelect_41)
+    df_Join_45_left_UnionLeftOuter = Join_45_left_UnionLeftOuter(spark, df_AlteryxSelect_37, df_Unique_44)
+    df_Join_47_left_UnionLeftOuter = Join_47_left_UnionLeftOuter(spark, df_Join_45_left_UnionLeftOuter, df_Unique_43)
+    df_Formula_49 = Formula_49(spark, df_Join_47_left_UnionLeftOuter)
+    df_AlteryxSelect_38 = AlteryxSelect_38(spark, df_Formula_49)
+    df_Join_3_inner = Join_3_inner(spark, df_AlteryxSelect_38, df_AlteryxSelect_4)
+    df_Filter_8 = Filter_8(spark, df_Join_3_inner)
+    df_Formula_7 = Formula_7(spark, df_Filter_8)
+    df_Union_30_variable2 = Union_30_variable2(spark, df_Formula_7)
+    df_Union_30_reformat_0 = Union_30_reformat_0(spark, df_Union_30_variable2)
+    df_Join_3_left = Join_3_left(spark, df_AlteryxSelect_38, df_AlteryxSelect_4)
+    df_Formula_28 = Formula_28(spark, df_Join_3_left)
+    df_AlteryxSelect_29 = AlteryxSelect_29(spark, df_Formula_28)
+    df_Union_30_variable1 = Union_30_variable1(spark, df_AlteryxSelect_29)
+    df_Union_30_reformat_1 = Union_30_reformat_1(spark, df_Union_30_variable1)
+    df_Union_30 = Union_30(spark, df_Union_30_reformat_0, df_Union_30_reformat_1)
+    df_Union_30_cleanup = Union_30_cleanup(spark, df_Union_30)
+    df_AlteryxSelect_31 = AlteryxSelect_31(spark, df_Union_30_cleanup)
+    df_Summarize_32 = Summarize_32(spark, df_AlteryxSelect_31)
+    df_Formula_33 = Formula_33(spark, df_Summarize_32)
+    df_AlteryxSelect_34 = AlteryxSelect_34(spark, df_Formula_33)
+    df_Join_86_inner = Join_86_inner(spark, df_AlteryxSelect_34, df_Unique_85)
+    df_Union_88_variable2 = Union_88_variable2(spark, df_Join_86_inner)
+    df_Join_86_left = Join_86_left(spark, df_AlteryxSelect_34, df_Unique_85)
+    df_Formula_87 = Formula_87(spark, df_Join_86_left)
+    df_Union_88_variable1 = Union_88_variable1(spark, df_Formula_87)
+    df_Union_88_reformat_0 = Union_88_reformat_0(spark, df_Union_88_variable1)
+    df_Union_88_reformat_1 = Union_88_reformat_1(spark, df_Union_88_variable2)
+    df_Union_88 = Union_88(spark, df_Union_88_reformat_1, df_Union_88_reformat_0)
+    df_AlteryxSelect_60 = AlteryxSelect_60(spark, df_Union_100)
+    df_Filter_62 = Filter_62(spark, df_AlteryxSelect_60)
+    df_AlteryxSelect_63 = AlteryxSelect_63(spark, df_Filter_62)
+    df_Formula_67 = Formula_67(spark, df_AlteryxSelect_63)
+    df_TextInput_68 = TextInput_68(spark)
+    df_TextInput_68_cast = TextInput_68_cast(spark, df_TextInput_68)
+    df_AlteryxSelect_69 = AlteryxSelect_69(spark, df_TextInput_68_cast)
+    df_Join_70_inner = Join_70_inner(spark, df_Formula_67, df_AlteryxSelect_69)
+    df_Filter_72 = Filter_72(spark, df_Join_70_inner)
+    df_Formula_78 = Formula_78(spark, df_Filter_72)
+    df_Union_74_variable1 = Union_74_variable1(spark, df_Formula_78)
+    df_Filter_62_reject = Filter_62_reject(spark, df_AlteryxSelect_60)
+    df_Formula_77 = Formula_77(spark, df_Filter_62_reject)
+    df_Union_74_variable2 = Union_74_variable2(spark, df_Formula_77)
+    df_Union_74_reformat_0 = Union_74_reformat_0(spark, df_Union_74_variable2)
+    df_Union_74_reformat_1 = Union_74_reformat_1(spark, df_Union_74_variable1)
+    df_Union_74 = Union_74(spark, df_Union_74_reformat_0, df_Union_74_reformat_1)
+    df_Union_74_cleanup = Union_74_cleanup(spark, df_Union_74)
+    df_AlteryxSelect_76 = AlteryxSelect_76(spark, df_Union_74_cleanup)
+    df_Summarize_73 = Summarize_73(spark, df_AlteryxSelect_76)
+    df_Formula_80 = Formula_80(spark, df_Summarize_73)
+    df_AlteryxSelect_79 = AlteryxSelect_79(spark, df_Formula_80)
+    df_Union_101_variable2 = Union_101_variable2(spark, df_AlteryxSelect_79)
+    df_CashSpendASHBLo_92 = CashSpendASHBLo_92(spark)
+    df_AlteryxSelect_90 = AlteryxSelect_90(spark, df_CashSpendASHBLo_92)
+    df_Unique_91 = Unique_91(spark, df_AlteryxSelect_90)
+    df_Union_88_cleanup = Union_88_cleanup(spark, df_Union_88)
+    df_Join_89_left = Join_89_left(spark, df_Union_88_cleanup, df_Unique_91)
+    df_Union_93_variable2 = Union_93_variable2(spark, df_Join_89_left)
+    df_Union_93_reformat_0 = Union_93_reformat_0(spark, df_Union_93_variable2)
+    df_Join_89_inner = Join_89_inner(spark, df_Union_88_cleanup, df_Unique_91)
+    df_Union_93_variable1 = Union_93_variable1(spark, df_Join_89_inner)
+    df_Union_93_reformat_1 = Union_93_reformat_1(spark, df_Union_93_variable1)
+    df_Union_93 = Union_93(spark, df_Union_93_reformat_1, df_Union_93_reformat_0)
+    df_Union_93_cleanup = Union_93_cleanup(spark, df_Union_93)
+    df_AlteryxSelect_94 = AlteryxSelect_94(spark, df_Union_93_cleanup)
+    df_Formula_102 = Formula_102(spark, df_AlteryxSelect_94)
+    df_Union_101_variable1 = Union_101_variable1(spark, df_Formula_102)
+    df_Union_101_reformat_0 = Union_101_reformat_0(spark, df_Union_101_variable2)
+    df_Union_101_reformat_1 = Union_101_reformat_1(spark, df_Union_101_variable1)
+    df_Union_101 = Union_101(spark, df_Union_101_reformat_0, df_Union_101_reformat_1)
+    df_Union_101_cleanup = Union_101_cleanup(spark, df_Union_101)
+    df_AlteryxSelect_106 = AlteryxSelect_106(spark, df_Union_101_cleanup)
+    df_Formula_105 = Formula_105(spark, df_AlteryxSelect_106)
+    CashSpend2024da_103(spark, df_Formula_105)
+    df_Unique_16 = Unique_16(spark, df_AlteryxSelect_4)
+
+def main():
+    spark = SparkSession.builder\
+                .config("spark.default.parallelism", "4")\
+                .config("spark.sql.legacy.allowUntypedScalaUDF", "true")\
+                .enableHiveSupport()\
+                .appName("Prophecy Pipeline")\
+                .getOrCreate()
+    Utils.initializeFromArgs(spark, parse_args())
+    spark.conf.set("prophecy.metadata.pipeline.uri", "pipelines/Cash_Spend_2024_V1")
+    registerUDFs(spark)
+    
+    MetricsCollector.instrument(spark = spark, pipelineId = "pipelines/Cash_Spend_2024_V1", config = Config)(pipeline)
+
+if __name__ == "__main__":
+    main()

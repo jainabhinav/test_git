@@ -1,0 +1,4276 @@
+{
+  "metainfo" : {
+    "migrationVersions" : {
+      "gemBuilderVersion" : "v1",
+      "unitTestNullDataMigrated" : true
+    },
+    "functions" : { },
+    "codeGenConfiguration" : {
+      "editableConfig" : false,
+      "plibVersion" : {
+        "mavenVersion" : "8.7.1",
+        "pyPiVersion" : "1.9.29"
+      },
+      "sparkConfigJinjaEnabled" : true
+    },
+    "id" : "test",
+    "uri" : "pipelines/New_AIN_Dashboard_Workflow_V1",
+    "pipelineSettingsInfo" : {
+      "isNullValuesInUnitTestsEnabled" : true
+    },
+    "language" : "python",
+    "fabricId" : "243",
+    "frontEndLanguage" : "python",
+    "mode" : "batch",
+    "udfs" : {
+      "language" : "python",
+      "udfs" : [ ],
+      "functionPackageName" : "sonyprophecyioteam.amgenmarch7.functions",
+      "sharedFunctionPackageNames" : [ "prophecy.spark_basic.functions", "prophecy.spark_alteryx.functions", "prophecy.webapp.functions", "prophecy.spark_abi.functions" ],
+      "initialCode" : "\n\nfrom datetime import datetime, timedelta\nimport calendar\nfrom dateutil.relativedelta import relativedelta\n\ndef convert_format(custom_format: str) -> str:\n    format_mapping = {\n        'yyyy': '%Y',  # 4-digit year\n        'yy': '%y',    # 2-digit year\n        'MM': '%m',    # Month as zero-padded number\n        'dd': '%d',    # Day of the month as zero-padded number\n        'HH': '%H',    # Hour (24-hour clock)\n        'hh': '%I',    # Hour (12-hour clock)\n        'mm': '%M',    # Minutes\n        'SS': '%S',    # Seconds\n        'a': '%p',     # AM/PM\n        'month': '%B', # Full month name\n        'Month': '%b', # Abbreviated month name\n        'day': '%A',   # Full weekday name\n        'Day': '%a'    # Abbreviated weekday name\n    }\n\n    for custom_token, strftime_code in format_mapping.items():\n        custom_format = custom_format.replace(custom_token, strftime_code)\n\n    return custom_format\n\ndef date_add_native(d1: datetime, amount: int) -> datetime:\n    return d1 + timedelta(days=amount)\n\ndef add_months_native(date: datetime, amount: int) -> datetime:\n    return date + relativedelta(months=amount)\n\ndef to_date_native(dateStr: str, format: str = \"yyyy-MM-dd\") -> datetime:\n    return datetime.strptime(dateStr, convert_format(format))\n\ndef to_timestamp_native(dateStr: str, format: str = \"yyyy-MM-dd\") -> datetime:\n    return datetime.strptime(dateStr, convert_format(format))\n\ndef date_format_native(date: datetime, format: str = \"yyyy-MM-dd\") -> str:\n    return date.strftime(convert_format(format))\n\ndef months_between_native(date1: datetime, date2: datetime) -> int:\n    return (date2.year - date1.year) * 12 + date2.month - date1.month\n\ndef datediff_native(date1: datetime, date2: datetime) -> int:\n    return (date1 - date2).days\n\ndef year_native(date: datetime) -> int:\n    return date.year\n\ndef month_native(date: datetime) -> int:\n    return date.month\n\ndef day_native(date: datetime) -> int:\n    return date.day\n\ndef second_native(date: datetime) -> int:\n    return date.second\n\ndef minute_native(date: datetime) -> int:\n    return date.minute\n\ndef hour_native(date: datetime) -> int:\n    return date.hour\n\ndef quarter_native(date: datetime) -> int:\n    return (date.month - 1) // 3 + 1\n\ndef date_trunc_native(unit: str, date: datetime) -> datetime:\n    if unit == \"year\":\n        return datetime(date.year, 1, 1)\n    elif unit == \"month\":\n        return datetime(date.year, date.month, 1)\n    else:\n        raise ValueError(f\"Unsupported truncation unit: {unit}\")\n\ndef last_day_native(date: datetime) -> datetime:\n    next_month = date.replace(day=28) + timedelta(days=4)\n    return next_month - timedelta(days=next_month.day)\n\ndef current_timestamp_native() -> datetime:\n    return datetime.now()\n\ndef current_date_native() -> datetime:\n    return datetime.now().date()\n\n\n\n\ndef evaluate_static_expression(spark, expression):\n    df = spark.createDataFrame([(\"dummy\",)], [\"dummy\"])\n    result_df = df.selectExpr(f\"{expression} as result\")\n    result = result_df.collect()[0]['result']\n    return result\n\n\ndef replace_expression_in_namespace(expression: str, namespace: str, old_value: str, new_value: str):\n    split_list = re.split(r'(in\\d+)', expression)\n    ans = []\n    i = 0\n    while i < len(split_list):\n        if split_list[i] == namespace and i < len(split_list) - 1:\n            ans.append(namespace)\n            ans.append(split_list[i+1].replace(old_value, new_value))\n            i = i + 2\n        else:\n            ans.append(split_list[i])\n            i = i + 1\n    return ''.join(ans)\n\n\n\ndef update_config(value: str, operations: list):\n    current = value\n    for op in operations:\n        if op[0]:\n            current = op[2]\n        elif op[3] is not None and op[1] is not None:\n            current = replace_expression_in_namespace(current, str(op[3]), str(op[1]), str(op[2]))\n        else:\n            current = current.replace(str(op[1]), str(op[2]))\n    return current\n\ndef alteryxOutputColumns(all_columns, columns_to_drop):\n    conflicting_columns = [col.replace(\"in0_\", \"\").replace(\"in1_\", \"\") for col in all_columns]\n    conflicting_columns = set([x for x in conflicting_columns if conflicting_columns.count(x) > 1])\n\n    output_columns = []\n    for col_name in all_columns:\n        original_column_name = col_name.replace(\"in0_\", \"\").replace(\"in1_\", \"\")\n\n        if col_name in columns_to_drop:\n            continue\n        else:\n            if original_column_name in conflicting_columns and col_name.startswith(\"in1_\"):\n                output_columns.append(f\"`in1_{original_column_name}` AS `Right_{original_column_name}`\")\n            elif col_name.startswith(\"in1_\"):\n                output_columns.append(f\"`in1_{original_column_name}` AS `{original_column_name}`\")\n            elif col_name.startswith(\"in0_\"):\n                output_columns.append(f\"`in0_{original_column_name}` AS `{original_column_name}`\")\n            else:\n                output_columns.append(f\"`{original_column_name}` AS `{original_column_name}`\")\n\n    return output_columns\n\ndef textToColumns(exploded_df, input_column, num_cols, rootName, field_separator):\n    split_col_df = exploded_df.withColumn(\"splitCol\", call_spark_fcn(\"splitIntoMultipleColumnsUdf\", col(input_column), lit(field_separator), lit(num_cols)).alias(\"splitCol\"))\n\n    final_df = split_col_df\n    index = -1\n\n    output_schema_columns = [f\"{rootName}{i}\" for i in range(1, num_cols + 1)]\n\n    for column in output_schema_columns:\n        index += 1\n        final_df = final_df.withColumn(column, col(\"splitCol\")[index])\n\n    final_df = final_df.drop(\"splitCol\").drop(input_column)\n    return final_df\n\ndef transposeDataFrame(df, key_columns, data_columns):\n    unpivoted_cols = [col(column) for column in key_columns] + [lit(column).alias(\"Name\") for column in data_columns] + [col(column).alias(\"Value\") for column in data_columns]\n    return df.select(*unpivoted_cols)\n\n\n\n"
+    },
+    "configuration" : {
+      "common" : {
+        "type" : "record",
+        "fields" : [ {
+          "name" : "workflow_name",
+          "kind" : {
+            "type" : "string",
+            "value" : "New_AIN_Dashboard_Workflow_V1"
+          },
+          "optional" : false,
+          "isWorkflowNodeConfiguration" : false,
+          "isReferenced" : false
+        } ]
+      },
+      "oldCommon" : {
+        "type" : "record",
+        "fields" : [ ]
+      },
+      "fabrics" : { },
+      "instances" : { },
+      "selected" : "default",
+      "nonEditable" : [ ],
+      "isSubscribedPipelineWithPipelineConfigs" : false
+    },
+    "sparkConf" : [ ],
+    "hadoopConf" : [ ],
+    "codeMode" : "sparse",
+    "buildSystem" : "maven",
+    "externalDependencies" : [ ],
+    "dependentProjectExternalDependencies" : [ {
+      "projectUID" : "42",
+      "projectName" : "ProphecySparkBasicsPython",
+      "externalDependencies" : [ ]
+    }, {
+      "projectUID" : "14075",
+      "projectName" : "ProphecySparkAlteryxPython",
+      "externalDependencies" : [ ]
+    }, {
+      "projectUID" : "45",
+      "projectName" : "ProphecyWebAppPython",
+      "externalDependencies" : [ ]
+    }, {
+      "projectUID" : "10040",
+      "projectName" : "ProphecySparkAbinitioPython",
+      "externalDependencies" : [ ]
+    } ],
+    "isImported" : false,
+    "interimMode" : "Full",
+    "interimModeEnabled" : true,
+    "visualCodeInterimMode" : "Disabled",
+    "recordsLimit" : {
+      "enabled" : false,
+      "value" : 1000
+    },
+    "configurationVersion" : "v2"
+  },
+  "connections" : [ {
+    "id" : "edge_1",
+    "source" : "NewAINDashboard_6",
+    "sourcePort" : "6_Output",
+    "target" : "Filter_34",
+    "targetPort" : "34_Input"
+  }, {
+    "id" : "edge_2",
+    "source" : "AlteryxSelect_7",
+    "sourcePort" : "7_Output",
+    "target" : "Transpose_10",
+    "targetPort" : "10_Input"
+  }, {
+    "id" : "edge_3",
+    "source" : "AlteryxSelect_9",
+    "sourcePort" : "9_Output",
+    "target" : "Transpose_13",
+    "targetPort" : "13_Input"
+  }, {
+    "id" : "edge_4",
+    "source" : "Transpose_10",
+    "sourcePort" : "10_Output",
+    "target" : "AlteryxSelect_11",
+    "targetPort" : "11_Input"
+  }, {
+    "id" : "edge_5",
+    "source" : "AlteryxSelect_11",
+    "sourcePort" : "11_Output",
+    "target" : "Formula_12",
+    "targetPort" : "12_Input"
+  }, {
+    "id" : "edge_6",
+    "source" : "Transpose_13",
+    "sourcePort" : "13_Output",
+    "target" : "AlteryxSelect_14",
+    "targetPort" : "14_Input"
+  }, {
+    "id" : "edge_7",
+    "source" : "Union_15",
+    "sourcePort" : "15_Output",
+    "target" : "NewAINDashboard_26",
+    "targetPort" : "26_Input"
+  }, {
+    "id" : "edge_8",
+    "source" : "AlteryxSelect_16",
+    "sourcePort" : "16_Output",
+    "target" : "Transpose_17",
+    "targetPort" : "17_Input"
+  }, {
+    "id" : "edge_9",
+    "source" : "Transpose_17",
+    "sourcePort" : "17_Output",
+    "target" : "AlteryxSelect_18",
+    "targetPort" : "18_Input"
+  }, {
+    "id" : "edge_10",
+    "source" : "AlteryxSelect_18",
+    "sourcePort" : "18_Output",
+    "target" : "NewAINDashboard_27",
+    "targetPort" : "27_Input"
+  }, {
+    "id" : "edge_11",
+    "source" : "AlteryxSelect_19",
+    "sourcePort" : "19_Output",
+    "target" : "Transpose_20",
+    "targetPort" : "20_Input"
+  }, {
+    "id" : "edge_12",
+    "source" : "Transpose_20",
+    "sourcePort" : "20_Output",
+    "target" : "AlteryxSelect_21",
+    "targetPort" : "21_Input"
+  }, {
+    "id" : "edge_13",
+    "source" : "AlteryxSelect_21",
+    "sourcePort" : "21_Output",
+    "target" : "NewAINDashboard_28",
+    "targetPort" : "28_Input"
+  }, {
+    "id" : "edge_14",
+    "source" : "AlteryxSelect_23",
+    "sourcePort" : "23_Output",
+    "target" : "Transpose_24",
+    "targetPort" : "24_Input"
+  }, {
+    "id" : "edge_15",
+    "source" : "Transpose_24",
+    "sourcePort" : "24_Output",
+    "target" : "AlteryxSelect_25",
+    "targetPort" : "25_Input"
+  }, {
+    "id" : "edge_16",
+    "source" : "AlteryxSelect_25",
+    "sourcePort" : "25_Output",
+    "target" : "NewAINDashboard_29",
+    "targetPort" : "29_Input"
+  }, {
+    "id" : "edge_17",
+    "source" : "NewAINDashboard_1",
+    "sourcePort" : "1_Output",
+    "target" : "Filter_35",
+    "targetPort" : "35_Input"
+  }, {
+    "id" : "edge_18",
+    "source" : "AlteryxSelect_2",
+    "sourcePort" : "2_Output",
+    "target" : "Transpose_3",
+    "targetPort" : "3_Input"
+  }, {
+    "id" : "edge_19",
+    "source" : "Transpose_3",
+    "sourcePort" : "3_Output",
+    "target" : "AlteryxSelect_4",
+    "targetPort" : "4_Input"
+  }, {
+    "id" : "edge_20",
+    "source" : "AlteryxSelect_4",
+    "sourcePort" : "4_Output",
+    "target" : "NewAINDashboard_5",
+    "targetPort" : "5_Input"
+  }, {
+    "id" : "edge_21",
+    "source" : "Filter_35",
+    "sourcePort" : "35_True",
+    "target" : "AlteryxSelect_2",
+    "targetPort" : "2_Input"
+  }, {
+    "id" : "edge_22",
+    "source" : "Filter_34",
+    "sourcePort" : "34_True",
+    "target" : "AlteryxSelect_7",
+    "targetPort" : "7_Input"
+  }, {
+    "id" : "edge_23",
+    "source" : "Filter_34",
+    "sourcePort" : "34_True",
+    "target" : "AlteryxSelect_9",
+    "targetPort" : "9_Input"
+  }, {
+    "id" : "edge_24",
+    "source" : "Filter_34",
+    "sourcePort" : "34_True",
+    "target" : "AlteryxSelect_16",
+    "targetPort" : "16_Input"
+  }, {
+    "id" : "edge_25",
+    "source" : "Filter_34",
+    "sourcePort" : "34_True",
+    "target" : "AlteryxSelect_19",
+    "targetPort" : "19_Input"
+  }, {
+    "id" : "edge_26",
+    "source" : "Filter_34",
+    "sourcePort" : "34_True",
+    "target" : "AlteryxSelect_23",
+    "targetPort" : "23_Input"
+  }, {
+    "id" : "edge_27",
+    "source" : "Formula_12",
+    "sourcePort" : "12_Output",
+    "target" : "Union_15_reformat_0",
+    "targetPort" : "k4jmC5Mu3t8h8ipwtS3Vr"
+  }, {
+    "id" : "edge_28",
+    "source" : "Union_15_reformat_0",
+    "sourcePort" : "jTb7I_2X6KF3Y8nKtIK9K",
+    "target" : "Union_15",
+    "targetPort" : "15_variable1_Input"
+  }, {
+    "id" : "edge_29",
+    "source" : "AlteryxSelect_14",
+    "sourcePort" : "14_Output",
+    "target" : "Union_15_reformat_1",
+    "targetPort" : "syn5Iey4GpMQcRaXiz82W"
+  }, {
+    "id" : "edge_30",
+    "source" : "Union_15_reformat_1",
+    "sourcePort" : "yIdzAeaP1JlscW7jnvwAN",
+    "target" : "Union_15",
+    "targetPort" : "15_variable2_Input"
+  } ],
+  "processes" : {
+    "AlteryxSelect_9" : {
+      "id" : "AlteryxSelect_9",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_9",
+        "slug" : "AlteryxSelect_9",
+        "x" : 420,
+        "y" : 620,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "9_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Hired Mapped Roles Filled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Mapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Map. Rol. Neg. by Function = A2",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Negotiate Total = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Not Started",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Hired Mapped Roles Unfilled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Delayed",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Unmapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Core",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Tail",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Mapped + Unmapped = Posted?",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - On Track",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Filled + Unfilled = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - In Progress",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Essential",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "9_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Group",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Group\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Roles Posted as of Date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Roles Posted as of Date`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Unmapped",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Roles Unmapped to EW / OrgVue Data`\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "AlteryxSelect_25" : {
+      "id" : "AlteryxSelect_25",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_25",
+        "slug" : "AlteryxSelect_25",
+        "x" : 820,
+        "y" : 820,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "25_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "25_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Asset Status and Impact",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Name\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "# Job Roles",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Value\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "Union_15" : {
+      "id" : "Union_15",
+      "component" : "SetOperation",
+      "metadata" : {
+        "label" : "Union_15",
+        "slug" : "Union_15",
+        "x" : 1420,
+        "y" : 520,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "15_variable1_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "# Job Roles",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Filled/Unfilled",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Unmapped/Mapped",
+              "type" : "string",
+              "nullable" : false,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        }, {
+          "id" : "15_variable2_Input",
+          "slug" : "in1",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "# Job Roles",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Filled/Unfilled",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Unmapped/Mapped",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "15_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "operationType" : "unionByName",
+        "allowMissingColumns" : true
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/SetOperation",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "AlteryxSelect_14" : {
+      "id" : "AlteryxSelect_14",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_14",
+        "slug" : "AlteryxSelect_14",
+        "x" : 1020,
+        "y" : 620,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "14_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "14_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Group",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Group\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Roles Posted as of Date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Roles Posted as of Date`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Unmapped/Mapped",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Name\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "# Job Roles",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Value\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "AlteryxSelect_11" : {
+      "id" : "AlteryxSelect_11",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_11",
+        "slug" : "AlteryxSelect_11",
+        "x" : 820,
+        "y" : 420,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "11_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Mapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "11_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Group",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Group\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Roles Posted as of Date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Roles Posted as of Date`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Filled/Unfilled",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Name\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "# Job Roles",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Value\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "Transpose_17" : {
+      "id" : "Transpose_17",
+      "component" : "Script",
+      "metadata" : {
+        "label" : "Transpose_17",
+        "slug" : "Transpose_17",
+        "x" : 620,
+        "y" : 220,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "17_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Core",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Essential",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Tail",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "17_Output",
+          "slug" : "out0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : true,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "script" : "\n\ndef transpose_dataframe(df: DataFrame, key_columns: list, data_columns: list) -> DataFrame:\n    available_data_columns = [col_name for col_name in data_columns if col_name in df.columns]\n\n    dfs = [\n        df.select([col(key_col) for key_col in key_columns] +\n                  [lit(data_col_name).cast(\"string\").alias(\"Name\"),\n                   col(data_col_name).cast(\"string\").alias(\"Value\")])\n        for data_col_name in available_data_columns\n    ]\n\n    transposed_df = dfs[0]\n    for other_df in dfs[1:]:\n        transposed_df = transposed_df.union(other_df)\n\n    return transposed_df\n\nout0 = transpose_dataframe(in0, [ \"Function\" ], [ \"Core\" , \"Essential\" , \"Tail\" ])\n\n",
+        "scriptMethodHeader" : "def Script(spark: SparkSession, in0: Dataframe) -> (Dataframe):",
+        "scriptMethodFooter" : "return (out0)"
+      }
+    },
+    "NewAINDashboard_1" : {
+      "id" : "NewAINDashboard_1",
+      "component" : "Source",
+      "metadata" : {
+        "label" : "NewAINDashboard_1",
+        "slug" : "NewAINDashboard_1",
+        "x" : 20,
+        "y" : 20,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ ],
+        "outputs" : [ {
+          "id" : "1_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "datasetId" : "datasets/NewAINDashboard_1"
+      }
+    },
+    "AlteryxSelect_16" : {
+      "id" : "AlteryxSelect_16",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_16",
+        "slug" : "AlteryxSelect_16",
+        "x" : 420,
+        "y" : 220,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "16_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Hired Mapped Roles Filled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Mapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Map. Rol. Neg. by Function = A2",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Negotiate Total = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Not Started",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Hired Mapped Roles Unfilled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Delayed",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Unmapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Core",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Tail",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Mapped + Unmapped = Posted?",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - On Track",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Filled + Unfilled = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - In Progress",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Essential",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "16_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Core",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Impacted Suppliers - Core`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Essential",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Impacted Suppliers - Essential`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Tail",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Impacted Suppliers - Tail`\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "NewAINDashboard_28" : {
+      "id" : "NewAINDashboard_28",
+      "component" : "Target",
+      "metadata" : {
+        "label" : "NewAINDashboard_28",
+        "slug" : "NewAINDashboard_28",
+        "x" : 1020,
+        "y" : 1020,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "28_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles - Negotiation Status",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Job Roles",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "datasetId" : "datasets/NewAINDashboard_28"
+      }
+    },
+    "Union_15_reformat_0" : {
+      "id" : "Union_15_reformat_0",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "Union_15_reformat_0",
+        "slug" : "Union_15_reformat_0",
+        "x" : 1220,
+        "y" : 420,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "k4jmC5Mu3t8h8ipwtS3Vr",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Job Roles",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Filled/Unfilled",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Unmapped/Mapped",
+              "type" : "string",
+              "nullable" : false,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "jTb7I_2X6KF3Y8nKtIK9K",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "# Job Roles",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`# Job Roles`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Filled/Unfilled",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Filled/Unfilled\").cast(StringType())"
+          },
+          "description" : ""
+        }, {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Group",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Group\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Roles Posted as of Date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Roles Posted as of Date`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Unmapped/Mapped",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Unmapped/Mapped\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "Transpose_13" : {
+      "id" : "Transpose_13",
+      "component" : "Script",
+      "metadata" : {
+        "label" : "Transpose_13",
+        "slug" : "Transpose_13",
+        "x" : 820,
+        "y" : 620,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "13_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Unmapped",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "13_Output",
+          "slug" : "out0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : true,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "script" : "\n\ndef transpose_dataframe(df: DataFrame, key_columns: list, data_columns: list) -> DataFrame:\n    available_data_columns = [col_name for col_name in data_columns if col_name in df.columns]\n\n    dfs = [\n        df.select([col(key_col) for key_col in key_columns] +\n                  [lit(data_col_name).cast(\"string\").alias(\"Name\"),\n                   col(data_col_name).cast(\"string\").alias(\"Value\")])\n        for data_col_name in available_data_columns\n    ]\n\n    transposed_df = dfs[0]\n    for other_df in dfs[1:]:\n        transposed_df = transposed_df.union(other_df)\n\n    return transposed_df\n\nout0 = transpose_dataframe(in0, [ \"Function\" , \"Group\" , \"Roles Posted as of Date\" ], [ \"Unmapped\" ])\n\n",
+        "scriptMethodHeader" : "def Script(spark: SparkSession, in0: Dataframe) -> (Dataframe):",
+        "scriptMethodFooter" : "return (out0)"
+      }
+    },
+    "AlteryxSelect_23" : {
+      "id" : "AlteryxSelect_23",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_23",
+        "slug" : "AlteryxSelect_23",
+        "x" : 420,
+        "y" : 820,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "23_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Hired Mapped Roles Filled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Mapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Map. Rol. Neg. by Function = A2",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Negotiate Total = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Not Started",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Hired Mapped Roles Unfilled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Delayed",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Unmapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Core",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Tail",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Mapped + Unmapped = Posted?",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - On Track",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Filled + Unfilled = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - In Progress",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Essential",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "23_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Complete",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Asset Status and Impact - Complete`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "In Progress",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Asset Status and Impact - In Progress`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Not Started",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Asset Status and Impact - Not Started`\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "Transpose_24" : {
+      "id" : "Transpose_24",
+      "component" : "Script",
+      "metadata" : {
+        "label" : "Transpose_24",
+        "slug" : "Transpose_24",
+        "x" : 620,
+        "y" : 820,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "24_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "In Progress",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Not Started",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "24_Output",
+          "slug" : "out0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : true,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "script" : "\n\ndef transpose_dataframe(df: DataFrame, key_columns: list, data_columns: list) -> DataFrame:\n    available_data_columns = [col_name for col_name in data_columns if col_name in df.columns]\n\n    dfs = [\n        df.select([col(key_col) for key_col in key_columns] +\n                  [lit(data_col_name).cast(\"string\").alias(\"Name\"),\n                   col(data_col_name).cast(\"string\").alias(\"Value\")])\n        for data_col_name in available_data_columns\n    ]\n\n    transposed_df = dfs[0]\n    for other_df in dfs[1:]:\n        transposed_df = transposed_df.union(other_df)\n\n    return transposed_df\n\nout0 = transpose_dataframe(in0, [ \"Function\" ], [ \"Complete\" , \"In Progress\" , \"Not Started\" ])\n\n",
+        "scriptMethodHeader" : "def Script(spark: SparkSession, in0: Dataframe) -> (Dataframe):",
+        "scriptMethodFooter" : "return (out0)"
+      }
+    },
+    "AlteryxSelect_7" : {
+      "id" : "AlteryxSelect_7",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_7",
+        "slug" : "AlteryxSelect_7",
+        "x" : 420,
+        "y" : 420,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "7_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Hired Mapped Roles Filled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Mapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Map. Rol. Neg. by Function = A2",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Negotiate Total = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Not Started",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Hired Mapped Roles Unfilled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Delayed",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Unmapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Core",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Tail",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Mapped + Unmapped = Posted?",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - On Track",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Filled + Unfilled = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - In Progress",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Essential",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "7_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Unfilled",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Hired Mapped Roles Unfilled`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Roles Posted as of Date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Roles Posted as of Date`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Roles Mapped to EW / OrgVue Data",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Roles Mapped to EW / OrgVue Data`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Group",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Group\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Filled",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Hired Mapped Roles Filled`\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "NewAINDashboard_27" : {
+      "id" : "NewAINDashboard_27",
+      "component" : "Target",
+      "metadata" : {
+        "label" : "NewAINDashboard_27",
+        "slug" : "NewAINDashboard_27",
+        "x" : 1020,
+        "y" : 220,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "27_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Supplier Type",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Suppliers",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "datasetId" : "datasets/NewAINDashboard_27"
+      }
+    },
+    "NewAINDashboard_6" : {
+      "id" : "NewAINDashboard_6",
+      "component" : "Source",
+      "metadata" : {
+        "label" : "NewAINDashboard_6",
+        "slug" : "NewAINDashboard_6",
+        "x" : 20,
+        "y" : 620,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ ],
+        "outputs" : [ {
+          "id" : "6_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "datasetId" : "datasets/NewAINDashboard_6"
+      }
+    },
+    "Filter_34" : {
+      "id" : "Filter_34",
+      "component" : "Filter",
+      "metadata" : {
+        "label" : "Filter_34",
+        "slug" : "Filter_34",
+        "x" : 220,
+        "y" : 620,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "34_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Hired Mapped Roles Filled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Mapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Map. Rol. Neg. by Function = A2",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Negotiate Total = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Not Started",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Hired Mapped Roles Unfilled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Delayed",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Unmapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Core",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Tail",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Mapped + Unmapped = Posted?",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - On Track",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Filled + Unfilled = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - In Progress",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Essential",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "34_True",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "condition" : {
+          "format" : "python",
+          "expression" : "~isnull(col(\"Function\"))"
+        }
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Filter",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "AlteryxSelect_2" : {
+      "id" : "AlteryxSelect_2",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_2",
+        "slug" : "AlteryxSelect_2",
+        "x" : 420,
+        "y" : 20,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "2_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "# Mapped Roles - On Track",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Mapped Roles - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "A2 Capability Progress",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "CTS",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Mapped Roles - Delayed",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "2_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "A2 Capability Progress",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`A2 Capability Progress`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Delayed",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`# Mapped Roles - Delayed`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "CTS",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"CTS\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "On Track",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`# Mapped Roles - On Track`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Complete",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`# Mapped Roles - Complete`\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "AlteryxSelect_4" : {
+      "id" : "AlteryxSelect_4",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_4",
+        "slug" : "AlteryxSelect_4",
+        "x" : 820,
+        "y" : 20,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "4_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "A2 Capability Progress",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "CTS",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "4_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "A2 Capability Progress",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`A2 Capability Progress`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "CTS",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"CTS\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Status",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Name\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "# Job Roles",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Value\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "NewAINDashboard_29" : {
+      "id" : "NewAINDashboard_29",
+      "component" : "Target",
+      "metadata" : {
+        "label" : "NewAINDashboard_29",
+        "slug" : "NewAINDashboard_29",
+        "x" : 1020,
+        "y" : 820,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "29_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Job Roles",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "datasetId" : "datasets/NewAINDashboard_29"
+      }
+    },
+    "Filter_35" : {
+      "id" : "Filter_35",
+      "component" : "Filter",
+      "metadata" : {
+        "label" : "Filter_35",
+        "slug" : "Filter_35",
+        "x" : 220,
+        "y" : 20,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "35_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "# Mapped Roles - On Track",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Mapped Roles - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "A2 Capability Progress",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "CTS",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Mapped Roles - Delayed",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "35_True",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "condition" : {
+          "format" : "python",
+          "expression" : "~isnull(col(\"`A2 Capability Progress`\"))"
+        }
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Filter",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "Transpose_3" : {
+      "id" : "Transpose_3",
+      "component" : "Script",
+      "metadata" : {
+        "label" : "Transpose_3",
+        "slug" : "Transpose_3",
+        "x" : 620,
+        "y" : 20,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "3_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "A2 Capability Progress",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Delayed",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "CTS",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "On Track",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "3_Output",
+          "slug" : "out0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "A2 Capability Progress",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "CTS",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : true,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "script" : "\n\ndef transpose_dataframe(df: DataFrame, key_columns: list, data_columns: list) -> DataFrame:\n    available_data_columns = [col_name for col_name in data_columns if col_name in df.columns]\n\n    dfs = [\n        df.select([col(key_col) for key_col in key_columns] +\n                  [lit(data_col_name).cast(\"string\").alias(\"Name\"),\n                   col(data_col_name).cast(\"string\").alias(\"Value\")])\n        for data_col_name in available_data_columns\n    ]\n\n    transposed_df = dfs[0]\n    for other_df in dfs[1:]:\n        transposed_df = transposed_df.union(other_df)\n\n    return transposed_df\n\nout0 = transpose_dataframe(in0, [ \"CTS\" , \"A2 Capability Progress\" ], [ \"Complete\" , \"On Track\" , \"Delayed\" ])\n\n",
+        "scriptMethodHeader" : "def Script(spark: SparkSession, in0: Dataframe) -> (Dataframe):",
+        "scriptMethodFooter" : "return (out0)"
+      }
+    },
+    "Transpose_20" : {
+      "id" : "Transpose_20",
+      "component" : "Script",
+      "metadata" : {
+        "label" : "Transpose_20",
+        "slug" : "Transpose_20",
+        "x" : 620,
+        "y" : 1020,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "20_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "On Track",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Delayed",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "20_Output",
+          "slug" : "out0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : true,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "script" : "\n\ndef transpose_dataframe(df: DataFrame, key_columns: list, data_columns: list) -> DataFrame:\n    available_data_columns = [col_name for col_name in data_columns if col_name in df.columns]\n\n    dfs = [\n        df.select([col(key_col) for key_col in key_columns] +\n                  [lit(data_col_name).cast(\"string\").alias(\"Name\"),\n                   col(data_col_name).cast(\"string\").alias(\"Value\")])\n        for data_col_name in available_data_columns\n    ]\n\n    transposed_df = dfs[0]\n    for other_df in dfs[1:]:\n        transposed_df = transposed_df.union(other_df)\n\n    return transposed_df\n\nout0 = transpose_dataframe(in0, [ \"Function\" ], [ \"Complete\" , \"On Track\" , \"Delayed\" ])\n\n",
+        "scriptMethodHeader" : "def Script(spark: SparkSession, in0: Dataframe) -> (Dataframe):",
+        "scriptMethodFooter" : "return (out0)"
+      }
+    },
+    "NewAINDashboard_5" : {
+      "id" : "NewAINDashboard_5",
+      "component" : "Target",
+      "metadata" : {
+        "label" : "NewAINDashboard_5",
+        "slug" : "NewAINDashboard_5",
+        "x" : 1020,
+        "y" : 20,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "5_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "A2 Capability Progress",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "CTS",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Status",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Job Roles",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "datasetId" : "datasets/NewAINDashboard_5"
+      }
+    },
+    "Union_15_reformat_1" : {
+      "id" : "Union_15_reformat_1",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "Union_15_reformat_1",
+        "slug" : "Union_15_reformat_1",
+        "x" : 1220,
+        "y" : 620,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "syn5Iey4GpMQcRaXiz82W",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Unmapped/Mapped",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Job Roles",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "yIdzAeaP1JlscW7jnvwAN",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "# Job Roles",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`# Job Roles`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Filled/Unfilled",
+          "expression" : {
+            "format" : "python",
+            "expression" : "lit(None).cast(StringType())"
+          },
+          "description" : ""
+        }, {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Group",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Group\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Roles Posted as of Date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Roles Posted as of Date`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Unmapped/Mapped",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Unmapped/Mapped\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "NewAINDashboard_26" : {
+      "id" : "NewAINDashboard_26",
+      "component" : "Target",
+      "metadata" : {
+        "label" : "NewAINDashboard_26",
+        "slug" : "NewAINDashboard_26",
+        "x" : 1620,
+        "y" : 520,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "26_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "# Job Roles",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Filled/Unfilled",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Unmapped/Mapped",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "datasetId" : "datasets/NewAINDashboard_26"
+      }
+    },
+    "Formula_12" : {
+      "id" : "Formula_12",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "Formula_12",
+        "slug" : "Formula_12",
+        "x" : 1020,
+        "y" : 420,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "12_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Filled/Unfilled",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "# Job Roles",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "12_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "# Job Roles",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`# Job Roles`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Group",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Group\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Filled/Unfilled",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Filled/Unfilled\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Roles Posted as of Date",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Roles Posted as of Date`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Unmapped/Mapped",
+          "expression" : {
+            "format" : "python",
+            "expression" : "lit(\"Mapped\").cast(StringType())"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "AlteryxSelect_19" : {
+      "id" : "AlteryxSelect_19",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_19",
+        "slug" : "AlteryxSelect_19",
+        "x" : 420,
+        "y" : 1020,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "19_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Hired Mapped Roles Filled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Mapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Map. Rol. Neg. by Function = A2",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Negotiate Total = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - Not Started",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Hired Mapped Roles Unfilled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Delayed",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Unmapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Core",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - Complete",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Tail",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Mapped + Unmapped = Posted?",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Mapped Roles to Negotiate - On Track",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "QA Check: Filled + Unfilled = Mapped",
+              "type" : "boolean",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Asset Status and Impact - In Progress",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Impacted Suppliers - Essential",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "19_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Complete",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Mapped Roles to Negotiate - Complete`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "On Track",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Mapped Roles to Negotiate - On Track`\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Delayed",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"`Mapped Roles to Negotiate - Delayed`\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "Transpose_10" : {
+      "id" : "Transpose_10",
+      "component" : "Script",
+      "metadata" : {
+        "label" : "Transpose_10",
+        "slug" : "Transpose_10",
+        "x" : 620,
+        "y" : 420,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "10_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Unfilled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Mapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Filled",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "10_Output",
+          "slug" : "out0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Mapped to EW / OrgVue Data",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Group",
+              "type" : "double",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Roles Posted as of Date",
+              "type" : "timestamp",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : true,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "script" : "\n\ndef transpose_dataframe(df: DataFrame, key_columns: list, data_columns: list) -> DataFrame:\n    available_data_columns = [col_name for col_name in data_columns if col_name in df.columns]\n\n    dfs = [\n        df.select([col(key_col) for key_col in key_columns] +\n                  [lit(data_col_name).cast(\"string\").alias(\"Name\"),\n                   col(data_col_name).cast(\"string\").alias(\"Value\")])\n        for data_col_name in available_data_columns\n    ]\n\n    transposed_df = dfs[0]\n    for other_df in dfs[1:]:\n        transposed_df = transposed_df.union(other_df)\n\n    return transposed_df\n\nout0 = transpose_dataframe(in0, [ \"Function\" , \"Group\" , \"Roles Posted as of Date\" , \"Roles Mapped to EW / OrgVue Data\" ], [ \"Filled\" , \"Unfilled\" ])\n\n",
+        "scriptMethodHeader" : "def Script(spark: SparkSession, in0: Dataframe) -> (Dataframe):",
+        "scriptMethodFooter" : "return (out0)"
+      }
+    },
+    "AlteryxSelect_18" : {
+      "id" : "AlteryxSelect_18",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_18",
+        "slug" : "AlteryxSelect_18",
+        "x" : 820,
+        "y" : 220,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "18_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "18_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Supplier Type",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Name\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "# Suppliers",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Value\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    },
+    "AlteryxSelect_21" : {
+      "id" : "AlteryxSelect_21",
+      "component" : "Reformat",
+      "metadata" : {
+        "label" : "AlteryxSelect_21",
+        "slug" : "AlteryxSelect_21",
+        "x" : 820,
+        "y" : 1020,
+        "phase" : 0,
+        "cache" : false,
+        "detailedStats" : false,
+        "isImported" : true
+      },
+      "ports" : {
+        "inputs" : [ {
+          "id" : "21_Input",
+          "slug" : "in0",
+          "schema" : {
+            "type" : "struct",
+            "fields" : [ {
+              "name" : "Function",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Name",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            }, {
+              "name" : "Value",
+              "type" : "string",
+              "nullable" : true,
+              "metadata" : {
+                "description" : "",
+                "mappings" : [ ],
+                "tags" : [ ]
+              }
+            } ]
+          },
+          "isStreaming" : false
+        } ],
+        "outputs" : [ {
+          "id" : "21_Output",
+          "slug" : "out0"
+        } ],
+        "selectedInputFields" : [ ],
+        "isCustomOutputSchema" : false,
+        "autoUpdateOnRun" : false
+      },
+      "properties" : {
+        "columnsSelector" : [ ],
+        "expressions" : [ {
+          "target" : "Function",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Function\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "Mapped Roles - Negotiation Status",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Name\")"
+          },
+          "description" : ""
+        }, {
+          "target" : "# Job Roles",
+          "expression" : {
+            "format" : "python",
+            "expression" : "col(\"Value\")"
+          },
+          "description" : ""
+        } ]
+      },
+      "componentInfo" : {
+        "gemId" : "gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=&tag=0.2.40&projectSubscriptionProjectId=42&path=gems/Reformat",
+        "projectName" : "ProphecySparkBasicsPython"
+      }
+    }
+  },
+  "ports" : {
+    "inputs" : [ ],
+    "outputs" : [ ],
+    "selectedInputFields" : [ ],
+    "isCustomOutputSchema" : false,
+    "autoUpdateOnRun" : false
+  }
+}

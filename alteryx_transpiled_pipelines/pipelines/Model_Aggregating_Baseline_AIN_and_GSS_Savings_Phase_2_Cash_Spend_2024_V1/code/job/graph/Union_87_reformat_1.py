@@ -1,0 +1,65 @@
+from pyspark.sql import *
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+from prophecy.utils import *
+from prophecy.libs import typed_lit
+from job.config.ConfigStore import *
+from job.udfs.UDFs import *
+
+def Union_87_reformat_1(spark: SparkSession, in0: DataFrame) -> DataFrame:
+    return in0.select(
+        lit(None).cast(DoubleType()).alias("_AIN EW_Reduction"), 
+        lit(None).cast(DoubleType()).alias("_AIN EW_Reduction (Realised)"), 
+        lit(None).cast(StringType()).alias("_AIN Ext. Lab. Net Savings Stage"), 
+        lit(None).cast(DoubleType()).alias("_AIN_Resource_Cost"), 
+        lit(None).cast(DoubleType()).alias("_AIN_Resource_Cost (Realised)"), 
+        lit(None).cast(DoubleType()).alias("_AIN_Savings"), 
+        lit(None).cast(DoubleType()).alias("_AIN_Savings (Realised)"), 
+        lit(None).cast(StringType()).alias("_ASHB"), 
+        lit(None).cast(StringType()).alias("_CTS V3"), 
+        col("`_Cash Spend`").alias("_Cash Spend"), 
+        col("_Category"), 
+        col("`_Company Code`").cast(StringType()).alias("_Company Code"), 
+        col("`_Company Description`").alias("_Company Description"), 
+        col("`_Company Group`").alias("_Company Group"), 
+        lit(None).cast(DoubleType()).alias("_GSS BAU Savings"), 
+        lit(None).cast(DoubleType()).alias("_GSS BAU Savings (Realised)"), 
+        lit(None).cast(StringType()).alias("_GSS Enterprise Savings"), 
+        lit(None).cast(DoubleType()).alias("_GSS Incremental High Savings"), 
+        lit(None).cast(StringType()).alias("_GSS Incremental High Savings (Realised)"), 
+        lit(None).cast(DoubleType()).alias("_GSS Incremental Low Savings"), 
+        lit(None).cast(DoubleType()).alias("_GSS Incremental Low Savings (Realised)"), 
+        col("`_Hyperion Category`").alias("_Hyperion Category"), 
+        col("`_Hyperion Category Code`").alias("_Hyperion Category Code"), 
+        lit(None).cast(StringType()).alias("_In-Scope"), 
+        col("`_In-Scope Final`").alias("_In-Scope Final"), 
+        lit(None).cast(DoubleType()).alias("_Non-Opex Adjustments"), 
+        lit(None).cast(StringType()).alias("_OSE Labor V2"), 
+        col("`_Planning Account`").alias("_Planning Account"), 
+        lit(None).cast(StringType()).alias("_Planning Account Actual"), 
+        col("`_Planning Account Description`").alias("_Planning Account Description"), 
+        lit(None).cast(StringType()).alias("_Planning Account Description Actual"), 
+        col("`_Regrouped Level 4`").alias("_Regrouped Level 4"), 
+        col("_Sum_Adjusted_Sum_LCL").cast(StringType()).alias("_Sum_Adjusted_Sum_LCL"), 
+        col("_Sum_Adjusted_Sum_LCLCFX"), 
+        col("_Sum_Adjusted_Sum_USDAFX").cast(StringType()).alias("_Sum_Adjusted_Sum_USDAFX"), 
+        col("`_cost center`").alias("_cost center"), 
+        col("`_cost center number`").alias("_cost center number"), 
+        col("_evp"), 
+        col("`_gl account`").alias("_gl account"), 
+        col("`_gl account number`").alias("_gl account number"), 
+        col("_hlmc"), 
+        col("`_material group`").alias("_material group"), 
+        col("`_material group description`").alias("_material group description"), 
+        col("_mc"), 
+        col("`_planning sku`").alias("_planning sku"), 
+        col("`_product description`").alias("_product description"), 
+        col("_quarter"), 
+        col("`_scenario name`").alias("_scenario name"), 
+        col("`_scenario type`").alias("_scenario type"), 
+        col("_site"), 
+        col("`_sub mc`").alias("_sub mc"), 
+        lit(None).cast(StringType()).alias("_tableau display category"), 
+        col("_version"), 
+        col("_year")
+    )
