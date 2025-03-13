@@ -1,0 +1,1819 @@
+name: amgenMarch7
+description: ''
+version: 0.0.1
+author: sony@prophecy.io
+language: python
+buildSystem: ''
+buildSystemDetails:
+  artefactID: amgenmarch7
+  parentArtefactID: sonyprophecyioteam
+  buildSystem: wheel
+  author: null
+  createdAt: '2025-03-07 05:31:41'
+pipelines:
+  pipelines/Cash_Spend_2024_V1:
+    name: Cash_Spend_2024_V1
+    description: null
+    author: sony@prophecy.io
+    mode: batch
+    artefactID: ''
+    language: python
+    createdAt: '2025-03-07 05:35:21'
+    datasets:
+      inputs:
+      - datasets/CashQ12024_xlsx_97
+      - datasets/CashQ22024_xlsx_98
+      - datasets/CashQ32024_xlsx_99
+      - datasets/CashQ42024_xlsx_96
+      - datasets/CashSpendASHBLo_92
+      - datasets/CashSpendCTSV3L_40
+      - datasets/CashSpendOSELab_82
+      - datasets/TextInput_2
+      - datasets/TextInput_68
+      outputs:
+      - datasets/CashSpend2024da_103
+    subgraphs: []
+    dependencies: {}
+  pipelines/Amgen_AIN_Savings_Integration_Model_Phase_2_WIP_V4:
+    name: Amgen_AIN_Savings_Integration_Model_Phase_2_WIP_V4
+    description: null
+    author: sony@prophecy.io
+    mode: batch
+    artefactID: ''
+    language: python
+    createdAt: '2025-03-07 05:35:22'
+    datasets:
+      inputs:
+      - datasets/AINSavingsInput_226
+      - datasets/AINSavingsInput_8
+      - datasets/Amgen_CashSpend_2
+      - datasets/Amgen_HyperionO_175
+      - datasets/Amgen_Summarize_265
+      - datasets/CashSpendASHBLo_9
+      - datasets/CashSpendCTSV3L_12
+      - datasets/CashSpendOSELab_7
+      - datasets/HyperionASHBLoo_182
+      - datasets/HyperionCTSLook_176
+      - datasets/HyperionCTSLook_178
+      - datasets/HyperionOSELabo_185
+      - datasets/In_ScopeCTS_xls_190
+      - datasets/In_ScopeCTS_xls_6
+      outputs:
+      - datasets/AmgenAINOSELabo_426
+      - datasets/AmgenAINSavingD_427
+      - datasets/AmgenAINSavings_292
+      - datasets/AmgenAINSavings_332
+      - datasets/AmgenAINSavings_362
+      - datasets/AmgenAINSavings_365
+      - datasets/AmgenAINSavings_367
+      - datasets/AmgenAINSavings_368
+      - datasets/AmgenAINSavings_374
+      - datasets/AmgenAINSavings_382
+    subgraphs: []
+    dependencies: {}
+  pipelines/New_AIN_Dashboard_Workflow_V1:
+    name: New_AIN_Dashboard_Workflow_V1
+    description: null
+    author: sony@prophecy.io
+    mode: batch
+    artefactID: ''
+    language: python
+    createdAt: '2025-03-07 05:35:24'
+    datasets:
+      inputs:
+      - datasets/NewAINDashboard_1
+      - datasets/NewAINDashboard_6
+      outputs:
+      - datasets/NewAINDashboard_26
+      - datasets/NewAINDashboard_27
+      - datasets/NewAINDashboard_28
+      - datasets/NewAINDashboard_29
+      - datasets/NewAINDashboard_5
+    subgraphs: []
+    dependencies: {}
+  pipelines/GSS_Savings_Integration_Model_Phase_2_WIP_V3:
+    name: GSS_Savings_Integration_Model_Phase_2_WIP_V3
+    description: null
+    author: sony@prophecy.io
+    mode: batch
+    artefactID: ''
+    language: python
+    createdAt: '2025-03-07 05:35:24'
+    datasets:
+      inputs:
+      - datasets/Amgen_Summarize_10
+      - datasets/Savings_Distrib_38
+      - datasets/Savings_Distrib_39
+      - datasets/SavingsbyMegaCa_1
+      outputs:
+      - datasets/Amgen_GSSSaving_29
+      - datasets/Amgen_GSSSaving_32
+      - datasets/Amgen_GSSSaving_33
+      - datasets/Amgen_GSSSaving_50
+      - datasets/Amgen_Summarize_37
+    subgraphs: []
+    dependencies: {}
+  pipelines/cash_spend_hyperion:
+    name: cash_spend_hyperion
+    description: null
+    author: sony@prophecy.io
+    mode: batch
+    artefactID: ''
+    language: python
+    createdAt: '2025-03-07 06:03:23'
+    datasets:
+      inputs:
+      - datasets/Amgen_NonOpexAd_298
+      - datasets/CashSpendASHBLo_388
+      - datasets/CashSpendCTSV3L_333
+      - datasets/CashSpendOSELab_378
+      - datasets/CopyofLRPPlanni_49
+      - datasets/FY2023CashSpend_127
+      - datasets/HyperionASHBLoo_390
+      - datasets/HyperionCTSLook_345
+      - datasets/HyperionCTSLook_350
+      - datasets/HyperionOSELabo_395
+      - datasets/OPEX_ACTUAL_DAT_48
+      - datasets/OPEX_FORECAST_D_47
+      - datasets/OPEX_FORECAST_D_5
+      - datasets/OPEX_LRP_DATA_2_43
+      - datasets/OPEX_LRP_DATA_2_44
+      - datasets/OPEX_LRP_DATA_2_45
+      - datasets/TextInput_11
+      - datasets/TextInput_373
+      outputs:
+      - datasets/AmgenCashSpendt_432
+      - datasets/AmgenCashSpendt_433
+      - datasets/AmgenCashSpendt_441
+      - datasets/AmgenCashSpendt_442
+      - datasets/AmgenNon_Addres_424
+      - datasets/Amgen_CashSpend_177
+      - datasets/Amgen_CashSpend_194
+      - datasets/Amgen_CashSpend_195
+      - datasets/Amgen_CashSpend_197
+      - datasets/Amgen_CashSpend_198
+      - datasets/Amgen_CashSpend_206
+      - datasets/Amgen_CashSpend_208
+      - datasets/Amgen_CashSpend_209
+      - datasets/Amgen_CashSpend_210
+      - datasets/Amgen_CashSpend_211
+      - datasets/Amgen_CashSpend_212
+      - datasets/Amgen_CashSpend_214
+      - datasets/Amgen_CashSpend_225
+      - datasets/Amgen_CashSpend_287
+      - datasets/Amgen_CashSpend_297
+      - datasets/Amgen_CashSpend_320
+      - datasets/Amgen_HyperionO_325
+      - datasets/Amgen_Summarize_290
+      - datasets/Tableaudisplaym_362
+    subgraphs: []
+    dependencies: {}
+  pipelines/Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1:
+    name: Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+    description: null
+    author: sony@prophecy.io
+    mode: batch
+    artefactID: ''
+    language: python
+    createdAt: '2025-03-07 06:33:05'
+    datasets:
+      inputs:
+      - datasets/AmgenAINSavings_5
+      - datasets/AmgenNon_Addres_85
+      - datasets/Amgen_Summarize_4
+      - datasets/Amgen_Summarize_6
+      - datasets/CashSpend2024da_98
+      - datasets/Tableaudisplaym_64
+      - datasets/TextInput_38
+      outputs:
+      - datasets/AggregatedQCAIN_105
+      - datasets/AggregatedQCExt_92
+      - datasets/AmgenModelAggre_57
+      - datasets/AmgenSavingsSum_28
+      - datasets/AmgenSavingsSum_29
+      - datasets/AmgenSavingsSum_30
+      - datasets/AmgenSavingsSum_43
+      - datasets/AmgenSavingsSum_46
+      - datasets/AmgenSavingsSum_50
+      - datasets/AmgenSavingsSum_78
+      - datasets/AmgenSavingsSum_79
+      - datasets/DisplayCategory_90
+      - datasets/Sample2023_xlsx_107
+      - datasets/Sample2024_xlsx_106
+    subgraphs: []
+    dependencies: {}
+datasets:
+  datasets/CashSpend2024da_98:
+    name: CashSpend2024da_98
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: CashSpend2024da_98'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:13'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:13'
+  datasets/AmgenSavingsSum_78:
+    name: AmgenSavingsSum_78
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenSavingsSum_78'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:13'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:13'
+  datasets/Amgen_Summarize_4:
+    name: Amgen_Summarize_4
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: Amgen_Summarize_4'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:13'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:13'
+  datasets/DisplayCategory_90:
+    name: DisplayCategory_90
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: DisplayCategory_90'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:13'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:13'
+  datasets/AmgenSavingsSum_50:
+    name: AmgenSavingsSum_50
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenSavingsSum_50'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:13'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:13'
+  datasets/Sample2023_xlsx_107:
+    name: Sample2023_xlsx_107
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: Sample2023_xlsx_107'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:13'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:13'
+  datasets/AmgenSavingsSum_46:
+    name: AmgenSavingsSum_46
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenSavingsSum_46'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:13'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:13'
+  datasets/AmgenSavingsSum_79:
+    name: AmgenSavingsSum_79
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenSavingsSum_79'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:13'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:13'
+  datasets/AmgenAINSavings_5:
+    name: AmgenAINSavings_5
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenAINSavings_5'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:14'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:14'
+  datasets/AmgenSavingsSum_43:
+    name: AmgenSavingsSum_43
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenSavingsSum_43'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:14'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:14'
+  datasets/AmgenModelAggre_57:
+    name: AmgenModelAggre_57
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenModelAggre_57'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:14'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:14'
+  datasets/Sample2024_xlsx_106:
+    name: Sample2024_xlsx_106
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: Sample2024_xlsx_106'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:14'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:14'
+  datasets/Amgen_Summarize_6:
+    name: Amgen_Summarize_6
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: Amgen_Summarize_6'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:14'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:14'
+  datasets/Tableaudisplaym_64:
+    name: Tableaudisplaym_64
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: Tableaudisplaym_64'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:14'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:14'
+  datasets/TextInput_38:
+    name: TextInput_38
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: TextInput_38'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:14'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:14'
+  datasets/AggregatedQCExt_92:
+    name: AggregatedQCExt_92
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AggregatedQCExt_92'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:14'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:14'
+  datasets/AmgenSavingsSum_30:
+    name: AmgenSavingsSum_30
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenSavingsSum_30'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:14'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:14'
+  datasets/AmgenSavingsSum_29:
+    name: AmgenSavingsSum_29
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenSavingsSum_29'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:14'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:14'
+  datasets/AggregatedQCAIN_105:
+    name: AggregatedQCAIN_105
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AggregatedQCAIN_105'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:15'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:15'
+  datasets/AmgenNon_Addres_85:
+    name: AmgenNon_Addres_85
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenNon_Addres_85'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:15'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:15'
+  datasets/AmgenSavingsSum_28:
+    name: AmgenSavingsSum_28
+    description: 'Dataset for Imported Pipeline:Model_Aggregating_Baseline_AIN_and_GSS_Savings_Phase_2_Cash_Spend_2024_V1
+      componentName: AmgenSavingsSum_28'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:15'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:15'
+  datasets/CashQ22024_xlsx_98:
+    name: CashQ22024_xlsx_98
+    description: 'Dataset for componentName: CashQ22024_xlsx_98'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:15'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:15'
+  datasets/CashSpendCTSV3L_40:
+    name: CashSpendCTSV3L_40
+    description: 'Dataset for componentName: CashSpendCTSV3L_40'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:15'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:15'
+  datasets/TextInput_68:
+    name: TextInput_68
+    description: 'Dataset for componentName: TextInput_68'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:15'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:15'
+  datasets/CashQ32024_xlsx_99:
+    name: CashQ32024_xlsx_99
+    description: 'Dataset for componentName: CashQ32024_xlsx_99'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:15'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:15'
+  datasets/CashSpend2024da_103:
+    name: CashSpend2024da_103
+    description: 'Dataset for componentName: CashSpend2024da_103'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:15'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:15'
+  datasets/CashSpendOSELab_82:
+    name: CashSpendOSELab_82
+    description: 'Dataset for componentName: CashSpendOSELab_82'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:15'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:15'
+  datasets/CashQ42024_xlsx_96:
+    name: CashQ42024_xlsx_96
+    description: 'Dataset for componentName: CashQ42024_xlsx_96'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:16'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:16'
+  datasets/TextInput_2:
+    name: TextInput_2
+    description: 'Dataset for componentName: TextInput_2'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:16'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:16'
+  datasets/CashSpendASHBLo_92:
+    name: CashSpendASHBLo_92
+    description: 'Dataset for componentName: CashSpendASHBLo_92'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:16'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:16'
+  datasets/CashQ12024_xlsx_97:
+    name: CashQ12024_xlsx_97
+    description: 'Dataset for componentName: CashQ12024_xlsx_97'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:16'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:16'
+  datasets/HyperionASHBLoo_182:
+    name: HyperionASHBLoo_182
+    description: 'Dataset for componentName: HyperionASHBLoo_182'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:16'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:16'
+  datasets/CashSpendCTSV3L_12:
+    name: CashSpendCTSV3L_12
+    description: 'Dataset for componentName: CashSpendCTSV3L_12'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:16'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:16'
+  datasets/AINSavingsInput_8:
+    name: AINSavingsInput_8
+    description: 'Dataset for componentName: AINSavingsInput_8'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:16'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:16'
+  datasets/AmgenAINSavings_332:
+    name: AmgenAINSavings_332
+    description: 'Dataset for componentName: AmgenAINSavings_332'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:16'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:16'
+  datasets/Amgen_HyperionO_175:
+    name: Amgen_HyperionO_175
+    description: 'Dataset for componentName: Amgen_HyperionO_175'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:17'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:17'
+  datasets/AmgenAINSavings_362:
+    name: AmgenAINSavings_362
+    description: 'Dataset for componentName: AmgenAINSavings_362'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:17'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:17'
+  datasets/Amgen_Summarize_265:
+    name: Amgen_Summarize_265
+    description: 'Dataset for componentName: Amgen_Summarize_265'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:17'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:17'
+  datasets/CashSpendASHBLo_9:
+    name: CashSpendASHBLo_9
+    description: 'Dataset for componentName: CashSpendASHBLo_9'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:17'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:17'
+  datasets/AmgenAINSavings_382:
+    name: AmgenAINSavings_382
+    description: 'Dataset for componentName: AmgenAINSavings_382'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:17'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:17'
+  datasets/AmgenAINOSELabo_426:
+    name: AmgenAINOSELabo_426
+    description: 'Dataset for componentName: AmgenAINOSELabo_426'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:17'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:17'
+  datasets/AmgenAINSavings_367:
+    name: AmgenAINSavings_367
+    description: 'Dataset for componentName: AmgenAINSavings_367'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:17'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:17'
+  datasets/AmgenAINSavings_292:
+    name: AmgenAINSavings_292
+    description: 'Dataset for componentName: AmgenAINSavings_292'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:17'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:17'
+  datasets/HyperionOSELabo_185:
+    name: HyperionOSELabo_185
+    description: 'Dataset for componentName: HyperionOSELabo_185'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:18'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:18'
+  datasets/In_ScopeCTS_xls_6:
+    name: In_ScopeCTS_xls_6
+    description: 'Dataset for componentName: In_ScopeCTS_xls_6'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:18'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:18'
+  datasets/In_ScopeCTS_xls_190:
+    name: In_ScopeCTS_xls_190
+    description: 'Dataset for componentName: In_ScopeCTS_xls_190'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:18'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:18'
+  datasets/AmgenAINSavings_368:
+    name: AmgenAINSavings_368
+    description: 'Dataset for componentName: AmgenAINSavings_368'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:18'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:18'
+  datasets/HyperionCTSLook_178:
+    name: HyperionCTSLook_178
+    description: 'Dataset for componentName: HyperionCTSLook_178'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:18'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:18'
+  datasets/AmgenAINSavings_365:
+    name: AmgenAINSavings_365
+    description: 'Dataset for componentName: AmgenAINSavings_365'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:18'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:18'
+  datasets/Amgen_CashSpend_2:
+    name: Amgen_CashSpend_2
+    description: 'Dataset for componentName: Amgen_CashSpend_2'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:18'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:18'
+  datasets/AmgenAINSavings_374:
+    name: AmgenAINSavings_374
+    description: 'Dataset for componentName: AmgenAINSavings_374'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:18'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:18'
+  datasets/AmgenAINSavingD_427:
+    name: AmgenAINSavingD_427
+    description: 'Dataset for componentName: AmgenAINSavingD_427'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:18'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:18'
+  datasets/CashSpendOSELab_7:
+    name: CashSpendOSELab_7
+    description: 'Dataset for componentName: CashSpendOSELab_7'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:18'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:18'
+  datasets/AINSavingsInput_226:
+    name: AINSavingsInput_226
+    description: 'Dataset for componentName: AINSavingsInput_226'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:19'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:19'
+  datasets/HyperionCTSLook_176:
+    name: HyperionCTSLook_176
+    description: 'Dataset for componentName: HyperionCTSLook_176'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:19'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:19'
+  datasets/NewAINDashboard_26:
+    name: NewAINDashboard_26
+    description: 'Dataset for componentName: NewAINDashboard_26'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:19'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:19'
+  datasets/NewAINDashboard_5:
+    name: NewAINDashboard_5
+    description: 'Dataset for componentName: NewAINDashboard_5'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:19'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:19'
+  datasets/NewAINDashboard_6:
+    name: NewAINDashboard_6
+    description: 'Dataset for componentName: NewAINDashboard_6'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:19'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:19'
+  datasets/NewAINDashboard_1:
+    name: NewAINDashboard_1
+    description: 'Dataset for componentName: NewAINDashboard_1'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:19'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:19'
+  datasets/NewAINDashboard_27:
+    name: NewAINDashboard_27
+    description: 'Dataset for componentName: NewAINDashboard_27'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:19'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:19'
+  datasets/NewAINDashboard_29:
+    name: NewAINDashboard_29
+    description: 'Dataset for componentName: NewAINDashboard_29'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:19'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:19'
+  datasets/NewAINDashboard_28:
+    name: NewAINDashboard_28
+    description: 'Dataset for componentName: NewAINDashboard_28'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:19'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:20'
+  datasets/Amgen_GSSSaving_33:
+    name: Amgen_GSSSaving_33
+    description: 'Dataset for componentName: Amgen_GSSSaving_33'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:20'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:20'
+  datasets/Amgen_GSSSaving_50:
+    name: Amgen_GSSSaving_50
+    description: 'Dataset for componentName: Amgen_GSSSaving_50'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:20'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:20'
+  datasets/Amgen_Summarize_37:
+    name: Amgen_Summarize_37
+    description: 'Dataset for componentName: Amgen_Summarize_37'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:20'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:20'
+  datasets/Amgen_Summarize_10:
+    name: Amgen_Summarize_10
+    description: 'Dataset for componentName: Amgen_Summarize_10'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:20'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:20'
+  datasets/Amgen_GSSSaving_32:
+    name: Amgen_GSSSaving_32
+    description: 'Dataset for componentName: Amgen_GSSSaving_32'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:20'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:20'
+  datasets/SavingsbyMegaCa_1:
+    name: SavingsbyMegaCa_1
+    description: 'Dataset for componentName: SavingsbyMegaCa_1'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:20'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:20'
+  datasets/Savings_Distrib_39:
+    name: Savings_Distrib_39
+    description: 'Dataset for componentName: Savings_Distrib_39'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:20'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:20'
+  datasets/Savings_Distrib_38:
+    name: Savings_Distrib_38
+    description: 'Dataset for componentName: Savings_Distrib_38'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:20'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:20'
+  datasets/Amgen_GSSSaving_29:
+    name: Amgen_GSSSaving_29
+    description: 'Dataset for componentName: Amgen_GSSSaving_29'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 05:35:21'
+    mode: batch
+    physicalDatasets:
+      dev_own:
+        fabricId: 244
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 05:35:21'
+  datasets/OPEX_LRP_DATA_2_45:
+    name: OPEX_LRP_DATA_2_45
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      OPEX_LRP_DATA_2_45'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:18'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:18'
+  datasets/CashSpendASHBLo_388:
+    name: CashSpendASHBLo_388
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      CashSpendASHBLo_388'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:18'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:18'
+  datasets/Tableaudisplaym_362:
+    name: Tableaudisplaym_362
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Tableaudisplaym_362'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:18'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:18'
+  datasets/AmgenCashSpendt_433:
+    name: AmgenCashSpendt_433
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      AmgenCashSpendt_433'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:18'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:18'
+  datasets/CashSpendOSELab_378:
+    name: CashSpendOSELab_378
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      CashSpendOSELab_378'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:18'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:18'
+  datasets/TextInput_373:
+    name: TextInput_373
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      TextInput_373'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:19'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:19'
+  datasets/Amgen_CashSpend_320:
+    name: Amgen_CashSpend_320
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_320'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:19'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:19'
+  datasets/TextInput_11:
+    name: TextInput_11
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      TextInput_11'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:19'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:19'
+  datasets/OPEX_LRP_DATA_2_44:
+    name: OPEX_LRP_DATA_2_44
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      OPEX_LRP_DATA_2_44'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:19'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:19'
+  datasets/Amgen_CashSpend_197:
+    name: Amgen_CashSpend_197
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_197'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:19'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:19'
+  datasets/Amgen_CashSpend_287:
+    name: Amgen_CashSpend_287
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_287'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:19'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:19'
+  datasets/Amgen_NonOpexAd_298:
+    name: Amgen_NonOpexAd_298
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_NonOpexAd_298'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:19'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:19'
+  datasets/Amgen_CashSpend_212:
+    name: Amgen_CashSpend_212
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_212'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:19'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:19'
+  datasets/HyperionASHBLoo_390:
+    name: HyperionASHBLoo_390
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      HyperionASHBLoo_390'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:20'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:20'
+  datasets/Amgen_CashSpend_206:
+    name: Amgen_CashSpend_206
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_206'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:20'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:20'
+  datasets/Amgen_HyperionO_325:
+    name: Amgen_HyperionO_325
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_HyperionO_325'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:20'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:20'
+  datasets/Amgen_CashSpend_177:
+    name: Amgen_CashSpend_177
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_177'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:20'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:20'
+  datasets/AmgenCashSpendt_441:
+    name: AmgenCashSpendt_441
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      AmgenCashSpendt_441'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:20'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:20'
+  datasets/Amgen_CashSpend_209:
+    name: Amgen_CashSpend_209
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_209'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:20'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:20'
+  datasets/OPEX_FORECAST_D_5:
+    name: OPEX_FORECAST_D_5
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      OPEX_FORECAST_D_5'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:20'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:20'
+  datasets/HyperionCTSLook_350:
+    name: HyperionCTSLook_350
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      HyperionCTSLook_350'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:20'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:20'
+  datasets/OPEX_ACTUAL_DAT_48:
+    name: OPEX_ACTUAL_DAT_48
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      OPEX_ACTUAL_DAT_48'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:21'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:21'
+  datasets/OPEX_LRP_DATA_2_43:
+    name: OPEX_LRP_DATA_2_43
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      OPEX_LRP_DATA_2_43'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:21'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:21'
+  datasets/FY2023CashSpend_127:
+    name: FY2023CashSpend_127
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      FY2023CashSpend_127'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:21'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:21'
+  datasets/Amgen_CashSpend_297:
+    name: Amgen_CashSpend_297
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_297'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:21'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:21'
+  datasets/CopyofLRPPlanni_49:
+    name: CopyofLRPPlanni_49
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      CopyofLRPPlanni_49'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:21'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:21'
+  datasets/Amgen_Summarize_290:
+    name: Amgen_Summarize_290
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_Summarize_290'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:21'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:21'
+  datasets/Amgen_CashSpend_208:
+    name: Amgen_CashSpend_208
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_208'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:21'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:21'
+  datasets/OPEX_FORECAST_D_47:
+    name: OPEX_FORECAST_D_47
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      OPEX_FORECAST_D_47'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:22'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:22'
+  datasets/AmgenCashSpendt_442:
+    name: AmgenCashSpendt_442
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      AmgenCashSpendt_442'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:22'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:22'
+  datasets/Amgen_CashSpend_225:
+    name: Amgen_CashSpend_225
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_225'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:22'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:22'
+  datasets/Amgen_CashSpend_214:
+    name: Amgen_CashSpend_214
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_214'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:22'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:22'
+  datasets/Amgen_CashSpend_195:
+    name: Amgen_CashSpend_195
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_195'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:22'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:22'
+  datasets/Amgen_CashSpend_210:
+    name: Amgen_CashSpend_210
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_210'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:22'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:22'
+  datasets/CashSpendCTSV3L_333:
+    name: CashSpendCTSV3L_333
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      CashSpendCTSV3L_333'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:22'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:22'
+  datasets/Amgen_CashSpend_198:
+    name: Amgen_CashSpend_198
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_198'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:22'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:22'
+  datasets/HyperionOSELabo_395:
+    name: HyperionOSELabo_395
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      HyperionOSELabo_395'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:23'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:23'
+  datasets/HyperionCTSLook_345:
+    name: HyperionCTSLook_345
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      HyperionCTSLook_345'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:23'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:23'
+  datasets/Amgen_CashSpend_194:
+    name: Amgen_CashSpend_194
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_194'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:23'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:23'
+  datasets/AmgenCashSpendt_432:
+    name: AmgenCashSpendt_432
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      AmgenCashSpendt_432'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:23'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:23'
+  datasets/Amgen_CashSpend_211:
+    name: Amgen_CashSpend_211
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      Amgen_CashSpend_211'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:23'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:23'
+  datasets/AmgenNon_Addres_424:
+    name: AmgenNon_Addres_424
+    description: 'Dataset for Imported Pipeline:cash_spend_hyperion componentName:
+      AmgenNon_Addres_424'
+    author: sony@prophecy.io
+    createdAt: '2025-03-07 06:03:23'
+    mode: batch
+    physicalDatasets:
+      dsd:
+        fabricId: 3227
+        datasetType: File
+        description: ''
+        author: sony@prophecy.io
+        createdAt: '2025-03-07 06:03:23'
+templates: {}
+jobs: {}
+gemContainer:
+  languageVersion: '3.10'
+  gemLibsVersion: 1.3.4.0
+  gems: {}
+  dependencies: null
+functions:
+  author: null
+  createdAt: '2025-03-07 05:31:41'
+  udfs: {}
+  udafs: {}
+  expressions: {}
+  airflowFunctions: {}
+  businessRules: {}
+subgraphs: {}
+sqlModels: {}
+sqlSnapshots: {}
+sqlTests: {}
+sqlMacros: {}
+sqlSeeds: {}
+sqlSources: {}
+sqlUnreferencedSources: {}
+sqlOrchestratorPipelines: {}
+sqlBusinessApps: {}
+sqlPipeline: null
+dependencies:
+- modifiedAt: '2025-03-07T05:31:41.265598Z'
+  name: plibMaven
+  version: 8.7.1
+  id: '1738256538'
+  createdAt: '2025-03-07T05:31:41.265598Z'
+  type: plibMaven
+  enabled: true
+  entity: Project
+- modifiedAt: '2025-03-12T21:39:56.637Z'
+  name: ProphecyLibsPython
+  version: 1.9.29
+  id: '2104045062'
+  createdAt: '2025-03-07T05:31:41.265598Z'
+  type: plibPypi
+  enabled: true
+  entity: Project
+  description: Default dependency for Prophecy Libs
+  scope: Project
+  editable: true
+projectDependencies:
+  '14075':
+    projectUID: 14075
+    projectName: ProphecySparkAlteryxPython
+    repositoryPath: gitUri=http://gitserver:3000/9gt3CHHz_team_9/G3bmKei6_project_14075.git&subPath=
+    version: 0.0.6
+    isDefault: false
+    author: null
+    createdAt: '2025-03-07 05:32:51'
+  '42':
+    projectUID: 42
+    projectName: ProphecySparkBasicsPython
+    repositoryPath: gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=
+    version: 0.2.40
+    isDefault: false
+    author: null
+    createdAt: '2025-03-12 21:40:36'
+  '10040':
+    projectUID: 10040
+    projectName: ProphecySparkAbinitioPython
+    repositoryPath: gitUri=http://gitserver:3000/9gt3CHHz_team_9/a4NwFTJd_project_10040.git&subPath=
+    version: 0.0.27
+    isDefault: false
+    author: null
+    createdAt: '2025-03-12 21:40:13'
+  '45':
+    projectUID: 45
+    projectName: ProphecyWebAppPython
+    repositoryPath: gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_45.git&subPath=
+    version: 0.1.1
+    isDefault: false
+    author: null
+    createdAt: '2025-03-12 21:40:22'
+flags:
+  shouldAddDefaultDependenciesIfAbsent: false
+pipelineConfigurations: {}
