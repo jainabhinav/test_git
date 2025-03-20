@@ -1758,8 +1758,6 @@ sqlMacros: {}
 sqlSeeds: {}
 sqlSources: {}
 sqlUnreferencedSources: {}
-sqlOrchestratorPipelines: {}
-sqlBusinessApps: {}
 sqlPipeline: null
 dependencies:
 - modifiedAt: '2025-03-07T05:31:41.265598Z'
@@ -1782,34 +1780,34 @@ dependencies:
   scope: Project
   editable: true
 projectDependencies:
-  '14075':
-    projectUID: 14075
+  '33809':
+    projectUID: 33809
     projectName: ProphecySparkAlteryxPython
-    repositoryPath: gitUri=http://gitserver:3000/9gt3CHHz_team_9/G3bmKei6_project_14075.git&subPath=
+    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/xFzzqwWz_project_33809.git&subPath=
     version: 0.0.6
     isDefault: false
     author: null
     createdAt: '2025-03-07 05:32:51'
-  '42':
-    projectUID: 42
+  '12654':
+    projectUID: 12654
     projectName: ProphecySparkBasicsPython
-    repositoryPath: gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_42.git&subPath=
+    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12654.git&subPath=
     version: 0.2.40
-    isDefault: false
+    isDefault: true
     author: null
     createdAt: '2025-03-12 21:40:36'
-  '10040':
-    projectUID: 10040
+  '19668':
+    projectUID: 19668
     projectName: ProphecySparkAbinitioPython
-    repositoryPath: gitUri=http://gitserver:3000/9gt3CHHz_team_9/a4NwFTJd_project_10040.git&subPath=
+    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/qRkqzzJt_project_19668.git&subPath=
     version: 0.0.27
     isDefault: false
     author: null
     createdAt: '2025-03-12 21:40:13'
-  '45':
-    projectUID: 45
+  '12657':
+    projectUID: 12657
     projectName: ProphecyWebAppPython
-    repositoryPath: gitUri=http://gitserver:3000/9gt3CHHz_team_9/pJIIcs5r_project_45.git&subPath=
+    repositoryPath: gitUri=http://gitserver:3000/DxEheDCJ_team_5751/DxEheDCJ_project_12657.git&subPath=
     version: 0.1.1
     isDefault: false
     author: null
